@@ -1,0 +1,1 @@
+window.PhotoReviewFilters = window.PhotoReviewFilters || {};

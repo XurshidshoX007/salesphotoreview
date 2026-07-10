@@ -1,0 +1,12 @@
+{
+  "employees": [
+    {
+      "id": "emp_abduraximov_xurshid",
+      "name": "Abduraximov Xurshid",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": ""
+    }
+  ]
+}

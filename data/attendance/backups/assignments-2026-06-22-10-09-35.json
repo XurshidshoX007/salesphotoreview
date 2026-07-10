@@ -1,0 +1,1632 @@
+{
+  "assignments": [
+    {
+      "id": "assign_jyan101_20260605_1781248116327",
+      "agentCode": "JYAN101",
+      "employeeId": "emp_abduraximov_xurshid",
+      "startDate": "2026-06-05",
+      "endDate": null,
+      "reason": "Yangi xodim olindi"
+    },
+    {
+      "id": "assign_lmjan01_20260601_1781256082209_9b8onp",
+      "agentCode": "LMJAN01",
+      "employeeId": "emp_yusupova_nasibaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan02_20260601_1781256082209_2ra0s3",
+      "agentCode": "LMJAN02",
+      "employeeId": "emp_abdumannopova_mastura",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan03_20260601_1781256082209_5h7lk8",
+      "agentCode": "LMJAN03",
+      "employeeId": "emp_abdurasulov_fayzulloh",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan04_20260601_1781256082209_wblwfx",
+      "agentCode": "LMJAN04",
+      "employeeId": "emp_odiljonov_asilbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan05_20260601_1781256082209_rtc333",
+      "agentCode": "LMJAN05",
+      "employeeId": "emp_kenjaboev_xojiakbar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan06_20260601_1781256082209_kwqjfs",
+      "agentCode": "LMJAN06",
+      "employeeId": "emp_arabov_saloxiddin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan07_20260601_1781256082209_c1d42b",
+      "agentCode": "LMJAN07",
+      "employeeId": "emp_qoziyeva_mashxura",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan08_20260601_1781256082209_k7cxgn",
+      "agentCode": "LMJAN08",
+      "employeeId": "emp_ismoilova_ogiloy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan09_20260601_1781256082209_ppo7d7",
+      "agentCode": "LMJAN09",
+      "employeeId": "emp_karimjonova_maxdiya",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjan10_20260601_1781256082209_td51u1",
+      "agentCode": "LMJAN10",
+      "employeeId": "emp_nishonova_umidaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjbx01_20260601_1781256082209_sh7kih",
+      "agentCode": "LMJBX01",
+      "employeeId": "emp_xikmatov_shaxzod",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjbx02_20260601_1781256082209_guttpc",
+      "agentCode": "LMJBX02",
+      "employeeId": "emp_ashurova_madina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjbx03_20260601_1781256082209_ocp6b4",
+      "agentCode": "LMJBX03",
+      "employeeId": "emp_turayeva_manzura",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjbx04_20260601_1781256082209_lzlgcq",
+      "agentCode": "LMJBX04",
+      "employeeId": "emp_raximova_marjona",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjdiller01_20260601_1781256082209_ypwhdg",
+      "agentCode": "LMJDILLER01",
+      "employeeId": "emp_lalaku_mama_diller",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa01_20260601_1781256082209_k1vf5r",
+      "agentCode": "LMJFA01",
+      "employeeId": "emp_abdukarimova_madina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa02_20260601_1781256082209_k5ua6b",
+      "agentCode": "LMJFA02",
+      "employeeId": "emp_ahmedova_muqaddam",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa03_20260601_1781256082209_iqhx8i",
+      "agentCode": "LMJFA03",
+      "employeeId": "emp_mashrabjonova_dilafruz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa04_20260601_1781256082209_noze5m",
+      "agentCode": "LMJFA04",
+      "employeeId": "emp_xamdamova_bekzoda",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa05_20260601_1781256082209_es7w7o",
+      "agentCode": "LMJFA05",
+      "employeeId": "emp_abdulxayeva_maftunaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa06_20260601_1781256082209_fwdj71",
+      "agentCode": "LMJFA06",
+      "employeeId": "emp_toxtasinova_zuxraxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa07_20260601_1781256082209_8tst61",
+      "agentCode": "LMJFA07",
+      "employeeId": "emp_abduqaxxorova_nargizaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa08_20260601_1781256082209_tqxp51",
+      "agentCode": "LMJFA08",
+      "employeeId": "emp_gofforova_dilafroz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa09_20260601_1781256082209_4207eq",
+      "agentCode": "LMJFA09",
+      "employeeId": "emp_tadjibayeva_muattar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjfa10_20260601_1781256082209_zxd2kz",
+      "agentCode": "LMJFA10",
+      "employeeId": "emp_baxromova_muslimaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjgl01_20260601_1781256082209_khkct5",
+      "agentCode": "LMJGL01",
+      "employeeId": "emp_qosimova_mahsuma",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjgl02_20260601_1781256082209_ty543g",
+      "agentCode": "LMJGL02",
+      "employeeId": "emp_mardonova_farida",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjish01_20260601_1781256082209_11dxwg",
+      "agentCode": "LMJISH01",
+      "employeeId": "emp_boltayeva_nigora",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjish02_20260601_1781256082209_qdaavo",
+      "agentCode": "LMJISH02",
+      "employeeId": "emp_jalolova_maftuna",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjish03_20260601_1781256082209_sforna",
+      "agentCode": "LMJISH03",
+      "employeeId": "emp_rasulova_dinora",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism01_20260601_1781256082210_lto780",
+      "agentCode": "LMJISM01",
+      "employeeId": "emp_ernazarov_aleksandr",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism02_20260601_1781256082210_d9bhq1",
+      "agentCode": "LMJISM02",
+      "employeeId": "emp_shamsiddinova_farangiz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism03_20260601_1781256082210_qyezdp",
+      "agentCode": "LMJISM03",
+      "employeeId": "emp_sharapova_kseniya",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism04_20260601_1781256082210_jpdm05",
+      "agentCode": "LMJISM04",
+      "employeeId": "emp_turkeyeva_marina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism05_20260601_1781256082210_viqg1e",
+      "agentCode": "LMJISM05",
+      "employeeId": "emp_turakulova_kamola",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism06_20260601_1781256082210_vvwxun",
+      "agentCode": "LMJISM06",
+      "employeeId": "emp_narziev_abbos",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism07_20260601_1781256082210_glvktp",
+      "agentCode": "LMJISM07",
+      "employeeId": "emp_kemalov_djezair",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjism08_20260601_1781256082210_xoye3v",
+      "agentCode": "LMJISM08",
+      "employeeId": "emp_azimov_obloberdi",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjjz01_20260601_1781256082210_z2r7vr",
+      "agentCode": "LMJJZ01",
+      "employeeId": "emp_shobekova_zuhra",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjjz02_20260601_1781256082210_k8oe1q",
+      "agentCode": "LMJJZ02",
+      "employeeId": "emp_axbayeva_nodira",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjjz03_20260601_1781256082210_1ol221",
+      "agentCode": "LMJJZ03",
+      "employeeId": "emp_isomova_nazira",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnk01_20260601_1781256082210_v1twu1",
+      "agentCode": "LMJNK01",
+      "employeeId": "emp_rametov_jaras",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnk02_20260601_1781256082210_gkjpx1",
+      "agentCode": "LMJNK02",
+      "employeeId": "emp_mirzamuratova_gulnoz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnk03_20260601_1781256082210_w3movl",
+      "agentCode": "LMJNK03",
+      "employeeId": "emp_shernazarova_ziyoda",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnk04_20260601_1781256082210_l798h9",
+      "agentCode": "LMJNK04",
+      "employeeId": "emp_utebaev_muxammed",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm01_20260601_1781256082210_ajjy1r",
+      "agentCode": "LMJNM01",
+      "employeeId": "emp_abdullajonov_abdulaxad",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm02_20260601_1781256082210_ywiopu",
+      "agentCode": "LMJNM02",
+      "employeeId": "emp_turgunboyev_lochinbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm03_20260601_1781256082210_6o83gs",
+      "agentCode": "LMJNM03",
+      "employeeId": "emp_maksumova_holida",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm04_20260601_1781256082210_622jk2",
+      "agentCode": "LMJNM04",
+      "employeeId": "emp_mirzaakbarov_axadxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm05_20260601_1781256082210_351vgr",
+      "agentCode": "LMJNM05",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm06_20260601_1781256082210_t5fysg",
+      "agentCode": "LMJNM06",
+      "employeeId": "emp_kariev_shukrullo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm07_20260601_1781256082210_rnw7jt",
+      "agentCode": "LMJNM07",
+      "employeeId": "emp_xamidova_tursinoy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnm08_20260601_1781256082210_ixtqjz",
+      "agentCode": "LMJNM08",
+      "employeeId": "emp_buzurukkhanov_khabibullo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnv01_20260601_1781256082210_7mm8wo",
+      "agentCode": "LMJNV01",
+      "employeeId": "emp_shamsiyeva_gulchexra",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnv02_20260601_1781256082210_v91ge1",
+      "agentCode": "LMJNV02",
+      "employeeId": "emp_saidova_gulchiroy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnv03_20260601_1781256082210_tundox",
+      "agentCode": "LMJNV03",
+      "employeeId": "emp_mamadaliyeva_vasila",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnv04_20260601_1781256082211_sav192",
+      "agentCode": "LMJNV04",
+      "employeeId": "emp_nuraliyeva_farangiz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjnv05_20260601_1781256082211_184ai9",
+      "agentCode": "LMJNV05",
+      "employeeId": "emp_yuldashova_sarvinoz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjopt002_20260601_1781256082211_0p39fg",
+      "agentCode": "LMJOPT002",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjopt003_20260601_1781256082211_d9ffj9",
+      "agentCode": "LMJOPT003",
+      "employeeId": "emp_qodirqulova_odina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq01_20260601_1781256082211_1be24y",
+      "agentCode": "LMJQQ01",
+      "employeeId": "emp_oripov_muhammadamin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq02_20260601_1781256082211_gqehdi",
+      "agentCode": "LMJQQ02",
+      "employeeId": "emp_daniyorova_asalxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq03_20260601_1781256082211_z4klkd",
+      "agentCode": "LMJQQ03",
+      "employeeId": "emp_baratov_rashidjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq04_20260601_1781256082211_ckdzu4",
+      "agentCode": "LMJQQ04",
+      "employeeId": "emp_usmonov_nematjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq05_20260601_1781256082211_pggh8e",
+      "agentCode": "LMJQQ05",
+      "employeeId": "emp_ataxodjayev_shukur",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq06_20260601_1781256082211_nef3dh",
+      "agentCode": "LMJQQ06",
+      "employeeId": "emp_raximov_rahmatulloh",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqq07_20260601_1781256082211_highn9",
+      "agentCode": "LMJQQ07",
+      "employeeId": "emp_islomova_ziyodaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqr01_20260601_1781256082211_novm5y",
+      "agentCode": "LMJQR01",
+      "employeeId": "emp_murtazayeva_ruxshona",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqr02_20260601_1781256082211_t1cmu8",
+      "agentCode": "LMJQR02",
+      "employeeId": "emp_suyunov_sur_atjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqr03_20260601_1781256082211_m7j0ou",
+      "agentCode": "LMJQR03",
+      "employeeId": "emp_mannopov_asilbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjqr04_20260601_1781256082211_mdu3o8",
+      "agentCode": "LMJQR04",
+      "employeeId": "emp_ismatova_nargiza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto01_20260601_1781256082211_9df8o6",
+      "agentCode": "LMJTO01",
+      "employeeId": "emp_abdullayeva_manzura",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto02_20260601_1781256082211_0j5yl6",
+      "agentCode": "LMJTO02",
+      "employeeId": "emp_xaydarqulova_gavxar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto03_20260601_1781256082211_lgiw6w",
+      "agentCode": "LMJTO03",
+      "employeeId": "emp_gulmanova_zilola",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto04_20260601_1781256082211_2v6ij8",
+      "agentCode": "LMJTO04",
+      "employeeId": "emp_nortojiyeva_nodira",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto05_20260601_1781256082211_ehybjd",
+      "agentCode": "LMJTO05",
+      "employeeId": "emp_shozatova_charos",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto06_20260601_1781256082211_vtf27c",
+      "agentCode": "LMJTO06",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto07_20260601_1781256082211_gn0cku",
+      "agentCode": "LMJTO07",
+      "employeeId": "emp_maxamatkarimova_dilorom",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto08_20260601_1781256082211_i46mby",
+      "agentCode": "LMJTO08",
+      "employeeId": "emp_tulaganova_nasiba",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto09_20260601_1781256082211_v28uek",
+      "agentCode": "LMJTO09",
+      "employeeId": "emp_odilova_maftuna",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto10_20260601_1781256082211_bbhr95",
+      "agentCode": "LMJTO10",
+      "employeeId": "emp_pulatova_ozodaxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto11_20260601_1781256082211_9w3do5",
+      "agentCode": "LMJTO11",
+      "employeeId": "emp_ibragimov_rifat",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjto12_20260601_1781256082212_2pzlu5",
+      "agentCode": "LMJTO12",
+      "employeeId": "emp_nabiyeva_maftuna",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtop001_20260601_1781256082212_bn2p6h",
+      "agentCode": "LMJTOP001",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh01_20260601_1781256082212_ypodty",
+      "agentCode": "LMJTSH01",
+      "employeeId": "emp_aliyev_durbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh02_20260601_1781256082212_uncnaq",
+      "agentCode": "LMJTSH02",
+      "employeeId": "emp_tavchiyeva_nazokat",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh03_20260601_1781256082212_eub09j",
+      "agentCode": "LMJTSH03",
+      "employeeId": "emp_gulyamova_gulchexra",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh04_20260601_1781256082212_jhmqfv",
+      "agentCode": "LMJTSH04",
+      "employeeId": "emp_pardaboyev_nodirjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh05_20260601_1781256082212_wxvyni",
+      "agentCode": "LMJTSH05",
+      "employeeId": "emp_axmedova_farida",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh06_20260601_1781256082212_s4zz9f",
+      "agentCode": "LMJTSH06",
+      "employeeId": "emp_muxamedova_shaxnoza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh07_20260601_1781256082212_9sj4l3",
+      "agentCode": "LMJTSH07",
+      "employeeId": "emp_erkinova_oyjamol",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh08_20260601_1781256082212_t34no6",
+      "agentCode": "LMJTSH08",
+      "employeeId": "emp_kurbanova_aziza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh09_20260601_1781256082212_wszy6c",
+      "agentCode": "LMJTSH09",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh10_20260601_1781256082212_m2mivf",
+      "agentCode": "LMJTSH10",
+      "employeeId": "emp_nurillayeva_ozoda",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtsh11_20260601_1781256082212_ph4l53",
+      "agentCode": "LMJTSH11",
+      "employeeId": "emp_dustova_dilnavoz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtz01_20260601_1781256082212_rbtj28",
+      "agentCode": "LMJTZ01",
+      "employeeId": "emp_jorayeva_nilufar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtz02_20260601_1781256082212_jowvfn",
+      "agentCode": "LMJTZ02",
+      "employeeId": "emp_mukimova_farida",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtz03_20260601_1781256082212_9ormm0",
+      "agentCode": "LMJTZ03",
+      "employeeId": "emp_chorshanbiyev_jafar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtz04_20260601_1781256082212_366525",
+      "agentCode": "LMJTZ04",
+      "employeeId": "emp_rasulova_zuhra",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjtz05_20260601_1781256082212_caqa5k",
+      "agentCode": "LMJTZ05",
+      "employeeId": "emp_qodriova_gulimoh",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr01_20260601_1781256082212_u4u3ur",
+      "agentCode": "LMJXR01",
+      "employeeId": "emp_allazarova_saodat",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr02_20260601_1781256082212_ug02xd",
+      "agentCode": "LMJXR02",
+      "employeeId": "emp_artikova_bekpashsha",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr03_20260601_1781256082213_g4x3ud",
+      "agentCode": "LMJXR03",
+      "employeeId": "emp_kurbonbayev_mo_minboy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr04_20260601_1781256082213_bbnevb",
+      "agentCode": "LMJXR04",
+      "employeeId": "emp_davlatova_nigina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr05_20260601_1781256082213_kkqw3w",
+      "agentCode": "LMJXR05",
+      "employeeId": "emp_xodjayeva_gulnoza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjxr06_20260601_1781256082213_yhmhym",
+      "agentCode": "LMJXR06",
+      "employeeId": "emp_yo_ldosheva_hilola",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_jyan004_20260601_1781256120340_fwdx1e",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan005_20260601_1781256120340_8jb8c4",
+      "agentCode": "JYAN005",
+      "employeeId": "emp_mahmudova_mohinur",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan006_20260601_1781256120340_tk5ktv",
+      "agentCode": "JYAN006",
+      "employeeId": "emp_tulyakov_husanboy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan007_20260601_1781256120340_egc9pb",
+      "agentCode": "JYAN007",
+      "employeeId": "emp_umarov_avaz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan008_20260601_1781256120340_mt746o",
+      "agentCode": "JYAN008",
+      "employeeId": "emp_ergashov_baxtiyorjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan101_20260601_1781256120340_ynx6d0",
+      "agentCode": "JYAN101",
+      "employeeId": "emp_vakant",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-04",
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan102_20260601_1781256120340_e63890",
+      "agentCode": "JYAN102",
+      "employeeId": "emp_maxmudov_doniyorbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan103_20260601_1781256120340_ikz02m",
+      "agentCode": "JYAN103",
+      "employeeId": "emp_to_lqinova_mamuraxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan105_20260601_1781256120341_wzt5v3",
+      "agentCode": "JYAN105",
+      "employeeId": "emp_batirov_kamoliddin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan106_20260601_1781256120341_9s3mb4",
+      "agentCode": "JYAN106",
+      "employeeId": "emp_sirojiddinova_xadicha",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jybx002_20260601_1781256120341_mw94g1",
+      "agentCode": "JYBX002",
+      "employeeId": "emp_yorqulov_bilolbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jybx003_20260601_1781256120341_a4x4y9",
+      "agentCode": "JYBX003",
+      "employeeId": "emp_jybx_02_ramazonov_akmal_01_03",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jybx004_20260601_1781256120341_tns2g4",
+      "agentCode": "JYBX004",
+      "employeeId": "emp_saidbaxadurovna_mijgonabonu",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jybx005_20260601_1781256120341_fm9596",
+      "agentCode": "JYBX005",
+      "employeeId": "emp_qutratov_jamshid",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyfa002_20260601_1781256120341_9gmg3j",
+      "agentCode": "JYFA002",
+      "employeeId": "emp_muminova_nargiza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyfa003_20260601_1781256120341_52t0ma",
+      "agentCode": "JYFA003",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyfa004_20260601_1781256120341_5xa8f9",
+      "agentCode": "JYFA004",
+      "employeeId": "emp_rahimov_farxod",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyfa005_20260601_1781256120341_35djcd",
+      "agentCode": "JYFA005",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jygl002_20260601_1781256120341_hbf0is",
+      "agentCode": "JYGL002",
+      "employeeId": "emp_jygl_qo_chqorov_abduvohidjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jygl003_20260601_1781256120341_z7cvg8",
+      "agentCode": "JYGL003",
+      "employeeId": "emp_jygl_to_raqulov_xusniddin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jygl004_20260601_1781256120341_nydrsw",
+      "agentCode": "JYGL004",
+      "employeeId": "emp_jygl_xakimov_ibrohimjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyjz002_20260601_1781256120341_gzsnb7",
+      "agentCode": "JYJZ002",
+      "employeeId": "emp_shamsiddinov_shoxrux",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyjz003_20260601_1781256120341_rg2r42",
+      "agentCode": "JYJZ003",
+      "employeeId": "emp_ziyatov_jonibek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyjz004_20260601_1781256120341_0mr9m4",
+      "agentCode": "JYJZ004",
+      "employeeId": "emp_xayitboyev_ulug_bek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm002_20260601_1781256120342_cxja0b",
+      "agentCode": "JYNM002",
+      "employeeId": "emp_tojimatov_yaxyo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm003_20260601_1781256120342_sl7u5i",
+      "agentCode": "JYNM003",
+      "employeeId": "emp_dadaxonova_nilufar",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm004_20260601_1781256120342_s0bpkd",
+      "agentCode": "JYNM004",
+      "employeeId": "emp_abdugafforova_muhayyo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm005_20260601_1781256120342_9wn5z2",
+      "agentCode": "JYNM005",
+      "employeeId": "emp_ruzqulov_madiyor",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm006_20260601_1781256120342_yzb124",
+      "agentCode": "JYNM006",
+      "employeeId": "emp_akbarov_sardorbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm007_20260601_1781256120342_6n9g91",
+      "agentCode": "JYNM007",
+      "employeeId": "emp_o_rinboyev_alisher",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyns002_20260601_1781256120342_p3vbah",
+      "agentCode": "JYNS002",
+      "employeeId": "emp_goeisinova_gulziba",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyns003_20260601_1781256120342_jgglwh",
+      "agentCode": "JYNS003",
+      "employeeId": "emp_o_rinbaeva_gulparshin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyns004_20260601_1781256120342_u5hhve",
+      "agentCode": "JYNS004",
+      "employeeId": "emp_utemuratova_nargiza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyns005_20260601_1781256120342_xfy1kw",
+      "agentCode": "JYNS005",
+      "employeeId": "emp_kultimuratova_jamila",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynv002_20260601_1781256120342_e5t9hc",
+      "agentCode": "JYNV002",
+      "employeeId": "emp_hojiqurbonova_nargiza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynv003_20260601_1781256120343_zhc9te",
+      "agentCode": "JYNV003",
+      "employeeId": "emp_jamolova_gulnora",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynv005_20260601_1781256120343_nz9x43",
+      "agentCode": "JYNV005",
+      "employeeId": "emp_izamiddinov_alisher",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynv007_20260601_1781256120343_4xv8aa",
+      "agentCode": "JYNV007",
+      "employeeId": "emp_samadov_shaxzod",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq003_20260601_1781256120343_mdv3kk",
+      "agentCode": "JYQQ003",
+      "employeeId": "emp_karimov_murodjon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq004_20260601_1781256120343_1o66p5",
+      "agentCode": "JYQQ004",
+      "employeeId": "emp_rustamov_axror",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq005_20260601_1781256120343_1fmbkt",
+      "agentCode": "JYQQ005",
+      "employeeId": "emp_sultonov_sultonxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq006_20260601_1781256120343_luz0v0",
+      "agentCode": "JYQQ006",
+      "employeeId": "emp_mansurov_ravshanxon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq007_20260601_1781256120343_uomvqi",
+      "agentCode": "JYQQ007",
+      "employeeId": "emp_qahhorov_mubashshir",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq008_20260601_1781256120343_39cjzz",
+      "agentCode": "JYQQ008",
+      "employeeId": "emp_abdulxayev_elbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh003_20260601_1781256120343_7sq9y2",
+      "agentCode": "JYQSH003",
+      "employeeId": "emp_qalqonova_zuxra",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh004_20260601_1781256120343_5wk540",
+      "agentCode": "JYQSH004",
+      "employeeId": "emp_jabborova_malika",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh005_20260601_1781256120343_2zklnf",
+      "agentCode": "JYQSH005",
+      "employeeId": "emp_madatov_shaxboz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh006_20260601_1781256120344_qca9n3",
+      "agentCode": "JYQSH006",
+      "employeeId": "emp_nafasova_maftuna",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam003_20260601_1781256120344_ubnm76",
+      "agentCode": "JYSAM003",
+      "employeeId": "emp_vovnenko_alina",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam004_20260601_1781256120344_hfr4th",
+      "agentCode": "JYSAM004",
+      "employeeId": "emp_pantyusheva_anna",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam005_20260601_1781256120344_2r8qt5",
+      "agentCode": "JYSAM005",
+      "employeeId": "emp_kuchkarov_o_lmas",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam006_20260601_1781256120344_sq8gp5",
+      "agentCode": "JYSAM006",
+      "employeeId": "emp_urunov_mirkomil",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam007_20260601_1781256120344_vxp4zs",
+      "agentCode": "JYSAM007",
+      "employeeId": "emp_shaymuhammedova_zulfiya",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam008_20260601_1781256120344_wrwbuf",
+      "agentCode": "JYSAM008",
+      "employeeId": "emp_abduhamidova_yuliya",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyto002_20260601_1781256120344_7bmpsz",
+      "agentCode": "JYTO002",
+      "employeeId": "emp_rustamova_go_zal",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyto003_20260601_1781256120344_eb8b9s",
+      "agentCode": "JYTO003",
+      "employeeId": "emp_nishonova_shaxnoza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyto004_20260601_1781256120344_eusxs5",
+      "agentCode": "JYTO004",
+      "employeeId": "emp_pulatov_rahmatulla",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyto005_20260601_1781256120344_vyqk93",
+      "agentCode": "JYTO005",
+      "employeeId": "emp_ismoilova_dilnoza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytsh002_20260601_1781256120344_1gsf2b",
+      "agentCode": "JYTSH002",
+      "employeeId": "emp_eshmamatova_nafisa",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytsh003_20260601_1781256120344_zdu5f3",
+      "agentCode": "JYTSH003",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytsh004_20260601_1781256120345_2j3348",
+      "agentCode": "JYTSH004",
+      "employeeId": "emp_mirzaalimova_dilafruz",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytsh005_20260601_1781256120345_o5xq9g",
+      "agentCode": "JYTSH005",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz004_20260601_1781256120345_6pt7dn",
+      "agentCode": "JYTZ004",
+      "employeeId": "emp_eshniyozova_shahnoza",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz005_20260601_1781256120345_v3o9xg",
+      "agentCode": "JYTZ005",
+      "employeeId": "emp_toshtuxtayev_bekzod",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz006_20260601_1781256120345_ygiqec",
+      "agentCode": "JYTZ006",
+      "employeeId": "emp_musayev_davron",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz007_20260601_1781256120345_utke7n",
+      "agentCode": "JYTZ007",
+      "employeeId": "emp_rahimov_yusuf",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz008_20260601_1781256120345_fdnuk1",
+      "agentCode": "JYTZ008",
+      "employeeId": "emp_abdinazarov_husniddin",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz009_20260601_1781256120345_19pu6c",
+      "agentCode": "JYTZ009",
+      "employeeId": "emp_mengliyeva_mexribon",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm002_20260601_1781256120345_6syh4l",
+      "agentCode": "JYXM002",
+      "employeeId": "emp_erinova_bibiroviya",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm003_20260601_1781256120345_2un32h",
+      "agentCode": "JYXM003",
+      "employeeId": "emp_qodirberganova_charos",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm004_20260601_1781256120345_h6vp3w",
+      "agentCode": "JYXM004",
+      "employeeId": "emp_matyaqubov_erkinboy",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm005_20260601_1781256120346_hjo8js",
+      "agentCode": "JYXM005",
+      "employeeId": "emp_boyjonov_jamshidbek",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm006_20260601_1781256120346_8ce1c4",
+      "agentCode": "JYXM006",
+      "employeeId": "emp_abdullayev_mo_minmirzo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm007_20260601_1781256120346_s2vax0",
+      "agentCode": "JYXM007",
+      "employeeId": "emp_sherova_marxabo",
+      "startDate": "2026-06-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    }
+  ]
+}

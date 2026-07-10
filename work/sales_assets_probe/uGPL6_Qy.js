@@ -1,0 +1,1 @@
+import{bQ as o,v as t,w as a,aL as n}from"./DWvl5oxm.js";const s={name:"Loading"},r={id:"preloader"};function d(_,e,c,p,i,l){return n(),t("div",r,[...e[0]||(e[0]=[a("div",{id:"loader"},null,-1)])])}const m=o(s,[["render",d],["__scopeId","data-v-b552175c"]]);export{m as default};

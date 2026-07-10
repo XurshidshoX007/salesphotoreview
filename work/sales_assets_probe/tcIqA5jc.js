@@ -1,0 +1,1 @@
+import{aL as s,v as t,bb as e}from"./DWvl5oxm.js";const o={class:"fa-solid font-awesome"},p={__name:"FaIcon",props:{hash:String},setup(a){return(n,c)=>(s(),t("span",o,e(a.hash),1))}};export{p as default};

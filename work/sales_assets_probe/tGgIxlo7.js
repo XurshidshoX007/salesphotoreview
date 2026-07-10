@@ -1,0 +1,1 @@
+import{bR as a,s as e,cA as c}from"./DWvl5oxm.js";const o=()=>{const{hasAccessInOpts:s}=a(),t=e(()=>s(c.ChangePrice)),r=e(()=>s(c.SetMarginPrice)),i=e(()=>s(c.Price));return{hasAccess2SavePrice:t,hasAccess2SetMarginPrice:r,hasAccess2PriceList:i}};export{o as u};

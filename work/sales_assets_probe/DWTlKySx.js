@@ -1,0 +1,1 @@
+import{N as n,bU as s,bI as o,bV as r,bT as p}from"./DWvl5oxm.js";const i=n({__name:"index",async setup(_){let e,t;const{withTenant:a}=s();return[e,t]=o(()=>r(a(p.account.child.general),{replace:!0})),await e,t(),()=>{}}});export{i as default};

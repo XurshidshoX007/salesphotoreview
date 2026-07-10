@@ -1,0 +1,826 @@
+{
+  "datasets": [
+    {
+      "date": "2026-06-02",
+      "file": "lmj_browser_collect_2026-06-02_raw.json",
+      "updatedAt": "2026-06-03T19:07:49.164Z"
+    },
+    {
+      "date": "2026-06-03",
+      "file": "lmj_browser_collect_2026-06-03_raw.json",
+      "updatedAt": "2026-06-04T04:59:45.532Z"
+    },
+    {
+      "date": "2026-06-04",
+      "file": "lmj_browser_collect_2026-06-04_raw.json",
+      "updatedAt": "2026-06-05T03:57:10.826Z"
+    },
+    {
+      "date": "2026-06-04 [JY]",
+      "file": "jy_browser_collect_2026-06-04_raw.json",
+      "updatedAt": "2026-06-05T07:08:42.223Z",
+      "label": "2026-06-04 | SOF",
+      "brand": {
+        "code": "JY",
+        "name": "SOF"
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "file": "lmj_browser_collect_2026-06-05_raw.json",
+      "updatedAt": "2026-06-07T06:30:23.365Z",
+      "label": "2026-06-05 | LALAKU MAMA",
+      "brand": {
+        "code": "LMJ",
+        "name": "LALAKU MAMA"
+      }
+    },
+    {
+      "date": "2026-06-05 [JY]",
+      "file": "jy_browser_collect_2026-06-05_raw.json",
+      "updatedAt": "2026-06-06T08:50:09.379Z",
+      "label": "2026-06-05 | SOF",
+      "brand": {
+        "code": "JY",
+        "name": "SOF"
+      }
+    },
+    {
+      "date": "2026-06-06",
+      "file": "lmj_browser_collect_2026-06-06_raw.json",
+      "updatedAt": "2026-06-08T05:40:09.466Z",
+      "label": "2026-06-06 | LALAKU MAMA",
+      "brand": {
+        "code": "LMJ",
+        "name": "LALAKU MAMA"
+      }
+    },
+    {
+      "date": "2026-06-06 [JY]",
+      "file": "jy_browser_collect_2026-06-06_raw.json",
+      "updatedAt": "2026-06-08T05:45:30.428Z",
+      "label": "2026-06-06 | SOF",
+      "brand": {
+        "code": "JY",
+        "name": "SOF"
+      }
+    },
+    {
+      "date": "2026-06-08",
+      "file": "lmj_browser_collect_2026-06-08_raw.json",
+      "updatedAt": "2026-06-09T08:31:54.899Z",
+      "label": "2026-06-08 | LALAKU MAMA",
+      "brand": {
+        "code": "LMJ",
+        "name": "LALAKU MAMA"
+      }
+    },
+    {
+      "date": "2026-06-08 [JY]",
+      "file": "jy_browser_collect_2026-06-08_raw.json",
+      "updatedAt": "2026-06-09T09:50:59.802Z",
+      "label": "2026-06-08 | SOF",
+      "brand": {
+        "code": "JY",
+        "name": "SOF"
+      }
+    },
+    {
+      "date": "2026-06-09",
+      "file": "lmj_browser_collect_2026-06-09_raw.json",
+      "updatedAt": "2026-06-10T06:39:20.056Z",
+      "label": "2026-06-09 | LALAKU MAMA",
+      "brand": {
+        "code": "LMJ",
+        "name": "LALAKU MAMA"
+      }
+    },
+    {
+      "date": "2026-06-09 [JY]",
+      "file": "jy_browser_collect_2026-06-09_raw.json",
+      "updatedAt": "2026-06-10T04:30:09.314Z",
+      "label": "2026-06-09 | SOF",
+      "brand": {
+        "code": "JY",
+        "name": "SOF"
+      }
+    },
+    {
+      "date": "2026-06-11",
+      "file": "lalaku_mama_browser_collect_2026-06-11_raw.json",
+      "updatedAt": "2026-06-12T09:15:04.927Z",
+      "label": "2026-06-11 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-11 [JY]",
+      "file": "sof_browser_collect_2026-06-11_raw.json",
+      "updatedAt": "2026-06-12T12:15:57.639Z",
+      "label": "2026-06-11 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-13 [JY]",
+      "file": "sof_browser_collect_2026-06-13_raw.json",
+      "updatedAt": "2026-06-15T04:49:57.326Z",
+      "label": "2026-06-13 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "file": "lalaku_mama_browser_collect_2026-06-15_raw.json",
+      "updatedAt": "2026-06-16T11:56:12.261Z",
+      "label": "2026-06-15 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "file": "lalaku_mama_browser_collect_2026-06-16_raw.json",
+      "updatedAt": "2026-06-17T10:02:22.373Z",
+      "label": "2026-06-16 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-16 [JY]",
+      "file": "sof_browser_collect_2026-06-16_raw.json",
+      "updatedAt": "2026-06-17T04:15:29.154Z",
+      "label": "2026-06-16 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "file": "lalaku_mama_browser_collect_2026-06-17_raw.json",
+      "updatedAt": "2026-06-18T09:46:32.292Z",
+      "label": "2026-06-17 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-18 [JY]",
+      "file": "sof_browser_collect_2026-06-18_raw.json",
+      "updatedAt": "2026-06-19T08:57:07.413Z",
+      "label": "2026-06-18 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-19 [MONNO]",
+      "file": "monno_browser_collect_2026-06-19_raw.json",
+      "updatedAt": "2026-06-22T12:09:11.512Z",
+      "label": "2026-06-19 | MONNO",
+      "brand": {
+        "id": "monno",
+        "name": "MONNO",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "MONNO"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "MONNO",
+        "filePrefix": "monno"
+      }
+    },
+    {
+      "date": "2026-06-20",
+      "file": "lalaku_mama_browser_collect_2026-06-20_raw.json",
+      "updatedAt": "2026-06-22T11:54:27.326Z",
+      "label": "2026-06-20 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-20 [JY]",
+      "file": "sof_browser_collect_2026-06-20_raw.json",
+      "updatedAt": "2026-06-22T04:33:30.092Z",
+      "label": "2026-06-20 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-20 [MONNO]",
+      "file": "monno_browser_collect_2026-06-20_raw.json",
+      "updatedAt": "2026-06-22T12:31:14.915Z",
+      "label": "2026-06-20 | MONNO",
+      "brand": {
+        "id": "monno",
+        "name": "MONNO",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "MONNO"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "MONNO",
+        "filePrefix": "monno"
+      }
+    },
+    {
+      "date": "2026-06-21",
+      "file": "lalaku_mama_browser_collect_2026-06-21_raw.json",
+      "updatedAt": "2026-06-22T11:53:11.793Z",
+      "label": "2026-06-21 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-21 [MONNO]",
+      "file": "monno_browser_collect_2026-06-21_raw.json",
+      "updatedAt": "2026-06-23T06:29:27.924Z",
+      "label": "2026-06-21 | MONNO",
+      "brand": {
+        "id": "monno",
+        "name": "MONNO",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "MONNO"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "MONNO",
+        "filePrefix": "monno"
+      }
+    },
+    {
+      "date": "2026-06-22",
+      "file": "lalaku_mama_browser_collect_2026-06-22_raw.json",
+      "updatedAt": "2026-06-23T04:11:52.915Z",
+      "label": "2026-06-22 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-22 [GG]",
+      "file": "giga_browser_collect_2026-06-22_raw.json",
+      "updatedAt": "2026-06-23T06:40:51.431Z",
+      "label": "2026-06-22 | GIGA",
+      "brand": {
+        "id": "giga",
+        "name": "GIGA",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "GG"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "GG",
+        "filePrefix": "giga"
+      }
+    },
+    {
+      "date": "2026-06-22 [JY]",
+      "file": "sof_browser_collect_2026-06-22_raw.json",
+      "updatedAt": "2026-06-23T10:05:31.941Z",
+      "label": "2026-06-22 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-22 [MONNO]",
+      "file": "monno_browser_collect_2026-06-22_raw.json",
+      "updatedAt": "2026-06-23T06:31:02.898Z",
+      "label": "2026-06-22 | MONNO",
+      "brand": {
+        "id": "monno",
+        "name": "MONNO",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "MONNO"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "MONNO",
+        "filePrefix": "monno"
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "file": "lalaku_mama_browser_collect_2026-06-23_raw.json",
+      "updatedAt": "2026-06-24T07:17:43.296Z",
+      "label": "2026-06-23 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-23 [GG]",
+      "file": "giga_browser_collect_2026-06-23_raw.json",
+      "updatedAt": "2026-06-24T05:15:13.599Z",
+      "label": "2026-06-23 | GIGA",
+      "brand": {
+        "id": "giga",
+        "name": "GIGA",
+        "salesBrandNames": [],
+        "agentPrefixes": [
+          "GG"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "",
+        "code": "GG",
+        "filePrefix": "giga"
+      }
+    },
+    {
+      "date": "2026-06-23 [JY]",
+      "file": "sof_browser_collect_2026-06-23_raw.json",
+      "updatedAt": "2026-06-24T06:37:15.718Z",
+      "label": "2026-06-23 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "file": "lalaku_mama_browser_collect_2026-06-24_raw.json",
+      "updatedAt": "2026-06-25T07:48:05.370Z",
+      "label": "2026-06-24 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-24 [JY]",
+      "file": "sof_browser_collect_2026-06-24_raw.json",
+      "updatedAt": "2026-06-25T08:43:56.937Z",
+      "label": "2026-06-24 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-27",
+      "file": "lalaku_mama_browser_collect_2026-06-27_raw.json",
+      "updatedAt": "2026-06-29T04:52:01.566Z",
+      "label": "2026-06-27 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-06-27 [JY]",
+      "file": "sof_browser_collect_2026-06-27_raw.json",
+      "updatedAt": "2026-06-29T08:05:46.406Z",
+      "label": "2026-06-27 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-06-29 [JY]",
+      "file": "sof_browser_collect_2026-06-29_raw.json",
+      "updatedAt": "2026-06-30T04:52:16.641Z",
+      "label": "2026-06-29 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-07-03",
+      "file": "lalaku_mama_browser_collect_2026-07-03_raw.json",
+      "updatedAt": "2026-07-03T20:31:26.804Z",
+      "label": "2026-07-03 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-07-04",
+      "file": "lalaku_mama_browser_collect_2026-07-04_raw.json",
+      "updatedAt": "2026-07-06T04:15:44.138Z",
+      "label": "2026-07-04 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-07-07",
+      "file": "lalaku_mama_browser_collect_2026-07-07_raw.json",
+      "updatedAt": "2026-07-08T07:32:52.479Z",
+      "label": "2026-07-07 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "file": "lalaku_mama_browser_collect_2026-07-08_raw.json",
+      "updatedAt": "2026-07-09T05:19:11.958Z",
+      "label": "2026-07-08 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    },
+    {
+      "date": "2026-07-08 [JY]",
+      "file": "sof_browser_collect_2026-07-08_raw.json",
+      "updatedAt": "2026-07-09T05:03:12.051Z",
+      "label": "2026-07-08 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-07-09",
+      "file": "lalaku_mama_browser_collect_2026-07-09_raw.json",
+      "updatedAt": "2026-07-10T06:25:17.492Z",
+      "label": "2026-07-09 | Lalaku Mama",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "salesBrandNames": [
+          "Lalaku mama",
+          "LALAKU MAMA",
+          "Mama"
+        ],
+        "agentPrefixes": [
+          "LMJ"
+        ],
+        "telegramChatId": "-1002547865945",
+        "telegramChatName": "LALAKU MAMA TABEL",
+        "enabled": true,
+        "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+        "code": "LMJ",
+        "filePrefix": "lalaku_mama"
+      }
+    }
+  ]
+}

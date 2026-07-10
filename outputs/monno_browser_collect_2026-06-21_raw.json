@@ -1,0 +1,5679 @@
+{
+  "date": "2026-06-21",
+  "brand": {
+    "id": "monno",
+    "name": "MONNO",
+    "salesBrandNames": [],
+    "agentPrefixes": [
+      "MONNO"
+    ],
+    "telegramChatId": "",
+    "telegramChatName": "",
+    "enabled": true,
+    "notes": "",
+    "code": "MONNO",
+    "filePrefix": "monno"
+  },
+  "appliedDateText": "API date_range: 2026-06-21",
+  "collectionMode": "api",
+  "apiError": "",
+  "collectedAt": "2026-06-23T06:29:27.920Z",
+  "totalRows": 118,
+  "totalAgents": 118,
+  "totalAgentsWithPhotos": 5,
+  "agents": [
+    {
+      "index": 104,
+      "agentId": "e45a0193-b679-441f-bb8a-d64a57b8cff8",
+      "code": "MONNOAN01",
+      "name": "MONNOAN01 - [RAXMONOV SHERZODBEK] 05/12/26",
+      "agent": "MONNOAN01 - [RAXMONOV SHERZODBEK] 05/12/26",
+      "rowText": "MONNOAN01 - [RAXMONOV SHERZODBEK] 05/12/26 MONNOAN01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e45a0193-b679-441f-bb8a-d64a57b8cff8",
+          "name": "MONNOAN01 - [RAXMONOV SHERZODBEK] 05/12/26"
+        },
+        "agent_code": "MONNOAN01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 23,
+      "agentId": "2cb72205-cfa0-4080-8920-c459bf882570",
+      "code": "MONNOAN02",
+      "name": "MONNOAN02 - [ABDURAHMONOV SARDOR] 01/12",
+      "agent": "MONNOAN02 - [ABDURAHMONOV SARDOR] 01/12",
+      "rowText": "MONNOAN02 - [ABDURAHMONOV SARDOR] 01/12 MONNOAN02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2cb72205-cfa0-4080-8920-c459bf882570",
+          "name": "MONNOAN02 - [ABDURAHMONOV SARDOR] 01/12"
+        },
+        "agent_code": "MONNOAN02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 98,
+      "agentId": "cf6b64ca-cbe0-4784-adc9-da7684a30aca",
+      "code": "MONNOAN03",
+      "name": "MONNOAN03 - [NEMATJONOVA SARVINOZ] 16/01/26",
+      "agent": "MONNOAN03 - [NEMATJONOVA SARVINOZ] 16/01/26",
+      "rowText": "MONNOAN03 - [NEMATJONOVA SARVINOZ] 16/01/26 MONNOAN03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cf6b64ca-cbe0-4784-adc9-da7684a30aca",
+          "name": "MONNOAN03 - [NEMATJONOVA SARVINOZ] 16/01/26"
+        },
+        "agent_code": "MONNOAN03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 93,
+      "agentId": "c14e7126-b152-44f5-983c-b4d48d7a150e",
+      "code": "MONNOAN04",
+      "name": "MONNOAN04- [AZIZXONOVA TAMARAXON] 03/12/25",
+      "agent": "MONNOAN04- [AZIZXONOVA TAMARAXON] 03/12/25",
+      "rowText": "MONNOAN04- [AZIZXONOVA TAMARAXON] 03/12/25 MONNOAN04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c14e7126-b152-44f5-983c-b4d48d7a150e",
+          "name": "MONNOAN04- [AZIZXONOVA TAMARAXON] 03/12/25"
+        },
+        "agent_code": "MONNOAN04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 49,
+      "agentId": "590a2530-fbfc-4cfd-877f-32e2023a2bb0",
+      "code": "MONNOAN05",
+      "name": "MONNOAN05 - [MIRZARAIMOV BEXZODBEK] 03/03/26",
+      "agent": "MONNOAN05 - [MIRZARAIMOV BEXZODBEK] 03/03/26",
+      "rowText": "MONNOAN05 - [MIRZARAIMOV BEXZODBEK] 03/03/26 MONNOAN05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "590a2530-fbfc-4cfd-877f-32e2023a2bb0",
+          "name": "MONNOAN05 - [MIRZARAIMOV BEXZODBEK] 03/03/26"
+        },
+        "agent_code": "MONNOAN05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 111,
+      "agentId": "f1a769a9-4344-40a9-9f93-80bf397f0351",
+      "code": "MONNOAN06",
+      "name": "MONNOAN06 - [POZILOV AKBARJON] 09/12/25",
+      "agent": "MONNOAN06 - [POZILOV AKBARJON] 09/12/25",
+      "rowText": "MONNOAN06 - [POZILOV AKBARJON] 09/12/25 MONNOAN06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f1a769a9-4344-40a9-9f93-80bf397f0351",
+          "name": "MONNOAN06 - [POZILOV AKBARJON] 09/12/25"
+        },
+        "agent_code": "MONNOAN06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 79,
+      "agentId": "9e29387d-9289-457f-a370-081399ca8137",
+      "code": "MONNOAN07",
+      "name": "MONNOAN07 - [SHODIBEKOV SHOXRUX] 06/02/26",
+      "agent": "MONNOAN07 - [SHODIBEKOV SHOXRUX] 06/02/26",
+      "rowText": "MONNOAN07 - [SHODIBEKOV SHOXRUX] 06/02/26 MONNOAN07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "9e29387d-9289-457f-a370-081399ca8137",
+          "name": "MONNOAN07 - [SHODIBEKOV SHOXRUX] 06/02/26"
+        },
+        "agent_code": "MONNOAN07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 56,
+      "agentId": "682ce046-a7cd-4b22-a5bd-5f929ba56f11",
+      "code": "MONNOAN08",
+      "name": "MONNOAN08 - [NAZIROV ABBOSXON] 09/03/26",
+      "agent": "MONNOAN08 - [NAZIROV ABBOSXON] 09/03/26",
+      "rowText": "MONNOAN08 - [NAZIROV ABBOSXON] 09/03/26 MONNOAN08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "682ce046-a7cd-4b22-a5bd-5f929ba56f11",
+          "name": "MONNOAN08 - [NAZIROV ABBOSXON] 09/03/26"
+        },
+        "agent_code": "MONNOAN08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 115,
+      "agentId": "fa0377b8-a066-4829-b28e-2f1d2e1cfcf8",
+      "code": "MONNOBX02",
+      "name": "MONNOBX02 - [SHUKUROVA NIGINA] 02/09/25",
+      "agent": "MONNOBX02 - [SHUKUROVA NIGINA] 02/09/25",
+      "rowText": "MONNOBX02 - [SHUKUROVA NIGINA] 02/09/25 MONNOBX02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fa0377b8-a066-4829-b28e-2f1d2e1cfcf8",
+          "name": "MONNOBX02 - [SHUKUROVA NIGINA] 02/09/25"
+        },
+        "agent_code": "MONNOBX02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 113,
+      "agentId": "f32e50ad-db64-4f3e-8a00-4fbc68da6b19",
+      "code": "MONNOBX03",
+      "name": "MONNOBX03 - [SHAVKATOV JONIBEK] 02/02/26",
+      "agent": "MONNOBX03 - [SHAVKATOV JONIBEK] 02/02/26",
+      "rowText": "MONNOBX03 - [SHAVKATOV JONIBEK] 02/02/26 MONNOBX03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f32e50ad-db64-4f3e-8a00-4fbc68da6b19",
+          "name": "MONNOBX03 - [SHAVKATOV JONIBEK] 02/02/26"
+        },
+        "agent_code": "MONNOBX03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 25,
+      "agentId": "2ed64df5-a1bf-459a-a4d9-7bec47b8fec8",
+      "code": "MONNOBX04",
+      "name": "MONNOBX04 - [MUHAMMEDOV O'TKIR]",
+      "agent": "MONNOBX04 - [MUHAMMEDOV O'TKIR]",
+      "rowText": "MONNOBX04 - [MUHAMMEDOV O'TKIR] MONNOBX04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2ed64df5-a1bf-459a-a4d9-7bec47b8fec8",
+          "name": "MONNOBX04 - [MUHAMMEDOV O'TKIR]"
+        },
+        "agent_code": "MONNOBX04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 74,
+      "agentId": "8ef7a757-895e-4d06-a082-8ce36e19a347",
+      "code": "MONNOBX05",
+      "name": "MONNOBX05 - [USMONOVA NIGINA] 25/03/26",
+      "agent": "MONNOBX05 - [USMONOVA NIGINA] 25/03/26",
+      "rowText": "MONNOBX05 - [USMONOVA NIGINA] 25/03/26 MONNOBX05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8ef7a757-895e-4d06-a082-8ce36e19a347",
+          "name": "MONNOBX05 - [USMONOVA NIGINA] 25/03/26"
+        },
+        "agent_code": "MONNOBX05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 53,
+      "agentId": "5d786de8-e6a4-4a02-8d14-42669736ffa7",
+      "code": "MONNODL001",
+      "name": "O'RIKZOR DILLER MONNO [MAXAMADALIYEV ABDUQODIR] 07/04/26",
+      "agent": "O'RIKZOR DILLER MONNO [MAXAMADALIYEV ABDUQODIR] 07/04/26",
+      "rowText": "O'RIKZOR DILLER MONNO [MAXAMADALIYEV ABDUQODIR] 07/04/26 MONNODL001",
+      "orderSum": 3168000,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5d786de8-e6a4-4a02-8d14-42669736ffa7",
+          "name": "O'RIKZOR DILLER MONNO [MAXAMADALIYEV ABDUQODIR] 07/04/26"
+        },
+        "agent_code": "MONNODL001",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 1,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 3168000,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 22,
+        "rejected_visits_count": 0,
+        "unvisited_count": 21,
+        "visits_percentage": 4
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 9,
+      "agentId": "0bb76831-773d-4eb8-8971-ecc913b9446c",
+      "code": "MONNOFA01",
+      "name": "MONNOFA01 - [ABDULXAYEV AZAMJON] 04/02/26",
+      "agent": "MONNOFA01 - [ABDULXAYEV AZAMJON] 04/02/26",
+      "rowText": "MONNOFA01 - [ABDULXAYEV AZAMJON] 04/02/26 MONNOFA01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0bb76831-773d-4eb8-8971-ecc913b9446c",
+          "name": "MONNOFA01 - [ABDULXAYEV AZAMJON] 04/02/26"
+        },
+        "agent_code": "MONNOFA01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 106,
+      "agentId": "ea3a2082-b96a-4bb2-9349-cb921f1a74c4",
+      "code": "MONNOFA02",
+      "name": "MONNOFA02 - [UMURZAKOVA ZEBO] 11/05/26",
+      "agent": "MONNOFA02 - [UMURZAKOVA ZEBO] 11/05/26",
+      "rowText": "MONNOFA02 - [UMURZAKOVA ZEBO] 11/05/26 MONNOFA02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ea3a2082-b96a-4bb2-9349-cb921f1a74c4",
+          "name": "MONNOFA02 - [UMURZAKOVA ZEBO] 11/05/26"
+        },
+        "agent_code": "MONNOFA02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 89,
+      "agentId": "ba603f81-1f97-4256-a48e-fa2aa96d3d21",
+      "code": "MONNOFA03",
+      "name": "MONNOFA03 - [ABDURAHIMOV NOZIMJON] 01/12/25",
+      "agent": "MONNOFA03 - [ABDURAHIMOV NOZIMJON] 01/12/25",
+      "rowText": "MONNOFA03 - [ABDURAHIMOV NOZIMJON] 01/12/25 MONNOFA03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ba603f81-1f97-4256-a48e-fa2aa96d3d21",
+          "name": "MONNOFA03 - [ABDURAHIMOV NOZIMJON] 01/12/25"
+        },
+        "agent_code": "MONNOFA03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 55,
+      "agentId": "66c6af1e-1fcb-4fb6-b7a0-da687b31a22c",
+      "code": "MONNOFA04",
+      "name": "MONNOFA04 - [KARIMOV ZUXRIDDIN] 07/11",
+      "agent": "MONNOFA04 - [KARIMOV ZUXRIDDIN] 07/11",
+      "rowText": "MONNOFA04 - [KARIMOV ZUXRIDDIN] 07/11 MONNOFA04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "66c6af1e-1fcb-4fb6-b7a0-da687b31a22c",
+          "name": "MONNOFA04 - [KARIMOV ZUXRIDDIN] 07/11"
+        },
+        "agent_code": "MONNOFA04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 29,
+      "agentId": "38a81e73-cd97-4018-ac8d-b1d70d351535",
+      "code": "MONNOFA05",
+      "name": "MONNOFA05 - [YAKUBOVA FERUZAXON] 06/11",
+      "agent": "MONNOFA05 - [YAKUBOVA FERUZAXON] 06/11",
+      "rowText": "MONNOFA05 - [YAKUBOVA FERUZAXON] 06/11 MONNOFA05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "38a81e73-cd97-4018-ac8d-b1d70d351535",
+          "name": "MONNOFA05 - [YAKUBOVA FERUZAXON] 06/11"
+        },
+        "agent_code": "MONNOFA05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 86,
+      "agentId": "b0ba2e5f-4116-46d8-9df4-5721cecc6b9d",
+      "code": "MONNOFA06",
+      "name": "MONNOFA06 - [TOLIBOVA DILAFRUZ] 04/11",
+      "agent": "MONNOFA06 - [TOLIBOVA DILAFRUZ] 04/11",
+      "rowText": "MONNOFA06 - [TOLIBOVA DILAFRUZ] 04/11 MONNOFA06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b0ba2e5f-4116-46d8-9df4-5721cecc6b9d",
+          "name": "MONNOFA06 - [TOLIBOVA DILAFRUZ] 04/11"
+        },
+        "agent_code": "MONNOFA06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 42,
+      "agentId": "532c7707-b718-4cef-a76e-70be9bc2ad07",
+      "code": "MONNOFA07",
+      "name": "MONNOFA07 [AKRAMOVA MUATTARXON] 06/04/26",
+      "agent": "MONNOFA07 [AKRAMOVA MUATTARXON] 06/04/26",
+      "rowText": "MONNOFA07 [AKRAMOVA MUATTARXON] 06/04/26 MONNOFA07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "532c7707-b718-4cef-a76e-70be9bc2ad07",
+          "name": "MONNOFA07 [AKRAMOVA MUATTARXON] 06/04/26"
+        },
+        "agent_code": "MONNOFA07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 2,
+      "agentId": "03ee6c02-c006-49f5-8ef8-5040238e9e34",
+      "code": "MONNOGL01",
+      "name": "MONNOGL01 - [ROZIQULOV RAVSHANBEK] 05/01/26",
+      "agent": "MONNOGL01 - [ROZIQULOV RAVSHANBEK] 05/01/26",
+      "rowText": "MONNOGL01 - [ROZIQULOV RAVSHANBEK] 05/01/26 MONNOGL01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "03ee6c02-c006-49f5-8ef8-5040238e9e34",
+          "name": "MONNOGL01 - [ROZIQULOV RAVSHANBEK] 05/01/26"
+        },
+        "agent_code": "MONNOGL01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 66,
+      "agentId": "8138dc83-4f6f-4535-96ab-7c8a4583bf7c",
+      "code": "MONNOGL02",
+      "name": "MONNOGL02 - [QOSIMOV SARDORBEK] 05/01/26",
+      "agent": "MONNOGL02 - [QOSIMOV SARDORBEK] 05/01/26",
+      "rowText": "MONNOGL02 - [QOSIMOV SARDORBEK] 05/01/26 MONNOGL02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8138dc83-4f6f-4535-96ab-7c8a4583bf7c",
+          "name": "MONNOGL02 - [QOSIMOV SARDORBEK] 05/01/26"
+        },
+        "agent_code": "MONNOGL02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 0,
+      "agentId": "008a4c95-9ec5-4abb-bab5-7d51a31b0b08",
+      "code": "MONNOGL03",
+      "name": "MONNOGL03 - [AZIMOV ANVARJON] 05/01/26",
+      "agent": "MONNOGL03 - [AZIMOV ANVARJON] 05/01/26",
+      "rowText": "MONNOGL03 - [AZIMOV ANVARJON] 05/01/26 MONNOGL03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "008a4c95-9ec5-4abb-bab5-7d51a31b0b08",
+          "name": "MONNOGL03 - [AZIMOV ANVARJON] 05/01/26"
+        },
+        "agent_code": "MONNOGL03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 20,
+      "agentId": "291a4afb-72da-4610-b462-ad2e27c890e4",
+      "code": "MONNOGL04",
+      "name": "MONNOGL04 - [RAXMATULLAYEV XASAN] 05/01/26",
+      "agent": "MONNOGL04 - [RAXMATULLAYEV XASAN] 05/01/26",
+      "rowText": "MONNOGL04 - [RAXMATULLAYEV XASAN] 05/01/26 MONNOGL04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "291a4afb-72da-4610-b462-ad2e27c890e4",
+          "name": "MONNOGL04 - [RAXMATULLAYEV XASAN] 05/01/26"
+        },
+        "agent_code": "MONNOGL04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 16,
+      "agentId": "200a54e6-b353-4d07-afa6-06dd3ad4b7dc",
+      "code": "MONNOJZ01",
+      "name": "MONNOJZ01 - [O'KTAMOV FARRUXJON] 11/05/26",
+      "agent": "MONNOJZ01 - [O'KTAMOV FARRUXJON] 11/05/26",
+      "rowText": "MONNOJZ01 - [O'KTAMOV FARRUXJON] 11/05/26 MONNOJZ01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "200a54e6-b353-4d07-afa6-06dd3ad4b7dc",
+          "name": "MONNOJZ01 - [O'KTAMOV FARRUXJON] 11/05/26"
+        },
+        "agent_code": "MONNOJZ01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 59,
+      "agentId": "6fb86ade-957e-40db-a73a-56c268287fde",
+      "code": "MONNOJZ02",
+      "name": "MONNOJZ02 - [XAMIDJANOVA NARGIZA] 04/01/26",
+      "agent": "MONNOJZ02 - [XAMIDJANOVA NARGIZA] 04/01/26",
+      "rowText": "MONNOJZ02 - [XAMIDJANOVA NARGIZA] 04/01/26 MONNOJZ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "6fb86ade-957e-40db-a73a-56c268287fde",
+          "name": "MONNOJZ02 - [XAMIDJANOVA NARGIZA] 04/01/26"
+        },
+        "agent_code": "MONNOJZ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 116,
+      "agentId": "fae43d2c-331b-4671-84c3-f3a320dae110",
+      "code": "MONNOJZ03",
+      "name": "MONNOJZ03 - [SOBIROVA BAHORA] 01/02/26",
+      "agent": "MONNOJZ03 - [SOBIROVA BAHORA] 01/02/26",
+      "rowText": "MONNOJZ03 - [SOBIROVA BAHORA] 01/02/26 MONNOJZ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fae43d2c-331b-4671-84c3-f3a320dae110",
+          "name": "MONNOJZ03 - [SOBIROVA BAHORA] 01/02/26"
+        },
+        "agent_code": "MONNOJZ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 84,
+      "agentId": "a6f1217e-c600-401d-8798-d1c3df5b1c3f",
+      "code": "MONNOJZ04",
+      "name": "MONNOJZ04 - [LAPASOV DOSTON] 04/01/26",
+      "agent": "MONNOJZ04 - [LAPASOV DOSTON] 04/01/26",
+      "rowText": "MONNOJZ04 - [LAPASOV DOSTON] 04/01/26 MONNOJZ04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a6f1217e-c600-401d-8798-d1c3df5b1c3f",
+          "name": "MONNOJZ04 - [LAPASOV DOSTON] 04/01/26"
+        },
+        "agent_code": "MONNOJZ04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 95,
+      "agentId": "cb98aa05-6798-4690-bd88-761d6ceb1456",
+      "code": "MONNOKQ01",
+      "name": "MONNOKQ01 - [JURAYEV VALIBEK] 02/03/26",
+      "agent": "MONNOKQ01 - [JURAYEV VALIBEK] 02/03/26",
+      "rowText": "MONNOKQ01 - [JURAYEV VALIBEK] 02/03/26 MONNOKQ01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cb98aa05-6798-4690-bd88-761d6ceb1456",
+          "name": "MONNOKQ01 - [JURAYEV VALIBEK] 02/03/26"
+        },
+        "agent_code": "MONNOKQ01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 13,
+      "agentId": "1cd841e6-934f-47e1-bd1d-83faa3e8b7ff",
+      "code": "MONNONM01",
+      "name": "MONNONM01 - [TO'LANBOYEV ABDULLO] 01/04/26",
+      "agent": "MONNONM01 - [TO'LANBOYEV ABDULLO] 01/04/26",
+      "rowText": "MONNONM01 - [TO'LANBOYEV ABDULLO] 01/04/26 MONNONM01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1cd841e6-934f-47e1-bd1d-83faa3e8b7ff",
+          "name": "MONNONM01 - [TO'LANBOYEV ABDULLO] 01/04/26"
+        },
+        "agent_code": "MONNONM01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 50,
+      "agentId": "599558b6-e651-4f3a-893b-cfc77097b2b5",
+      "code": "MONNONM02",
+      "name": "MONNONM02 - [BOLTABAYEV SHERZOD] 01/06/26",
+      "agent": "MONNONM02 - [BOLTABAYEV SHERZOD] 01/06/26",
+      "rowText": "MONNONM02 - [BOLTABAYEV SHERZOD] 01/06/26 MONNONM02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "599558b6-e651-4f3a-893b-cfc77097b2b5",
+          "name": "MONNONM02 - [BOLTABAYEV SHERZOD] 01/06/26"
+        },
+        "agent_code": "MONNONM02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 71,
+      "agentId": "846244c0-3c26-4089-8cd5-e9b7d9eab0ab",
+      "code": "MONNONM03",
+      "name": "MONNONM03 - [AKBARJON O'G'LI BILOLIDDIN] 01/11 01/04/26",
+      "agent": "MONNONM03 - [AKBARJON O'G'LI BILOLIDDIN] 01/11 01/04/26",
+      "rowText": "MONNONM03 - [AKBARJON O'G'LI BILOLIDDIN] 01/11 01/04/26 MONNONM03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "846244c0-3c26-4089-8cd5-e9b7d9eab0ab",
+          "name": "MONNONM03 - [AKBARJON O'G'LI BILOLIDDIN] 01/11 01/04/26"
+        },
+        "agent_code": "MONNONM03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 67,
+      "agentId": "816824c6-9ac1-4405-b1e3-f9434f519305",
+      "code": "MONNONM04",
+      "name": "MONNONM04 - [MIRZAJONOV MUHAMMADMIRZO] 01/06/26",
+      "agent": "MONNONM04 - [MIRZAJONOV MUHAMMADMIRZO] 01/06/26",
+      "rowText": "MONNONM04 - [MIRZAJONOV MUHAMMADMIRZO] 01/06/26 MONNONM04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "816824c6-9ac1-4405-b1e3-f9434f519305",
+          "name": "MONNONM04 - [MIRZAJONOV MUHAMMADMIRZO] 01/06/26"
+        },
+        "agent_code": "MONNONM04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 11,
+      "agentId": "0eb465ac-6660-43cb-9e60-500f31c2a5f5",
+      "code": "MONNONM05",
+      "name": "MONNONM05 - [JALOLOV NODIRBEK] 01/11",
+      "agent": "MONNONM05 - [JALOLOV NODIRBEK] 01/11",
+      "rowText": "MONNONM05 - [JALOLOV NODIRBEK] 01/11 MONNONM05",
+      "orderSum": 0,
+      "tt": 1,
+      "expectedPhotos": 1,
+      "photoText": "1 T.T. (1 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0eb465ac-6660-43cb-9e60-500f31c2a5f5",
+          "name": "MONNONM05 - [JALOLOV NODIRBEK] 01/11"
+        },
+        "agent_code": "MONNONM05",
+        "uploaded_photo_report_count": 1,
+        "photo_report_uploaded_client_count": 1,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/488418ba-e499-4432-8a8c-757ac40af311/e87fdfb97842465b9aa64e8f5568484e.jpg"
+      ],
+      "clients": [
+        {
+          "apiId": "488418ba-e499-4432-8a8c-757ac40af311",
+          "visualId": "fr_30089",
+          "name": "1001 KECHA SUV OPTOM",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "CHORTOQ",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        }
+      ],
+      "orders": [],
+      "orderLookupStatus": "empty",
+      "orderLookupScope": "all_agent_id_arr",
+      "orderLookupError": "",
+      "photos": [
+        {
+          "page": 1,
+          "row": 1,
+          "category": "D",
+          "client": "1001 KECHA SUV OPTOM (SOLIPOV ISLOM AKA)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "fr_30089",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "CHORTOQ",
+          "photoTime": "2026-06-21T14:26:42.414669Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/488418ba-e499-4432-8a8c-757ac40af311/e87fdfb97842465b9aa64e8f5568484e.jpg"
+          ]
+        }
+      ],
+      "actualUrls": 1,
+      "countOk": true,
+      "status": "ok",
+      "source": "api"
+    },
+    {
+      "index": 103,
+      "agentId": "e0c2446c-71f9-46e9-9ef1-c8eda0f7d2a5",
+      "code": "MONNONM06",
+      "name": "MONNONM06 - [SULTANOV ABRORJON] 04/11",
+      "agent": "MONNONM06 - [SULTANOV ABRORJON] 04/11",
+      "rowText": "MONNONM06 - [SULTANOV ABRORJON] 04/11 MONNONM06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e0c2446c-71f9-46e9-9ef1-c8eda0f7d2a5",
+          "name": "MONNONM06 - [SULTANOV ABRORJON] 04/11"
+        },
+        "agent_code": "MONNONM06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 24,
+      "agentId": "2e828d13-852a-43f5-8ff0-c8a08efe066b",
+      "code": "MONNONM07",
+      "name": "MONNONM07 - [TURSUNOV ZUXRIDDIN] 06/03/26",
+      "agent": "MONNONM07 - [TURSUNOV ZUXRIDDIN] 06/03/26",
+      "rowText": "MONNONM07 - [TURSUNOV ZUXRIDDIN] 06/03/26 MONNONM07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2e828d13-852a-43f5-8ff0-c8a08efe066b",
+          "name": "MONNONM07 - [TURSUNOV ZUXRIDDIN] 06/03/26"
+        },
+        "agent_code": "MONNONM07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 101,
+      "agentId": "d667bf8d-069d-4887-bb1c-48054f4a3859",
+      "code": "MONNONS01",
+      "name": "MONNONS01 - [DJANIBEKOVA MARIYAM] 01/11",
+      "agent": "MONNONS01 - [DJANIBEKOVA MARIYAM] 01/11",
+      "rowText": "MONNONS01 - [DJANIBEKOVA MARIYAM] 01/11 MONNONS01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d667bf8d-069d-4887-bb1c-48054f4a3859",
+          "name": "MONNONS01 - [DJANIBEKOVA MARIYAM] 01/11"
+        },
+        "agent_code": "MONNONS01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 108,
+      "agentId": "eec6ccad-66a6-4548-9562-70f6af74b0a0",
+      "code": "MONNONS02",
+      "name": "MONNONS02 - [ABIZBAYEVA JANAR] 01/04/26",
+      "agent": "MONNONS02 - [ABIZBAYEVA JANAR] 01/04/26",
+      "rowText": "MONNONS02 - [ABIZBAYEVA JANAR] 01/04/26 MONNONS02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "eec6ccad-66a6-4548-9562-70f6af74b0a0",
+          "name": "MONNONS02 - [ABIZBAYEVA JANAR] 01/04/26"
+        },
+        "agent_code": "MONNONS02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 70,
+      "agentId": "8310dd54-3fa5-48d2-8ebb-d6895207d526",
+      "code": "MONNONS03",
+      "name": "MONNONS03 - [PALUANOVA MAXRIBAN] 01/11",
+      "agent": "MONNONS03 - [PALUANOVA MAXRIBAN] 01/11",
+      "rowText": "MONNONS03 - [PALUANOVA MAXRIBAN] 01/11 MONNONS03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8310dd54-3fa5-48d2-8ebb-d6895207d526",
+          "name": "MONNONS03 - [PALUANOVA MAXRIBAN] 01/11"
+        },
+        "agent_code": "MONNONS03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 102,
+      "agentId": "ddc792d4-32da-4cdc-b76c-8cdb34ebf60a",
+      "code": "MONNONS04",
+      "name": "MONNONS04 - [BERDINIYAZOV AJINIYAZ] 01/11",
+      "agent": "MONNONS04 - [BERDINIYAZOV AJINIYAZ] 01/11",
+      "rowText": "MONNONS04 - [BERDINIYAZOV AJINIYAZ] 01/11 MONNONS04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ddc792d4-32da-4cdc-b76c-8cdb34ebf60a",
+          "name": "MONNONS04 - [BERDINIYAZOV AJINIYAZ] 01/11"
+        },
+        "agent_code": "MONNONS04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 69,
+      "agentId": "82ea82f9-580f-47d4-b00c-daaffea8b6cd",
+      "code": "MONNONV01",
+      "name": "MONNONV01 - [SHUKUROV MIRALISHER] 19/03/26",
+      "agent": "MONNONV01 - [SHUKUROV MIRALISHER] 19/03/26",
+      "rowText": "MONNONV01 - [SHUKUROV MIRALISHER] 19/03/26 MONNONV01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "82ea82f9-580f-47d4-b00c-daaffea8b6cd",
+          "name": "MONNONV01 - [SHUKUROV MIRALISHER] 19/03/26"
+        },
+        "agent_code": "MONNONV01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 19,
+      "agentId": "2617de0a-8375-45c9-a3be-58a96350cb1d",
+      "code": "MONNONV02",
+      "name": "MONNONV02 - [XOLIQULOV SHERZOD] 17/04/26",
+      "agent": "MONNONV02 - [XOLIQULOV SHERZOD] 17/04/26",
+      "rowText": "MONNONV02 - [XOLIQULOV SHERZOD] 17/04/26 MONNONV02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2617de0a-8375-45c9-a3be-58a96350cb1d",
+          "name": "MONNONV02 - [XOLIQULOV SHERZOD] 17/04/26"
+        },
+        "agent_code": "MONNONV02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 43,
+      "agentId": "54d8fbf7-6921-43e6-9367-37a0cf70adeb",
+      "code": "MONNONV03",
+      "name": "MONNONV03 - [NAJIMOV FARRUX] 04/01/26",
+      "agent": "MONNONV03 - [NAJIMOV FARRUX] 04/01/26",
+      "rowText": "MONNONV03 - [NAJIMOV FARRUX] 04/01/26 MONNONV03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "54d8fbf7-6921-43e6-9367-37a0cf70adeb",
+          "name": "MONNONV03 - [NAJIMOV FARRUX] 04/01/26"
+        },
+        "agent_code": "MONNONV03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 99,
+      "agentId": "d2f1521a-3f3e-4fe7-8e2d-14c7b335081f",
+      "code": "MONNONV04",
+      "name": "MONNONV04 - [QOBILOVA AZIZA] (Z) 04/01/26",
+      "agent": "MONNONV04 - [QOBILOVA AZIZA] (Z) 04/01/26",
+      "rowText": "MONNONV04 - [QOBILOVA AZIZA] (Z) 04/01/26 MONNONV04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d2f1521a-3f3e-4fe7-8e2d-14c7b335081f",
+          "name": "MONNONV04 - [QOBILOVA AZIZA] (Z) 04/01/26"
+        },
+        "agent_code": "MONNONV04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 33,
+      "agentId": "4788ae2f-3a2d-4b29-b03f-20950209fd78",
+      "code": "MONNONV05",
+      "name": "MONNONV05 - [ABDURAHMONOVA RAYHON] 02/03/26",
+      "agent": "MONNONV05 - [ABDURAHMONOVA RAYHON] 02/03/26",
+      "rowText": "MONNONV05 - [ABDURAHMONOVA RAYHON] 02/03/26 MONNONV05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4788ae2f-3a2d-4b29-b03f-20950209fd78",
+          "name": "MONNONV05 - [ABDURAHMONOVA RAYHON] 02/03/26"
+        },
+        "agent_code": "MONNONV05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 4,
+      "agentId": "0771e8c4-8e72-450d-a7c5-a74b02112d7d",
+      "code": "MONNOOPT01",
+      "name": "MONNOOPT01 - [SABURBAYEVA SAHIBJAMAL] 01/02/26",
+      "agent": "MONNOOPT01 - [SABURBAYEVA SAHIBJAMAL] 01/02/26",
+      "rowText": "MONNOOPT01 - [SABURBAYEVA SAHIBJAMAL] 01/02/26 MONNOOPT01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0771e8c4-8e72-450d-a7c5-a74b02112d7d",
+          "name": "MONNOOPT01 - [SABURBAYEVA SAHIBJAMAL] 01/02/26"
+        },
+        "agent_code": "MONNOOPT01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 39,
+      "agentId": "4fe916ad-ff59-4234-92d1-2faa8b3db6de",
+      "code": "MONNOOPT02",
+      "name": "MONNOOPT02 - [ERGASHOVA RISOLAT] 15/06/26",
+      "agent": "MONNOOPT02 - [ERGASHOVA RISOLAT] 15/06/26",
+      "rowText": "MONNOOPT02 - [ERGASHOVA RISOLAT] 15/06/26 MONNOOPT02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4fe916ad-ff59-4234-92d1-2faa8b3db6de",
+          "name": "MONNOOPT02 - [ERGASHOVA RISOLAT] 15/06/26"
+        },
+        "agent_code": "MONNOOPT02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 36,
+      "agentId": "4b0ffa52-e485-41cf-ba59-59ad9a72abc9",
+      "code": "MONNOQQ01",
+      "name": "MONNOQQ01 - [MAMAJONOV RASULJON]",
+      "agent": "MONNOQQ01 - [MAMAJONOV RASULJON]",
+      "rowText": "MONNOQQ01 - [MAMAJONOV RASULJON] MONNOQQ01",
+      "orderSum": 432000,
+      "tt": 23,
+      "expectedPhotos": 23,
+      "photoText": "23 T.T. (23 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4b0ffa52-e485-41cf-ba59-59ad9a72abc9",
+          "name": "MONNOQQ01 - [MAMAJONOV RASULJON]"
+        },
+        "agent_code": "MONNOQQ01",
+        "uploaded_photo_report_count": 23,
+        "photo_report_uploaded_client_count": 23,
+        "order_count": 1,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 432000,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 103,
+        "rejected_visits_count": 23,
+        "unvisited_count": 89,
+        "visits_percentage": 13
+      },
+      "urls": [
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/3ee2b16e-18be-4466-bde4-499bbefcd4a0/b28637601f3d4ce49a7510d3a9757629.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/fccdc063-83d3-46f3-b225-f7dccda215ca/3a8d56dfffe74ab6977bd2c7f1a46ccd.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/5eeed29e-ef02-4266-87db-1dad2f0cd925/bae4726e01e04dcc94ccf0d7bf93a093.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/f59fa24f-602d-4dcd-98da-d42e0169b566/374f32b11dd24757984918f123558746.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/8015801f-6aaf-42cc-88c4-90c355b49761/d7c772dea8b948beaf2a5456fb43b205.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/ea39a61d-f8cc-4acb-9229-145ff40379c1/89e37c69c9a64bf5879bb2ca975fd949.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/58a850ab-1e9a-41bb-9ac8-98bc1e8fcf6d/698e9722ee724d83a1a8023849ae66a4.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/617cff82-1b37-4e32-9695-c4a87e5113fd/3c9274b2755c4f86a57242c6b1a0b326.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/7254f171-3540-4fc1-b7e9-93656c57a701/c743914eb5004b6bba409a3bbc9f2b21.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/4d9e6887-c45c-41eb-8972-b8b9408d3b94/bdb9a993e54b4a0ca65eb88e703156df.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/c246dcc4-fde4-4e79-80f9-c822bd8a198c/5f656bccbad446ad95f8a26565b145e5.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/ceac66bf-f106-40ae-9e42-f30b6b17da3e/67de70c8457a4931b7a2b3cf24727466.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/57e69343-f3c9-472f-ad88-39bfe8c70186/8dd76ce4d2354430b7addd647b80f293.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/b1301f1a-443a-47d7-ab8c-6ad9458813ed/1c85130832934a2f876f23384f009e08.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/017d610a-84bc-4793-a541-7d66c0e4126c/d5d876486bae400fb1c350c34e59f86e.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/5e86cc69-edb5-4f66-a2fb-a5776a2dee6d/ed753e53343c40e782bbe59dedd4dd62.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/13e83b76-82b0-42ef-9e0e-0230cc54dd1c/3a46cc7e0f944847aabfe5720ee72d58.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/e7197adf-27a7-46e4-a140-3efeb5944ee6/0888af259b04424fa2fd7cc9452a6a32.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/d77ef2c8-392a-4a7e-b64f-2322d8656248/a73cc88555544421a6009ddc6c50c950.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/0fa66d22-f0bb-4ddf-8a16-904eb6d843fa/b88109a3cc2a48b8a96f5d466fcad690.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/a567a5e5-926c-4ce8-b028-ca683d5ec6e8/05ab50e2d99c48b2950e75a9cbafa24d.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/1ea1cefb-f503-411a-b993-c0a34e9801ef/0c5d0369bc6a4879a9c22bb8ec23cac1.jpg",
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/8476af6d-e888-4aa3-8e79-56d9bbbb57a0/236b2c3f4eee41d697d7df0dcbad6e38.jpg"
+      ],
+      "clients": [
+        {
+          "apiId": "017d610a-84bc-4793-a541-7d66c0e4126c",
+          "visualId": "cn_36405",
+          "name": "SHAXNOZA APA",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "0fa66d22-f0bb-4ddf-8a16-904eb6d843fa",
+          "visualId": "xq_29943",
+          "name": "NOZIMAXON APA",
+          "orderSum": 432000,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "orderCount": 1,
+          "orderKnown": true,
+          "orderSource": "zayavki",
+          "orderIds": [
+            "9566708e-9abc-4301-b3ab-764d3c0c24ff"
+          ],
+          "orderStatuses": [
+            "Отгружен"
+          ]
+        },
+        {
+          "apiId": "13e83b76-82b0-42ef-9e0e-0230cc54dd1c",
+          "visualId": "jt_11597",
+          "name": "XURRIYAT APA",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "1ea1cefb-f503-411a-b993-c0a34e9801ef",
+          "visualId": "bi_33418",
+          "name": "ABDULATIF AKA NAMANGAN PETE YONI",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "3ee2b16e-18be-4466-bde4-499bbefcd4a0",
+          "visualId": "vi_36097",
+          "name": "ABOBA",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "4d9e6887-c45c-41eb-8972-b8b9408d3b94",
+          "visualId": "fx_11781",
+          "name": "IPAK YOLI  24-1",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "57e69343-f3c9-472f-ad88-39bfe8c70186",
+          "visualId": "bc_11804",
+          "name": "KANTENER YULDI BUYI",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "58a850ab-1e9a-41bb-9ac8-98bc1e8fcf6d",
+          "visualId": "ff_11808",
+          "name": "MUZAFFAR SAVDO BOZOR 108",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "5e86cc69-edb5-4f66-a2fb-a5776a2dee6d",
+          "visualId": "hn_11823",
+          "name": "MUMTOZ URTA KUCHA",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "5eeed29e-ef02-4266-87db-1dad2f0cd925",
+          "visualId": "sz_35432",
+          "name": "MUZAFFAR SAVDO MAHALLA 16-DUKON",
+          "orderSum": 0,
+          "category": "C",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "617cff82-1b37-4e32-9695-c4a87e5113fd",
+          "visualId": "ul_11834",
+          "name": "IPAL YOLI  12-10",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "7254f171-3540-4fc1-b7e9-93656c57a701",
+          "visualId": "fz_22235",
+          "name": "KOMOLAKA",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "8015801f-6aaf-42cc-88c4-90c355b49761",
+          "visualId": "tg_11915",
+          "name": "MUZAFFAR SAVDO  BOZOR 60 DUKON",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "8476af6d-e888-4aa3-8e79-56d9bbbb57a0",
+          "visualId": "pd_33928",
+          "name": "ABDULATIF SUV OPTOM",
+          "orderSum": 0,
+          "category": "B",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "a567a5e5-926c-4ce8-b028-ca683d5ec6e8",
+          "visualId": "tw_40289",
+          "name": "SOHIBA OPA",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "b1301f1a-443a-47d7-ab8c-6ad9458813ed",
+          "visualId": "ap_12061",
+          "name": "MUMTOZ BOZOR 3 BLOK 4 QATOR",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "c246dcc4-fde4-4e79-80f9-c822bd8a198c",
+          "visualId": "yq_12110",
+          "name": "IPAK YULI 24-2",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "ceac66bf-f106-40ae-9e42-f30b6b17da3e",
+          "visualId": "ck_12160",
+          "name": "IPAK YOLI 18-12",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "d77ef2c8-392a-4a7e-b64f-2322d8656248",
+          "visualId": "vi_12191",
+          "name": "AKBAR CHOY DUKON",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "e7197adf-27a7-46e4-a140-3efeb5944ee6",
+          "visualId": "gl_37408",
+          "name": "74 MUZAFFAR SAVDO",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "ea39a61d-f8cc-4acb-9229-145ff40379c1",
+          "visualId": "id_12254",
+          "name": "MUZAFFAR SAVDO  BOZOR 57 DUKON",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "f59fa24f-602d-4dcd-98da-d42e0169b566",
+          "visualId": "su_36178",
+          "name": "MANSIRAKA BOZOR",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        },
+        {
+          "apiId": "fccdc063-83d3-46f3-b225-f7dccda215ca",
+          "visualId": "en_32175",
+          "name": "VITAGUM RUSTAMJON AKA",
+          "orderSum": 0,
+          "category": "A",
+          "territory": "BOZOR",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)"
+        }
+      ],
+      "orders": [
+        {
+          "apiId": "0fa66d22-f0bb-4ddf-8a16-904eb6d843fa",
+          "visualId": "1483206",
+          "name": "NOZIMAXON APA",
+          "orderSum": 432000,
+          "status": "Отгружен",
+          "orderId": "9566708e-9abc-4301-b3ab-764d3c0c24ff",
+          "agentId": "",
+          "agentCode": "MONNOQQ01",
+          "raw": {
+            "visual_id": 1483206,
+            "client_platform": {
+              "id": 2,
+              "name": "Мобильное приложение"
+            },
+            "order_date": "2026-06-21T07:15:04.345384Z",
+            "shipped_date": "2026-06-23T03:59:14.166742Z",
+            "created_date": "2026-06-21T07:15:04.748104Z",
+            "expected_shipping_date": "2026-06-22T20:34:00Z",
+            "delivered_date": null,
+            "returned_date": null,
+            "client": {
+              "id": "0fa66d22-f0bb-4ddf-8a16-904eb6d843fa",
+              "name": "NOZIMAXON APA"
+            },
+            "client_company_name": "NOZIMAXON",
+            "client_visual_id": "xq_29943",
+            "address": "STAYANKA BOZOR",
+            "inn": "326 452 548",
+            "phone": "+998 (91) 055-06-50",
+            "client_code": "",
+            "location": null,
+            "count": 6,
+            "cost": 432000,
+            "volume": 0.053592,
+            "bonus": 0,
+            "discount": 0,
+            "price_type_name": "NAQD PUL",
+            "status": {
+              "id": 4,
+              "name": "Отгружен",
+              "hex_color": "#FF8901"
+            },
+            "agent_name": "MONNOQQ01 - [MAMAJONOV RASULJON]",
+            "agent_code": "MONNOQQ01",
+            "days": "Сб",
+            "expeditor_name": "Quqon Sotvoldiev Sardor",
+            "territory_path": [
+              {
+                "key": 1,
+                "value": "FV"
+              },
+              {
+                "key": 2,
+                "value": "QOQON "
+              },
+              {
+                "key": 3,
+                "value": "BOZOR"
+              }
+            ],
+            "for_consignation": true,
+            "consignation_term": "2026-06-29T19:00:00Z",
+            "balance": -2928000,
+            "balance_code": "UZS",
+            "debt": 0,
+            "comment": "obmen",
+            "cumulative_bonus": 0,
+            "note_type_name": null,
+            "sales_channel_name": "TRAD TRADE",
+            "type": {
+              "id": 1,
+              "name": "Заказ"
+            },
+            "trade_direction_name": "MONNO",
+            "warehouse_name": "Qoqon SKLAD",
+            "created_by": {
+              "name": "MONNOQQ01 - [MAMAJONOV RASULJON]",
+              "role_name": "Агент"
+            },
+            "show_partial_return": true,
+            "has_partial_return": false,
+            "is_partially_return_approved": false,
+            "invoice_types": [
+              1,
+              2
+            ],
+            "source_order": null,
+            "id": "9566708e-9abc-4301-b3ab-764d3c0c24ff"
+          }
+        }
+      ],
+      "orderLookupStatus": "ok",
+      "orderLookupScope": "all_agent_id_arr",
+      "orderLookupError": "",
+      "photos": [
+        {
+          "page": 1,
+          "row": 1,
+          "category": "A",
+          "client": "ABOBA (ABDUNOSIR AKA)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "vi_36097",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T04:06:35.340672Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/3ee2b16e-18be-4466-bde4-499bbefcd4a0/b28637601f3d4ce49a7510d3a9757629.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 2,
+          "category": "A",
+          "client": "VITAGUM RUSTAMJON AKA (RUSTAMJON ALIMOV)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "en_32175",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:41:31.03278Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/fccdc063-83d3-46f3-b225-f7dccda215ca/3a8d56dfffe74ab6977bd2c7f1a46ccd.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 3,
+          "category": "C",
+          "client": "MUZAFFAR SAVDO MAHALLA 16-DUKON (YULDUZXON)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "sz_35432",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:43:06.621871Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/5eeed29e-ef02-4266-87db-1dad2f0cd925/bae4726e01e04dcc94ccf0d7bf93a093.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 4,
+          "category": "A",
+          "client": "MANSIRAKA BOZOR (MUMTOZ BOROZ)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "su_36178",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:43:30.322225Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/f59fa24f-602d-4dcd-98da-d42e0169b566/374f32b11dd24757984918f123558746.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 5,
+          "category": "D",
+          "client": "MUZAFFAR SAVDO  BOZOR 60 DUKON (XUSANJON YTT)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "tg_11915",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:45:11.490188Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/8015801f-6aaf-42cc-88c4-90c355b49761/d7c772dea8b948beaf2a5456fb43b205.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 6,
+          "category": "D",
+          "client": "MUZAFFAR SAVDO  BOZOR 57 DUKON (ABDULLAYEVA OMINAXON YTT)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "id_12254",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:45:45.236319Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/ea39a61d-f8cc-4acb-9229-145ff40379c1/89e37c69c9a64bf5879bb2ca975fd949.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 7,
+          "category": "D",
+          "client": "MUZAFFAR SAVDO BOZOR 108 (MURODJON YTT)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "ff_11808",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:50:41.858359Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/58a850ab-1e9a-41bb-9ac8-98bc1e8fcf6d/698e9722ee724d83a1a8023849ae66a4.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 8,
+          "category": "D",
+          "client": "IPAL YOLI  12-10 (IQBOLJON)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "ul_11834",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:50:53.240252Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/617cff82-1b37-4e32-9695-c4a87e5113fd/3c9274b2755c4f86a57242c6b1a0b326.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 9,
+          "category": "D",
+          "client": "KOMOLAKA (OHUNOV KOMOLIDDIN)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "fz_22235",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:51:09.292679Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/7254f171-3540-4fc1-b7e9-93656c57a701/c743914eb5004b6bba409a3bbc9f2b21.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 10,
+          "category": "D",
+          "client": "IPAK YOLI  24-1 (IPAK YULI S K MCHJ)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "fx_11781",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:55:24.644847Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/4d9e6887-c45c-41eb-8972-b8b9408d3b94/bdb9a993e54b4a0ca65eb88e703156df.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 11,
+          "category": "D",
+          "client": "IPAK YULI 24-2 (IPAK YULI S K MCHJ)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "yq_12110",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T05:55:49.057424Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/c246dcc4-fde4-4e79-80f9-c822bd8a198c/5f656bccbad446ad95f8a26565b145e5.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 12,
+          "category": "D",
+          "client": "IPAK YOLI 18-12 (ULUGBEK)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "ck_12160",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T06:33:25.148755Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/ceac66bf-f106-40ae-9e42-f30b6b17da3e/67de70c8457a4931b7a2b3cf24727466.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 13,
+          "category": "D",
+          "client": "KANTENER YULDI BUYI (QAMBAROV RUSTAMJON)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "bc_11804",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T06:41:11.703973Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/57e69343-f3c9-472f-ad88-39bfe8c70186/8dd76ce4d2354430b7addd647b80f293.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 14,
+          "category": "D",
+          "client": "MUMTOZ BOZOR 3 BLOK 4 QATOR (JURAQULOVA ZULFIYA APA)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "ap_12061",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:01:24.23911Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/b1301f1a-443a-47d7-ab8c-6ad9458813ed/1c85130832934a2f876f23384f009e08.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 15,
+          "category": "A",
+          "client": "SHAXNOZA APA (SHAXNOZA APA OPOY)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "cn_36405",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:01:36.850211Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/017d610a-84bc-4793-a541-7d66c0e4126c/d5d876486bae400fb1c350c34e59f86e.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 16,
+          "category": "D",
+          "client": "MUMTOZ URTA KUCHA (MUMTOZ S K MCHJ)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "hn_11823",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:01:58.782788Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/5e86cc69-edb5-4f66-a2fb-a5776a2dee6d/ed753e53343c40e782bbe59dedd4dd62.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 17,
+          "category": "A",
+          "client": "XURRIYAT APA (MUMTOZ BOZOR)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "jt_11597",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:03:17.889424Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/13e83b76-82b0-42ef-9e0e-0230cc54dd1c/3a46cc7e0f944847aabfe5720ee72d58.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 18,
+          "category": "A",
+          "client": "74 MUZAFFAR SAVDO (MAXSUDJON AKA)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "gl_37408",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:03:38.246166Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/e7197adf-27a7-46e4-a140-3efeb5944ee6/0888af259b04424fa2fd7cc9452a6a32.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 19,
+          "category": "D",
+          "client": "AKBAR CHOY DUKON (IPAK YULI S K MCHJ)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "vi_12191",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:08:28.905267Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/d77ef2c8-392a-4a7e-b64f-2322d8656248/a73cc88555544421a6009ddc6c50c950.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 20,
+          "category": "A",
+          "client": "NOZIMAXON APA (NOZIMAXON)",
+          "clientOrderSum": 432000,
+          "clientOrderCount": 1,
+          "clientHasOrder": true,
+          "clientOrderKnown": true,
+          "clientOrderSource": "zayavki",
+          "clientOrderStatuses": [
+            "Отгружен"
+          ],
+          "clientId": "xq_29943",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:08:43.930432Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/0fa66d22-f0bb-4ddf-8a16-904eb6d843fa/b88109a3cc2a48b8a96f5d466fcad690.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 21,
+          "category": "D",
+          "client": "SOHIBA OPA (SOHIBA OPA BOGCHA)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "tw_40289",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T07:26:50.328901Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/a567a5e5-926c-4ce8-b028-ca683d5ec6e8/05ab50e2d99c48b2950e75a9cbafa24d.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 22,
+          "category": "D",
+          "client": "ABDULATIF AKA NAMANGAN PETE YONI (ABDULATIF. YTT)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "bi_33418",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T10:10:41.03734Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/1ea1cefb-f503-411a-b993-c0a34e9801ef/0c5d0369bc6a4879a9c22bb8ec23cac1.jpg"
+          ]
+        },
+        {
+          "page": 1,
+          "row": 23,
+          "category": "B",
+          "client": "ABDULATIF SUV OPTOM (ABDULATIF BOYMIRZAEV YTT)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "pd_33928",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "BOZOR",
+          "photoTime": "2026-06-21T10:10:56.327294Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/8476af6d-e888-4aa3-8e79-56d9bbbb57a0/236b2c3f4eee41d697d7df0dcbad6e38.jpg"
+          ]
+        }
+      ],
+      "actualUrls": 23,
+      "countOk": true,
+      "status": "ok",
+      "source": "api"
+    },
+    {
+      "index": 17,
+      "agentId": "238187b2-f3c0-4d97-94ef-cc568a445da8",
+      "code": "MONNOQQ02",
+      "name": "MONNOQQ02 - [YULDASHEV UMARBEK] 25/03/26",
+      "agent": "MONNOQQ02 - [YULDASHEV UMARBEK] 25/03/26",
+      "rowText": "MONNOQQ02 - [YULDASHEV UMARBEK] 25/03/26 MONNOQQ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "238187b2-f3c0-4d97-94ef-cc568a445da8",
+          "name": "MONNOQQ02 - [YULDASHEV UMARBEK] 25/03/26"
+        },
+        "agent_code": "MONNOQQ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 145,
+        "rejected_visits_count": 0,
+        "unvisited_count": 145,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 7,
+      "agentId": "0b30c26c-e43c-4560-93f3-43506158b2d0",
+      "code": "MONNOQQ03",
+      "name": "MONNOQQ03 - [ISMAILOV RAVSHAN] 01/12",
+      "agent": "MONNOQQ03 - [ISMAILOV RAVSHAN] 01/12",
+      "rowText": "MONNOQQ03 - [ISMAILOV RAVSHAN] 01/12 MONNOQQ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0b30c26c-e43c-4560-93f3-43506158b2d0",
+          "name": "MONNOQQ03 - [ISMAILOV RAVSHAN] 01/12"
+        },
+        "agent_code": "MONNOQQ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 296,
+        "rejected_visits_count": 0,
+        "unvisited_count": 296,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 26,
+      "agentId": "335837df-3881-48aa-bacf-a192be5c2228",
+      "code": "MONNOQQ04",
+      "name": "MONNOQQ04 - [DJO'RAYEV OBIDJON] 24/03/26",
+      "agent": "MONNOQQ04 - [DJO'RAYEV OBIDJON] 24/03/26",
+      "rowText": "MONNOQQ04 - [DJO'RAYEV OBIDJON] 24/03/26 MONNOQQ04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "335837df-3881-48aa-bacf-a192be5c2228",
+          "name": "MONNOQQ04 - [DJO'RAYEV OBIDJON] 24/03/26"
+        },
+        "agent_code": "MONNOQQ04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 402,
+        "rejected_visits_count": 0,
+        "unvisited_count": 402,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 12,
+      "agentId": "13b0b992-da98-4484-ba5f-7edd74082f93",
+      "code": "MONNOQQ05",
+      "name": "MONNOQQ05 - [ABDURAZOQOV SHUKURULLOX] 01/12",
+      "agent": "MONNOQQ05 - [ABDURAZOQOV SHUKURULLOX] 01/12",
+      "rowText": "MONNOQQ05 - [ABDURAZOQOV SHUKURULLOX] 01/12 MONNOQQ05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "13b0b992-da98-4484-ba5f-7edd74082f93",
+          "name": "MONNOQQ05 - [ABDURAZOQOV SHUKURULLOX] 01/12"
+        },
+        "agent_code": "MONNOQQ05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 74,
+        "rejected_visits_count": 0,
+        "unvisited_count": 74,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 44,
+      "agentId": "5531213c-69d2-40a6-a34d-b344c7bda110",
+      "code": "MONNOQQ06",
+      "name": "MONNOQQ06 - [VALIXANOV ANVAR] 01/06/26",
+      "agent": "MONNOQQ06 - [VALIXANOV ANVAR] 01/06/26",
+      "rowText": "MONNOQQ06 - [VALIXANOV ANVAR] 01/06/26 MONNOQQ06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5531213c-69d2-40a6-a34d-b344c7bda110",
+          "name": "MONNOQQ06 - [VALIXANOV ANVAR] 01/06/26"
+        },
+        "agent_code": "MONNOQQ06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 5,
+        "rejected_visits_count": 0,
+        "unvisited_count": 5,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 94,
+      "agentId": "c5335524-1c83-4c94-a55c-06ef7850876e",
+      "code": "MONNOQQ07",
+      "name": "MONNOQQ07 - [ILYOSXONOV MUSOXON] 06/05/26",
+      "agent": "MONNOQQ07 - [ILYOSXONOV MUSOXON] 06/05/26",
+      "rowText": "MONNOQQ07 - [ILYOSXONOV MUSOXON] 06/05/26 MONNOQQ07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c5335524-1c83-4c94-a55c-06ef7850876e",
+          "name": "MONNOQQ07 - [ILYOSXONOV MUSOXON] 06/05/26"
+        },
+        "agent_code": "MONNOQQ07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 116,
+        "rejected_visits_count": 0,
+        "unvisited_count": 116,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 87,
+      "agentId": "b1efd43d-c7e4-4675-b3b7-c2c434a14ac7",
+      "code": "MONNOQSH01",
+      "name": "MONNOQSH01 - [ISMATOVA AZIZA] 04/01/26",
+      "agent": "MONNOQSH01 - [ISMATOVA AZIZA] 04/01/26",
+      "rowText": "MONNOQSH01 - [ISMATOVA AZIZA] 04/01/26 MONNOQSH01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b1efd43d-c7e4-4675-b3b7-c2c434a14ac7",
+          "name": "MONNOQSH01 - [ISMATOVA AZIZA] 04/01/26"
+        },
+        "agent_code": "MONNOQSH01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 16,
+        "rejected_visits_count": 0,
+        "unvisited_count": 16,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 46,
+      "agentId": "55aeac50-8d49-475d-8e96-85814817e88e",
+      "code": "MONNOQSH02",
+      "name": "MONNOQSH02 - [XOLOVA JASMINA] 04/01/26",
+      "agent": "MONNOQSH02 - [XOLOVA JASMINA] 04/01/26",
+      "rowText": "MONNOQSH02 - [XOLOVA JASMINA] 04/01/26 MONNOQSH02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "55aeac50-8d49-475d-8e96-85814817e88e",
+          "name": "MONNOQSH02 - [XOLOVA JASMINA] 04/01/26"
+        },
+        "agent_code": "MONNOQSH02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 68,
+      "agentId": "81a5c3e9-f8eb-4906-a910-1fee9cc8226d",
+      "code": "MONNOQSH03",
+      "name": "MONNOQSH03 - [FAYZIYEVA SHAXRIZODA] 04/01/26",
+      "agent": "MONNOQSH03 - [FAYZIYEVA SHAXRIZODA] 04/01/26",
+      "rowText": "MONNOQSH03 - [FAYZIYEVA SHAXRIZODA] 04/01/26 MONNOQSH03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "81a5c3e9-f8eb-4906-a910-1fee9cc8226d",
+          "name": "MONNOQSH03 - [FAYZIYEVA SHAXRIZODA] 04/01/26"
+        },
+        "agent_code": "MONNOQSH03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 90,
+      "agentId": "bcbae3b0-297d-422f-bcad-5690c0d9e69b",
+      "code": "MONNOQSH04",
+      "name": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26",
+      "agent": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26",
+      "rowText": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26 MONNOQSH04",
+      "orderSum": 864000,
+      "tt": 1,
+      "expectedPhotos": 1,
+      "photoText": "1 T.T. (1 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "bcbae3b0-297d-422f-bcad-5690c0d9e69b",
+          "name": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26"
+        },
+        "agent_code": "MONNOQSH04",
+        "uploaded_photo_report_count": 1,
+        "photo_report_uploaded_client_count": 1,
+        "order_count": 1,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 864000,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/6c4db4c9-16e4-4a90-9421-37b7b90682d0/15086a84867d4ec9be1217c9a13bdb4e.jpg"
+      ],
+      "clients": [
+        {
+          "apiId": "6c4db4c9-16e4-4a90-9421-37b7b90682d0",
+          "visualId": "pf_8831",
+          "name": "DILSHODBEK MARKET",
+          "orderSum": 864000,
+          "category": "C",
+          "territory": "MUBORAK",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "orderCount": 1,
+          "orderKnown": true,
+          "orderSource": "zayavki",
+          "orderIds": [
+            "33bc5fbc-c4ba-4004-b70e-03554f6249cf"
+          ],
+          "orderStatuses": [
+            "Отгружен"
+          ]
+        }
+      ],
+      "orders": [
+        {
+          "apiId": "6c4db4c9-16e4-4a90-9421-37b7b90682d0",
+          "visualId": "1483204",
+          "name": "DILSHODBEK MARKET",
+          "orderSum": 864000,
+          "status": "Отгружен",
+          "orderId": "33bc5fbc-c4ba-4004-b70e-03554f6249cf",
+          "agentId": "",
+          "agentCode": "MONNOQSH04",
+          "raw": {
+            "visual_id": 1483204,
+            "client_platform": {
+              "id": 2,
+              "name": "Мобильное приложение"
+            },
+            "order_date": "2026-06-21T04:41:30.442522Z",
+            "shipped_date": "2026-06-23T04:06:52.838211Z",
+            "created_date": "2026-06-21T04:41:30.874164Z",
+            "expected_shipping_date": "2026-06-23T01:43:00Z",
+            "delivered_date": null,
+            "returned_date": null,
+            "client": {
+              "id": "6c4db4c9-16e4-4a90-9421-37b7b90682d0",
+              "name": "DILSHODBEK MARKET"
+            },
+            "client_company_name": "DILSHODBEK BOTIRBEK MCHJ",
+            "client_visual_id": "pf_8831",
+            "address": "BOZOR KUCHASI",
+            "inn": "306 779 900",
+            "phone": "+998 (91) 471-66-16",
+            "client_code": "",
+            "location": {
+              "latitude": 38.8291465,
+              "longitude": 65.7471608
+            },
+            "count": 12,
+            "cost": 864000,
+            "volume": 0.110292,
+            "bonus": 6,
+            "discount": 0,
+            "price_type_name": "PERECHISLENIYE",
+            "status": {
+              "id": 4,
+              "name": "Отгружен",
+              "hex_color": "#FF8901"
+            },
+            "agent_name": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26",
+            "agent_code": "MONNOQSH04",
+            "days": "Вт",
+            "expeditor_name": "QSH-PARDAYEV OTABEK",
+            "territory_path": [
+              {
+                "key": 1,
+                "value": "SOUTH-WEST"
+              },
+              {
+                "key": 2,
+                "value": "QASHQADARYO VILOYATI"
+              },
+              {
+                "key": 3,
+                "value": "MUBORAK"
+              }
+            ],
+            "for_consignation": true,
+            "consignation_term": "2026-06-29T19:00:00Z",
+            "balance": -12606000,
+            "balance_code": "UZS",
+            "debt": 0,
+            "comment": null,
+            "cumulative_bonus": 0,
+            "note_type_name": null,
+            "sales_channel_name": "TRAD TRADE",
+            "type": {
+              "id": 1,
+              "name": "Заказ"
+            },
+            "trade_direction_name": "MONNO",
+            "warehouse_name": "Qarshi Sklad",
+            "created_by": {
+              "name": "MONNOQSH04 - [XAYRULLAYEVA NAFISA] 04/02/26",
+              "role_name": "Агент"
+            },
+            "show_partial_return": true,
+            "has_partial_return": false,
+            "is_partially_return_approved": false,
+            "invoice_types": [
+              2
+            ],
+            "source_order": null,
+            "id": "33bc5fbc-c4ba-4004-b70e-03554f6249cf"
+          }
+        }
+      ],
+      "orderLookupStatus": "ok",
+      "orderLookupScope": "all_agent_id_arr",
+      "orderLookupError": "",
+      "photos": [
+        {
+          "page": 1,
+          "row": 1,
+          "category": "C",
+          "client": "DILSHODBEK MARKET (DILSHODBEK BOTIRBEK MCHJ)",
+          "clientOrderSum": 864000,
+          "clientOrderCount": 1,
+          "clientHasOrder": true,
+          "clientOrderKnown": true,
+          "clientOrderSource": "zayavki",
+          "clientOrderStatuses": [
+            "Отгружен"
+          ],
+          "clientId": "pf_8831",
+          "photoCategory": "Лалаку полка (Факат лалаку полкаси расми)",
+          "territory": "MUBORAK",
+          "photoTime": "2026-06-21T04:40:57.156115Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/6c4db4c9-16e4-4a90-9421-37b7b90682d0/15086a84867d4ec9be1217c9a13bdb4e.jpg"
+          ]
+        }
+      ],
+      "actualUrls": 1,
+      "countOk": true,
+      "status": "ok",
+      "source": "api"
+    },
+    {
+      "index": 105,
+      "agentId": "e4ba0ce7-f785-4cc4-8337-2bf3b683e5c1",
+      "code": "MONNOQSH05",
+      "name": "MONNOQSH05 - [YAQUBOVA MUHAYYO] 02/04/26",
+      "agent": "MONNOQSH05 - [YAQUBOVA MUHAYYO] 02/04/26",
+      "rowText": "MONNOQSH05 - [YAQUBOVA MUHAYYO] 02/04/26 MONNOQSH05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e4ba0ce7-f785-4cc4-8337-2bf3b683e5c1",
+          "name": "MONNOQSH05 - [YAQUBOVA MUHAYYO] 02/04/26"
+        },
+        "agent_code": "MONNOQSH05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 5,
+      "agentId": "08af031d-12d9-4088-88b2-82f40a846498",
+      "code": "MONNOQSH06",
+      "name": "MONNOQSH06 - [ISAMOVA MOXINUR] 02/02/26",
+      "agent": "MONNOQSH06 - [ISAMOVA MOXINUR] 02/02/26",
+      "rowText": "MONNOQSH06 - [ISAMOVA MOXINUR] 02/02/26 MONNOQSH06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "08af031d-12d9-4088-88b2-82f40a846498",
+          "name": "MONNOQSH06 - [ISAMOVA MOXINUR] 02/02/26"
+        },
+        "agent_code": "MONNOQSH06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 72,
+      "agentId": "896a122b-2aa0-418a-9ae2-b72e2a259e30",
+      "code": "MONNOSHZ01",
+      "name": "MONNOSHZ01 - [ABDURAHMONOVA MOHINUR] 15/05/26",
+      "agent": "MONNOSHZ01 - [ABDURAHMONOVA MOHINUR] 15/05/26",
+      "rowText": "MONNOSHZ01 - [ABDURAHMONOVA MOHINUR] 15/05/26 MONNOSHZ01",
+      "orderSum": 0,
+      "tt": 1,
+      "expectedPhotos": 1,
+      "photoText": "1 T.T. (1 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "896a122b-2aa0-418a-9ae2-b72e2a259e30",
+          "name": "MONNOSHZ01 - [ABDURAHMONOVA MOHINUR] 15/05/26"
+        },
+        "agent_code": "MONNOSHZ01",
+        "uploaded_photo_report_count": 1,
+        "photo_report_uploaded_client_count": 1,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/14f65e59-c54e-45f0-91e8-ddcb872969ee/744765b0ee104a49bfd8fb4629747df5.jpg"
+      ],
+      "clients": [
+        {
+          "apiId": "14f65e59-c54e-45f0-91e8-ddcb872969ee",
+          "visualId": "8n_1807",
+          "name": "AROMA PARFUM",
+          "orderSum": 0,
+          "category": "D",
+          "territory": "KITOB",
+          "photoCategory": "Ёпик докон расми"
+        }
+      ],
+      "orders": [],
+      "orderLookupStatus": "empty",
+      "orderLookupScope": "all_agent_id_arr",
+      "orderLookupError": "",
+      "photos": [
+        {
+          "page": 1,
+          "row": 1,
+          "category": "D",
+          "client": "AROMA PARFUM (KUVANOVA XURRAM)",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "8n_1807",
+          "photoCategory": "Ёпик докон расми",
+          "territory": "KITOB",
+          "photoTime": "2026-06-21T13:46:23.033159Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/14f65e59-c54e-45f0-91e8-ddcb872969ee/744765b0ee104a49bfd8fb4629747df5.jpg"
+          ]
+        }
+      ],
+      "actualUrls": 1,
+      "countOk": true,
+      "status": "ok",
+      "source": "api"
+    },
+    {
+      "index": 45,
+      "agentId": "559fce0e-3a17-4743-b2ee-3f0a9de2750f",
+      "code": "MONNOSHZ02",
+      "name": "MONNOSHZ02 - [TEMIROVA MAFTUNA] 04/01/26",
+      "agent": "MONNOSHZ02 - [TEMIROVA MAFTUNA] 04/01/26",
+      "rowText": "MONNOSHZ02 - [TEMIROVA MAFTUNA] 04/01/26 MONNOSHZ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "559fce0e-3a17-4743-b2ee-3f0a9de2750f",
+          "name": "MONNOSHZ02 - [TEMIROVA MAFTUNA] 04/01/26"
+        },
+        "agent_code": "MONNOSHZ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 18,
+      "agentId": "26043431-1bf9-4e6e-b056-1e37988e8172",
+      "code": "MONNOSHZ03",
+      "name": "MONNOSHZ03 - [OBIDOVA ZARNIGOR] 02/06/26",
+      "agent": "MONNOSHZ03 - [OBIDOVA ZARNIGOR] 02/06/26",
+      "rowText": "MONNOSHZ03 - [OBIDOVA ZARNIGOR] 02/06/26 MONNOSHZ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "26043431-1bf9-4e6e-b056-1e37988e8172",
+          "name": "MONNOSHZ03 - [OBIDOVA ZARNIGOR] 02/06/26"
+        },
+        "agent_code": "MONNOSHZ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 112,
+      "agentId": "f2565f3c-5419-4843-9c7f-5779e4f7270a",
+      "code": "MONNOSM01",
+      "name": "MONNOSM01 - [ISABEKOV AMIR]",
+      "agent": "MONNOSM01 - [ISABEKOV AMIR]",
+      "rowText": "MONNOSM01 - [ISABEKOV AMIR] MONNOSM01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f2565f3c-5419-4843-9c7f-5779e4f7270a",
+          "name": "MONNOSM01 - [ISABEKOV AMIR]"
+        },
+        "agent_code": "MONNOSM01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 54,
+      "agentId": "62474975-ecb5-4aec-9cda-a62026d99045",
+      "code": "MONNOSM02",
+      "name": "MONNOSM02 - [ABDUHAMIDOV SARDOR] 02/03/26",
+      "agent": "MONNOSM02 - [ABDUHAMIDOV SARDOR] 02/03/26",
+      "rowText": "MONNOSM02 - [ABDUHAMIDOV SARDOR] 02/03/26 MONNOSM02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "62474975-ecb5-4aec-9cda-a62026d99045",
+          "name": "MONNOSM02 - [ABDUHAMIDOV SARDOR] 02/03/26"
+        },
+        "agent_code": "MONNOSM02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 52,
+      "agentId": "5a91b2ac-9f05-4e14-8d3c-e5dbdec84477",
+      "code": "MONNOSM03",
+      "name": "MONNOSM03 - [NARZIYEV BURXONXON] 02/03/26",
+      "agent": "MONNOSM03 - [NARZIYEV BURXONXON] 02/03/26",
+      "rowText": "MONNOSM03 - [NARZIYEV BURXONXON] 02/03/26 MONNOSM03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5a91b2ac-9f05-4e14-8d3c-e5dbdec84477",
+          "name": "MONNOSM03 - [NARZIYEV BURXONXON] 02/03/26"
+        },
+        "agent_code": "MONNOSM03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 82,
+      "agentId": "a563e8fb-a7a7-4917-8cb3-4e81a5b65e00",
+      "code": "MONNOSM04",
+      "name": "MONNOSM04 - [ALEKSANYAN SIMON] 02/03/26",
+      "agent": "MONNOSM04 - [ALEKSANYAN SIMON] 02/03/26",
+      "rowText": "MONNOSM04 - [ALEKSANYAN SIMON] 02/03/26 MONNOSM04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a563e8fb-a7a7-4917-8cb3-4e81a5b65e00",
+          "name": "MONNOSM04 - [ALEKSANYAN SIMON] 02/03/26"
+        },
+        "agent_code": "MONNOSM04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 117,
+      "agentId": "ff998de2-7782-4166-b1a0-a0159921585d",
+      "code": "MONNOSM05",
+      "name": "MONNOSM05 - [BAGIROV BEGZOD] 06/06/26",
+      "agent": "MONNOSM05 - [BAGIROV BEGZOD] 06/06/26",
+      "rowText": "MONNOSM05 - [BAGIROV BEGZOD] 06/06/26 MONNOSM05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ff998de2-7782-4166-b1a0-a0159921585d",
+          "name": "MONNOSM05 - [BAGIROV BEGZOD] 06/06/26"
+        },
+        "agent_code": "MONNOSM05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 61,
+      "agentId": "740f2b86-36b4-459e-a681-641e3e06f4ca",
+      "code": "MONNOSM06",
+      "name": "MONNOSM06 - [ILINA NINA] 13/05/26",
+      "agent": "MONNOSM06 - [ILINA NINA] 13/05/26",
+      "rowText": "MONNOSM06 - [ILINA NINA] 13/05/26 MONNOSM06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "740f2b86-36b4-459e-a681-641e3e06f4ca",
+          "name": "MONNOSM06 - [ILINA NINA] 13/05/26"
+        },
+        "agent_code": "MONNOSM06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 14,
+      "agentId": "1eb49cba-2b64-4a11-adb3-eb30633b9ff8",
+      "code": "MONNOSM07",
+      "name": "MONNOSM07 - [XAMIDOV AKMAL] 03/06/26",
+      "agent": "MONNOSM07 - [XAMIDOV AKMAL] 03/06/26",
+      "rowText": "MONNOSM07 - [XAMIDOV AKMAL] 03/06/26 MONNOSM07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1eb49cba-2b64-4a11-adb3-eb30633b9ff8",
+          "name": "MONNOSM07 - [XAMIDOV AKMAL] 03/06/26"
+        },
+        "agent_code": "MONNOSM07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 97,
+      "agentId": "cdceb3f0-a730-4e07-b7a8-d5d6d4bf1c5d",
+      "code": "MONNOSM08",
+      "name": "MONNOSM08 - [IBRAGIMOV KOZIM] 18/05/26",
+      "agent": "MONNOSM08 - [IBRAGIMOV KOZIM] 18/05/26",
+      "rowText": "MONNOSM08 - [IBRAGIMOV KOZIM] 18/05/26 MONNOSM08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cdceb3f0-a730-4e07-b7a8-d5d6d4bf1c5d",
+          "name": "MONNOSM08 - [IBRAGIMOV KOZIM] 18/05/26"
+        },
+        "agent_code": "MONNOSM08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 88,
+      "agentId": "b4b15935-6574-4c22-a789-e8473dea0be6",
+      "code": "MONNOTB01",
+      "name": "MONNOTB01 - [ABDURAUPOV ABDUXOFIZ] 03/02/26",
+      "agent": "MONNOTB01 - [ABDURAUPOV ABDUXOFIZ] 03/02/26",
+      "rowText": "MONNOTB01 - [ABDURAUPOV ABDUXOFIZ] 03/02/26 MONNOTB01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b4b15935-6574-4c22-a789-e8473dea0be6",
+          "name": "MONNOTB01 - [ABDURAUPOV ABDUXOFIZ] 03/02/26"
+        },
+        "agent_code": "MONNOTB01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 3,
+      "agentId": "04fb5ebe-e655-46d7-a0ff-2f090e84027c",
+      "code": "MONNOTB02",
+      "name": "MONNOTB02 - [YUNUSOVA DILOROM] (DILLER) 09/06/26",
+      "agent": "MONNOTB02 - [YUNUSOVA DILOROM] (DILLER) 09/06/26",
+      "rowText": "MONNOTB02 - [YUNUSOVA DILOROM] (DILLER) 09/06/26 MONNOTB02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "04fb5ebe-e655-46d7-a0ff-2f090e84027c",
+          "name": "MONNOTB02 - [YUNUSOVA DILOROM] (DILLER) 09/06/26"
+        },
+        "agent_code": "MONNOTB02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 6,
+      "agentId": "0a791c05-2b7e-4d0b-8a14-15b179a6ca6f",
+      "code": "MONNOTB03",
+      "name": "MONNOTB03 [ABDURAUPOVA MUNISA] 02/03/26",
+      "agent": "MONNOTB03 [ABDURAUPOVA MUNISA] 02/03/26",
+      "rowText": "MONNOTB03 [ABDURAUPOVA MUNISA] 02/03/26 MONNOTB03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0a791c05-2b7e-4d0b-8a14-15b179a6ca6f",
+          "name": "MONNOTB03 [ABDURAUPOVA MUNISA] 02/03/26"
+        },
+        "agent_code": "MONNOTB03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 60,
+      "agentId": "709cc7d7-6ec2-4778-ae1f-4397a9860960",
+      "code": "MONNOTO01",
+      "name": "MONNOTO01 - [AXMEDOVA MAHLIYO] (ANGREN) OMQ 06/06/26",
+      "agent": "MONNOTO01 - [AXMEDOVA MAHLIYO] (ANGREN) OMQ 06/06/26",
+      "rowText": "MONNOTO01 - [AXMEDOVA MAHLIYO] (ANGREN) OMQ 06/06/26 MONNOTO01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "709cc7d7-6ec2-4778-ae1f-4397a9860960",
+          "name": "MONNOTO01 - [AXMEDOVA MAHLIYO] (ANGREN) OMQ 06/06/26"
+        },
+        "agent_code": "MONNOTO01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 63,
+      "agentId": "7685795c-9116-4841-a146-2d6b0a5930c3",
+      "code": "MONNOTO02",
+      "name": "MONNOTO02 - [AVAZXONOVA SHAXRIZODA] (OGANGARON) OMQ 01/04/26",
+      "agent": "MONNOTO02 - [AVAZXONOVA SHAXRIZODA] (OGANGARON) OMQ 01/04/26",
+      "rowText": "MONNOTO02 - [AVAZXONOVA SHAXRIZODA] (OGANGARON) OMQ 01/04/26 MONNOTO02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "7685795c-9116-4841-a146-2d6b0a5930c3",
+          "name": "MONNOTO02 - [AVAZXONOVA SHAXRIZODA] (OGANGARON) OMQ 01/04/26"
+        },
+        "agent_code": "MONNOTO02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 96,
+      "agentId": "cd8ec354-c208-45af-ad07-87328aab07d8",
+      "code": "MONNOTO03",
+      "name": "MONNOTO03 - [ASHIMOVA SHOXISTA] (OLMALIQ) OMQ 02/02/26",
+      "agent": "MONNOTO03 - [ASHIMOVA SHOXISTA] (OLMALIQ) OMQ 02/02/26",
+      "rowText": "MONNOTO03 - [ASHIMOVA SHOXISTA] (OLMALIQ) OMQ 02/02/26 MONNOTO03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cd8ec354-c208-45af-ad07-87328aab07d8",
+          "name": "MONNOTO03 - [ASHIMOVA SHOXISTA] (OLMALIQ) OMQ 02/02/26"
+        },
+        "agent_code": "MONNOTO03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 47,
+      "agentId": "56416e85-b660-43ac-8d73-9109dac07f4b",
+      "code": "MONNOTO04",
+      "name": "MONNOTO04 - [JALILOV HUSAN] (BO'KA, PISKENT, TO'YTEPA) OMQ 02/02/26",
+      "agent": "MONNOTO04 - [JALILOV HUSAN] (BO'KA, PISKENT, TO'YTEPA) OMQ 02/02/26",
+      "rowText": "MONNOTO04 - [JALILOV HUSAN] (BO'KA, PISKENT, TO'YTEPA) OMQ 02/02/26 MONNOTO04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "56416e85-b660-43ac-8d73-9109dac07f4b",
+          "name": "MONNOTO04 - [JALILOV HUSAN] (BO'KA, PISKENT, TO'YTEPA) OMQ 02/02/26"
+        },
+        "agent_code": "MONNOTO04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 32,
+      "agentId": "44201891-16a1-4186-a2df-ad5596a02109",
+      "code": "MONNOTO05",
+      "name": "MONNOTO05 - [NARXOZIYEVA NAVBAHOR] (OQQO'RG'ON, QUYI CHIRCHIQ) OMQ 02/02/26",
+      "agent": "MONNOTO05 - [NARXOZIYEVA NAVBAHOR] (OQQO'RG'ON, QUYI CHIRCHIQ) OMQ 02/02/26",
+      "rowText": "MONNOTO05 - [NARXOZIYEVA NAVBAHOR] (OQQO'RG'ON, QUYI CHIRCHIQ) OMQ 02/02/26 MONNOTO05",
+      "orderSum": 0,
+      "tt": 1,
+      "expectedPhotos": 1,
+      "photoText": "1 T.T. (1 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "44201891-16a1-4186-a2df-ad5596a02109",
+          "name": "MONNOTO05 - [NARXOZIYEVA NAVBAHOR] (OQQO'RG'ON, QUYI CHIRCHIQ) OMQ 02/02/26"
+        },
+        "agent_code": "MONNOTO05",
+        "uploaded_photo_report_count": 1,
+        "photo_report_uploaded_client_count": 1,
+        "order_count": 0,
+        "cencelled_order_count": 1,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [
+        "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/a9b8e32f-1b3f-49bf-8d58-b5cc72a13daf/3e23d8b62a404927be7cda7f15f76ada.jpg"
+      ],
+      "clients": [
+        {
+          "apiId": "a9b8e32f-1b3f-49bf-8d58-b5cc72a13daf",
+          "visualId": "z1_7481",
+          "name": "KARIMOV DONIYOR BARATBAYEVICH",
+          "orderSum": 0,
+          "category": "C",
+          "territory": "QUYI CHIRCHIK",
+          "photoCategory": "Буш полка"
+        }
+      ],
+      "orders": [],
+      "orderLookupStatus": "empty",
+      "orderLookupScope": "all_agent_id_arr",
+      "orderLookupError": "",
+      "photos": [
+        {
+          "page": 1,
+          "row": 1,
+          "category": "C",
+          "client": "KARIMOV DONIYOR BARATBAYEVICH",
+          "clientOrderSum": 0,
+          "clientOrderCount": 0,
+          "clientHasOrder": false,
+          "clientOrderKnown": true,
+          "clientOrderSource": "",
+          "clientOrderStatuses": [],
+          "clientId": "z1_7481",
+          "photoCategory": "Буш полка",
+          "territory": "QUYI CHIRCHIK",
+          "photoTime": "2026-06-21T12:19:35.290443Z",
+          "urls": [
+            "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/a9b8e32f-1b3f-49bf-8d58-b5cc72a13daf/3e23d8b62a404927be7cda7f15f76ada.jpg"
+          ]
+        }
+      ],
+      "actualUrls": 1,
+      "countOk": true,
+      "status": "ok",
+      "source": "api"
+    },
+    {
+      "index": 22,
+      "agentId": "2bd56cc8-a85b-4f73-844a-14f4210cec3e",
+      "code": "MONNOTO06",
+      "name": "MONNOTO06 [MUJDABAYEVA SAULE] (YANGI YUL TUMANI) SRG 02/03/26",
+      "agent": "MONNOTO06 [MUJDABAYEVA SAULE] (YANGI YUL TUMANI) SRG 02/03/26",
+      "rowText": "MONNOTO06 [MUJDABAYEVA SAULE] (YANGI YUL TUMANI) SRG 02/03/26 MONNOTO06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2bd56cc8-a85b-4f73-844a-14f4210cec3e",
+          "name": "MONNOTO06 [MUJDABAYEVA SAULE] (YANGI YUL TUMANI) SRG 02/03/26"
+        },
+        "agent_code": "MONNOTO06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 30,
+        "rejected_visits_count": 0,
+        "unvisited_count": 30,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 92,
+      "agentId": "bfaeeab5-62ab-41a4-ab7f-f75dc36bb34c",
+      "code": "MONNOTO07",
+      "name": "MONNOTO07 [MURATOVA SHAXNOZA] (ZANGIOTA TUMANI) SRG 02/03/26",
+      "agent": "MONNOTO07 [MURATOVA SHAXNOZA] (ZANGIOTA TUMANI) SRG 02/03/26",
+      "rowText": "MONNOTO07 [MURATOVA SHAXNOZA] (ZANGIOTA TUMANI) SRG 02/03/26 MONNOTO07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "bfaeeab5-62ab-41a4-ab7f-f75dc36bb34c",
+          "name": "MONNOTO07 [MURATOVA SHAXNOZA] (ZANGIOTA TUMANI) SRG 02/03/26"
+        },
+        "agent_code": "MONNOTO07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 81,
+      "agentId": "a55ffa3b-5581-4f13-8e3d-80158db672c1",
+      "code": "MONNOTO08",
+      "name": "MONNOTO08 [XOLDOROV SARVAR] (PARKENT TUMANI) SRG 02/03/26",
+      "agent": "MONNOTO08 [XOLDOROV SARVAR] (PARKENT TUMANI) SRG 02/03/26",
+      "rowText": "MONNOTO08 [XOLDOROV SARVAR] (PARKENT TUMANI) SRG 02/03/26 MONNOTO08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a55ffa3b-5581-4f13-8e3d-80158db672c1",
+          "name": "MONNOTO08 [XOLDOROV SARVAR] (PARKENT TUMANI) SRG 02/03/26"
+        },
+        "agent_code": "MONNOTO08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 41,
+        "rejected_visits_count": 0,
+        "unvisited_count": 41,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 83,
+      "agentId": "a6a4c398-9865-4b33-b314-483f187e584c",
+      "code": "MONNOTO09",
+      "name": "MONNOTO09 [IBROXIMOV ISLOMBEK] (O'RTA-CHIRCHIQ TUMANI) SRG 02/03/26",
+      "agent": "MONNOTO09 [IBROXIMOV ISLOMBEK] (O'RTA-CHIRCHIQ TUMANI) SRG 02/03/26",
+      "rowText": "MONNOTO09 [IBROXIMOV ISLOMBEK] (O'RTA-CHIRCHIQ TUMANI) SRG 02/03/26 MONNOTO09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a6a4c398-9865-4b33-b314-483f187e584c",
+          "name": "MONNOTO09 [IBROXIMOV ISLOMBEK] (O'RTA-CHIRCHIQ TUMANI) SRG 02/03/26"
+        },
+        "agent_code": "MONNOTO09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 31,
+      "agentId": "42ac7f46-17fa-44c8-951a-925de5f5c1fe",
+      "code": "MONNOTO10",
+      "name": "MONNOTO10 [DJURAYEV NOSIR] (TOSHKENT TUMANI) YND 01/04/26",
+      "agent": "MONNOTO10 [DJURAYEV NOSIR] (TOSHKENT TUMANI) YND 01/04/26",
+      "rowText": "MONNOTO10 [DJURAYEV NOSIR] (TOSHKENT TUMANI) YND 01/04/26 MONNOTO10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "42ac7f46-17fa-44c8-951a-925de5f5c1fe",
+          "name": "MONNOTO10 [DJURAYEV NOSIR] (TOSHKENT TUMANI) YND 01/04/26"
+        },
+        "agent_code": "MONNOTO10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 62,
+      "agentId": "76234474-0b20-4184-a978-ba58b7a1af51",
+      "code": "MONNOTO11",
+      "name": "MONNOTO11 [POLATOVA MADINA] (G'AZALKENT CHIRCHIQ) YND 02/03/26",
+      "agent": "MONNOTO11 [POLATOVA MADINA] (G'AZALKENT CHIRCHIQ) YND 02/03/26",
+      "rowText": "MONNOTO11 [POLATOVA MADINA] (G'AZALKENT CHIRCHIQ) YND 02/03/26 MONNOTO11",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "76234474-0b20-4184-a978-ba58b7a1af51",
+          "name": "MONNOTO11 [POLATOVA MADINA] (G'AZALKENT CHIRCHIQ) YND 02/03/26"
+        },
+        "agent_code": "MONNOTO11",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 85,
+      "agentId": "ad8f6235-ec51-491a-b1ea-2ce482cd521a",
+      "code": "MONNOTO12",
+      "name": "MONNOTO12 [MIRALIMOVA SABINA] (CHIRCHIQ) YND 02/03/26",
+      "agent": "MONNOTO12 [MIRALIMOVA SABINA] (CHIRCHIQ) YND 02/03/26",
+      "rowText": "MONNOTO12 [MIRALIMOVA SABINA] (CHIRCHIQ) YND 02/03/26 MONNOTO12",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ad8f6235-ec51-491a-b1ea-2ce482cd521a",
+          "name": "MONNOTO12 [MIRALIMOVA SABINA] (CHIRCHIQ) YND 02/03/26"
+        },
+        "agent_code": "MONNOTO12",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 51,
+      "agentId": "59fa7309-1629-4bc3-956a-55edb0643119",
+      "code": "MONNOTO13",
+      "name": "MONNOTO13 [KARIMOVA MADINA] (QIBRAY) YND 02/03/26",
+      "agent": "MONNOTO13 [KARIMOVA MADINA] (QIBRAY) YND 02/03/26",
+      "rowText": "MONNOTO13 [KARIMOVA MADINA] (QIBRAY) YND 02/03/26 MONNOTO13",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "59fa7309-1629-4bc3-956a-55edb0643119",
+          "name": "MONNOTO13 [KARIMOVA MADINA] (QIBRAY) YND 02/03/26"
+        },
+        "agent_code": "MONNOTO13",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 100,
+      "agentId": "d557d90f-b9c1-4fab-81e3-4578d0622e86",
+      "code": "MONNOTOP01",
+      "name": "MONNOTOP01 [VAKANT]",
+      "agent": "MONNOTOP01 [VAKANT]",
+      "rowText": "MONNOTOP01 [VAKANT] MONNOTOP01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d557d90f-b9c1-4fab-81e3-4578d0622e86",
+          "name": "MONNOTOP01 [VAKANT]"
+        },
+        "agent_code": "MONNOTOP01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 34,
+      "agentId": "4829500a-f8fa-4717-9b3d-ad789967c727",
+      "code": "MONNOTR01",
+      "name": "MONNOTR01 - [SARIBAYEV ILHOM] 06/01/26",
+      "agent": "MONNOTR01 - [SARIBAYEV ILHOM] 06/01/26",
+      "rowText": "MONNOTR01 - [SARIBAYEV ILHOM] 06/01/26 MONNOTR01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4829500a-f8fa-4717-9b3d-ad789967c727",
+          "name": "MONNOTR01 - [SARIBAYEV ILHOM] 06/01/26"
+        },
+        "agent_code": "MONNOTR01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 64,
+      "agentId": "776d4ad8-3c62-41c5-b07e-13f117a7992d",
+      "code": "MONNOTR02",
+      "name": "MONNOTR02 - [ANNAYEVA UROLOY] 17/03/26",
+      "agent": "MONNOTR02 - [ANNAYEVA UROLOY] 17/03/26",
+      "rowText": "MONNOTR02 - [ANNAYEVA UROLOY] 17/03/26 MONNOTR02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "776d4ad8-3c62-41c5-b07e-13f117a7992d",
+          "name": "MONNOTR02 - [ANNAYEVA UROLOY] 17/03/26"
+        },
+        "agent_code": "MONNOTR02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 41,
+      "agentId": "517f9d6f-8409-4c14-88a3-4469fc973d13",
+      "code": "MONNOTR03",
+      "name": "MONNOTR03 - [ABDINAZAROV HUSNIDDIN] (D) 08/06/26",
+      "agent": "MONNOTR03 - [ABDINAZAROV HUSNIDDIN] (D) 08/06/26",
+      "rowText": "MONNOTR03 - [ABDINAZAROV HUSNIDDIN] (D) 08/06/26 MONNOTR03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "517f9d6f-8409-4c14-88a3-4469fc973d13",
+          "name": "MONNOTR03 - [ABDINAZAROV HUSNIDDIN] (D) 08/06/26"
+        },
+        "agent_code": "MONNOTR03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 77,
+      "agentId": "91577ffb-23f3-4271-8a9f-97bf93e565a8",
+      "code": "MONNOTR04",
+      "name": "MONNOTR04 - [YUNUSALIYEV JAHONGIR] (D) 07/01/26",
+      "agent": "MONNOTR04 - [YUNUSALIYEV JAHONGIR] (D) 07/01/26",
+      "rowText": "MONNOTR04 - [YUNUSALIYEV JAHONGIR] (D) 07/01/26 MONNOTR04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "91577ffb-23f3-4271-8a9f-97bf93e565a8",
+          "name": "MONNOTR04 - [YUNUSALIYEV JAHONGIR] (D) 07/01/26"
+        },
+        "agent_code": "MONNOTR04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 57,
+      "agentId": "6b42ffea-972a-4e20-a091-a09fb4931db5",
+      "code": "MONNOTR05",
+      "name": "MONNOTR05 [ALIQULOVA MUSLIMA] 06/03/26",
+      "agent": "MONNOTR05 [ALIQULOVA MUSLIMA] 06/03/26",
+      "rowText": "MONNOTR05 [ALIQULOVA MUSLIMA] 06/03/26 MONNOTR05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "6b42ffea-972a-4e20-a091-a09fb4931db5",
+          "name": "MONNOTR05 [ALIQULOVA MUSLIMA] 06/03/26"
+        },
+        "agent_code": "MONNOTR05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 1,
+      "agentId": "02e52f95-632c-45d2-810a-476bcc1f0453",
+      "code": "MONNOTR06",
+      "name": "MONNOTR06 [USMONOV ILXOM] 06/03/26",
+      "agent": "MONNOTR06 [USMONOV ILXOM] 06/03/26",
+      "rowText": "MONNOTR06 [USMONOV ILXOM] 06/03/26 MONNOTR06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "02e52f95-632c-45d2-810a-476bcc1f0453",
+          "name": "MONNOTR06 [USMONOV ILXOM] 06/03/26"
+        },
+        "agent_code": "MONNOTR06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 35,
+      "agentId": "48b38869-134a-425f-b974-e029fc956ea9",
+      "code": "MONNOTR07",
+      "name": "MONNOTR07 [KHUSHBOQOV SHAKHZOD] 18/03/26",
+      "agent": "MONNOTR07 [KHUSHBOQOV SHAKHZOD] 18/03/26",
+      "rowText": "MONNOTR07 [KHUSHBOQOV SHAKHZOD] 18/03/26 MONNOTR07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "48b38869-134a-425f-b974-e029fc956ea9",
+          "name": "MONNOTR07 [KHUSHBOQOV SHAKHZOD] 18/03/26"
+        },
+        "agent_code": "MONNOTR07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 91,
+      "agentId": "bec61ac1-e770-44ee-8aab-352dc91874a6",
+      "code": "MONNOTSH01",
+      "name": "MONNOTSH01 [JORAYEV BOBIRJON] (UCHTEPA-1) SRG 03/06/26",
+      "agent": "MONNOTSH01 [JORAYEV BOBIRJON] (UCHTEPA-1) SRG 03/06/26",
+      "rowText": "MONNOTSH01 [JORAYEV BOBIRJON] (UCHTEPA-1) SRG 03/06/26 MONNOTSH01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "bec61ac1-e770-44ee-8aab-352dc91874a6",
+          "name": "MONNOTSH01 [JORAYEV BOBIRJON] (UCHTEPA-1) SRG 03/06/26"
+        },
+        "agent_code": "MONNOTSH01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 10,
+      "agentId": "0d7bbd66-12a2-4ff5-9fb5-f4be94945d87",
+      "code": "MONNOTSH02",
+      "name": "MONNOTSH02 [MUXAMADJANOVA NILUFAR] (UCHTEPA-2) SRG 02/06/26",
+      "agent": "MONNOTSH02 [MUXAMADJANOVA NILUFAR] (UCHTEPA-2) SRG 02/06/26",
+      "rowText": "MONNOTSH02 [MUXAMADJANOVA NILUFAR] (UCHTEPA-2) SRG 02/06/26 MONNOTSH02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0d7bbd66-12a2-4ff5-9fb5-f4be94945d87",
+          "name": "MONNOTSH02 [MUXAMADJANOVA NILUFAR] (UCHTEPA-2) SRG 02/06/26"
+        },
+        "agent_code": "MONNOTSH02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 110,
+      "agentId": "f094fec8-42dd-4fef-b8c9-1019f8e0250c",
+      "code": "MONNOTSH03",
+      "name": "MONNOTSH03 [AXMEDOV BEHZOD] (SERGELI) SRG 02/03/26",
+      "agent": "MONNOTSH03 [AXMEDOV BEHZOD] (SERGELI) SRG 02/03/26",
+      "rowText": "MONNOTSH03 [AXMEDOV BEHZOD] (SERGELI) SRG 02/03/26 MONNOTSH03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f094fec8-42dd-4fef-b8c9-1019f8e0250c",
+          "name": "MONNOTSH03 [AXMEDOV BEHZOD] (SERGELI) SRG 02/03/26"
+        },
+        "agent_code": "MONNOTSH03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 75,
+      "agentId": "901c8f66-d050-404b-9eb5-127dfec2a5a3",
+      "code": "MONNOTSH04",
+      "name": "MONNOTSH04 [YOQUBOV SHERMUHAMMAD] (YANGI HAYOT) SRG 09.06.26",
+      "agent": "MONNOTSH04 [YOQUBOV SHERMUHAMMAD] (YANGI HAYOT) SRG 09.06.26",
+      "rowText": "MONNOTSH04 [YOQUBOV SHERMUHAMMAD] (YANGI HAYOT) SRG 09.06.26 MONNOTSH04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "901c8f66-d050-404b-9eb5-127dfec2a5a3",
+          "name": "MONNOTSH04 [YOQUBOV SHERMUHAMMAD] (YANGI HAYOT) SRG 09.06.26"
+        },
+        "agent_code": "MONNOTSH04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 58,
+      "agentId": "6cf865ee-a192-4eee-9f04-f226db377472",
+      "code": "MONNOTSH05",
+      "name": "MONNOTSH05 [XUSANOVA NURIYA] (CHILONZOR-1) SRG 04/05/26",
+      "agent": "MONNOTSH05 [XUSANOVA NURIYA] (CHILONZOR-1) SRG 04/05/26",
+      "rowText": "MONNOTSH05 [XUSANOVA NURIYA] (CHILONZOR-1) SRG 04/05/26 MONNOTSH05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "6cf865ee-a192-4eee-9f04-f226db377472",
+          "name": "MONNOTSH05 [XUSANOVA NURIYA] (CHILONZOR-1) SRG 04/05/26"
+        },
+        "agent_code": "MONNOTSH05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 31,
+        "rejected_visits_count": 0,
+        "unvisited_count": 31,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 76,
+      "agentId": "90b5b955-c3aa-42eb-850c-2d487e18c3db",
+      "code": "MONNOTSH06",
+      "name": "MONNOTSH06 [MIRZAYEVA SHAHLO] (CHILONZOR-2) SRG 01/05/26",
+      "agent": "MONNOTSH06 [MIRZAYEVA SHAHLO] (CHILONZOR-2) SRG 01/05/26",
+      "rowText": "MONNOTSH06 [MIRZAYEVA SHAHLO] (CHILONZOR-2) SRG 01/05/26 MONNOTSH06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "90b5b955-c3aa-42eb-850c-2d487e18c3db",
+          "name": "MONNOTSH06 [MIRZAYEVA SHAHLO] (CHILONZOR-2) SRG 01/05/26"
+        },
+        "agent_code": "MONNOTSH06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 49,
+        "rejected_visits_count": 0,
+        "unvisited_count": 49,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 78,
+      "agentId": "91fd3ea2-1536-42c0-abca-a5ab5b8f8d80",
+      "code": "MONNOTSH07",
+      "name": "MONNOTSH07 [ALIMOV AZIZ] (YAKKASAROY TUMANI) SRG 04.05.26",
+      "agent": "MONNOTSH07 [ALIMOV AZIZ] (YAKKASAROY TUMANI) SRG 04.05.26",
+      "rowText": "MONNOTSH07 [ALIMOV AZIZ] (YAKKASAROY TUMANI) SRG 04.05.26 MONNOTSH07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "91fd3ea2-1536-42c0-abca-a5ab5b8f8d80",
+          "name": "MONNOTSH07 [ALIMOV AZIZ] (YAKKASAROY TUMANI) SRG 04.05.26"
+        },
+        "agent_code": "MONNOTSH07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 114,
+      "agentId": "f88993f3-62c9-45d7-9789-1e31ca505f4a",
+      "code": "MONNOTSH08",
+      "name": "MONNOTSH08 [ILXOMOV SHAXZOD] (MIRABOD TUMANI) SRG 01/04/26",
+      "agent": "MONNOTSH08 [ILXOMOV SHAXZOD] (MIRABOD TUMANI) SRG 01/04/26",
+      "rowText": "MONNOTSH08 [ILXOMOV SHAXZOD] (MIRABOD TUMANI) SRG 01/04/26 MONNOTSH08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f88993f3-62c9-45d7-9789-1e31ca505f4a",
+          "name": "MONNOTSH08 [ILXOMOV SHAXZOD] (MIRABOD TUMANI) SRG 01/04/26"
+        },
+        "agent_code": "MONNOTSH08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 35,
+        "rejected_visits_count": 0,
+        "unvisited_count": 35,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 15,
+      "agentId": "1fea3d8d-0b37-466f-8480-eaa9a5bcbccf",
+      "code": "MONNOTSH09",
+      "name": "MONNOTSH09 [XAITOVA MAFTUNA] (YASHNOBOD) YND 01/06/26",
+      "agent": "MONNOTSH09 [XAITOVA MAFTUNA] (YASHNOBOD) YND 01/06/26",
+      "rowText": "MONNOTSH09 [XAITOVA MAFTUNA] (YASHNOBOD) YND 01/06/26 MONNOTSH09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1fea3d8d-0b37-466f-8480-eaa9a5bcbccf",
+          "name": "MONNOTSH09 [XAITOVA MAFTUNA] (YASHNOBOD) YND 01/06/26"
+        },
+        "agent_code": "MONNOTSH09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 27,
+      "agentId": "3485ff2b-8057-4a8d-b713-85219fbcf0db",
+      "code": "MONNOTSH10",
+      "name": "MONNOTSH10 [VAKANT] (YUNUSOBOD-1) YND",
+      "agent": "MONNOTSH10 [VAKANT] (YUNUSOBOD-1) YND",
+      "rowText": "MONNOTSH10 [VAKANT] (YUNUSOBOD-1) YND MONNOTSH10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3485ff2b-8057-4a8d-b713-85219fbcf0db",
+          "name": "MONNOTSH10 [VAKANT] (YUNUSOBOD-1) YND"
+        },
+        "agent_code": "MONNOTSH10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 40,
+      "agentId": "50c53cfd-0ceb-4534-99d8-9c3584fb98c7",
+      "code": "MONNOTSH11",
+      "name": "MONNOTSH11 [VAXABOVA LOBAR] (YUNUSOBOD-2) YND 11/05/26",
+      "agent": "MONNOTSH11 [VAXABOVA LOBAR] (YUNUSOBOD-2) YND 11/05/26",
+      "rowText": "MONNOTSH11 [VAXABOVA LOBAR] (YUNUSOBOD-2) YND 11/05/26 MONNOTSH11",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "50c53cfd-0ceb-4534-99d8-9c3584fb98c7",
+          "name": "MONNOTSH11 [VAXABOVA LOBAR] (YUNUSOBOD-2) YND 11/05/26"
+        },
+        "agent_code": "MONNOTSH11",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 37,
+      "agentId": "4df89ee6-ede1-490c-8a76-a55439acb723",
+      "code": "MONNOTSH12",
+      "name": "MONNOTSH12 [MUXAMMEDOVA FERUZA] (OLMAZOR-1) YND 12/03/26",
+      "agent": "MONNOTSH12 [MUXAMMEDOVA FERUZA] (OLMAZOR-1) YND 12/03/26",
+      "rowText": "MONNOTSH12 [MUXAMMEDOVA FERUZA] (OLMAZOR-1) YND 12/03/26 MONNOTSH12",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4df89ee6-ede1-490c-8a76-a55439acb723",
+          "name": "MONNOTSH12 [MUXAMMEDOVA FERUZA] (OLMAZOR-1) YND 12/03/26"
+        },
+        "agent_code": "MONNOTSH12",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 107,
+      "agentId": "eb9734e0-537f-4c57-bb79-e01fb90286f2",
+      "code": "MONNOTSH13",
+      "name": "MONNOTSH13 [ESHNAZAROV OYBEK] (OLMAZOR-2) YND 25/05/26",
+      "agent": "MONNOTSH13 [ESHNAZAROV OYBEK] (OLMAZOR-2) YND 25/05/26",
+      "rowText": "MONNOTSH13 [ESHNAZAROV OYBEK] (OLMAZOR-2) YND 25/05/26 MONNOTSH13",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "eb9734e0-537f-4c57-bb79-e01fb90286f2",
+          "name": "MONNOTSH13 [ESHNAZAROV OYBEK] (OLMAZOR-2) YND 25/05/26"
+        },
+        "agent_code": "MONNOTSH13",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 21,
+      "agentId": "2a42feaf-e7b7-4d9b-9df6-21bce81b2606",
+      "code": "MONNOTSH14",
+      "name": "MONNOTSH14 [VAKANT] (SHAYXONTOHUR-1) YND",
+      "agent": "MONNOTSH14 [VAKANT] (SHAYXONTOHUR-1) YND",
+      "rowText": "MONNOTSH14 [VAKANT] (SHAYXONTOHUR-1) YND MONNOTSH14",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2a42feaf-e7b7-4d9b-9df6-21bce81b2606",
+          "name": "MONNOTSH14 [VAKANT] (SHAYXONTOHUR-1) YND"
+        },
+        "agent_code": "MONNOTSH14",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 28,
+      "agentId": "374ff3e4-6308-4966-87de-41d3f63dead4",
+      "code": "MONNOTSH15",
+      "name": "MONNOTSH15 [JAVKXAROVA KOMOLA] (SHAYXONTOHUR-2) YND 06/06/26",
+      "agent": "MONNOTSH15 [JAVKXAROVA KOMOLA] (SHAYXONTOHUR-2) YND 06/06/26",
+      "rowText": "MONNOTSH15 [JAVKXAROVA KOMOLA] (SHAYXONTOHUR-2) YND 06/06/26 MONNOTSH15",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "374ff3e4-6308-4966-87de-41d3f63dead4",
+          "name": "MONNOTSH15 [JAVKXAROVA KOMOLA] (SHAYXONTOHUR-2) YND 06/06/26"
+        },
+        "agent_code": "MONNOTSH15",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 48,
+      "agentId": "56626dfd-f10a-4d6b-814b-b95967c91a77",
+      "code": "MONNOTSH16",
+      "name": "MONNOTSH16 [YUSUPOVA NASIBA] (MIRZO ULUG'BEK-1) YND 02/03/26",
+      "agent": "MONNOTSH16 [YUSUPOVA NASIBA] (MIRZO ULUG'BEK-1) YND 02/03/26",
+      "rowText": "MONNOTSH16 [YUSUPOVA NASIBA] (MIRZO ULUG'BEK-1) YND 02/03/26 MONNOTSH16",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "56626dfd-f10a-4d6b-814b-b95967c91a77",
+          "name": "MONNOTSH16 [YUSUPOVA NASIBA] (MIRZO ULUG'BEK-1) YND 02/03/26"
+        },
+        "agent_code": "MONNOTSH16",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 109,
+      "agentId": "efdb9364-88ff-49fb-b8ba-07f3fc509717",
+      "code": "MONNOTSH17",
+      "name": "MONNOTSH17 [RAIMOVA RUSHANA] (MIRZO ULUG'BEK-2) YND 01/04/26",
+      "agent": "MONNOTSH17 [RAIMOVA RUSHANA] (MIRZO ULUG'BEK-2) YND 01/04/26",
+      "rowText": "MONNOTSH17 [RAIMOVA RUSHANA] (MIRZO ULUG'BEK-2) YND 01/04/26 MONNOTSH17",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "efdb9364-88ff-49fb-b8ba-07f3fc509717",
+          "name": "MONNOTSH17 [RAIMOVA RUSHANA] (MIRZO ULUG'BEK-2) YND 01/04/26"
+        },
+        "agent_code": "MONNOTSH17",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 38,
+      "agentId": "4fb8d2c2-6d98-4d85-a7a4-696b381add85",
+      "code": "MONNOTSH18",
+      "name": "MONNOTSH18 [QADENOVA AZIZA] (BEKTEMIR) YND 01/04/26",
+      "agent": "MONNOTSH18 [QADENOVA AZIZA] (BEKTEMIR) YND 01/04/26",
+      "rowText": "MONNOTSH18 [QADENOVA AZIZA] (BEKTEMIR) YND 01/04/26 MONNOTSH18",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4fb8d2c2-6d98-4d85-a7a4-696b381add85",
+          "name": "MONNOTSH18 [QADENOVA AZIZA] (BEKTEMIR) YND 01/04/26"
+        },
+        "agent_code": "MONNOTSH18",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 73,
+      "agentId": "8e25fa41-2bd6-44a2-af69-1847d7f243df",
+      "code": "MONNOXM01",
+      "name": "MONNOXM01 - [NURMETOV BEKZOD] 08/04/26",
+      "agent": "MONNOXM01 - [NURMETOV BEKZOD] 08/04/26",
+      "rowText": "MONNOXM01 - [NURMETOV BEKZOD] 08/04/26 MONNOXM01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8e25fa41-2bd6-44a2-af69-1847d7f243df",
+          "name": "MONNOXM01 - [NURMETOV BEKZOD] 08/04/26"
+        },
+        "agent_code": "MONNOXM01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 30,
+      "agentId": "3e5eb6e9-8511-431f-9596-8532ffcfb8f0",
+      "code": "MONNOXM02",
+      "name": "MONNOXM02 - [VLADIMIROVA RAYXON] 13/06/26",
+      "agent": "MONNOXM02 - [VLADIMIROVA RAYXON] 13/06/26",
+      "rowText": "MONNOXM02 - [VLADIMIROVA RAYXON] 13/06/26 MONNOXM02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3e5eb6e9-8511-431f-9596-8532ffcfb8f0",
+          "name": "MONNOXM02 - [VLADIMIROVA RAYXON] 13/06/26"
+        },
+        "agent_code": "MONNOXM02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 80,
+      "agentId": "a36511b1-6e75-4f41-87b9-29d4d4432221",
+      "code": "MONNOXM03",
+      "name": "MONNOXM03 - [ABDULLAYEVA ROZAJON] 05/11",
+      "agent": "MONNOXM03 - [ABDULLAYEVA ROZAJON] 05/11",
+      "rowText": "MONNOXM03 - [ABDULLAYEVA ROZAJON] 05/11 MONNOXM03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a36511b1-6e75-4f41-87b9-29d4d4432221",
+          "name": "MONNOXM03 - [ABDULLAYEVA ROZAJON] 05/11"
+        },
+        "agent_code": "MONNOXM03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 65,
+      "agentId": "7f16ec04-93da-491a-a0db-902f6db50e6a",
+      "code": "MONNOXM04",
+      "name": "MONNOXM04 - [BEKBERGANOV OG'ABEK] 12/02/26",
+      "agent": "MONNOXM04 - [BEKBERGANOV OG'ABEK] 12/02/26",
+      "rowText": "MONNOXM04 - [BEKBERGANOV OG'ABEK] 12/02/26 MONNOXM04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "7f16ec04-93da-491a-a0db-902f6db50e6a",
+          "name": "MONNOXM04 - [BEKBERGANOV OG'ABEK] 12/02/26"
+        },
+        "agent_code": "MONNOXM04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 8,
+      "agentId": "0b93728c-c256-40a9-b675-d813880b308f",
+      "code": "MONNOXM05",
+      "name": "MONNOXM05 [BAZARBAYEV ASKAR] 03/04/26",
+      "agent": "MONNOXM05 [BAZARBAYEV ASKAR] 03/04/26",
+      "rowText": "MONNOXM05 [BAZARBAYEV ASKAR] 03/04/26 MONNOXM05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0b93728c-c256-40a9-b675-d813880b308f",
+          "name": "MONNOXM05 [BAZARBAYEV ASKAR] 03/04/26"
+        },
+        "agent_code": "MONNOXM05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    }
+  ],
+  "stats": {
+    "ok": 118,
+    "partial": 0,
+    "extra": 0,
+    "empty": 0,
+    "mismatch": 0,
+    "unknown": 0,
+    "error": 0,
+    "duplicate": 0
+  }
+}

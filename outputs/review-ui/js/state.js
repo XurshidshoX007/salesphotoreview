@@ -1,0 +1,1 @@
+window.PhotoReviewState = window.PhotoReviewState || {};

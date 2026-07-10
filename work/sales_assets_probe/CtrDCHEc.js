@@ -1,0 +1,1 @@
+import{_ as a}from"./CiZJZCSG.js";import{aL as n,v as t,J as c,u as r}from"./DWvl5oxm.js";const s={key:0},l={__name:"LoadingIcon",props:{loading:Boolean},setup(o){return(i,_)=>{const e=a;return o.loading?(n(),t("div",s,[c(e,{loading:"",width:4,height:4})])):r("",!0)}}};export{l as default};

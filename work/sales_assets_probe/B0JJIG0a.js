@@ -1,0 +1,1 @@
+import{bQ as o,v as t,aY as s,aL as n}from"./DWvl5oxm.js";const a={name:"FlexCol"},c={class:"flex flex-col"};function r(e,l,_,f,p,d){return n(),t("div",c,[s(e.$slots,"default")])}const m=o(a,[["render",r]]);export{m as default};

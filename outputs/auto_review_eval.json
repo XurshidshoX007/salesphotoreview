@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-06-12T06:11:07.496Z",
+  "totalSamples": 403,
+  "labelCounts": {
+    "total": 403,
+    "MINUS": 350,
+    "OK": 43,
+    "AI_REVIEW": 10
+  },
+  "matrix": {
+    "TP": 346,
+    "FP": 35,
+    "TN": 8,
+    "FN": 4
+  },
+  "metrics": {
+    "precision": 0.9081,
+    "recall": 0.9886,
+    "f1": 0.9466,
+    "accuracy": 0.9008
+  },
+  "aiReviewPredictionDistribution": {
+    "MINUS_CANDIDATE": 10
+  }
+}

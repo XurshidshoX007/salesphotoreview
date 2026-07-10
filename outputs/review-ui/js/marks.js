@@ -1,0 +1,1 @@
+window.PhotoReviewMarks = window.PhotoReviewMarks || {};

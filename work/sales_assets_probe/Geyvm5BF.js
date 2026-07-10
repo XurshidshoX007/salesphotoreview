@@ -1,0 +1,67 @@
+const n=`<template>
+  <div class="flex w-full flex-col page-gap">
+    <div class="w-1/3">
+      <search-input
+        :value="searchText"
+        @updated="searchUpdated"
+        class="w-full h-10.5"
+      />
+    </div>
+    <auditSmallDataTable
+      :headers="headerDataTable"
+      :loadedData="loadedDataTable"
+    />
+    <div class="flex justify-end w-full mt-7.5">
+      <button class="py-2 w-1/4 h-11 rounded-lg bg-[#299B9B] text-white">
+        Сохранить
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+const searchText = ref("");
+const searchUpdated = (text) => {
+  console.log(text);
+};
+const headerDataTable = ref([
+  {
+    name: "Имя",
+    checked: true,
+    key: "name",
+  },
+  {
+    name: "Роль",
+    checked: true,
+    key: "role",
+  },
+]);
+
+const loadedDataTable = ref([
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+  {
+    name: "Merchendaizer",
+    role: "Супервайзер",
+  },
+]);
+<\/script>
+`;export{n as default};

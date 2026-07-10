@@ -1,0 +1,19 @@
+{
+  "attendanceRules": {
+    "minPhotoForWorkDay": 20,
+    "specialPhotoCount": 19,
+    "specialSalesThreshold": 1000000,
+    "specialMarker": "s",
+    "penaltyEveryLowPhotoDays": 3,
+    "vacantName": "Vacant",
+    "excludedCodes": [
+      "FD",
+      "RM"
+    ],
+    "supervisorRoles": [
+      "svr"
+    ],
+    "countEmptyWorkDayAsLowPhoto": false
+  },
+  "teams": []
+}

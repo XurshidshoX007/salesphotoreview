@@ -1,0 +1,13 @@
+{
+  "overrides": [
+    {
+      "date": "2026-06-09",
+      "agentCode": "JYAN005",
+      "employeeId": null,
+      "manualValue": "0",
+      "reason": "Manual tabel tahriri",
+      "updatedAt": "2026-06-12T07:10:17.384Z",
+      "updatedBy": "local-user"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+import{c1 as n,aU as a}from"./DWvl5oxm.js";const r=s=>n(`dialog_${s}`,()=>{const l=a(!1),e=a(),o=()=>{l.value=!0,e.value=null};return{isDialogOpen:l,singleData:e,openDialog:o,closeDialog:()=>{l.value=!1,e.value=null},edit:t=>{o(),e.value=t}}})();export{r as u};

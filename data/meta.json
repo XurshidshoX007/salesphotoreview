@@ -1,0 +1,28 @@
+{
+  "canonical_reasons": [
+    "Ish vaqtidan tashqari olingan foto",
+    "Kamera yopilgan yoki to'sib olingan foto",
+    "Bitta do'kondan takroriy foto",
+    "Ekrandan qayta olingan foto",
+    "Katalogdan olingan rasm",
+    "Faqat mahsulot rasmi",
+    "Foto talabga javob bermaydi"
+  ],
+  "total_samples": 403,
+  "minus_count": 350,
+  "ok_count": 43,
+  "splits": {
+    "train": 274,
+    "val": 58,
+    "test": 61
+  },
+  "reason_counts": {
+    "Ish vaqtidan tashqari olingan foto": 8,
+    "Kamera yopilgan yoki to'sib olingan foto": 203,
+    "Bitta do'kondan takroriy foto": 21,
+    "Ekrandan qayta olingan foto": 38,
+    "Katalogdan olingan rasm": 18,
+    "Faqat mahsulot rasmi": 51,
+    "Foto talabga javob bermaydi": 112
+  }
+}

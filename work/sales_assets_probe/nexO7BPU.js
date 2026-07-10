@@ -1,0 +1,1 @@
+import{bQ as e,v as a,bb as s,aL as o}from"./DWvl5oxm.js";const _={class:"title20"},c={__name:"PageTitle-20",props:{title:{type:String,default:""}},setup(t){return(n,r)=>(o(),a("div",_,s(t.title),1))}},l=e(c,[["__scopeId","data-v-09b7a7f0"]]);export{l as default};

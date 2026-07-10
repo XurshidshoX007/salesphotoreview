@@ -1,0 +1,1 @@
+window.PhotoReviewTelegram = window.PhotoReviewTelegram || {};

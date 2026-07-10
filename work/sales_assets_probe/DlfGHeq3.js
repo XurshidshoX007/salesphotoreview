@@ -1,0 +1,59 @@
+const e=`<template>
+  <card :classes="{ root: 'h-full px-0', content: 'h-full flex flex-col' }">
+    <multi-tab
+      :tabs="sideMenuTabs"
+      v-model:active="sideMenuTab"
+      :classes="{
+        root: 'px-5',
+        tab: 'w-full justify-center',
+        body: 'flex-1 overflow-hidden',
+        contentWrapper: 'pt-4 h-full',
+      }"
+    >
+      <template #active>
+        <access-cashbox-menu-list :data="activeCashboxMenu" />
+      </template>
+
+      <template #inactive>
+        <access-cashbox-menu-list :data="inactiveCashboxMenu" />
+      </template>
+    </multi-tab>
+  </card>
+</template>
+
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+import type { AccessCashboxModel } from "~/interfaces/api/access/cashbox-model";
+
+// Store
+const cashboxStore = useAccessCashboxStore();
+
+// Composables
+const { t } = useI18n();
+
+// State
+const sideMenuTab = ref("active");
+
+// Variable
+const sideMenuTabs: MultiTabProps["tabs"] = [
+  { key: "active", title: t("access.active_tab") },
+  { key: "inactive", title: t("access.inactive_tab") },
+];
+
+// Hooks
+const activeCashboxMenu = computed(() =>
+  cashboxStore.cashboxes?.filter((item) => item.is_active).map(toMenuItem) ?? [],
+);
+
+const inactiveCashboxMenu = computed(() =>
+  cashboxStore.cashboxes?.filter((item) => !item.is_active).map(toMenuItem) ?? [],
+);
+
+// Methods
+const toMenuItem = (item: AccessCashboxModel) => ({
+  ...item,
+  id: item.id,
+  name: item.name,
+});
+<\/script>
+`;export{e as default};

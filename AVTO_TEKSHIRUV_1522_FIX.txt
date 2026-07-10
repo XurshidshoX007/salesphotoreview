@@ -1,0 +1,18 @@
+Avto tekshiruv 1522 ta nomzod chiqarish muammosi tuzatildi.
+
+Nima muammo edi:
+- Avto tekshiruv oynasidagi "Topildi" soni jami foto emas, shubhali nomzodlar soni edi.
+- Eski minus bazaga metrika bo'yicha o'xshashlik juda keng ishlagan, shuning uchun normal fotolar ham shubhali chiqib ketgan.
+- Bir klientda 2+ foto bo'lsa, ayrim holatda dublikat deb noto'g'ri signal berishi mumkin edi.
+
+Nima o'zgardi:
+- Endi oynada alohida ko'rsatadi: Jami foto, Tekshirildi, Oldin minus, Nomzod, Baza minus, Bazada ko'rildi.
+- Eski bazaga o'xshashlik faqat hash + metrika birga mos kelsa ishlaydi.
+- Kamera yopilgan / katalog / mahsulot / ekran qoidalari qat'iylashtirildi.
+- Dublikat faqat aynan bir xil rasm URL takrorlansa ishlaydi.
+- Xabar endi: "falon ta foto ko'rildi, falon ta nomzod topildi" deb chiqadi.
+
+Ishga tushirish:
+1) Eski serverni yoping: npm run stop
+2) Qayta oching: npm run review
+3) Brauzerda Ctrl+F5 qiling.

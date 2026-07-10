@@ -1,0 +1,1 @@
+import{N as o,v as t,w as s,aL as n}from"./DWvl5oxm.js";const a={width:"10",height:"12",viewBox:"0 0 10 12",fill:"none",xmlns:"http://www.w3.org/2000/svg"},l=["fill"],_=o({__name:"Pause",props:{color:{default:"#525866"}},setup(e){return(c,r)=>(n(),t("svg",a,[s("path",{d:"M0.5 0.75H2V11.25H0.5V0.75ZM8 0.75H9.5V11.25H8V0.75Z",fill:e.color},null,8,l)]))}});export{_};

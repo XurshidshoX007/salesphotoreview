@@ -1,0 +1,24 @@
+Avto tekshiruv optimallashtirildi.
+
+O'zgargan fayl:
+- outputs/lmj_date_photo_review.html
+
+Nimalar tuzatildi:
+1) Eski minus bazadagi qora/xira rasmlar bo'yicha noto'g'ri o'xshatish kamaytirildi.
+   Endi faqat hash 0-2 farq bo'lishi yetmaydi; rasm metrikasi ham mos kelishi kerak.
+2) Juda qorong'i foto qoidasi yumshatildi.
+   Oldin mean past bo'lsa o'zi minusga tortib ketishi mumkin edi. Endi darkRatio ham hisobga olinadi.
+3) Rasm metrikalari cache qilinadi.
+   Bir xil URL qayta-qayta analiz qilinmaydi, tekshiruv tezroq ishlaydi.
+4) Tekshiruv parallel yuklamasi kamaytirildi.
+   Brauzer qotib qolmasligi uchun 8/6 o'rniga 5/5 ishlaydi.
+5) Bitta do'kon takrorini aniqlash yaxshilandi.
+   Faqat bir xil URL emas, clientId/client nomi ham hisobga olinadi.
+6) Avto-minus chegarasi 68% dan 72% ga ko'tarildi.
+   Shubhali, lekin kuchsiz signal bo'lsa avtomatik nomzodga kamroq tushadi.
+
+Ishga tushirish:
+- Eski tartib o'zgarmagan: 2-REVIEW.bat ni ishga tushiring.
+- Sahifada "Avto tekshiruv" tugmasini bosing.
+- "Aniqlarni tanlash" faqat kuchli nomzodlarni belgilaydi.
+- Buyurtmasi bor fotolar avtomatik minus qilinmaydi, faqat ko'rib chiqish uchun chiqadi.

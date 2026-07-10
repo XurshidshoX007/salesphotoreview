@@ -1,0 +1,31 @@
+const n=`<template>
+  <td class="fs-14 td-styles">
+    <div>
+      <slot></slot>
+    </div>
+  </td>
+</template>
+
+<script setup>
+const props = defineProps({
+  keys: Object,
+});
+<\/script>
+
+<style scoped>
+td {
+  padding-left: 10px;
+  color: var(--text-primary);
+}
+.td-styles:last-child {
+  justify-content: center;
+  position: sticky;
+  right: 0px;
+  top: auto;
+  width: 50px;
+  background: white;
+  border-top: 1px solid #e1e4e4;
+  margin-top: -1px;
+}
+</style>
+`;export{n as default};

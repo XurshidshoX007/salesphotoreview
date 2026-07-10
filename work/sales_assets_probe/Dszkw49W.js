@@ -1,0 +1,1 @@
+import{N as a,v as o,au as n,aY as s,aL as r}from"./DWvl5oxm.js";const i=["disabled"],b=a({__name:"IBtn",props:{disabled:{type:Boolean}},setup(e){return(t,l)=>(r(),o("button",{type:"button",disabled:e.disabled,class:n(["i-button button-bg hover:bg-primary-600 active:bg-primary-700",e.disabled&&"opacity-50 pointer-events-none"])},[s(t.$slots,"default")],10,i))}});export{b as _};

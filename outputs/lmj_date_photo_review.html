@@ -1,0 +1,242 @@
+﻿<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Foto nazorati</title>
+  <link rel="stylesheet" href="review-ui/styles/main.css?v=design-system-64">
+</head>
+<body class="photoView">
+  <nav class="salesNav" aria-label="Review panel">
+    <div class="sideBrand">
+      <div class="salesLogo"></div>
+      <div class="sideBrandText"><b>Foto nazorati</b><span>Savdo foto hisobotlari nazorati</span></div>
+    </div>
+    <div class="sideActions">
+      <div class="sideActionGroup">
+        <div class="sideActionGroupTitle">Asosiy</div>
+        <button id="sidePhotoBtn" class="active">Foto Review</button>
+        <button id="sideAttendanceBtn">Tabel</button>
+        <button id="sideAdminStatsBtn" class="wideAction">Statistika</button>
+      </div>
+      <div class="sideActionGroup">
+        <div class="sideActionGroupTitle">Hisobot</div>
+        <button id="sideMinusListBtn">Minus ro'yxati</button>
+        <button id="sideCsvBtn">Excel</button>
+        <button id="sideAgentExcelBtn">Agent Excel</button>
+      </div>
+      <div class="sideActionGroup">
+        <div class="sideActionGroupTitle">Sozlamalar</div>
+        <button id="sideCollectBtn" class="wideAction">Ma'lumot yig'ish</button>
+        <button id="sideBrandSettingsBtn" class="wideAction">Brend sozlamalari</button>
+        <button id="sideAutoReviewBtn" class="wideAction">Avto tekshiruv</button>
+      </div>
+    </div>
+  </nav>
+  <header>
+    <div>
+      <div class="title" id="title">Foto nazorati</div>
+      <div class="meta" id="meta">Ma'lumotlar yuklanmoqda...</div>
+    </div>
+      <div class="controls">
+      <select id="brandSel"></select>
+      <input id="dateSel" type="date" aria-label="Sana">
+      <select id="agentSel"></select>
+      <select id="agentFilter"><option value="matching">Mos agentlar</option><option value="unmatched">Mos kelmagan agentlar</option><option value="all">Barchasi</option></select>
+      <button id="minusListBtn" style="display:none">Minus ro'yxati</button>
+      <button id="telegramBtn" class="primary" style="display:none">Telegramga yuborish</button>
+      <button id="csvBtn" style="display:none">Excel</button>
+      <button id="agentExcelBtn" style="display:none">Agent Excel</button>
+      <button id="autoReviewBtn" style="display:none">Avto tekshiruv</button>
+      <button id="themeToggleBtn" class="themeToggle" type="button" title="Tungi rejimga o'tish">Tun</button>
+      <button id="deleteDateBtn" class="dangerBtn"><span class="dangerDot">!</span>Sanani o'chirish</button>
+    </div>
+  </header>
+  <section id="photoStatsBar" class="photoStatsBar" aria-label="Joriy sana ko'rsatkichlari">
+    <div id="dateStats" class="photoStatsMetrics"></div>
+  </section>
+  <div class="wrap">
+    <main><div id="grid" class="grid"></div></main>
+  </div>
+  <section id="attendancePanel" class="attendancePanel" aria-label="Tabel">
+    <div class="attendanceToolbar">
+      <label>Oy<input id="attendanceMonth" type="month" value="2026-06"></label>
+      <label>Brend<select id="attendanceBrand"></select></label>
+      <label>Prefix<input id="attendancePrefix" placeholder="JY"></label>
+      <label>Role<input id="attendanceRole" placeholder="agent"></label>
+      <label>Xodim<input id="attendanceEmployee" placeholder="Ism"></label>
+      <label>Status<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Assigned</option><option value="vacant">Vacant</option><option value="unknown_route">Unknown route</option></select></label>
+      <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> SVR</label>
+      <button id="attendanceLoad" class="primary">Yuklash</button>
+      <button id="attendanceGenerate">Generate</button>
+      <button id="attendanceExport">Export</button>
+      <button id="attendanceReplace">Xodim almashtirish</button>
+    </div>
+    <div id="attendanceMeta" class="attendanceMeta">Tabel yuklanmagan.</div>
+    <div class="attendanceTableWrap"><table id="attendanceTable" class="attendanceTable"></table></div>
+  </section>
+  <section id="adminStatsPanel" class="adminStatsPanel" aria-label="Admin statistika">
+    <div class="adminStatsHead">
+      <div><b>Admin statistika</b><span>Telegram botdan foydalanish, agent ochilishlari va yuborilgan fotolar nazorati</span></div>
+      <button id="adminStatsRefresh" class="primary">Yangilash</button>
+    </div>
+    <div id="adminStatsBody" class="adminStatsBody">
+      <div class="adminEmpty">Statistika yuklanmoqda...</div>
+    </div>
+  </section>
+  <div id="attendanceReplaceModal" class="attendanceReplaceModal" aria-label="Xodim almashtirish">
+    <div class="attendanceReplaceBox">
+      <div class="collectHead">
+        <div><b>Xodim almashtirish</b><span>Agent kodi o'zgarmaydi, faqat assignment yopilib yangisi ochiladi</span></div>
+        <button id="attendanceReplaceClose">Yopish</button>
+      </div>
+      <div class="attendanceReplaceBody">
+        <div class="attendanceReplaceGrid">
+          <label class="fieldLabel">Agent kodi<input id="replaceAgentCode" placeholder="JY001"></label>
+          <label class="fieldLabel">Joriy xodim<input id="replaceCurrentEmployee" readonly placeholder="Topilmadi"></label>
+          <label class="fieldLabel">Eski xodim oxirgi ish kuni<input id="replaceOldEndDate" type="date"></label>
+          <label class="fieldLabel">Yangi xodim boshlanish sanasi<input id="replaceNewStartDate" type="date"></label>
+          <label class="fieldLabel">Mavjud xodim<select id="replaceEmployeeSelect"></select></label>
+          <label class="replaceCheck"><input id="replaceCreateNew" type="checkbox"> Yangi xodim yaratish</label>
+          <label class="fieldLabel replaceNewOnly">Yangi xodim F.I.Sh.<input id="replaceNewName" placeholder="Vali Karimov"></label>
+          <label class="fieldLabel replaceNewOnly">Telefon<input id="replaceNewPhone" placeholder="+998"></label>
+          <label class="fieldLabel replaceNewOnly">Role<select id="replaceNewRole"><option value="agent">agent</option><option value="svr">svr</option><option value="fd">fd</option><option value="rm">rm</option></select></label>
+          <label class="fieldLabel replaceNewOnly">Izoh<input id="replaceNewNotes" placeholder="Izoh"></label>
+          <label class="fieldLabel replaceReason">Sabab<textarea id="replaceReason" placeholder="Yangi xodim olindi"></textarea></label>
+        </div>
+        <div id="replaceMessage" class="attendanceReplaceMessage">Ma'lumotlarni to'ldiring.</div>
+      </div>
+      <div class="attendanceReplaceFoot">
+        <button id="attendanceReplaceCancel">Bekor qilish</button>
+        <button id="attendanceReplaceSave" class="primary">Saqlash</button>
+      </div>
+    </div>
+  </div>
+  <div id="modal">
+    <div class="modalTop">
+      <div class="modalIdentity">
+        <b id="modalTitle"></b>
+        <span id="modalMeta"></span>
+      </div>
+      <div class="modalActions">
+        <button class="bad" id="modalMinus">Minus</button>
+        <button class="ok" id="modalOk">OK</button>
+        <button class="zoomBtn" id="zoomOut">-</button><button class="zoomBtn" id="zoomFit">Fit</button><button class="zoomBtn" id="zoomIn">+</button><button class="closeBtn" id="modalClose">Yopish</button>
+      </div>
+    </div>
+    <div class="modalImgBox"><img id="modalImg" alt="" referrerpolicy="no-referrer" onload="imageLoaded(this)" onerror="imageError(this)"></div>
+    <div class="side">
+      <div class="sideHead"><div><b>Sababni belgilang</b><span>Foto nima sababdan minus qilinayotganini tanlang.</span></div><span class="sideBadge">Audit</span></div>
+      <div id="reasonChecks"></div>
+      <div class="reasonAdd"><input id="newReason" class="wide" placeholder="Yangi sabab qo'shish"><button id="addReason">Qo'shish</button></div>
+      <textarea id="note" placeholder="Qo'shimcha izoh"></textarea>
+      <div class="spacer"></div>
+      <div class="sideFoot">
+        <button class="bad wide" id="sideMinus">Minus sifatida saqlash</button>
+        <button class="ok wide" id="sideOk">OK</button>
+      </div>
+    </div>
+  </div>
+  <div id="minusList" class="list"><div class="listHead"><div class="listTitle"><b>Minus ro'yxati</b><span id="listSubtitle">Saqlangan minus fotolar nazorati</span></div><button id="listClose">Yopish</button></div><div class="listBody" id="listBody"></div></div>
+  <div id="autoReviewList" class="list"><div class="listHead"><div class="listTitle"><b>Avto tekshiruv</b><span id="autoReviewSubtitle">Optimallashtirilgan qoidaviy tekshiruv natijalari</span></div><button id="autoReviewClose">Yopish</button></div><div class="listBody" id="autoReviewBody"></div></div>
+  <div id="collectPanel" class="collectPanel" aria-label="Ma'lumot yig'ish">
+    <div class="collectHead">
+      <div><b>Ma'lumot yig'ish</b><span>Sales sahifasidan foto hisobot ma'lumotlarini xavfsiz yig'ish</span></div>
+      <button id="collectClose">Yopish</button>
+    </div>
+    <div class="collectBody">
+      <div class="collectForm">
+        <label class="fieldLabel">Sana
+          <input id="collectDate" type="date">
+        </label>
+        <label class="fieldLabel">Brend
+          <select id="collectBrand"></select>
+        </label>
+        <div class="collectStatus">
+          <b id="collectStatusTitle">Tayyor</b>
+          <span id="collectStatusText">Sanani va brendni tanlab boshlang.</span>
+        </div>
+        <div class="collectActions">
+          <button id="collectStart" class="primary wideAction">Yig'ishni boshlash</button>
+          <button id="collectStop" class="bad wideAction" disabled>To'xtatish</button>
+        </div>
+        <div class="collectHelp">
+          Yig'ish server kompyuterida ochiladi. Salesga oldin shu kompyuterda login qilingan bo'lsa, saqlangan brauzer sessiyasi orqali avtomatik kirib ketadi. Login va parol dasturga yozilmaydi.
+        </div>
+      </div>
+      <div class="collectLog">
+        <div class="collectLogTop"><b>Jarayon holati</b><span id="collectBadge" class="collectBadge">idle</span></div>
+        <pre id="collectLog">Hali jarayon boshlanmagan.</pre>
+      </div>
+    </div>
+  </div>
+  <div id="brandPanel" class="brandPanel" aria-label="Brend sozlamalari">
+    <div class="collectHead">
+      <div><b>Brend sozlamalari</b><span>Collect va review uchun brand config boshqaruvi</span></div>
+      <button id="brandClose">Yopish</button>
+    </div>
+    <div class="brandBody">
+      <div class="brandList" id="brandList"></div>
+      <div class="brandForm">
+        <input id="brandId" type="hidden">
+        <div class="brandGrid">
+          <div class="brandSectionTitle">Asosiy</div>
+          <label class="fieldLabel">Brend nomi<input id="brandNameInput" placeholder="Texnika Bozori"></label>
+          <label class="fieldLabel">Agent prefixlari<input id="brandPrefixes" placeholder="TB, TXB"></label>
+          <label class="fieldLabel">Sales nomlari<input id="brandSalesNames" placeholder="TEXNIKA BOZORI, Texnika bozori"></label>
+          <div class="brandSectionTitle">Telegram</div>
+          <label class="fieldLabel">Telegram gruppa<select id="brandTelegramChat"><option value="">Umumiy tanlov / ulanmagan</option></select></label>
+          <label class="fieldLabel brandFull">Qo'lda Telegram chat ID<input id="brandTelegramChatId" placeholder="-1001234567890"></label>
+          <div class="brandSectionTitle">Holat</div>
+          <label class="brandCheck"><input id="brandEnabled" type="checkbox" checked><span class="brandSwitch" aria-hidden="true"></span><span>Faol brend</span></label>
+          <label class="fieldLabel brandFull">Izoh<textarea id="brandNotes" placeholder="Izoh"></textarea></label>
+        </div>
+        <div class="brandActions">
+          <button id="brandNew">Yangi</button>
+          <button id="brandSave" class="primary">Saqlash</button>
+          <button id="brandDelete" class="bad">O'chirish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <div id="deleteConfirm" class="confirm">
+    <div class="confirmBox">
+      <div class="confirmHead"><span class="dangerDot">!</span><b>Sanani o'chirish</b></div>
+      <div class="confirmBody">
+        <div id="deleteMessage" class="meta"></div>
+        <div class="deleteStats">
+          <div class="deleteStat"><span>Sana</span><b id="deleteDateText">-</b></div>
+          <div class="deleteStat"><span>Foto</span><b id="deletePhotoText">0</b></div>
+          <div class="deleteStat"><span>Minus/izoh</span><b id="deleteMinusText">0</b></div>
+        </div>
+        <div class="warn">Bu amal JSON faylni, sana ro'yxatini va shu sana bo'yicha lokal belgilaringizni o'chiradi.</div>
+      </div>
+      <div class="confirmFoot">
+        <button id="deleteCancel">Bekor qilish</button>
+        <button id="deleteConfirmBtn" class="bad">Ha, o'chirish</button>
+      </div>
+    </div>
+  </div>
+  <div id="quickNav" class="quickNav" aria-label="Foto navigatsiya">
+    <button id="quickPrev" title="Oldingi 4 foto">Oldingi</button>
+    <button id="quickPause" class="primary navMain" title="Pause / Resume">Resume</button>
+    <button id="quickNext" class="primary" title="Keyingi 4 foto">Keyingi</button>
+    <div class="speedBox" title="Avto almashish vaqti">
+      <button id="speedSlower" title="Vaqtni kamaytirish: tezroq o'tadi">-</button>
+      <span id="speedText" class="speedText">3.5s</span>
+      <button id="speedFaster" title="Vaqtni oshirish: sekinroq o'tadi">+</button>
+    </div>
+  </div>
+  <script src="review-ui/js/utils.js"></script>
+    <script src="review-ui/js/state.js"></script>
+    <script src="review-ui/js/data-loader.js"></script>
+    <script src="review-ui/js/counters.js"></script>
+    <script src="review-ui/js/filters.js"></script>
+    <script src="review-ui/js/marks.js"></script>
+    <script src="review-ui/js/auto-review.js"></script>
+    <script src="review-ui/js/telegram.js"></script>
+    <script src="review-ui/js/export.js"></script>
+  <script src="review-ui/js/app.js?v=telegram-summary-62"></script>
+  </body>
+</html>

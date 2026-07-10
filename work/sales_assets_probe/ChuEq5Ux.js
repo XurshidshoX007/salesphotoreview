@@ -1,0 +1,1 @@
+import{bQ as s,aL as t,v as a,w as o,aY as _}from"./DWvl5oxm.js";const n={class:"fs-14 td-styles"},c={__name:"CTd",props:{keys:Object},setup(r){return(e,d)=>(t(),a("td",n,[o("div",null,[_(e.$slots,"default",{},void 0,!0)])]))}},p=s(c,[["__scopeId","data-v-621f3adb"]]);export{p as default};

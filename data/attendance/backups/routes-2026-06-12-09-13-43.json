@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "id": "route_jyan101",
+      "agentCode": "JYAN101",
+      "brandId": "sof",
+      "active": true,
+      "notes": "Xodim almashtirish vaqtida yaratilgan route"
+    },
+    {
+      "id": "route_lmjan01",
+      "agentCode": "LMJAN01",
+      "brandId": "lalaku_mama",
+      "active": true,
+      "notes": "Xodim almashtirish vaqtida yaratilgan route"
+    }
+  ]
+}

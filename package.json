@@ -1,0 +1,30 @@
+{
+  "name": "lmj-photo-review-launcher",
+  "private": true,
+  "scripts": {
+    "review": "node work/run_review_server.mjs",
+    "public:link": "node work/start_cloudflare_tunnel.mjs",
+    "stop": "node work/stop_review_server.mjs",
+    "stop:review": "node work/stop_review_server.mjs",
+    "collect": "node work/run_collect_playwright.mjs",
+    "login:sales": "node work/open_sales_login.mjs",
+    "collect:date": "node work/run_collect_playwright.mjs",
+    "manifest:sync": "node work/sync_manifest.mjs",
+    "analyze:photos": "python work/analyze_lmj_photos.py",
+    "eval:auto-review": "node scripts/evaluate-auto-review.js",
+    "brands:list": "node scripts/brands.mjs list",
+    "brands:validate": "node scripts/brands.mjs validate",
+    "brands:add": "node scripts/brands.mjs add",
+    "brands:edit": "node scripts/brands.mjs edit",
+    "migrate:brands": "node scripts/brands.mjs migrate",
+    "test:brands": "node scripts/test-brands.mjs",
+    "attendance:generate": "node scripts/attendance-generate.js",
+    "attendance:export": "node scripts/attendance-export.js",
+    "attendance:validate": "node scripts/attendance-validate.js",
+    "attendance:list": "node scripts/attendance-list.js",
+    "test:attendance": "node scripts/test-attendance.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.60.0"
+  }
+}

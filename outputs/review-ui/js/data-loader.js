@@ -1,0 +1,1 @@
+window.PhotoReviewDataLoader = window.PhotoReviewDataLoader || {};

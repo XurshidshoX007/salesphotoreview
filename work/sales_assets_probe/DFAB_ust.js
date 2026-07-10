@@ -1,0 +1,1 @@
+import{S as n}from"./DZ5Nwtg6.js";import{N as o,bU as r,ay as i,bV as u,cb as f}from"./DWvl5oxm.js";const m=o({__name:"index",setup(c){const{auditMenu:e}=n(),{withTenant:t}=r();return i(()=>{const a=e.value.find(s=>s?.hasAccess)?.url;if(a)u(t(a));else throw f({statusCode:404,statusMessage:"Page Not Found",fatal:!0})}),()=>{}}});export{m as default};
