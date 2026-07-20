@@ -59,7 +59,7 @@ html,
 body{
   background:var(--studio-bg) !important;
   color:var(--studio-text) !important;
-  font-family:Inter,"Segoe UI",Arial,sans-serif !important;
+  font-family:var(--font);
   font-size:13px;
   letter-spacing:0 !important;
 }
@@ -2580,7 +2580,7 @@ html[data-theme="night"] .attendanceWarning{
 .systemStatusHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:2px 2px 10px;border-bottom:1px solid #edf1f3}
 .systemStatusHead b{display:block;color:var(--studio-title);font-size:14px}
 .systemStatusHead span{display:block;margin-top:3px;color:var(--studio-muted);font-size:10px}
-.systemStatusHead button{width:28px;height:28px;padding:0;border:1px solid var(--studio-line);border-radius:6px;background:#fff;color:#64748b;font-size:18px;cursor:pointer}
+.systemStatusHead button{width:28px;height:28px;padding:0;border:1px solid var(--studio-line);border-radius:6px;background:#fff;color:var(--c-slate);font-size:18px;cursor:pointer}
 .systemStatusRows{display:grid;gap:2px;padding:8px 0}
 .systemStatusRow{display:grid;grid-template-columns:10px minmax(0,1fr);gap:9px;align-items:center;padding:8px 6px;border-radius:6px}
 .systemStatusRow:hover{background:#f7fafb}
