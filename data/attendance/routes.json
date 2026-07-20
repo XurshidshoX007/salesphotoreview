@@ -3255,6 +3255,46 @@
       "role": "agent",
       "active": true,
       "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_lmjish04",
+      "agentCode": "LMJISH04",
+      "brandId": "lalaku_mama",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyqrdiller",
+      "agentCode": "JYQRDILLER",
+      "brandId": "sof",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyqsh007",
+      "agentCode": "JYQSH007",
+      "brandId": "sof",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_ggqsh010",
+      "agentCode": "GGQSH010",
+      "brandId": "giga",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_ggqshoptom",
+      "agentCode": "GGQSHOPTOM",
+      "brandId": "giga",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
     }
   ]
 }

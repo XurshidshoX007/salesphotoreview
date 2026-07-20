@@ -4498,6 +4498,763 @@
       "agent": "LMJNK [MIRZAMURATOVA GULNOZ]",
       "sent": 2,
       "failed": 0
+    },
+    {
+      "at": "2026-07-15T05:25:56.044Z",
+      "action": "plain_start",
+      "chatId": 8970863449,
+      "user": {
+        "id": "8970863449",
+        "username": "",
+        "firstName": "Shukrona✨",
+        "lastName": "",
+        "languageCode": "",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-15T06:14:31.312Z",
+      "action": "summary_sent",
+      "chatId": "**********1671",
+      "groups": 3,
+      "photos": 8,
+      "messageId": 2057
+    },
+    {
+      "at": "2026-07-15T06:15:17.855Z",
+      "action": "summary_sent",
+      "chatId": "**********5945",
+      "groups": 3,
+      "photos": 8,
+      "messageId": 1372
+    },
+    {
+      "at": "2026-07-15T06:15:28.638Z",
+      "action": "start",
+      "token": "9e97e03b5b3f0db2c33c7f",
+      "chatId": 7459293964,
+      "user": {
+        "id": "7459293964",
+        "username": "",
+        "firstName": "Odilov",
+        "lastName": "Murodjon",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "LMJTSH09",
+      "agent": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "photos": 2
+    },
+    {
+      "at": "2026-07-15T06:15:29.806Z",
+      "action": "detail_sent",
+      "token": "9e97e03b5b3f0db2c33c7f",
+      "chatId": 7459293964,
+      "user": {
+        "id": "7459293964",
+        "username": "",
+        "firstName": "Odilov",
+        "lastName": "Murodjon",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "LMJTSH09",
+      "agent": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "sent": 2,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T07:09:28.548Z",
+      "action": "summary_sent",
+      "chatId": "**********1671",
+      "groups": 7,
+      "photos": 15,
+      "messageId": 2058
+    },
+    {
+      "at": "2026-07-15T07:12:14.645Z",
+      "action": "start",
+      "token": "05ca746bff3a1467b35b5c",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNS003",
+      "agent": "JYNS [O'RINBAEVA GULPARSHIN]",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-15T07:12:15.526Z",
+      "action": "detail_sent",
+      "token": "05ca746bff3a1467b35b5c",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNS003",
+      "agent": "JYNS [O'RINBAEVA GULPARSHIN]",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T07:12:29.596Z",
+      "action": "start",
+      "token": "05ca746bff3a1467b35b5c",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNS003",
+      "agent": "JYNS [O'RINBAEVA GULPARSHIN]",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-15T07:12:30.374Z",
+      "action": "detail_sent",
+      "token": "05ca746bff3a1467b35b5c",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNS003",
+      "agent": "JYNS [O'RINBAEVA GULPARSHIN]",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T07:14:00.463Z",
+      "action": "start",
+      "token": "19c763d7a50ce544f7430c",
+      "chatId": 6348759852,
+      "user": {
+        "id": "6348759852",
+        "username": "",
+        "firstName": "Sherzod",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYTSH003",
+      "agent": "JYTSH-Y [KOMILJONOV SANJAR] M.ULUG'BEK/YASHNABOD/BEKTEMIR",
+      "photos": 2
+    },
+    {
+      "at": "2026-07-15T07:14:01.181Z",
+      "action": "detail_sent",
+      "token": "19c763d7a50ce544f7430c",
+      "chatId": 6348759852,
+      "user": {
+        "id": "6348759852",
+        "username": "",
+        "firstName": "Sherzod",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYTSH003",
+      "agent": "JYTSH-Y [KOMILJONOV SANJAR] M.ULUG'BEK/YASHNABOD/BEKTEMIR",
+      "sent": 2,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T07:33:08.053Z",
+      "action": "start",
+      "token": "3ff24e80bdd793afa6752f",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNV003",
+      "agent": "JYNV [JAMOLOVA GULNORA]",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-15T07:33:08.953Z",
+      "action": "detail_sent",
+      "token": "3ff24e80bdd793afa6752f",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNV003",
+      "agent": "JYNV [JAMOLOVA GULNORA]",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T07:56:55.352Z",
+      "action": "start",
+      "token": "45fe83043ce8d5ed9edb6c",
+      "chatId": 6247231688,
+      "user": {
+        "id": "6247231688",
+        "username": "Isaboyev151",
+        "firstName": "..",
+        "lastName": "Isaboyev",
+        "languageCode": "uz",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNM005",
+      "agent": "JYNM [RUZQULOV MADIYOR]",
+      "photos": 3
+    },
+    {
+      "at": "2026-07-15T07:56:56.169Z",
+      "action": "detail_sent",
+      "token": "45fe83043ce8d5ed9edb6c",
+      "chatId": 6247231688,
+      "user": {
+        "id": "6247231688",
+        "username": "Isaboyev151",
+        "firstName": "..",
+        "lastName": "Isaboyev",
+        "languageCode": "uz",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "JYNM005",
+      "agent": "JYNM [RUZQULOV MADIYOR]",
+      "sent": 3,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-15T10:25:32.956Z",
+      "action": "summary_sent",
+      "chatId": "**********1671",
+      "groups": 7,
+      "photos": 15,
+      "messageId": 2059
+    },
+    {
+      "at": "2026-07-15T11:58:18.957Z",
+      "action": "start",
+      "token": "9e97e03b5b3f0db2c33c7f",
+      "chatId": 7459293964,
+      "user": {
+        "id": "7459293964",
+        "username": "",
+        "firstName": "Odilov",
+        "lastName": "Murodjon",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "LMJTSH09",
+      "agent": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "photos": 2
+    },
+    {
+      "at": "2026-07-15T11:58:20.364Z",
+      "action": "detail_sent",
+      "token": "9e97e03b5b3f0db2c33c7f",
+      "chatId": 7459293964,
+      "user": {
+        "id": "7459293964",
+        "username": "",
+        "firstName": "Odilov",
+        "lastName": "Murodjon",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-14",
+      "code": "LMJTSH09",
+      "agent": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "sent": 2,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-16T13:35:06.904Z",
+      "action": "start",
+      "token": "c0211c127650045ac53087",
+      "chatId": 1030986944,
+      "user": {
+        "id": "1030986944",
+        "username": "begzodsadullaev",
+        "firstName": "BEGZOD",
+        "lastName": "SADULLAYEV",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-08",
+      "code": "LMJISH02",
+      "agent": "LMJISH [JALOLOVA MAFTUNA]",
+      "photos": 6
+    },
+    {
+      "at": "2026-07-16T13:35:07.774Z",
+      "action": "detail_sent",
+      "token": "c0211c127650045ac53087",
+      "chatId": 1030986944,
+      "user": {
+        "id": "1030986944",
+        "username": "begzodsadullaev",
+        "firstName": "BEGZOD",
+        "lastName": "SADULLAYEV",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-08",
+      "code": "LMJISH02",
+      "agent": "LMJISH [JALOLOVA MAFTUNA]",
+      "sent": 6,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-16T13:35:09.244Z",
+      "action": "start",
+      "token": "c0211c127650045ac53087",
+      "chatId": 1030986944,
+      "user": {
+        "id": "1030986944",
+        "username": "begzodsadullaev",
+        "firstName": "BEGZOD",
+        "lastName": "SADULLAYEV",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-08",
+      "code": "LMJISH02",
+      "agent": "LMJISH [JALOLOVA MAFTUNA]",
+      "photos": 6
+    },
+    {
+      "at": "2026-07-16T13:35:09.809Z",
+      "action": "detail_sent",
+      "token": "c0211c127650045ac53087",
+      "chatId": 1030986944,
+      "user": {
+        "id": "1030986944",
+        "username": "begzodsadullaev",
+        "firstName": "BEGZOD",
+        "lastName": "SADULLAYEV",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-08",
+      "code": "LMJISH02",
+      "agent": "LMJISH [JALOLOVA MAFTUNA]",
+      "sent": 6,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:42:47.985Z",
+      "action": "summary_sent",
+      "chatId": "**********1671",
+      "groups": 5,
+      "photos": 34,
+      "messageId": 2060
+    },
+    {
+      "at": "2026-07-17T05:52:27.015Z",
+      "action": "start",
+      "token": "9a2713e68edbfe075134cb",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYAN007",
+      "agent": "JYAN A [KARIMOVA SEVARAXON]",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-17T05:52:27.708Z",
+      "action": "detail_sent",
+      "token": "9a2713e68edbfe075134cb",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYAN007",
+      "agent": "JYAN A [KARIMOVA SEVARAXON]",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:52:36.598Z",
+      "action": "start",
+      "token": "7467629e410f8c2050f647",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYQSH006",
+      "agent": "JYISH - [NAFASOVA MAFTUNA]",
+      "photos": 13
+    },
+    {
+      "at": "2026-07-17T05:52:37.419Z",
+      "action": "detail_sent",
+      "token": "7467629e410f8c2050f647",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYQSH006",
+      "agent": "JYISH - [NAFASOVA MAFTUNA]",
+      "sent": 13,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:52:56.482Z",
+      "action": "start",
+      "token": "5c93fbb7121a6ccecb7ced",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO003",
+      "agent": "JYTO-S [DALABOYEVA NIXOLA] PARKENT",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-17T05:52:56.901Z",
+      "action": "detail_sent",
+      "token": "5c93fbb7121a6ccecb7ced",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO003",
+      "agent": "JYTO-S [DALABOYEVA NIXOLA] PARKENT",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:57:17.368Z",
+      "action": "start",
+      "token": "5c93fbb7121a6ccecb7ced",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO003",
+      "agent": "JYTO-S [DALABOYEVA NIXOLA] PARKENT",
+      "photos": 1
+    },
+    {
+      "at": "2026-07-17T05:57:18.385Z",
+      "action": "detail_sent",
+      "token": "5c93fbb7121a6ccecb7ced",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO003",
+      "agent": "JYTO-S [DALABOYEVA NIXOLA] PARKENT",
+      "sent": 1,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:57:23.930Z",
+      "action": "start",
+      "token": "3ebae18e9be3d6c1d2b023",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO004",
+      "agent": "JYTO-Y [PULATOV RAHMATULLA] TOSHKENT TUMANI",
+      "photos": 10
+    },
+    {
+      "at": "2026-07-17T05:57:24.678Z",
+      "action": "detail_sent",
+      "token": "3ebae18e9be3d6c1d2b023",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO004",
+      "agent": "JYTO-Y [PULATOV RAHMATULLA] TOSHKENT TUMANI",
+      "sent": 10,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:57:41.096Z",
+      "action": "start",
+      "token": "37da77c9ec52acd100c9c1",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTZ008",
+      "agent": "JYDV [JUMAYEV AHROR]",
+      "photos": 9
+    },
+    {
+      "at": "2026-07-17T05:57:41.896Z",
+      "action": "detail_sent",
+      "token": "37da77c9ec52acd100c9c1",
+      "chatId": 6697834471,
+      "user": {
+        "id": "6697834471",
+        "username": "zarafshannt",
+        "firstName": "Зарафшан",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTZ008",
+      "agent": "JYDV [JUMAYEV AHROR]",
+      "sent": 9,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T05:58:41.339Z",
+      "action": "start",
+      "token": "3ebae18e9be3d6c1d2b023",
+      "chatId": 1471314750,
+      "user": {
+        "id": "1471314750",
+        "username": "ilxom_010",
+        "firstName": "@Po‘latov.Ilhom",
+        "lastName": "",
+        "languageCode": "uz",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO004",
+      "agent": "JYTO-Y [PULATOV RAHMATULLA] TOSHKENT TUMANI",
+      "photos": 10
+    },
+    {
+      "at": "2026-07-17T05:58:42.083Z",
+      "action": "detail_sent",
+      "token": "3ebae18e9be3d6c1d2b023",
+      "chatId": 1471314750,
+      "user": {
+        "id": "1471314750",
+        "username": "ilxom_010",
+        "firstName": "@Po‘latov.Ilhom",
+        "lastName": "",
+        "languageCode": "uz",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTO004",
+      "agent": "JYTO-Y [PULATOV RAHMATULLA] TOSHKENT TUMANI",
+      "sent": 10,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T06:10:08.938Z",
+      "action": "start",
+      "token": "37da77c9ec52acd100c9c1",
+      "chatId": 8557946870,
+      "user": {
+        "id": "8557946870",
+        "username": "maksud1909",
+        "firstName": "Maksud",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTZ008",
+      "agent": "JYDV [JUMAYEV AHROR]",
+      "photos": 9
+    },
+    {
+      "at": "2026-07-17T06:10:09.686Z",
+      "action": "detail_sent",
+      "token": "37da77c9ec52acd100c9c1",
+      "chatId": 8557946870,
+      "user": {
+        "id": "8557946870",
+        "username": "maksud1909",
+        "firstName": "Maksud",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      },
+      "sessionType": "agent",
+      "date": "2026-07-16",
+      "code": "JYTZ008",
+      "agent": "JYDV [JUMAYEV AHROR]",
+      "sent": 9,
+      "failed": 0
+    },
+    {
+      "at": "2026-07-17T06:33:43.009Z",
+      "action": "warm_cache_queued",
+      "queued": 40,
+      "photos": 40,
+      "groups": 9
+    },
+    {
+      "at": "2026-07-17T06:33:43.535Z",
+      "action": "summary_sent",
+      "chatId": "**********5945",
+      "groups": 9,
+      "photos": 40,
+      "messageId": 1381
+    },
+    {
+      "at": "2026-07-20T04:07:38.341Z",
+      "action": "plain_start",
+      "chatId": 8319883206,
+      "user": {
+        "id": "8319883206",
+        "username": "shaxramjon_7164079",
+        "firstName": "Shaxramjon",
+        "lastName": "",
+        "languageCode": "uz",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-20T05:58:45.268Z",
+      "action": "plain_start",
+      "chatId": 5999876370,
+      "user": {
+        "id": "5999876370",
+        "username": "",
+        "firstName": "Sojida Uzbekovna",
+        "lastName": "25. 08. 1984",
+        "languageCode": "uz",
+        "isAdmin": false
+      }
     }
   ]
 }

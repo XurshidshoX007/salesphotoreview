@@ -1,0 +1,4252 @@
+{
+  "date": "2026-07-12",
+  "brand": {
+    "id": "lalaku_mama",
+    "name": "Lalaku Mama",
+    "salesBrandNames": [
+      "Lalaku mama",
+      "LALAKU MAMA",
+      "Mama"
+    ],
+    "agentPrefixes": [
+      "LMJ"
+    ],
+    "telegramChatId": "-1002547865945",
+    "telegramChatName": "LALAKU MAMA TABEL",
+    "enabled": true,
+    "notes": "Lalaku Mama agentlari odatda LMJ bilan boshlanadi",
+    "code": "LMJ",
+    "filePrefix": "lalaku_mama"
+  },
+  "appliedDateText": "API date_range: 2026-07-12",
+  "collectionMode": "api",
+  "apiError": "",
+  "collectedAt": "2026-07-13T10:05:59.427Z",
+  "totalRows": 108,
+  "totalAgents": 108,
+  "totalAgentsWithPhotos": 0,
+  "agents": [
+    {
+      "index": 0,
+      "agentId": "00ee7d13-7f34-4a8a-8b76-b9e8f2aeae38",
+      "code": "LMJAN01",
+      "name": "LMJAN F - [YUSUPOVA NASIBAXON ]",
+      "agent": "LMJAN F - [YUSUPOVA NASIBAXON ]",
+      "rowText": "LMJAN F - [YUSUPOVA NASIBAXON ] LMJAN01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "00ee7d13-7f34-4a8a-8b76-b9e8f2aeae38",
+          "name": "LMJAN F - [YUSUPOVA NASIBAXON ]"
+        },
+        "agent_code": "LMJAN01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 34,
+      "agentId": "5239da62-3276-4a4f-b422-4a4d965f0fb6",
+      "code": "LMJAN02",
+      "name": "LMJAN F - [ABDUMANNOPOVA MASTURA]",
+      "agent": "LMJAN F - [ABDUMANNOPOVA MASTURA]",
+      "rowText": "LMJAN F - [ABDUMANNOPOVA MASTURA] LMJAN02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5239da62-3276-4a4f-b422-4a4d965f0fb6",
+          "name": "LMJAN F - [ABDUMANNOPOVA MASTURA]"
+        },
+        "agent_code": "LMJAN02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 39,
+      "agentId": "5acda4be-afee-4b78-8c7d-b9cc97238d9d",
+      "code": "LMJAN03",
+      "name": "LMJAN F - [ABDURASULOV FAYZULLOH]",
+      "agent": "LMJAN F - [ABDURASULOV FAYZULLOH]",
+      "rowText": "LMJAN F - [ABDURASULOV FAYZULLOH] LMJAN03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5acda4be-afee-4b78-8c7d-b9cc97238d9d",
+          "name": "LMJAN F - [ABDURASULOV FAYZULLOH]"
+        },
+        "agent_code": "LMJAN03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 24,
+      "agentId": "3bae17cd-c3dd-4425-89f6-83cf6079616e",
+      "code": "LMJAN04",
+      "name": "LMJAN F - [ODILJONOV ASILBEK]",
+      "agent": "LMJAN F - [ODILJONOV ASILBEK]",
+      "rowText": "LMJAN F - [ODILJONOV ASILBEK] LMJAN04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3bae17cd-c3dd-4425-89f6-83cf6079616e",
+          "name": "LMJAN F - [ODILJONOV ASILBEK]"
+        },
+        "agent_code": "LMJAN04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 63,
+      "agentId": "aa6fbdeb-27fa-4146-9af7-af986a242655",
+      "code": "LMJAN05",
+      "name": "LMJAN M [TO'LOQOVA MAMURA]",
+      "agent": "LMJAN M [TO'LOQOVA MAMURA]",
+      "rowText": "LMJAN M [TO'LOQOVA MAMURA] LMJAN05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "aa6fbdeb-27fa-4146-9af7-af986a242655",
+          "name": "LMJAN M [TO'LOQOVA MAMURA]"
+        },
+        "agent_code": "LMJAN05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 84,
+      "agentId": "d5b5bb65-c6a8-4e61-8ba9-a882ceb1b14a",
+      "code": "LMJAN06",
+      "name": "LMJAN M [ARABOV SALOXIDDIN]",
+      "agent": "LMJAN M [ARABOV SALOXIDDIN]",
+      "rowText": "LMJAN M [ARABOV SALOXIDDIN] LMJAN06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d5b5bb65-c6a8-4e61-8ba9-a882ceb1b14a",
+          "name": "LMJAN M [ARABOV SALOXIDDIN]"
+        },
+        "agent_code": "LMJAN06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 93,
+      "agentId": "e55bf3c7-ea9e-4ad6-b53e-d7694e854d35",
+      "code": "LMJAN07",
+      "name": "LMJAN M [QOZIYEVA MASHXURA]",
+      "agent": "LMJAN M [QOZIYEVA MASHXURA]",
+      "rowText": "LMJAN M [QOZIYEVA MASHXURA] LMJAN07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e55bf3c7-ea9e-4ad6-b53e-d7694e854d35",
+          "name": "LMJAN M [QOZIYEVA MASHXURA]"
+        },
+        "agent_code": "LMJAN07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 69,
+      "agentId": "b50d6400-7a72-4ef1-9554-c71fdada8105",
+      "code": "LMJAN08",
+      "name": "LMJAN M [ISMOILOVA OGILOY]",
+      "agent": "LMJAN M [ISMOILOVA OGILOY]",
+      "rowText": "LMJAN M [ISMOILOVA OGILOY] LMJAN08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b50d6400-7a72-4ef1-9554-c71fdada8105",
+          "name": "LMJAN M [ISMOILOVA OGILOY]"
+        },
+        "agent_code": "LMJAN08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 87,
+      "agentId": "dab69446-8d9f-490e-a8dc-4fc4bcc54ba0",
+      "code": "LMJAN09",
+      "name": "LMJAN M [KARIMJONOVA MAXDIYA]",
+      "agent": "LMJAN M [KARIMJONOVA MAXDIYA]",
+      "rowText": "LMJAN M [KARIMJONOVA MAXDIYA] LMJAN09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "dab69446-8d9f-490e-a8dc-4fc4bcc54ba0",
+          "name": "LMJAN M [KARIMJONOVA MAXDIYA]"
+        },
+        "agent_code": "LMJAN09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 86,
+      "agentId": "d84931f5-aa52-47bf-b8ab-5f4d8f37e5e6",
+      "code": "LMJAN10",
+      "name": "LMJAN F - [NISHONOVA UMIDAXON]",
+      "agent": "LMJAN F - [NISHONOVA UMIDAXON]",
+      "rowText": "LMJAN F - [NISHONOVA UMIDAXON] LMJAN10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d84931f5-aa52-47bf-b8ab-5f4d8f37e5e6",
+          "name": "LMJAN F - [NISHONOVA UMIDAXON]"
+        },
+        "agent_code": "LMJAN10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 46,
+      "agentId": "77543a51-2795-421a-8995-182d789269fa",
+      "code": "LMJBX01",
+      "name": "LMJBX - [XIKMATOV SHAXZOD]",
+      "agent": "LMJBX - [XIKMATOV SHAXZOD]",
+      "rowText": "LMJBX - [XIKMATOV SHAXZOD] LMJBX01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "77543a51-2795-421a-8995-182d789269fa",
+          "name": "LMJBX - [XIKMATOV SHAXZOD]"
+        },
+        "agent_code": "LMJBX01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 30,
+      "agentId": "46a1e97a-71da-4e9a-8779-6e2e97ada619",
+      "code": "LMJBX02",
+      "name": "LMJBX - [ASHUROVA MADINA]",
+      "agent": "LMJBX - [ASHUROVA MADINA]",
+      "rowText": "LMJBX - [ASHUROVA MADINA] LMJBX02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "46a1e97a-71da-4e9a-8779-6e2e97ada619",
+          "name": "LMJBX - [ASHUROVA MADINA]"
+        },
+        "agent_code": "LMJBX02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 13,
+      "agentId": "16a8a7a1-d65d-426e-af9b-0d2ea56ff72e",
+      "code": "LMJBX03",
+      "name": "LMJBX - [TURAYEVA MANZURA]",
+      "agent": "LMJBX - [TURAYEVA MANZURA]",
+      "rowText": "LMJBX - [TURAYEVA MANZURA] LMJBX03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "16a8a7a1-d65d-426e-af9b-0d2ea56ff72e",
+          "name": "LMJBX - [TURAYEVA MANZURA]"
+        },
+        "agent_code": "LMJBX03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 67,
+      "agentId": "ac98bb6c-833d-4cfe-91f3-2d4415dd9308",
+      "code": "LMJBX04",
+      "name": "LMJBX - [RAXIMOVA MARJONA]",
+      "agent": "LMJBX - [RAXIMOVA MARJONA]",
+      "rowText": "LMJBX - [RAXIMOVA MARJONA] LMJBX04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ac98bb6c-833d-4cfe-91f3-2d4415dd9308",
+          "name": "LMJBX - [RAXIMOVA MARJONA]"
+        },
+        "agent_code": "LMJBX04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 1,
+      "agentId": "05747133-fffb-4b85-9333-d5edaeb04cf8",
+      "code": "LMJDILLER01",
+      "name": "LALAKU MAMA DILLER",
+      "agent": "LALAKU MAMA DILLER",
+      "rowText": "LALAKU MAMA DILLER LMJDILLER01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "05747133-fffb-4b85-9333-d5edaeb04cf8",
+          "name": "LALAKU MAMA DILLER"
+        },
+        "agent_code": "LMJDILLER01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 53,
+      "agentId": "8c2c827c-feaf-4d49-bf4e-e7e8086ca630",
+      "code": "LMJFA01",
+      "name": "LMJFA S [RAXMANOVA SHAXNOZAXON]",
+      "agent": "LMJFA S [RAXMANOVA SHAXNOZAXON]",
+      "rowText": "LMJFA S [RAXMANOVA SHAXNOZAXON] LMJFA01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8c2c827c-feaf-4d49-bf4e-e7e8086ca630",
+          "name": "LMJFA S [RAXMANOVA SHAXNOZAXON]"
+        },
+        "agent_code": "LMJFA01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 8,
+      "agentId": "11f1dbb2-b43e-4a10-96d2-1c6876a8a339",
+      "code": "LMJFA02",
+      "name": "LMJFA N [AHMEDOVA MUQADDAM]",
+      "agent": "LMJFA N [AHMEDOVA MUQADDAM]",
+      "rowText": "LMJFA N [AHMEDOVA MUQADDAM] LMJFA02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "11f1dbb2-b43e-4a10-96d2-1c6876a8a339",
+          "name": "LMJFA N [AHMEDOVA MUQADDAM]"
+        },
+        "agent_code": "LMJFA02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 7,
+      "agentId": "118b05c2-9e31-4513-9dfb-3a061d776cae",
+      "code": "LMJFA03",
+      "name": "LMJFA N [MASHRABJONOVA DILAFRUZ]",
+      "agent": "LMJFA N [MASHRABJONOVA DILAFRUZ]",
+      "rowText": "LMJFA N [MASHRABJONOVA DILAFRUZ] LMJFA03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "118b05c2-9e31-4513-9dfb-3a061d776cae",
+          "name": "LMJFA N [MASHRABJONOVA DILAFRUZ]"
+        },
+        "agent_code": "LMJFA03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 78,
+      "agentId": "c9ea5646-4f6b-408f-94f5-4e1cdece6ef2",
+      "code": "LMJFA04",
+      "name": "LMJFA S [XAMDAMOVA BEKZODA]",
+      "agent": "LMJFA S [XAMDAMOVA BEKZODA]",
+      "rowText": "LMJFA S [XAMDAMOVA BEKZODA] LMJFA04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c9ea5646-4f6b-408f-94f5-4e1cdece6ef2",
+          "name": "LMJFA S [XAMDAMOVA BEKZODA]"
+        },
+        "agent_code": "LMJFA04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 85,
+      "agentId": "d716bc33-a83f-49cf-97c0-5544e950bf4a",
+      "code": "LMJFA05",
+      "name": "LMJFA S [ABDULXAYEVA MAFTUNAXON]",
+      "agent": "LMJFA S [ABDULXAYEVA MAFTUNAXON]",
+      "rowText": "LMJFA S [ABDULXAYEVA MAFTUNAXON] LMJFA05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d716bc33-a83f-49cf-97c0-5544e950bf4a",
+          "name": "LMJFA S [ABDULXAYEVA MAFTUNAXON]"
+        },
+        "agent_code": "LMJFA05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 50,
+      "agentId": "7c97cbe0-2bf6-4e21-970d-50e75ae23a7f",
+      "code": "LMJFA06",
+      "name": "LMJFA S [SHUKURALIYEVA NODIRA]",
+      "agent": "LMJFA S [SHUKURALIYEVA NODIRA]",
+      "rowText": "LMJFA S [SHUKURALIYEVA NODIRA] LMJFA06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "7c97cbe0-2bf6-4e21-970d-50e75ae23a7f",
+          "name": "LMJFA S [SHUKURALIYEVA NODIRA]"
+        },
+        "agent_code": "LMJFA06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 20,
+      "agentId": "2c358300-b91f-45d4-bf93-59c467e85709",
+      "code": "LMJFA07",
+      "name": "LMJFA S [ABDUQAXXOROVA NARGIZAXON]",
+      "agent": "LMJFA S [ABDUQAXXOROVA NARGIZAXON]",
+      "rowText": "LMJFA S [ABDUQAXXOROVA NARGIZAXON] LMJFA07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2c358300-b91f-45d4-bf93-59c467e85709",
+          "name": "LMJFA S [ABDUQAXXOROVA NARGIZAXON]"
+        },
+        "agent_code": "LMJFA07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 15,
+      "agentId": "1d64f487-bab2-458d-a068-3b39c1b0b50b",
+      "code": "LMJFA08",
+      "name": "LMJFA N [GOFFOROVA DILAFROZ]",
+      "agent": "LMJFA N [GOFFOROVA DILAFROZ]",
+      "rowText": "LMJFA N [GOFFOROVA DILAFROZ] LMJFA08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1d64f487-bab2-458d-a068-3b39c1b0b50b",
+          "name": "LMJFA N [GOFFOROVA DILAFROZ]"
+        },
+        "agent_code": "LMJFA08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 19,
+      "agentId": "2b0e8934-e51e-491a-82b3-16d2572ca740",
+      "code": "LMJFA09",
+      "name": "LMJFA N [TADJIBAYEVA MUATTAR]",
+      "agent": "LMJFA N [TADJIBAYEVA MUATTAR]",
+      "rowText": "LMJFA N [TADJIBAYEVA MUATTAR] LMJFA09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2b0e8934-e51e-491a-82b3-16d2572ca740",
+          "name": "LMJFA N [TADJIBAYEVA MUATTAR]"
+        },
+        "agent_code": "LMJFA09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 16,
+      "agentId": "2119be14-80c0-4b3d-96da-d48c3d5df428",
+      "code": "LMJFA10",
+      "name": "LMJFA N [BAXROMOVA MUSLIMAXON]",
+      "agent": "LMJFA N [BAXROMOVA MUSLIMAXON]",
+      "rowText": "LMJFA N [BAXROMOVA MUSLIMAXON] LMJFA10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2119be14-80c0-4b3d-96da-d48c3d5df428",
+          "name": "LMJFA N [BAXROMOVA MUSLIMAXON]"
+        },
+        "agent_code": "LMJFA10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 89,
+      "agentId": "e0064ecd-cf60-4a49-adbb-d02c278a5434",
+      "code": "LMJGL01",
+      "name": "LMJGL [QOSIMOVA MAHSUMA]",
+      "agent": "LMJGL [QOSIMOVA MAHSUMA]",
+      "rowText": "LMJGL [QOSIMOVA MAHSUMA] LMJGL01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e0064ecd-cf60-4a49-adbb-d02c278a5434",
+          "name": "LMJGL [QOSIMOVA MAHSUMA]"
+        },
+        "agent_code": "LMJGL01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 74,
+      "agentId": "c3e182a9-0714-404f-bde5-f9a267341265",
+      "code": "LMJGL02",
+      "name": "LMJGL [MARDONOVA FARIDA]",
+      "agent": "LMJGL [MARDONOVA FARIDA]",
+      "rowText": "LMJGL [MARDONOVA FARIDA] LMJGL02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c3e182a9-0714-404f-bde5-f9a267341265",
+          "name": "LMJGL [MARDONOVA FARIDA]"
+        },
+        "agent_code": "LMJGL02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 55,
+      "agentId": "90d923ec-cf1a-4eb4-ac03-b0eae665ec87",
+      "code": "LMJISH01",
+      "name": "LMJISH [BOLTAYEVA NIGORA]",
+      "agent": "LMJISH [BOLTAYEVA NIGORA]",
+      "rowText": "LMJISH [BOLTAYEVA NIGORA] LMJISH01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "90d923ec-cf1a-4eb4-ac03-b0eae665ec87",
+          "name": "LMJISH [BOLTAYEVA NIGORA]"
+        },
+        "agent_code": "LMJISH01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 5,
+      "agentId": "0e199f52-ca79-4e9a-8ef8-6d61a0b50573",
+      "code": "LMJISH02",
+      "name": "LMJISH [JALOLOVA MAFTUNA]",
+      "agent": "LMJISH [JALOLOVA MAFTUNA]",
+      "rowText": "LMJISH [JALOLOVA MAFTUNA] LMJISH02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0e199f52-ca79-4e9a-8ef8-6d61a0b50573",
+          "name": "LMJISH [JALOLOVA MAFTUNA]"
+        },
+        "agent_code": "LMJISH02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 52,
+      "agentId": "8a316fd0-f6a2-4b2e-9b2f-ebffd9d22755",
+      "code": "LMJISH03",
+      "name": "LMJISH [RASULOVA DINORA]",
+      "agent": "LMJISH [RASULOVA DINORA]",
+      "rowText": "LMJISH [RASULOVA DINORA] LMJISH03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8a316fd0-f6a2-4b2e-9b2f-ebffd9d22755",
+          "name": "LMJISH [RASULOVA DINORA]"
+        },
+        "agent_code": "LMJISH03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 107,
+      "agentId": "fef82690-993f-4806-8bf9-547ed4afa19f",
+      "code": "LMJISH04",
+      "name": "LMJISH [VACANT]",
+      "agent": "LMJISH [VACANT]",
+      "rowText": "LMJISH [VACANT] LMJISH04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fef82690-993f-4806-8bf9-547ed4afa19f",
+          "name": "LMJISH [VACANT]"
+        },
+        "agent_code": "LMJISH04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 90,
+      "agentId": "e1368ae0-2914-4dc3-baac-6a5b24fad055",
+      "code": "LMJISM01",
+      "name": "LMJISM A [ERNAZAROV ALEKSANDR]",
+      "agent": "LMJISM A [ERNAZAROV ALEKSANDR]",
+      "rowText": "LMJISM A [ERNAZAROV ALEKSANDR] LMJISM01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e1368ae0-2914-4dc3-baac-6a5b24fad055",
+          "name": "LMJISM A [ERNAZAROV ALEKSANDR]"
+        },
+        "agent_code": "LMJISM01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 70,
+      "agentId": "b5780621-53a6-476f-8978-d88d431259a9",
+      "code": "LMJISM02",
+      "name": "LMJISM A [SHAMSIDDINOVA FARANGIZ]",
+      "agent": "LMJISM A [SHAMSIDDINOVA FARANGIZ]",
+      "rowText": "LMJISM A [SHAMSIDDINOVA FARANGIZ] LMJISM02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b5780621-53a6-476f-8978-d88d431259a9",
+          "name": "LMJISM A [SHAMSIDDINOVA FARANGIZ]"
+        },
+        "agent_code": "LMJISM02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 35,
+      "agentId": "53d37a52-47d8-4727-a4a8-828c12f2854f",
+      "code": "LMJISM03",
+      "name": "LMJISM A [SHARAPOVA KSENIYA]",
+      "agent": "LMJISM A [SHARAPOVA KSENIYA]",
+      "rowText": "LMJISM A [SHARAPOVA KSENIYA] LMJISM03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "53d37a52-47d8-4727-a4a8-828c12f2854f",
+          "name": "LMJISM A [SHARAPOVA KSENIYA]"
+        },
+        "agent_code": "LMJISM03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 60,
+      "agentId": "9ffc39af-5783-41cc-8acd-60279510227a",
+      "code": "LMJISM04",
+      "name": "LMJISM A [TURKEYEVA MARINA]",
+      "agent": "LMJISM A [TURKEYEVA MARINA]",
+      "rowText": "LMJISM A [TURKEYEVA MARINA] LMJISM04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "9ffc39af-5783-41cc-8acd-60279510227a",
+          "name": "LMJISM A [TURKEYEVA MARINA]"
+        },
+        "agent_code": "LMJISM04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 54,
+      "agentId": "8cc29f59-9d5a-40db-8aba-a656d78b6109",
+      "code": "LMJISM05",
+      "name": "LMJISM M [TURAKULOVA KAMOLA]",
+      "agent": "LMJISM M [TURAKULOVA KAMOLA]",
+      "rowText": "LMJISM M [TURAKULOVA KAMOLA] LMJISM05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "8cc29f59-9d5a-40db-8aba-a656d78b6109",
+          "name": "LMJISM M [TURAKULOVA KAMOLA]"
+        },
+        "agent_code": "LMJISM05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 61,
+      "agentId": "a35542b5-cc12-4505-afb4-4ccf92f2f0f8",
+      "code": "LMJISM06",
+      "name": "LMJISM M [NARZIEV ABBOS] KATTAQORG'ON",
+      "agent": "LMJISM M [NARZIEV ABBOS] KATTAQORG'ON",
+      "rowText": "LMJISM M [NARZIEV ABBOS] KATTAQORG'ON LMJISM06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a35542b5-cc12-4505-afb4-4ccf92f2f0f8",
+          "name": "LMJISM M [NARZIEV ABBOS] KATTAQORG'ON"
+        },
+        "agent_code": "LMJISM06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 29,
+      "agentId": "41127593-adc6-4f4c-b608-7bfea9d7708c",
+      "code": "LMJISM07",
+      "name": "LMJISM M [KEMALOV DJEZAIR]",
+      "agent": "LMJISM M [KEMALOV DJEZAIR]",
+      "rowText": "LMJISM M [KEMALOV DJEZAIR] LMJISM07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "41127593-adc6-4f4c-b608-7bfea9d7708c",
+          "name": "LMJISM M [KEMALOV DJEZAIR]"
+        },
+        "agent_code": "LMJISM07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 32,
+      "agentId": "4e8b2d73-5618-4404-be39-e74958398bea",
+      "code": "LMJISM08",
+      "name": "LMJISM M [AZIMOV OBLOBERDI]",
+      "agent": "LMJISM M [AZIMOV OBLOBERDI]",
+      "rowText": "LMJISM M [AZIMOV OBLOBERDI] LMJISM08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4e8b2d73-5618-4404-be39-e74958398bea",
+          "name": "LMJISM M [AZIMOV OBLOBERDI]"
+        },
+        "agent_code": "LMJISM08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 105,
+      "agentId": "fd64158e-6518-4b31-9e22-85eca7e4e628",
+      "code": "LMJJZ01",
+      "name": "LMJJZ [SHOBEKOVA ZUHRA]",
+      "agent": "LMJJZ [SHOBEKOVA ZUHRA]",
+      "rowText": "LMJJZ [SHOBEKOVA ZUHRA] LMJJZ01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fd64158e-6518-4b31-9e22-85eca7e4e628",
+          "name": "LMJJZ [SHOBEKOVA ZUHRA]"
+        },
+        "agent_code": "LMJJZ01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 97,
+      "agentId": "ef44d6a7-bab4-4bde-8a92-b04d53ad221c",
+      "code": "LMJJZ02",
+      "name": "LMJJZ [AXBAYEVA NODIRA]",
+      "agent": "LMJJZ [AXBAYEVA NODIRA]",
+      "rowText": "LMJJZ [AXBAYEVA NODIRA] LMJJZ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ef44d6a7-bab4-4bde-8a92-b04d53ad221c",
+          "name": "LMJJZ [AXBAYEVA NODIRA]"
+        },
+        "agent_code": "LMJJZ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 51,
+      "agentId": "81ccc921-2d9e-45ec-91f6-17c1cfff30d0",
+      "code": "LMJJZ03",
+      "name": "LMJJZ [ISOMOVA NAZIRA]",
+      "agent": "LMJJZ [ISOMOVA NAZIRA]",
+      "rowText": "LMJJZ [ISOMOVA NAZIRA] LMJJZ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "81ccc921-2d9e-45ec-91f6-17c1cfff30d0",
+          "name": "LMJJZ [ISOMOVA NAZIRA]"
+        },
+        "agent_code": "LMJJZ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 58,
+      "agentId": "9b470f30-22c5-46ac-9912-11be04f6600a",
+      "code": "LMJNK01",
+      "name": "LMJNK [RAMETOV JARAS]",
+      "agent": "LMJNK [RAMETOV JARAS]",
+      "rowText": "LMJNK [RAMETOV JARAS] LMJNK01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "9b470f30-22c5-46ac-9912-11be04f6600a",
+          "name": "LMJNK [RAMETOV JARAS]"
+        },
+        "agent_code": "LMJNK01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 12,
+      "agentId": "1628b2ba-1d98-45a0-a10b-306fc526bec0",
+      "code": "LMJNK02",
+      "name": "LMJNK [MIRZAMURATOVA GULNOZ]",
+      "agent": "LMJNK [MIRZAMURATOVA GULNOZ]",
+      "rowText": "LMJNK [MIRZAMURATOVA GULNOZ] LMJNK02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1628b2ba-1d98-45a0-a10b-306fc526bec0",
+          "name": "LMJNK [MIRZAMURATOVA GULNOZ]"
+        },
+        "agent_code": "LMJNK02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 98,
+      "agentId": "f09d8102-e21c-41e0-a8c7-2ebb4e18d84c",
+      "code": "LMJNK03",
+      "name": "LMJNK [SHERNAZAROVA ZIYODA]",
+      "agent": "LMJNK [SHERNAZAROVA ZIYODA]",
+      "rowText": "LMJNK [SHERNAZAROVA ZIYODA] LMJNK03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f09d8102-e21c-41e0-a8c7-2ebb4e18d84c",
+          "name": "LMJNK [SHERNAZAROVA ZIYODA]"
+        },
+        "agent_code": "LMJNK03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 83,
+      "agentId": "d4194890-6251-45b0-8e97-89c722de4f78",
+      "code": "LMJNK04",
+      "name": "LMJNK [UTEBAEV MUXAMMED]",
+      "agent": "LMJNK [UTEBAEV MUXAMMED]",
+      "rowText": "LMJNK [UTEBAEV MUXAMMED] LMJNK04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d4194890-6251-45b0-8e97-89c722de4f78",
+          "name": "LMJNK [UTEBAEV MUXAMMED]"
+        },
+        "agent_code": "LMJNK04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 99,
+      "agentId": "f0ec0a6b-fc37-4f99-9285-bb6144677998",
+      "code": "LMJNM01",
+      "name": "LMJNM [ABDULLAJONOV ABDULAXAD]",
+      "agent": "LMJNM [ABDULLAJONOV ABDULAXAD]",
+      "rowText": "LMJNM [ABDULLAJONOV ABDULAXAD] LMJNM01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f0ec0a6b-fc37-4f99-9285-bb6144677998",
+          "name": "LMJNM [ABDULLAJONOV ABDULAXAD]"
+        },
+        "agent_code": "LMJNM01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 82,
+      "agentId": "d3581765-99cd-4e83-85d1-74cdab7428b6",
+      "code": "LMJNM02",
+      "name": "LMJNM [TURGUNBOYEV LOCHINBEK]",
+      "agent": "LMJNM [TURGUNBOYEV LOCHINBEK]",
+      "rowText": "LMJNM [TURGUNBOYEV LOCHINBEK] LMJNM02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d3581765-99cd-4e83-85d1-74cdab7428b6",
+          "name": "LMJNM [TURGUNBOYEV LOCHINBEK]"
+        },
+        "agent_code": "LMJNM02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 23,
+      "agentId": "38995b8d-cb57-4cd3-bf50-b778ad26e60d",
+      "code": "LMJNM03",
+      "name": "LMJNM [MAKSUMOVA HOLIDA ]",
+      "agent": "LMJNM [MAKSUMOVA HOLIDA ]",
+      "rowText": "LMJNM [MAKSUMOVA HOLIDA ] LMJNM03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "38995b8d-cb57-4cd3-bf50-b778ad26e60d",
+          "name": "LMJNM [MAKSUMOVA HOLIDA ]"
+        },
+        "agent_code": "LMJNM03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 56,
+      "agentId": "937a1975-9632-4377-a076-6a4c96d2f429",
+      "code": "LMJNM04",
+      "name": "LMJNM [MIRZAAKBAROV AXADXON]",
+      "agent": "LMJNM [MIRZAAKBAROV AXADXON]",
+      "rowText": "LMJNM [MIRZAAKBAROV AXADXON] LMJNM04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "937a1975-9632-4377-a076-6a4c96d2f429",
+          "name": "LMJNM [MIRZAAKBAROV AXADXON]"
+        },
+        "agent_code": "LMJNM04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 65,
+      "agentId": "aaf4a666-9389-44b6-86aa-e7cd3e3ffd3b",
+      "code": "LMJNM05",
+      "name": "LMJNM [VACANT]",
+      "agent": "LMJNM [VACANT]",
+      "rowText": "LMJNM [VACANT] LMJNM05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "aaf4a666-9389-44b6-86aa-e7cd3e3ffd3b",
+          "name": "LMJNM [VACANT]"
+        },
+        "agent_code": "LMJNM05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 66,
+      "agentId": "ab620ede-516c-4e79-8d7f-a32fb912dff4",
+      "code": "LMJNM06",
+      "name": "LMJNM [KARIEV SHUKRULLO]",
+      "agent": "LMJNM [KARIEV SHUKRULLO]",
+      "rowText": "LMJNM [KARIEV SHUKRULLO] LMJNM06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "ab620ede-516c-4e79-8d7f-a32fb912dff4",
+          "name": "LMJNM [KARIEV SHUKRULLO]"
+        },
+        "agent_code": "LMJNM06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 48,
+      "agentId": "79a8d186-f337-4de6-af0f-a257f773cb86",
+      "code": "LMJNM07",
+      "name": "LMJNM [XAMIDOVA TURSINOY]",
+      "agent": "LMJNM [XAMIDOVA TURSINOY]",
+      "rowText": "LMJNM [XAMIDOVA TURSINOY] LMJNM07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "79a8d186-f337-4de6-af0f-a257f773cb86",
+          "name": "LMJNM [XAMIDOVA TURSINOY]"
+        },
+        "agent_code": "LMJNM07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 31,
+      "agentId": "49b0cf5a-1205-402f-94b7-2ba1569fdc6f",
+      "code": "LMJNM08",
+      "name": "LMJNM [BUZURUKKHANOV KHABIBULLO]",
+      "agent": "LMJNM [BUZURUKKHANOV KHABIBULLO]",
+      "rowText": "LMJNM [BUZURUKKHANOV KHABIBULLO] LMJNM08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "49b0cf5a-1205-402f-94b7-2ba1569fdc6f",
+          "name": "LMJNM [BUZURUKKHANOV KHABIBULLO]"
+        },
+        "agent_code": "LMJNM08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 80,
+      "agentId": "cdf0092a-2fec-49f0-b268-b1c867d8299a",
+      "code": "LMJNV01",
+      "name": "LMJNV [SHAMSIYEVA GULCHEXRA]",
+      "agent": "LMJNV [SHAMSIYEVA GULCHEXRA]",
+      "rowText": "LMJNV [SHAMSIYEVA GULCHEXRA] LMJNV01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cdf0092a-2fec-49f0-b268-b1c867d8299a",
+          "name": "LMJNV [SHAMSIYEVA GULCHEXRA]"
+        },
+        "agent_code": "LMJNV01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 75,
+      "agentId": "c5d86027-ba64-4e48-8012-7e4acc0fd3ef",
+      "code": "LMJNV02",
+      "name": "LMJNV [SAIDOVA GULCHIROY]",
+      "agent": "LMJNV [SAIDOVA GULCHIROY]",
+      "rowText": "LMJNV [SAIDOVA GULCHIROY] LMJNV02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c5d86027-ba64-4e48-8012-7e4acc0fd3ef",
+          "name": "LMJNV [SAIDOVA GULCHIROY]"
+        },
+        "agent_code": "LMJNV02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 71,
+      "agentId": "b6171635-2892-4cfe-b6d8-3c4fe0883615",
+      "code": "LMJNV03",
+      "name": "LMJNV [MAMADALIYEVA VASILA]",
+      "agent": "LMJNV [MAMADALIYEVA VASILA]",
+      "rowText": "LMJNV [MAMADALIYEVA VASILA] LMJNV03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b6171635-2892-4cfe-b6d8-3c4fe0883615",
+          "name": "LMJNV [MAMADALIYEVA VASILA]"
+        },
+        "agent_code": "LMJNV03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 42,
+      "agentId": "6eba1474-f783-484f-82c7-df4029b0ece6",
+      "code": "LMJNV04",
+      "name": "LMJNV [NURALIYEVA FARANGIZ]",
+      "agent": "LMJNV [NURALIYEVA FARANGIZ]",
+      "rowText": "LMJNV [NURALIYEVA FARANGIZ] LMJNV04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "6eba1474-f783-484f-82c7-df4029b0ece6",
+          "name": "LMJNV [NURALIYEVA FARANGIZ]"
+        },
+        "agent_code": "LMJNV04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 100,
+      "agentId": "f1694759-2231-4212-beb0-b9bd98af14b4",
+      "code": "LMJNV05",
+      "name": "LMJNV [YULDASHOVA SARVINOZ]",
+      "agent": "LMJNV [YULDASHOVA SARVINOZ]",
+      "rowText": "LMJNV [YULDASHOVA SARVINOZ] LMJNV05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f1694759-2231-4212-beb0-b9bd98af14b4",
+          "name": "LMJNV [YULDASHOVA SARVINOZ]"
+        },
+        "agent_code": "LMJNV05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 106,
+      "agentId": "fe0a4274-f57a-41ef-bbef-565e66ece383",
+      "code": "LMJOPT002",
+      "name": "LMJOPTTSH- [VACANT]",
+      "agent": "LMJOPTTSH- [VACANT]",
+      "rowText": "LMJOPTTSH- [VACANT] LMJOPT002",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fe0a4274-f57a-41ef-bbef-565e66ece383",
+          "name": "LMJOPTTSH- [VACANT]"
+        },
+        "agent_code": "LMJOPT002",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 4,
+        "rejected_visits_count": 0,
+        "unvisited_count": 4,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 88,
+      "agentId": "df7c307c-4cfd-42f9-881d-60b4900f4e87",
+      "code": "LMJOPT003",
+      "name": "LMJOPTTO - [QODIRQULOVA ODINA] OLMALIQ OPTOM",
+      "agent": "LMJOPTTO - [QODIRQULOVA ODINA] OLMALIQ OPTOM",
+      "rowText": "LMJOPTTO - [QODIRQULOVA ODINA] OLMALIQ OPTOM LMJOPT003",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "df7c307c-4cfd-42f9-881d-60b4900f4e87",
+          "name": "LMJOPTTO - [QODIRQULOVA ODINA] OLMALIQ OPTOM"
+        },
+        "agent_code": "LMJOPT003",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 59,
+      "agentId": "9da4d97e-8e6e-4ed7-ba0f-93deac73131e",
+      "code": "LMJQQ01",
+      "name": "LMJQQ [ORIPOV MUHAMMADAMIN]",
+      "agent": "LMJQQ [ORIPOV MUHAMMADAMIN]",
+      "rowText": "LMJQQ [ORIPOV MUHAMMADAMIN] LMJQQ01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "9da4d97e-8e6e-4ed7-ba0f-93deac73131e",
+          "name": "LMJQQ [ORIPOV MUHAMMADAMIN]"
+        },
+        "agent_code": "LMJQQ01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 59,
+        "rejected_visits_count": 0,
+        "unvisited_count": 59,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 43,
+      "agentId": "72bf32cf-fc65-49a4-9516-a6068166dec5",
+      "code": "LMJQQ02",
+      "name": "LMJQQ [DANIYOROVA ASALXON]",
+      "agent": "LMJQQ [DANIYOROVA ASALXON]",
+      "rowText": "LMJQQ [DANIYOROVA ASALXON] LMJQQ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "72bf32cf-fc65-49a4-9516-a6068166dec5",
+          "name": "LMJQQ [DANIYOROVA ASALXON]"
+        },
+        "agent_code": "LMJQQ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 143,
+        "rejected_visits_count": 0,
+        "unvisited_count": 143,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 17,
+      "agentId": "269604f5-a796-4e1f-84bc-231744b04480",
+      "code": "LMJQQ03",
+      "name": "LMJQQ [AZIMOV MUSOXON]",
+      "agent": "LMJQQ [AZIMOV MUSOXON]",
+      "rowText": "LMJQQ [AZIMOV MUSOXON] LMJQQ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "269604f5-a796-4e1f-84bc-231744b04480",
+          "name": "LMJQQ [AZIMOV MUSOXON]"
+        },
+        "agent_code": "LMJQQ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 271,
+        "rejected_visits_count": 0,
+        "unvisited_count": 271,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 91,
+      "agentId": "e1b9a91e-b3a9-4b91-b233-41e204d25be4",
+      "code": "LMJQQ04",
+      "name": "LMJQQ [USMONOV NEMATJON]",
+      "agent": "LMJQQ [USMONOV NEMATJON]",
+      "rowText": "LMJQQ [USMONOV NEMATJON] LMJQQ04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e1b9a91e-b3a9-4b91-b233-41e204d25be4",
+          "name": "LMJQQ [USMONOV NEMATJON]"
+        },
+        "agent_code": "LMJQQ04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 26,
+        "rejected_visits_count": 0,
+        "unvisited_count": 26,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 77,
+      "agentId": "c904738d-7c37-4ece-b2ba-249e1cfc04c6",
+      "code": "LMJQQ05",
+      "name": "LMJQQ [ATAXODJAYEV SHUKUR]",
+      "agent": "LMJQQ [ATAXODJAYEV SHUKUR]",
+      "rowText": "LMJQQ [ATAXODJAYEV SHUKUR] LMJQQ05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c904738d-7c37-4ece-b2ba-249e1cfc04c6",
+          "name": "LMJQQ [ATAXODJAYEV SHUKUR]"
+        },
+        "agent_code": "LMJQQ05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 232,
+        "rejected_visits_count": 0,
+        "unvisited_count": 232,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 22,
+      "agentId": "331b2538-5d24-4adf-8187-e0e45c4242c6",
+      "code": "LMJQQ06",
+      "name": "LMJQQ [RAXIMOV RAHMATULLOH]",
+      "agent": "LMJQQ [RAXIMOV RAHMATULLOH]",
+      "rowText": "LMJQQ [RAXIMOV RAHMATULLOH] LMJQQ06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "331b2538-5d24-4adf-8187-e0e45c4242c6",
+          "name": "LMJQQ [RAXIMOV RAHMATULLOH]"
+        },
+        "agent_code": "LMJQQ06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 323,
+        "rejected_visits_count": 0,
+        "unvisited_count": 323,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 62,
+      "agentId": "a5aa45d9-e740-4774-b39d-ce6d42ce098e",
+      "code": "LMJQQ07",
+      "name": "LMJQQ [ISLOMOVA ZIYODAXON]",
+      "agent": "LMJQQ [ISLOMOVA ZIYODAXON]",
+      "rowText": "LMJQQ [ISLOMOVA ZIYODAXON] LMJQQ07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "a5aa45d9-e740-4774-b39d-ce6d42ce098e",
+          "name": "LMJQQ [ISLOMOVA ZIYODAXON]"
+        },
+        "agent_code": "LMJQQ07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 164,
+        "rejected_visits_count": 0,
+        "unvisited_count": 164,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 18,
+      "agentId": "28c82ae2-35e7-40a1-9b45-c5ca7fe9879a",
+      "code": "LMJQR01",
+      "name": "LMJQR - [IBROGIMOV SHAXZOD]",
+      "agent": "LMJQR - [IBROGIMOV SHAXZOD]",
+      "rowText": "LMJQR - [IBROGIMOV SHAXZOD] LMJQR01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "28c82ae2-35e7-40a1-9b45-c5ca7fe9879a",
+          "name": "LMJQR - [IBROGIMOV SHAXZOD]"
+        },
+        "agent_code": "LMJQR01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 6,
+      "agentId": "1159aeb7-3c04-40d7-9c7c-f75adc2aceba",
+      "code": "LMJQR02",
+      "name": "LMJQR - [SUYUNOV SUR'ATJON]",
+      "agent": "LMJQR - [SUYUNOV SUR'ATJON]",
+      "rowText": "LMJQR - [SUYUNOV SUR'ATJON] LMJQR02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "1159aeb7-3c04-40d7-9c7c-f75adc2aceba",
+          "name": "LMJQR - [SUYUNOV SUR'ATJON]"
+        },
+        "agent_code": "LMJQR02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 92,
+      "agentId": "e348b73d-c551-4b03-b52b-136669afde48",
+      "code": "LMJQR03",
+      "name": "LMJQR - [MANNOPOV ASILBEK]",
+      "agent": "LMJQR - [MANNOPOV ASILBEK]",
+      "rowText": "LMJQR - [MANNOPOV ASILBEK] LMJQR03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e348b73d-c551-4b03-b52b-136669afde48",
+          "name": "LMJQR - [MANNOPOV ASILBEK]"
+        },
+        "agent_code": "LMJQR03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 33,
+      "agentId": "4ebeffb0-ec65-4527-a3c1-3e430f6ebd17",
+      "code": "LMJQR04",
+      "name": "LMJQR - [ISMATOVA NARGIZA]",
+      "agent": "LMJQR - [ISMATOVA NARGIZA]",
+      "rowText": "LMJQR - [ISMATOVA NARGIZA] LMJQR04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "4ebeffb0-ec65-4527-a3c1-3e430f6ebd17",
+          "name": "LMJQR - [ISMATOVA NARGIZA]"
+        },
+        "agent_code": "LMJQR04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 76,
+      "agentId": "c8cdead6-1f7f-4e83-b512-ff77804cdfec",
+      "code": "LMJQRDILLER",
+      "name": "LMJQR - [NURIDDIN OPTOM]",
+      "agent": "LMJQR - [NURIDDIN OPTOM]",
+      "rowText": "LMJQR - [NURIDDIN OPTOM] LMJQRDILLER",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "c8cdead6-1f7f-4e83-b512-ff77804cdfec",
+          "name": "LMJQR - [NURIDDIN OPTOM]"
+        },
+        "agent_code": "LMJQRDILLER",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 27,
+      "agentId": "3f0aeb95-1f29-45c7-95cf-5337f35358d2",
+      "code": "LMJTO01",
+      "name": "LMJTO-O [ABDULLAYEVA MANZURA]",
+      "agent": "LMJTO-O [ABDULLAYEVA MANZURA]",
+      "rowText": "LMJTO-O [ABDULLAYEVA MANZURA] LMJTO01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3f0aeb95-1f29-45c7-95cf-5337f35358d2",
+          "name": "LMJTO-O [ABDULLAYEVA MANZURA]"
+        },
+        "agent_code": "LMJTO01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 79,
+      "agentId": "cb99ab8b-6b80-4a0b-8aa4-bebd42579245",
+      "code": "LMJTO02",
+      "name": "LMJTO-O [XUSANOVA GULJAMOL] OLMALIQ",
+      "agent": "LMJTO-O [XUSANOVA GULJAMOL] OLMALIQ",
+      "rowText": "LMJTO-O [XUSANOVA GULJAMOL] OLMALIQ LMJTO02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "cb99ab8b-6b80-4a0b-8aa4-bebd42579245",
+          "name": "LMJTO-O [XUSANOVA GULJAMOL] OLMALIQ"
+        },
+        "agent_code": "LMJTO02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 26,
+      "agentId": "3e59923b-7775-4812-b9d4-078e0185e3fb",
+      "code": "LMJTO03",
+      "name": "LMJTO-O [GULMANOVA ZILOLA] ANGREN",
+      "agent": "LMJTO-O [GULMANOVA ZILOLA] ANGREN",
+      "rowText": "LMJTO-O [GULMANOVA ZILOLA] ANGREN LMJTO03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3e59923b-7775-4812-b9d4-078e0185e3fb",
+          "name": "LMJTO-O [GULMANOVA ZILOLA] ANGREN"
+        },
+        "agent_code": "LMJTO03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 21,
+      "agentId": "2d70a0f1-23ca-489e-ba8c-0581ea2d1ca4",
+      "code": "LMJTO04",
+      "name": "LMJTO-Y [NORTOJIYEVA NODIRA] CHIRCHIQ TEPA QISM",
+      "agent": "LMJTO-Y [NORTOJIYEVA NODIRA] CHIRCHIQ TEPA QISM",
+      "rowText": "LMJTO-Y [NORTOJIYEVA NODIRA] CHIRCHIQ TEPA QISM LMJTO04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "2d70a0f1-23ca-489e-ba8c-0581ea2d1ca4",
+          "name": "LMJTO-Y [NORTOJIYEVA NODIRA] CHIRCHIQ TEPA QISM"
+        },
+        "agent_code": "LMJTO04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 3,
+      "agentId": "090d36bf-46b7-491a-bd96-543e90547b33",
+      "code": "LMJTO05",
+      "name": "LMJTO-O [TURDIYEVA AZIZA] BO'KA PISKENT TO'YTEPA",
+      "agent": "LMJTO-O [TURDIYEVA AZIZA] BO'KA PISKENT TO'YTEPA",
+      "rowText": "LMJTO-O [TURDIYEVA AZIZA] BO'KA PISKENT TO'YTEPA LMJTO05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "090d36bf-46b7-491a-bd96-543e90547b33",
+          "name": "LMJTO-O [TURDIYEVA AZIZA] BO'KA PISKENT TO'YTEPA"
+        },
+        "agent_code": "LMJTO05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 47,
+      "agentId": "7898cabe-34d1-4e96-b07b-2f7e6a0e829e",
+      "code": "LMJTO06",
+      "name": "LMJTO-Y [VACANT]",
+      "agent": "LMJTO-Y [VACANT]",
+      "rowText": "LMJTO-Y [VACANT] LMJTO06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "7898cabe-34d1-4e96-b07b-2f7e6a0e829e",
+          "name": "LMJTO-Y [VACANT]"
+        },
+        "agent_code": "LMJTO06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 28,
+      "agentId": "3f13325e-d950-46b1-b897-d18dc58e6687",
+      "code": "LMJTO07",
+      "name": "LMJTO-Y [MAXAMATKARIMOVA DILOROM] QIBRAY, UCH QAHRAMON",
+      "agent": "LMJTO-Y [MAXAMATKARIMOVA DILOROM] QIBRAY, UCH QAHRAMON",
+      "rowText": "LMJTO-Y [MAXAMATKARIMOVA DILOROM] QIBRAY, UCH QAHRAMON LMJTO07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3f13325e-d950-46b1-b897-d18dc58e6687",
+          "name": "LMJTO-Y [MAXAMATKARIMOVA DILOROM] QIBRAY, UCH QAHRAMON"
+        },
+        "agent_code": "LMJTO07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 36,
+      "agentId": "55be4082-edae-4307-a8c8-740d372b9667",
+      "code": "LMJTO08",
+      "name": "LMJTSH S [TULAGANOVA NASIBA] YANGI YO'L",
+      "agent": "LMJTSH S [TULAGANOVA NASIBA] YANGI YO'L",
+      "rowText": "LMJTSH S [TULAGANOVA NASIBA] YANGI YO'L LMJTO08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "55be4082-edae-4307-a8c8-740d372b9667",
+          "name": "LMJTSH S [TULAGANOVA NASIBA] YANGI YO'L"
+        },
+        "agent_code": "LMJTO08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 43,
+        "rejected_visits_count": 0,
+        "unvisited_count": 43,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 72,
+      "agentId": "bafc6deb-0dc1-490b-9fa4-918af8710a8b",
+      "code": "LMJTO09",
+      "name": "LMJTSH S [ODILOVA MAFTUNA] PARKENT YANGIBOZOR",
+      "agent": "LMJTSH S [ODILOVA MAFTUNA] PARKENT YANGIBOZOR",
+      "rowText": "LMJTSH S [ODILOVA MAFTUNA] PARKENT YANGIBOZOR LMJTO09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "bafc6deb-0dc1-490b-9fa4-918af8710a8b",
+          "name": "LMJTSH S [ODILOVA MAFTUNA] PARKENT YANGIBOZOR"
+        },
+        "agent_code": "LMJTO09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 10,
+      "agentId": "13c20065-8bea-4864-bb64-2c99ed451a87",
+      "code": "LMJTO10",
+      "name": "LMJGL [PULATOVA OZODAXON]",
+      "agent": "LMJGL [PULATOVA OZODAXON]",
+      "rowText": "LMJGL [PULATOVA OZODAXON] LMJTO10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "13c20065-8bea-4864-bb64-2c99ed451a87",
+          "name": "LMJGL [PULATOVA OZODAXON]"
+        },
+        "agent_code": "LMJTO10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 57,
+      "agentId": "980c7ed6-5597-427e-8666-df2e1cba9ba4",
+      "code": "LMJTO11",
+      "name": "LMJGL [IBRAGIMOV RIFAT]",
+      "agent": "LMJGL [IBRAGIMOV RIFAT]",
+      "rowText": "LMJGL [IBRAGIMOV RIFAT] LMJTO11",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "980c7ed6-5597-427e-8666-df2e1cba9ba4",
+          "name": "LMJGL [IBRAGIMOV RIFAT]"
+        },
+        "agent_code": "LMJTO11",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 95,
+      "agentId": "e98fa737-4705-4daa-bc95-3b497ab2fb22",
+      "code": "LMJTO12",
+      "name": "LMJTO-Y [NABIYEVA MAFTUNA] CHIRCHIQ PASTGI QISM GAZALKENT",
+      "agent": "LMJTO-Y [NABIYEVA MAFTUNA] CHIRCHIQ PASTGI QISM GAZALKENT",
+      "rowText": "LMJTO-Y [NABIYEVA MAFTUNA] CHIRCHIQ PASTGI QISM GAZALKENT LMJTO12",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e98fa737-4705-4daa-bc95-3b497ab2fb22",
+          "name": "LMJTO-Y [NABIYEVA MAFTUNA] CHIRCHIQ PASTGI QISM GAZALKENT"
+        },
+        "agent_code": "LMJTO12",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 40,
+      "agentId": "5ff9e264-349c-43fd-b396-41922b7b6567",
+      "code": "LMJTOP001",
+      "name": "LMJTOP - [VACANT]",
+      "agent": "LMJTOP - [VACANT]",
+      "rowText": "LMJTOP - [VACANT] LMJTOP001",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "5ff9e264-349c-43fd-b396-41922b7b6567",
+          "name": "LMJTOP - [VACANT]"
+        },
+        "agent_code": "LMJTOP001",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 103,
+      "agentId": "fa4dd40f-cdb9-4fd6-b0e3-b027a12e03bf",
+      "code": "LMJTSH01",
+      "name": "LMJTSH-Y [ALIYEV DURBEK] SHAYXONTOHUR",
+      "agent": "LMJTSH-Y [ALIYEV DURBEK] SHAYXONTOHUR",
+      "rowText": "LMJTSH-Y [ALIYEV DURBEK] SHAYXONTOHUR LMJTSH01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fa4dd40f-cdb9-4fd6-b0e3-b027a12e03bf",
+          "name": "LMJTSH-Y [ALIYEV DURBEK] SHAYXONTOHUR"
+        },
+        "agent_code": "LMJTSH01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 37,
+      "agentId": "55c44cbe-99a6-4712-bef0-4f3ae82657bd",
+      "code": "LMJTSH02",
+      "name": "LMJTSH-Y [TAVCHIYEVA NAZOKAT] BEKTEMIR",
+      "agent": "LMJTSH-Y [TAVCHIYEVA NAZOKAT] BEKTEMIR",
+      "rowText": "LMJTSH-Y [TAVCHIYEVA NAZOKAT] BEKTEMIR LMJTSH02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "55c44cbe-99a6-4712-bef0-4f3ae82657bd",
+          "name": "LMJTSH-Y [TAVCHIYEVA NAZOKAT] BEKTEMIR"
+        },
+        "agent_code": "LMJTSH02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 9,
+      "agentId": "12549790-2876-4d27-9e27-3ba840f5f03b",
+      "code": "LMJTSH03",
+      "name": "LMJTSH-Y [GULYAMOVA GULCHEXRA] OLMAZOR",
+      "agent": "LMJTSH-Y [GULYAMOVA GULCHEXRA] OLMAZOR",
+      "rowText": "LMJTSH-Y [GULYAMOVA GULCHEXRA] OLMAZOR LMJTSH03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "12549790-2876-4d27-9e27-3ba840f5f03b",
+          "name": "LMJTSH-Y [GULYAMOVA GULCHEXRA] OLMAZOR"
+        },
+        "agent_code": "LMJTSH03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 11,
+      "agentId": "159b780b-74ee-491a-a468-db00512deb6d",
+      "code": "LMJTSH04",
+      "name": "LMJTSH-Y [RAXIMBERDIYEVA DILDORA]",
+      "agent": "LMJTSH-Y [RAXIMBERDIYEVA DILDORA]",
+      "rowText": "LMJTSH-Y [RAXIMBERDIYEVA DILDORA] LMJTSH04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "159b780b-74ee-491a-a468-db00512deb6d",
+          "name": "LMJTSH-Y [RAXIMBERDIYEVA DILDORA]"
+        },
+        "agent_code": "LMJTSH04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 73,
+      "agentId": "bf7d5389-349e-4dee-8efb-62a87016138f",
+      "code": "LMJTSH05",
+      "name": "LMJTO-Y [VACANT] MIRZOULUGBEK",
+      "agent": "LMJTO-Y [VACANT] MIRZOULUGBEK",
+      "rowText": "LMJTO-Y [VACANT] MIRZOULUGBEK LMJTSH05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "bf7d5389-349e-4dee-8efb-62a87016138f",
+          "name": "LMJTO-Y [VACANT] MIRZOULUGBEK"
+        },
+        "agent_code": "LMJTSH05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 102,
+      "agentId": "f75f62e1-2c6c-46a3-8259-07898bee72ac",
+      "code": "LMJTSH06",
+      "name": "LMJTO S [MUXAMEDOVA SHAXNOZA] [OSDO]",
+      "agent": "LMJTO S [MUXAMEDOVA SHAXNOZA] [OSDO]",
+      "rowText": "LMJTO S [MUXAMEDOVA SHAXNOZA] [OSDO] LMJTSH06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f75f62e1-2c6c-46a3-8259-07898bee72ac",
+          "name": "LMJTO S [MUXAMEDOVA SHAXNOZA] [OSDO]"
+        },
+        "agent_code": "LMJTSH06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 14,
+      "agentId": "19b2a3f8-8c4c-4b6b-8162-1472d7eb2e29",
+      "code": "LMJTSH07",
+      "name": "LMJTSH S [ERKINOVA OYJAMOL]  CHILONZOR",
+      "agent": "LMJTSH S [ERKINOVA OYJAMOL]  CHILONZOR",
+      "rowText": "LMJTSH S [ERKINOVA OYJAMOL]  CHILONZOR LMJTSH07",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "19b2a3f8-8c4c-4b6b-8162-1472d7eb2e29",
+          "name": "LMJTSH S [ERKINOVA OYJAMOL]  CHILONZOR"
+        },
+        "agent_code": "LMJTSH07",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 68,
+      "agentId": "b49066e2-ae27-4ecf-be28-c75431a3230b",
+      "code": "LMJTSH08",
+      "name": "LMJTSH S [KURBANOVA AZIZA]",
+      "agent": "LMJTSH S [KURBANOVA AZIZA]",
+      "rowText": "LMJTSH S [KURBANOVA AZIZA] LMJTSH08",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "b49066e2-ae27-4ecf-be28-c75431a3230b",
+          "name": "LMJTSH S [KURBANOVA AZIZA]"
+        },
+        "agent_code": "LMJTSH08",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 64,
+      "agentId": "aa71316d-ce69-47c0-8083-c89100eeeaa7",
+      "code": "LMJTSH09",
+      "name": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "agent": "LMJTSH S [QOCHQOROVA MUXLISAXON]",
+      "rowText": "LMJTSH S [QOCHQOROVA MUXLISAXON] LMJTSH09",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "aa71316d-ce69-47c0-8083-c89100eeeaa7",
+          "name": "LMJTSH S [QOCHQOROVA MUXLISAXON]"
+        },
+        "agent_code": "LMJTSH09",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 96,
+      "agentId": "edc9e49b-d1d9-423a-9285-1ff5ad8fbfa3",
+      "code": "LMJTSH10",
+      "name": "LMJTSH S [NURILLAYEVA OZODA]",
+      "agent": "LMJTSH S [NURILLAYEVA OZODA]",
+      "rowText": "LMJTSH S [NURILLAYEVA OZODA] LMJTSH10",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "edc9e49b-d1d9-423a-9285-1ff5ad8fbfa3",
+          "name": "LMJTSH S [NURILLAYEVA OZODA]"
+        },
+        "agent_code": "LMJTSH10",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 1,
+        "rejected_visits_count": 0,
+        "unvisited_count": 1,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 25,
+      "agentId": "3e2b123d-903e-47ac-8ab6-c8938984a162",
+      "code": "LMJTSH11",
+      "name": "LMJTSH-Y [DUSTOVA DILNAVOZ] YASHNABOD",
+      "agent": "LMJTSH-Y [DUSTOVA DILNAVOZ] YASHNABOD",
+      "rowText": "LMJTSH-Y [DUSTOVA DILNAVOZ] YASHNABOD LMJTSH11",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "3e2b123d-903e-47ac-8ab6-c8938984a162",
+          "name": "LMJTSH-Y [DUSTOVA DILNAVOZ] YASHNABOD"
+        },
+        "agent_code": "LMJTSH11",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 101,
+      "agentId": "f17a4e08-f082-4daa-a167-642d7652a6ea",
+      "code": "LMJTZ01",
+      "name": "LMJTZ [JORAYEVA NILUFAR]",
+      "agent": "LMJTZ [JORAYEVA NILUFAR]",
+      "rowText": "LMJTZ [JORAYEVA NILUFAR] LMJTZ01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "f17a4e08-f082-4daa-a167-642d7652a6ea",
+          "name": "LMJTZ [JORAYEVA NILUFAR]"
+        },
+        "agent_code": "LMJTZ01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 45,
+      "agentId": "75eda012-e901-4c47-a4b2-dc4390686894",
+      "code": "LMJTZ02",
+      "name": "LMJTZ [MUKIMOVA FARIDA]",
+      "agent": "LMJTZ [MUKIMOVA FARIDA]",
+      "rowText": "LMJTZ [MUKIMOVA FARIDA] LMJTZ02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "75eda012-e901-4c47-a4b2-dc4390686894",
+          "name": "LMJTZ [MUKIMOVA FARIDA]"
+        },
+        "agent_code": "LMJTZ02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 41,
+      "agentId": "68f67786-a332-4181-8551-4bc2f619d7ee",
+      "code": "LMJTZ03",
+      "name": "LMJTZ [CHORSHANBIYEV JAFAR]",
+      "agent": "LMJTZ [CHORSHANBIYEV JAFAR]",
+      "rowText": "LMJTZ [CHORSHANBIYEV JAFAR] LMJTZ03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "68f67786-a332-4181-8551-4bc2f619d7ee",
+          "name": "LMJTZ [CHORSHANBIYEV JAFAR]"
+        },
+        "agent_code": "LMJTZ03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 94,
+      "agentId": "e691f884-6b8b-4a66-8368-4d4ef3c173a9",
+      "code": "LMJTZ04",
+      "name": "LMJDV [RASULOVA ZUHRA]",
+      "agent": "LMJDV [RASULOVA ZUHRA]",
+      "rowText": "LMJDV [RASULOVA ZUHRA] LMJTZ04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "e691f884-6b8b-4a66-8368-4d4ef3c173a9",
+          "name": "LMJDV [RASULOVA ZUHRA]"
+        },
+        "agent_code": "LMJTZ04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 4,
+      "agentId": "0bcd85d3-07c0-4e1d-a231-3eae73bfae95",
+      "code": "LMJTZ05",
+      "name": "LMJDV [QODRIOVA GULIMOH]",
+      "agent": "LMJDV [QODRIOVA GULIMOH]",
+      "rowText": "LMJDV [QODRIOVA GULIMOH] LMJTZ05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "0bcd85d3-07c0-4e1d-a231-3eae73bfae95",
+          "name": "LMJDV [QODRIOVA GULIMOH]"
+        },
+        "agent_code": "LMJTZ05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 49,
+      "agentId": "7a555719-bf05-4b7f-b8c4-9e93cf6a58fb",
+      "code": "LMJXR01",
+      "name": "LMJXM [ALLAZAROVA SAODAT]",
+      "agent": "LMJXM [ALLAZAROVA SAODAT]",
+      "rowText": "LMJXM [ALLAZAROVA SAODAT] LMJXR01",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "7a555719-bf05-4b7f-b8c4-9e93cf6a58fb",
+          "name": "LMJXM [ALLAZAROVA SAODAT]"
+        },
+        "agent_code": "LMJXR01",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 104,
+      "agentId": "fb6dff18-af8c-418a-b0e7-1a14f0279b37",
+      "code": "LMJXR02",
+      "name": "LMJXM [ARTIKOVA BEKPASHSHA]",
+      "agent": "LMJXM [ARTIKOVA BEKPASHSHA]",
+      "rowText": "LMJXM [ARTIKOVA BEKPASHSHA] LMJXR02",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "fb6dff18-af8c-418a-b0e7-1a14f0279b37",
+          "name": "LMJXM [ARTIKOVA BEKPASHSHA]"
+        },
+        "agent_code": "LMJXR02",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 81,
+      "agentId": "d3138259-5a98-464b-a834-592f1f8f6714",
+      "code": "LMJXR03",
+      "name": "LMJXM [KURBONBAYEV MO'MINBOY]",
+      "agent": "LMJXM [KURBONBAYEV MO'MINBOY]",
+      "rowText": "LMJXM [KURBONBAYEV MO'MINBOY] LMJXR03",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "d3138259-5a98-464b-a834-592f1f8f6714",
+          "name": "LMJXM [KURBONBAYEV MO'MINBOY]"
+        },
+        "agent_code": "LMJXR03",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 38,
+      "agentId": "55ea2624-6a32-4e6c-a327-0c44e7dec71a",
+      "code": "LMJXR04",
+      "name": "LMJXM [AXMEDOVA BARNO]",
+      "agent": "LMJXM [AXMEDOVA BARNO]",
+      "rowText": "LMJXM [AXMEDOVA BARNO] LMJXR04",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "55ea2624-6a32-4e6c-a327-0c44e7dec71a",
+          "name": "LMJXM [AXMEDOVA BARNO]"
+        },
+        "agent_code": "LMJXR04",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 2,
+      "agentId": "08e1c784-ef18-41e5-be9e-14e0f16f0d1a",
+      "code": "LMJXR05",
+      "name": "LMJXM [XODJAYEVA GULNOZA]",
+      "agent": "LMJXM [XODJAYEVA GULNOZA]",
+      "rowText": "LMJXM [XODJAYEVA GULNOZA] LMJXR05",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "08e1c784-ef18-41e5-be9e-14e0f16f0d1a",
+          "name": "LMJXM [XODJAYEVA GULNOZA]"
+        },
+        "agent_code": "LMJXR05",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    },
+    {
+      "index": 44,
+      "agentId": "73a3a23e-9d1f-468a-a00e-be8fb6250fef",
+      "code": "LMJXR06",
+      "name": "LMJXR - [YO'LDOSHEVA HILOLA]",
+      "agent": "LMJXR - [YO'LDOSHEVA HILOLA]",
+      "rowText": "LMJXR - [YO'LDOSHEVA HILOLA] LMJXR06",
+      "orderSum": 0,
+      "tt": 0,
+      "expectedPhotos": 0,
+      "photoText": "0 T.T. (0 фото)",
+      "apiRow": {
+        "agent": {
+          "id": "73a3a23e-9d1f-468a-a00e-be8fb6250fef",
+          "name": "LMJXR - [YO'LDOSHEVA HILOLA]"
+        },
+        "agent_code": "LMJXR06",
+        "uploaded_photo_report_count": 0,
+        "photo_report_uploaded_client_count": 0,
+        "order_count": 0,
+        "cencelled_order_count": 0,
+        "total_order_amount": {
+          "amount": 0,
+          "base_currency": {
+            "code": "UZS",
+            "id": "cb0de46a-1359-4d4e-a55f-1919639292ad",
+            "name": "So'm"
+          }
+        },
+        "required_visits_count": 0,
+        "rejected_visits_count": 0,
+        "unvisited_count": 0,
+        "visits_percentage": 0
+      },
+      "urls": [],
+      "photos": [],
+      "actualUrls": 0,
+      "status": "ok"
+    }
+  ],
+  "stats": {
+    "ok": 108,
+    "partial": 0,
+    "extra": 0,
+    "empty": 0,
+    "mismatch": 0,
+    "unknown": 0,
+    "error": 0,
+    "duplicate": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "0.1",
+  "connections": [
+    {
+      "details": {
+        "protocol": "file",
+        "address": {
+          "path": "C:\\Users\\Xursh\\Desktop\\disturibitsiya-avto-tekshiruv-1522-fix\\disturibitsiya-sohasida-operatorman-sales-programmadan-kirib\\outputs\\powerbi-kirim-sof\\PowerBI_Kirim_SOF_manba.xlsx"
+        }
+      },
+      "mode": "Import"
+    }
+  ]
+}

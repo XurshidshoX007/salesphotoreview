@@ -3167,6 +3167,286 @@
       "role": "agent",
       "active": true,
       "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_asranov_durbek",
+      "name": "ASRANOV DURBEK",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_karimova_sevaraxon",
+      "name": "KARIMOVA SEVARAXON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_ramazonov_akmal",
+      "name": "RAMAZONOV AKMAL",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_raxmanova_xayitxon",
+      "name": "RAXMANOVA XAYITXON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_tursunbayev_uktamali",
+      "name": "TURSUNBAYEV UKTAMALI",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_rahmatullayev_jahongir",
+      "name": "RAHMATULLAYEV JAHONGIR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_umarov_dalerjon",
+      "name": "UMAROV DALERJON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_ablyayeva_regina",
+      "name": "ABLYAYEVA REGINA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_avyasova_mavluda",
+      "name": "AVYASOVA MAVLUDA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_jynm_akbarov_sardorbek",
+      "name": "JYNM AKBAROV SARDORBEK]",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_turganbaev_islambek",
+      "name": "TURGANBAEV ISLAMBEK",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_azatbekov_uligbek",
+      "name": "AZATBEKOV ULIGBEK",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_kengesbayeva_ulbosin",
+      "name": "KENGESBAYEVA ULBOSIN",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_anvarjonov_usmonali",
+      "name": "ANVARJONOV USMONALI",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_nuriddin_optom",
+      "name": "NURIDDIN OPTOM",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_abduraxmonzoda_doniyor",
+      "name": "ABDURAXMONZODA DONIYOR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_dalaboyeva_nixola",
+      "name": "DALABOYEVA NIXOLA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_komiljonov_sanjar",
+      "name": "KOMILJONOV SANJAR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_nosirov_sunnatilla",
+      "name": "NOSIROV SUNNATILLA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_elmurodov_kamoliddin",
+      "name": "ELMURODOV KAMOLIDDIN",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_jumayev_ahror",
+      "name": "JUMAYEV AHROR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_baxtiyorova_dilrabo",
+      "name": "BAXTIYOROVA DILRABO",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_erkayeva_gulandon",
+      "name": "ERKAYEVA GULANDON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_ibrahimov_muhammadaamin",
+      "name": "IBRAHIMOV MUHAMMADAAMIN",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_hojimatova_dilnoza",
+      "name": "HOJIMATOVA DILNOZA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_abdujalilov_kamoliddin",
+      "name": "ABDUJALILOV KAMOLIDDIN",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_moydinov_abdulbosit",
+      "name": "MOYDINOV ABDULBOSIT",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_maxsetova_gulbaxar",
+      "name": "MAXSETOVA GULBAXAR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_otegulova_sharayna",
+      "name": "OTEGULOVA SHARAYNA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_tishaqulov_giyozjon",
+      "name": "TISHAQULOV GIYOZJON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_murodova_aziza",
+      "name": "MURODOVA AZIZA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_erkinov_raufjon",
+      "name": "ERKINOV RAUFJON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_ggqsh_nuriddin_optom",
+      "name": "GGQSH NURIDDIN OPTOM",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_xalikova_zarema",
+      "name": "XALIKOVA ZAREMA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_xazratkulov_navruzbek",
+      "name": "XAZRATKULOV NAVRUZBEK",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "notes": "Sales outputdan avtomatik qo'shildi"
     }
   ]
 }

@@ -202,3 +202,56 @@ Natija `outputs/auto_review_eval.json` va `outputs/auto_review_eval_details.csv`
 ## Eslatma
 
 `outputs/lmj_review_marks.json` fayli minus belgilari va izohlarni saqlaydi. Bu faylni qo'lda o'zgartirmaslik tavsiya etiladi.
+
+## Frontend tuzilishi
+
+Review interfeysi bitta katta yordamchi qatlamga bog'lanib qolmasligi uchun umumiy funksiyalar `outputs/review-ui/js/` ichidagi modullarga ajratilgan:
+
+- `state.js` - versiyali yozuvlarni merge qilish va client ID
+- `data-loader.js` - timeoutli GET/POST so'rovlari
+- `filters.js`, `marks.js`, `brands.js`, `attendance.js` - bo'lim qoidalari
+- `telegram.js`, `export.js` - Telegram tanlovi va eksport formatlari
+- `ui-state.js` - loading, empty, error va success holatlari
+- `photo-loader.js` - thumbnail, original rasm, proxy/direct fallback va retry
+
+CSS manbalari build vaqtida yagona faylga yig'iladi:
+
+```powershell
+npm run build:review-css
+```
+
+Natija: `outputs/review-ui/styles/app.bundle.css`. HTML faqat shu bundle'ni yuklaydi.
+
+## Testlar
+
+To'liq review regressiya tekshiruvi:
+
+```powershell
+npm run test:review
+```
+
+Tekshiruv brend va tabel validatsiyasini, API/sync/photo oqimini, Telegramning xabar yubormaydigan preview guruhlashini, collect holatini, desktop/mobile UI, filtr paneli, modal hamda rasm fallbackini qamrab oladi. Test serveri boshqa portda ishlasa `REVIEW_TEST_URL` beriladi:
+
+```powershell
+$env:REVIEW_TEST_URL='http://127.0.0.1:8876'; npm run test:review
+```
+
+## Avtomatik texnik xizmat
+
+Server foto cache va test artefaktlarini tozalaydi, eski attendance backup'larini esa o'chirishdan oldin gzip arxivga yozib, SHA-256 orqali qayta tekshiradi. Sozlamalar `.env.local` orqali boshqariladi:
+
+```env
+PHOTO_CACHE_RETENTION_DAYS=1
+ATTENDANCE_BACKUP_RETENTION_DAYS=14
+TEST_ARTIFACT_RETENTION_DAYS=14
+MAINTENANCE_AUTO_APPLY=1
+MAINTENANCE_INITIAL_DELAY_MINUTES=15
+MAINTENANCE_INTERVAL_HOURS=24
+```
+
+Qo'lda avval faqat hisobot ko'rish va keyin qo'llash:
+
+```powershell
+npm run maintenance:check
+npm run maintenance:apply
+```

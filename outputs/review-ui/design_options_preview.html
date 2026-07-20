@@ -3,187 +3,156 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Foto nazorati - premium dizayn preview</title>
-  <style>
-    :root{
-      --ink:#0f172a;
-      --muted:#64748b;
-      --line:#d9e5ec;
-      --bg:#eef5f6;
-      --brand:#159a95;
-      --brand2:#0f766e;
-      --red:#ef3340;
-      --amber:#f59e0b;
-      font-family:Inter,Segoe UI,Arial,sans-serif;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at top left,#dff7f4 0,#eef5f6 34%,#f7fafc 100%);color:var(--ink)}
-    .page{max-width:1500px;margin:0 auto;padding:28px}
-    .hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}
-    h1{margin:0;font-size:32px;line-height:1.1}
-    .hero p{margin:8px 0 0;color:var(--muted);font-size:15px}
-    .note{max-width:420px;background:rgba(255,255,255,.78);border:1px solid rgba(217,229,236,.9);box-shadow:0 20px 50px rgba(15,23,42,.08);border-radius:16px;padding:14px 16px;color:#334155}
-    .stack{display:grid;gap:22px}
-    .option{background:#fff;border:1px solid rgba(217,229,236,.95);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(15,23,42,.12)}
-    .optionTop{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
-    .optionTop b{font-size:21px}
-    .optionTop span{color:var(--muted);font-size:13px}
-    .badge{display:inline-flex;align-items:center;border-radius:999px;background:#e8f7f6;color:#08756f;padding:7px 11px;font-size:12px;font-weight:900}
-    .screen{height:690px;display:grid;background:#f4f8fa;overflow:hidden}
-    .app{display:grid;grid-template-columns:286px 1fr;height:100%}
-    .sidebar{background:linear-gradient(180deg,#073f3d,#06423f 55%,#052f2d);color:#eafffd;padding:18px;display:flex;flex-direction:column;gap:14px}
-    .brand{display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.14)}
-    .logo{width:46px;height:46px;border-radius:15px;background:#fff;color:#073f3d;display:grid;place-items:center;font-weight:950;letter-spacing:.5px}
-    .brand b{display:block;font-size:17px}.brand small{display:block;margin-top:3px;color:#9ee1dc}
-    .sideTitle{text-transform:uppercase;font-size:11px;font-weight:950;color:#9ee1dc;margin-top:8px}
-    .stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:11px}
-    .stat small{display:block;color:#b6e7e3}.stat b{display:block;margin-top:4px;font-size:22px}
-    .nav{display:grid;gap:8px}
-    .nav button{border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:11px 12px;background:rgba(255,255,255,.08);color:#ecfffd;text-align:left;font-weight:850}
-    .nav button.active{background:#e8fffc;color:#054643;box-shadow:0 10px 26px rgba(0,0,0,.14),inset 4px 0 0 #1fb5ad}
-    .workspace{display:grid;grid-template-rows:auto auto 1fr auto;min-width:0}
-    .topbar{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:18px 22px;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-    .who b{display:block;font-size:24px}.who span{display:block;margin-top:4px;color:var(--muted)}
-    .filters{display:flex;gap:10px;align-items:center}
-    .field{height:44px;min-width:150px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #d7e4ea;border-radius:12px;padding:0 13px;color:#334155;font-weight:700;box-shadow:0 8px 18px rgba(15,23,42,.04)}
-    .field.danger{border-color:#fecdd3;background:#fff1f2;color:#be123c}
-    .summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:14px 22px;background:#f8fbfc;border-bottom:1px solid var(--line)}
-    .tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 15px;box-shadow:0 10px 24px rgba(15,23,42,.04)}
-    .tile small{display:block;color:var(--muted);font-weight:700}.tile b{display:block;margin-top:6px;font-size:24px}.tile.bad b{color:#e11d48}
-    .photos{padding:18px 22px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;min-height:0}
-    .card{position:relative;overflow:hidden;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 38px rgba(15,23,42,.09)}
-    .pic{height:100%;min-height:390px;background:#dbeafe;position:relative}
-    .pic:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.0)),var(--photo);background-size:cover}
-    .pic:after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(transparent,rgba(15,23,42,.58))}
-    .caption{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:12px}
-    .caption b{display:block}.caption span{display:block;margin-top:4px;color:#475569;font-size:13px;line-height:1.35}
-    .quick{display:grid;grid-template-columns:1fr 1.2fr 1fr 180px;gap:12px;padding:14px 22px;background:#fff;border-top:1px solid var(--line)}
-    .quick button{border:1px solid var(--line);background:#fff;border-radius:14px;min-height:48px;font-weight:950;color:#334155}
-    .quick .primary{background:linear-gradient(135deg,#159a95,#10b6ac);border-color:#10a39b;color:#fff;box-shadow:0 14px 28px rgba(21,154,149,.24)}
-
-    .cards2 .app{grid-template-columns:92px 1fr}
-    .cards2 .sidebar{align-items:center;padding:16px 12px;background:#0f172a}
-    .cards2 .brand{border:0;padding:0}.cards2 .brand div:not(.logo),.cards2 .sideTitle,.cards2 .stats{display:none}
-    .cards2 .nav button{width:56px;height:56px;padding:0;text-align:center;border-radius:18px;font-size:0}
-    .cards2 .nav button:before{content:attr(data-icon);font-size:15px;font-weight:950}
-    .cards2 .topbar{padding:20px 26px}
-    .cards2 .photos{grid-template-columns:repeat(5,1fr)}
-    .cards2 .pic{min-height:430px}
-    .cards2 .summary{grid-template-columns:repeat(6,1fr)}
-
-    .focus .app{grid-template-columns:330px 1fr;background:#fbfdfe}
-    .focus .sidebar{background:#fff;color:var(--ink);border-right:1px solid var(--line)}
-    .focus .logo{background:#159a95;color:#fff}.focus .brand{border-color:var(--line)}.focus .brand small,.focus .sideTitle{color:#64748b}
-    .focus .stat{background:#f8fafc;border-color:var(--line)}.focus .stat small{color:#64748b}
-    .focus .nav button{background:#f8fafc;color:#334155;border-color:var(--line)}.focus .nav button.active{background:#e8f7f6;color:#00645e}
-    .focus .photos{grid-template-columns:1.2fr 1fr;grid-auto-rows:1fr}
-    .focus .card{display:grid;grid-template-columns:260px 1fr}
-    .focus .pic{min-height:210px}.focus .caption{position:static;border:0;background:#fff;box-shadow:none;align-self:end}
-    .focus .summary{grid-template-columns:repeat(4,1fr)}
-
-    .caption .flag{display:inline-flex;margin-top:7px;border-radius:999px;padding:4px 8px;background:#fff7ed;color:#c2410c;font-size:11px;font-weight:900}
-    .choose{padding:14px 20px;background:#fbfdfe;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;color:#475569}
-    .choose strong{color:var(--ink)}
-    @media(max-width:1100px){.page{padding:16px}.hero{display:block}.note{margin-top:12px}.screen{height:auto}.app,.cards2 .app,.focus .app{grid-template-columns:1fr}.sidebar{display:none}.photos,.cards2 .photos,.focus .photos{grid-template-columns:repeat(2,1fr)}.summary,.cards2 .summary,.focus .summary{grid-template-columns:repeat(2,1fr)}.filters{flex-wrap:wrap}.quick{grid-template-columns:1fr 1fr}}
-  </style>
+  <title>Foto nazorati - dizayn variantlari</title>
+  <link rel="stylesheet" href="design-preview.css?v=2">
 </head>
 <body>
-  <div class="page">
-    <div class="hero">
+  <header class="previewToolbar">
+    <div class="previewIdentity">
+      <span class="previewMark">FN</span>
       <div>
-        <h1>Foto nazorati uchun yaxshiroq dizayn variantlari</h1>
-        <p>Bu faqat preview. Asosiy ishlayotgan panelga hali tegilmagan.</p>
+        <b>Dizayn variantlari</b>
+        <span>Asosiy loyiha o'zgartirilmagan</span>
       </div>
-      <div class="note">Variant raqamini ayting. Keyin men shu uslubni real UIga moslab, funksiyalarni buzmasdan ko'chiraman.</div>
     </div>
 
-    <div class="stack">
-      <section class="option">
-        <div class="optionTop">
-          <div><b>1. Premium Operations</b><br><span>Hozirgi strukturani saqlaydi, lekin ancha zamonaviy va toza ko'rinadi.</span></div>
-          <div class="badge">Eng xavfsiz variant</div>
-        </div>
-        <div class="screen">
-          <div class="app">
-            <aside class="sidebar">
-              <div class="brand"><div class="logo">FN</div><div><b>Foto nazorati</b><small>Savdo foto hisobotlari</small></div></div>
-              <div class="sideTitle">Bugungi ko'rsatkichlar</div>
-              <div class="stats"><div class="stat"><small>Agent</small><b>96</b></div><div class="stat"><small>Foto</small><b>2316</b></div><div class="stat"><small>Minus</small><b>14</b></div><div class="stat"><small>Partial</small><b>0</b></div></div>
-              <div class="sideTitle">Tezkor amallar</div>
-              <div class="nav"><button class="active">Foto Review</button><button>Tabel</button><button>Admin statistika</button><button>Minus ro'yxati</button><button>Ma'lumot yig'ish</button><button>Brend sozlamalari</button></div>
-            </aside>
-            <main class="workspace">
-              <div class="topbar"><div class="who"><b>MAMITOV IKRIMJON</b><span>2026-06-22 | Lalaku Mama | LMJAN05</span></div><div class="filters"><div class="field">Lalaku Mama</div><div class="field">2026-06-22</div><div class="field">Mos agentlar</div><div class="field danger">Sanani o'chirish</div></div></div>
-              <div class="summary"><div class="tile"><small>Agent</small><b>96</b></div><div class="tile"><small>Foto</small><b>2316</b></div><div class="tile bad"><small>Minus</small><b>14</b></div><div class="tile"><small>Yuborilgan</small><b>281</b></div><div class="tile"><small>Yangi</small><b>38</b></div></div>
-              <div class="photos">
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#9fd7ff,#f8fafc 35%,#a7f3d0 70%,#fca5a5)"></div><div class="caption"><b>LMJAN05 #1</b><span>XADICHA BONU<br>Vaqt: 09:08</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fef3c7,#bfdbfe 40%,#86efac 75%,#fff)"></div><div class="caption"><b>LMJAN05 #2</b><span>SIREN FARM<br>Vaqt: 09:50</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#ddd6fe,#fbcfe8 38%,#bae6fd 72%,#fff)"></div><div class="caption"><b>LMJAN05 #3</b><span>SAXOVAT MARKET<br>Vaqt: 09:54</span><i class="flag">Ekran rasmi</i></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fed7aa,#fef9c3 34%,#bbf7d0 70%,#dbeafe)"></div><div class="caption"><b>LMJAN05 #4</b><span>ARZON APTEKA<br>Vaqt: 10:02</span></div></div>
-              </div>
-              <div class="quick"><button>Oldingi</button><button class="primary">Resume</button><button>Keyingi</button><button>3.5s</button></div>
-            </main>
-          </div>
-        </div>
-        <div class="choose"><strong>Tanlash uchun: 1</strong><span>Menimcha sizga eng mos: chiroyli, lekin tizimni buzmaydi.</span></div>
-      </section>
-
-      <section class="option cards2">
-        <div class="optionTop">
-          <div><b>2. Compact Cinema</b><br><span>Foto maksimal katta ko'rinadi, yon menyu icon panelga aylanadi.</span></div>
-          <div class="badge">Ko'p foto ko'rish uchun</div>
-        </div>
-        <div class="screen">
-          <div class="app">
-            <aside class="sidebar"><div class="brand"><div class="logo">F</div><div></div></div><div class="nav"><button class="active" data-icon="FR">Foto</button><button data-icon="TB">Tabel</button><button data-icon="ST">Stat</button><button data-icon="EX">Excel</button><button data-icon="BR">Brand</button></div></aside>
-            <main class="workspace">
-              <div class="topbar"><div class="who"><b>MAMITOV IKRIMJON</b><span>Ixcham foto tekshiruv rejimi</span></div><div class="filters"><div class="field">Lalaku Mama</div><div class="field">2026-06-22</div><div class="field">Mos agentlar</div></div></div>
-              <div class="summary"><div class="tile"><small>Agent</small><b>96</b></div><div class="tile"><small>Foto</small><b>2316</b></div><div class="tile bad"><small>Minus</small><b>14</b></div><div class="tile"><small>Vaqtdan tashqari</small><b>2</b></div><div class="tile"><small>Dublikat</small><b>0</b></div><div class="tile"><small>Yangi</small><b>38</b></div></div>
-              <div class="photos">
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#93c5fd,#fef3c7,#86efac)"></div><div class="caption"><b>LMJAN05 #1</b><span>09:08</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#a7f3d0,#bfdbfe,#fecaca)"></div><div class="caption"><b>LMJAN05 #2</b><span>09:50</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fbcfe8,#c7d2fe,#fff7ed)"></div><div class="caption"><b>LMJAN05 #3</b><span>09:54</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fde68a,#bfdbfe,#bbf7d0)"></div><div class="caption"><b>LMJAN05 #4</b><span>10:02</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fecdd3,#ddd6fe,#bae6fd)"></div><div class="caption"><b>LMJAN05 #5</b><span>10:21</span></div></div>
-              </div>
-              <div class="quick"><button>Oldingi</button><button class="primary">Resume</button><button>Keyingi</button><button>3.5s</button></div>
-            </main>
-          </div>
-        </div>
-        <div class="choose"><strong>Tanlash uchun: 2</strong><span>Eng zamonaviy ko'rinadi, lekin chap menyu o'rganishga biroz vaqt oladi.</span></div>
-      </section>
-
-      <section class="option focus">
-        <div class="optionTop">
-          <div><b>3. Review Desk</b><br><span>Foto va ma'lumot yonma-yon. Minus sabablarini tez ko'rish uchun qulay.</span></div>
-          <div class="badge">Nazorat uchun</div>
-        </div>
-        <div class="screen">
-          <div class="app">
-            <aside class="sidebar">
-              <div class="brand"><div class="logo">FN</div><div><b>Foto nazorati</b><small>Supervisor review desk</small></div></div>
-              <div class="sideTitle">Bugungi holat</div>
-              <div class="stats"><div class="stat"><small>Agent</small><b>96</b></div><div class="stat"><small>Foto</small><b>2316</b></div></div>
-              <div class="sideTitle">Bo'limlar</div>
-              <div class="nav"><button class="active">Foto Review</button><button>Minus ro'yxati</button><button>Telegram holati</button><button>Ma'lumot yig'ish</button></div>
-            </aside>
-            <main class="workspace">
-              <div class="topbar"><div class="who"><b>MAMITOV IKRIMJON</b><span>Ko'proq tekst, kamroq chalkashlik</span></div><div class="filters"><div class="field">Lalaku Mama</div><div class="field">2026-06-22</div></div></div>
-              <div class="summary"><div class="tile"><small>Foto</small><b>21</b></div><div class="tile bad"><small>Minus</small><b>3</b></div><div class="tile"><small>Buyurtma</small><b>0</b></div><div class="tile"><small>Progress</small><b>4/21</b></div></div>
-              <div class="photos">
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#bfdbfe,#fef3c7,#bbf7d0)"></div><div class="caption"><b>LMJAN05 #1</b><span>XADICHA BONU<br>Buyurtma yo'q<br>Vaqt: 09:08</span><i class="flag">Talabga javob bermaydi</i></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fed7aa,#ddd6fe,#bae6fd)"></div><div class="caption"><b>LMJAN05 #2</b><span>SIREN FARM<br>Buyurtma yo'q<br>Vaqt: 09:50</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fbcfe8,#bbf7d0,#dbeafe)"></div><div class="caption"><b>LMJAN05 #3</b><span>SAXOVAT MARKET<br>Buyurtma yo'q<br>Vaqt: 09:54</span></div></div>
-                <div class="card"><div class="pic" style="--photo:linear-gradient(135deg,#fde68a,#fecaca,#bfdbfe)"></div><div class="caption"><b>LMJAN05 #4</b><span>ARZON APTEKA<br>Buyurtma yo'q<br>Vaqt: 10:02</span></div></div>
-              </div>
-              <div class="quick"><button>Oldingi</button><button class="primary">Resume</button><button>Keyingi</button><button>3.5s</button></div>
-            </main>
-          </div>
-        </div>
-        <div class="choose"><strong>Tanlash uchun: 3</strong><span>Katta ekranlarda yaxshi, lekin foto maydoni 1-variantdan kichikroq.</span></div>
-      </section>
+    <div class="variantPicker" aria-label="Dizayn varianti">
+      <button class="variantButton active" data-theme="topbar">
+        <span>01</span>
+        <b>Topbar Studio</b>
+      </button>
+      <button class="variantButton" data-theme="dock">
+        <span>02</span>
+        <b>Review Cockpit</b>
+      </button>
+      <button class="variantButton" data-theme="queue">
+        <span>03</span>
+        <b>Queue Workspace</b>
+      </button>
+      <button class="variantButton" data-theme="canvas">
+        <span>04</span>
+        <b>Minimal Canvas</b>
+      </button>
     </div>
-  </div>
+
+    <div class="previewTools">
+      <label class="viewSelect">
+        <span>Bo'lim</span>
+        <select id="viewSelect">
+          <option value="photo">Foto Review</option>
+          <option value="review">Rasm tekshirish</option>
+          <option value="minus">Minus ro'yxati</option>
+          <option value="table">Tabel</option>
+          <option value="stats">Admin statistika</option>
+          <option value="collect">Ma'lumot yig'ish</option>
+          <option value="brand">Brend sozlamalari</option>
+          <option value="auto">Avto tekshiruv</option>
+          <option value="reports">Excel hisobotlari</option>
+        </select>
+      </label>
+      <div class="viewportPicker" aria-label="Ekran kengligi">
+        <button class="viewportButton active" data-size="desktop" title="Katta ekran">Katta</button>
+        <button class="viewportButton" data-size="narrow" title="Tor ekran">Tor</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="variantInfo">
+    <div>
+      <span class="variantNumber" id="variantNumber">Variant 01</span>
+      <b id="variantName">Topbar Studio</b>
+      <p id="variantDescription">Yon panelsiz, yuqori navigatsiyali va keng ish maydoniga ega zamonaviy struktura.</p>
+    </div>
+    <div class="variantTraits" id="variantTraits">
+      <span>Yangi struktura</span><span>Keng maydon</span><span>Tavsiya</span>
+    </div>
+  </section>
+
+  <main class="previewCanvas">
+    <div class="device desktop" id="device">
+      <div class="previewApp" id="previewApp" data-theme="topbar">
+        <aside class="appSidebar">
+          <div class="appBrand">
+            <span class="appLogo">FN</span>
+            <div class="appBrandCopy">
+              <b>Foto nazorati</b>
+              <small>Savdo foto hisobotlari</small>
+            </div>
+            <button class="collapseButton" title="Yon panelni yig'ish">‹</button>
+          </div>
+
+          <nav class="appNavigation" id="appNavigation">
+            <div class="navGroup">
+              <span class="navGroupTitle">Asosiy</span>
+              <button class="navItem active" data-view="photo" title="Foto Review"><span class="navIcon">FR</span><span class="navLabel">Foto Review</span></button>
+              <button class="navItem" data-view="table" title="Tabel"><span class="navIcon">TB</span><span class="navLabel">Tabel</span></button>
+              <button class="navItem" data-view="stats" title="Admin statistika"><span class="navIcon">ST</span><span class="navLabel">Statistika</span></button>
+            </div>
+            <div class="navGroup">
+              <span class="navGroupTitle">Hisobot</span>
+              <button class="navItem" data-view="minus" title="Minus ro'yxati"><span class="navIcon">MR</span><span class="navLabel">Minus ro'yxati</span><span class="navCount">38</span></button>
+              <button class="navItem" data-view="reports" title="Excel hisobotlari"><span class="navIcon">XL</span><span class="navLabel">Excel hisobotlari</span></button>
+            </div>
+            <div class="navGroup">
+              <span class="navGroupTitle">Jarayon</span>
+              <button class="navItem" data-view="collect" title="Ma'lumot yig'ish"><span class="navIcon">MY</span><span class="navLabel">Ma'lumot yig'ish</span></button>
+              <button class="navItem" data-view="brand" title="Brend sozlamalari"><span class="navIcon">BR</span><span class="navLabel">Brend sozlamalari</span></button>
+              <button class="navItem" data-view="auto" title="Avto tekshiruv"><span class="navIcon">AT</span><span class="navLabel">Avto tekshiruv</span></button>
+            </div>
+          </nav>
+
+          <div class="sidebarFooter">
+            <span class="serverDot"></span>
+            <div class="sidebarFooterCopy"><b>Server ishlayapti</b><small>Oxirgi sync: hozir</small></div>
+          </div>
+        </aside>
+
+        <aside class="contextPane">
+          <div class="contextHead">
+            <div><span>Agent navbati</span><b>Bugungi tekshiruv</b></div>
+            <strong>71</strong>
+          </div>
+          <div class="contextSearch">Agentni qidirish</div>
+          <div class="queueList">
+            <button class="queueItem active"><span>JY</span><div><b>JYAN103</b><small>TO'LQINOVA MAMURAXON</small></div><em>22</em></button>
+            <button class="queueItem"><span>JY</span><div><b>JYAN006</b><small>TULYAKOV HUSANBOY</small></div><em>18</em></button>
+            <button class="queueItem"><span>JY</span><div><b>JYFA002</b><small>MUMINOVA NARGIZA</small></div><em>17</em></button>
+            <button class="queueItem"><span>JY</span><div><b>JYGL004</b><small>UMAROV DALERJON</small></div><em>15</em></button>
+            <button class="queueItem"><span>JY</span><div><b>JYJZ002</b><small>SHAMSIDINOV SHOXRUX</small></div><em>12</em></button>
+          </div>
+          <div class="contextProgress"><span><b>29</b> tekshirildi</span><span><b>42</b> qoldi</span></div>
+        </aside>
+
+        <section class="appWorkspace">
+          <header class="appHeader">
+            <div class="pageIdentity">
+              <span class="pageEyebrow" id="pageEyebrow">Foto nazorati</span>
+              <h1 id="pageTitle">TO'LQINOVA MAMURAXON</h1>
+              <p id="pageSubtitle">2026-07-09 · SOF · JYAN103</p>
+            </div>
+            <div class="headerStatus"><span></span> Sinxron</div>
+          </header>
+          <div class="viewHost" id="viewHost"></div>
+          <nav class="floatingDock" id="floatingDock" aria-label="Tezkor navigatsiya">
+            <button class="dockItem active" data-view="photo" title="Foto Review"><span>FR</span><b>Foto</b></button>
+            <button class="dockItem" data-view="minus" title="Minus ro'yxati"><span>MR</span><b>Minus</b></button>
+            <button class="dockItem" data-view="table" title="Tabel"><span>TB</span><b>Tabel</b></button>
+            <button class="dockItem" data-view="stats" title="Statistika"><span>ST</span><b>Stat</b></button>
+            <button class="dockItem" data-view="collect" title="Ma'lumot yig'ish"><span>MY</span><b>Yig'ish</b></button>
+            <button class="dockItem" data-view="brand" title="Brend sozlamalari"><span>BR</span><b>Brend</b></button>
+            <button class="dockItem" data-view="auto" title="Avto tekshiruv"><span>AT</span><b>Avto</b></button>
+            <button class="dockItem" data-view="reports" title="Excel hisobotlari"><span>XL</span><b>Excel</b></button>
+          </nav>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="previewFooter">
+    <span>Variant va bo'limlarni yuqoridan almashtiring.</span>
+    <strong id="selectionHint">Tanlash uchun: 1-variant</strong>
+  </footer>
+
+  <script src="design-preview.js?v=2"></script>
 </body>
 </html>

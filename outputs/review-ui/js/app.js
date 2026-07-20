@@ -1,4 +1,6 @@
-const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_OVERRIDES='lmjReasonOverridesV1',LS_DELETED_REASONS='lmjDeletedReasonsV1',LS_DATE='lmjSelectedDateV2',LS_BRAND='lmjSelectedBrandV1',LS_THEME='lmjUiThemeV1',LS_METRICS='lmjPhotoMetricCacheV1';
+const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_OVERRIDES='lmjReasonOverridesV1',LS_DELETED_REASONS='lmjDeletedReasonsV1',LS_DATE='lmjSelectedDateV2',LS_BRAND='lmjSelectedBrandV1',LS_THEME='lmjUiThemeV1',LS_METRICS='lmjPhotoMetricCacheV1',LS_PHOTO_PAGE_SIZE='lmjPhotoPageSizeV1',LS_CLIENT_ID='lmjReviewClientIdV1';
+    const stateTools=window.PhotoReviewState,dataTools=window.PhotoReviewDataLoader,filterTools=window.PhotoReviewFilters,markTools=window.PhotoReviewMarks,brandTools=window.PhotoReviewBrands,attendanceTools=window.PhotoReviewAttendance,uiState=window.PhotoReviewUiState,telegramTools=window.PhotoReviewTelegram,exportTools=window.PhotoReviewExport;
+    if(!stateTools||!dataTools||!filterTools||!markTools||!brandTools||!attendanceTools||!uiState||!telegramTools||!exportTools)throw new Error('Review modullari toliq yuklanmadi');
     const defaultReasons=['Ish vaqtidan tashqari olingan foto','Kamera yopilgan yoki to\'sib olingan foto','Bitta do\'kondan takroriy foto','Ekrandan qayta olingan foto','Katalogdan olingan rasm','Faqat mahsulot rasmi','Foto talabga javob bermaydi'];
     const legacyReasons={
       'Ish vaqtidan keyin olingan foto':'Ish vaqtidan tashqari olingan foto',
@@ -10,11 +12,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       'Mahsulot rasmi (Talabga javob bermaydigan foto)':'Faqat mahsulot rasmi',
       'Foto talabga javob bermaydi':'Foto talabga javob bermaydi'
     };
-    let manifest={datasets:[]},dataset=null,agents=[],allAgents=[],brandSel,dateSel,agentSel,agentIndex=0,start=0,paused=true,timer=null,delay=3500,current=null,zoom=1,autoReviewResults=[],autoReviewPreviewOpen=false,autoReviewStats=null,brandConfig={brands:[],warnings:[]},activeBrandId='',attendanceData=null,attendanceConfig={employees:[],routes:[],assignments:[],settings:{}},adminStatsData=null,currentView='photo',attendanceConfigLoadedAt=0,attendanceRenderTimer=null,brandsLoadedAt=0,adminStatsLoadedAt=0,lastMarksLoadAt=0;
+    let manifest={datasets:[]},dataset=null,agents=[],allAgents=[],brandSel,dateSel,agentSel,agentIndex=0,start=0,photoPageSize=Math.max(1,Number.parseInt(localStorage.getItem(LS_PHOTO_PAGE_SIZE)||'4',10)||4),photoPageAll=localStorage.getItem(LS_PHOTO_PAGE_SIZE)==='all',paused=true,timer=null,delay=3500,current=null,zoom=1,autoReviewResults=[],autoReviewPreviewOpen=false,autoReviewStats=null,brandConfig={brands:[],warnings:[]},activeBrandId='',attendanceData=null,attendanceConfig={employees:[],routes:[],assignments:[],settings:{}},adminStatsData=null,currentView='photo',attendanceConfigLoadedAt=0,attendanceRenderTimer=null,brandsLoadedAt=0,adminStatsLoadedAt=0,lastMarksLoadAt=0;
     const ATTENDANCE_CACHE_MS=15000,attendanceMonthCache=new Map();
-    let marks=JSON.parse(localStorage.getItem(LS_MARKS)||'{}'),customReasons=JSON.parse(localStorage.getItem(LS_REASONS)||'[]'),reasonOverrides=JSON.parse(localStorage.getItem(LS_REASON_OVERRIDES)||'{}'),deletedReasons=JSON.parse(localStorage.getItem(LS_DELETED_REASONS)||'[]'),editingReason='';
+    let marks=stateTools.parseJson(localStorage.getItem(LS_MARKS)||'{}',{}),customReasons=stateTools.parseJson(localStorage.getItem(LS_REASONS)||'[]',[]),reasonOverrides=stateTools.parseJson(localStorage.getItem(LS_REASON_OVERRIDES)||'{}',{}),deletedReasons=stateTools.parseJson(localStorage.getItem(LS_DELETED_REASONS)||'[]',[]),editingReason='';
+    const reviewClientId=stateTools.clientId(localStorage,LS_CLIENT_ID);
     let sharedSyncTimer=null,sharedSyncBusy=false,sharedSyncDirty=false,reasonSyncTimer=null;
-    let marksVersion=0,agentsVersion=0,renderStatsCache=null;
+    let sharedRevisions={marks:'0',reasons:'0',brands:'0'};
+    let systemHealth={sync:'loading',syncMessage:'Ulanmoqda...',lastSync:'',telegram:'loading',collect:'idle'};
+    let marksVersion=0,agentsVersion=0,renderStatsCache=null,undoStack=[];
     function invalidateRenderStats(){renderStatsCache=null}
     function invalidateMarksCache(){marksVersion++;invalidateRenderStats()}
     function invalidateAgentsCache(){agentsVersion++;invalidateRenderStats()}
@@ -30,6 +35,49 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       clearTimeout(toastTimer);
       toastTimer=setTimeout(()=>{el.className='toast'},2600);
     }
+    function systemStatusTone(value){
+      if(value==='ok'||value==='done')return 'ok';
+      if(value==='error'||value==='failed'||value==='offline')return 'error';
+      return 'loading';
+    }
+    function renderSystemStatus(){
+      const online=navigator.onLine;
+      const tone=!online?'error':systemStatusTone(systemHealth.sync);
+      const dot=$('systemStatusDot'),label=$('systemStatusLabel');
+      if(dot)dot.className=`systemStatusDot ${tone}`;
+      if(label)label.textContent=!online?'Internet yo‘q':systemHealth.syncMessage;
+      const rows=$('systemStatusRows');
+      if(rows){
+        const publicLink=isPublicView();
+        const items=[
+          ['Internet',online?'Ulangan':'Ulanmagan',online?'ok':'error'],
+          ['Server va sync',systemHealth.syncMessage,systemStatusTone(systemHealth.sync)],
+          ['Telegram',systemHealth.telegram==='ok'?'Tayyor':(systemHealth.telegram==='warning'?'Sozlanmagan':(systemHealth.telegram==='error'?'Xato':'Tekshirilmoqda')),systemStatusTone(systemHealth.telegram)],
+          ['Ma’lumot yig‘ish',systemHealth.collect==='running'?'Jarayonda':(systemHealth.collect==='error'?'Xato':(systemHealth.collect==='done'?'Tugadi':'Tayyor')),systemHealth.collect==='error'?'error':(systemHealth.collect==='running'?'loading':'ok')],
+          ['Ulanish',publicLink?'Cloudflare / public':'Lokal kompyuter','ok']
+        ];
+        rows.innerHTML=items.map(([name,value,state])=>`<div class="systemStatusRow"><span class="systemStatusDot ${state}"></span><div><b>${escapeHtml(name)}</b><span>${escapeHtml(value)}</span></div></div>`).join('');
+      }
+      if($('systemStatusUpdated'))$('systemStatusUpdated').textContent=systemHealth.lastSync?`Oxirgi sync: ${new Date(systemHealth.lastSync).toLocaleTimeString('uz-UZ',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`:'Hali sinxronlanmagan';
+    }
+    function setSystemSyncState(state,message){
+      systemHealth.sync=state;
+      systemHealth.syncMessage=message;
+      if(state==='ok')systemHealth.lastSync=new Date().toISOString();
+      renderSystemStatus();
+    }
+    function toggleSystemStatus(open=!$('systemStatusPanel')?.classList.contains('open')){
+      $('systemStatusPanel')?.classList.toggle('open',open);
+      $('systemStatusBackdrop')?.classList.toggle('open',open);
+      $('systemStatusPanel')?.setAttribute('aria-hidden',open?'false':'true');
+      $('systemStatusBtn')?.setAttribute('aria-expanded',open?'true':'false');
+      if(open)refreshSystemStatusCenter();
+    }
+    async function refreshSystemStatusCenter(){
+      renderSystemStatus();
+      await Promise.allSettled([loadTelegramStatus(),refreshCollectStatus(),syncSharedState(false)]);
+      renderSystemStatus();
+    }
     function currentTheme(){
       const saved=localStorage.getItem(LS_THEME);
       return saved==='night'?'night':'day';
@@ -40,7 +88,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       document.documentElement.style.colorScheme=next==='night'?'dark':'light';
       const btn=$('themeToggleBtn');
       if(btn){
-        btn.textContent=next==='night'?'Kunduz':'Tun';
+        btn.textContent=next==='night'?'Kunduzgi rejim':'Tungi rejim';
         btn.title=next==='night'?"Kunduzgi rejimga o'tish":"Tungi rejimga o'tish";
         btn.setAttribute('aria-pressed',next==='night'?'true':'false');
       }
@@ -53,18 +101,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       notify(next==='night'?'Tungi rejim yoqildi':'Kunduzgi rejim yoqildi');
     }
     applyTheme();
-    function photoProxyUrl(url){return `/api/photo?url=${encodeURIComponent(url||'')}`}
-    function isPublicView(){
-      const host=location.hostname;
-      return host&&host!=='127.0.0.1'&&host!=='localhost'&&host!=='::1';
-    }
-    function photoInitialMode(){return isPublicView()?'direct':'proxy'}
-    function photoDisplayUrl(url,mode=photoInitialMode()){
-      const clean=String(url||'').trim();
-      return mode==='direct'?clean:photoProxyUrl(clean);
-    }
-    const PHOTO_CLIENT_TIMEOUT_MS=12000,PHOTO_PRELOAD_TIMEOUT_MS=9000,PHOTO_PRELOAD_MAX=4;
-    const photoTimers=new WeakMap(),preloadSeen=new Set();
+    const photoLoader=window.PhotoReviewPhotoLoader;
+    if(!photoLoader)throw new Error('Photo loader yuklanmadi');
+    const photoProxyUrl=(url,variant='full')=>photoLoader.proxyUrl(url,variant);
+    const isPublicView=()=>photoLoader.isPublicView();
+    const photoInitialMode=(variant='full')=>photoLoader.initialMode(variant);
+    const photoDisplayUrl=(url,mode=photoInitialMode(),variant='full')=>photoLoader.displayUrl(url,mode,variant);
+    const PHOTO_PRELOAD_TIMEOUT_MS=9000,PHOTO_PRELOAD_MAX=4;
+    const preloadSeen=new Set();
     let preloadQueue=[],preloadActive=0;
     function attendanceCacheKey(month,brandId){return `${month||attendanceFilters().month}|${brandId??attendanceFilters().brandId}`}
     function invalidateAttendanceCache(month='',brandId=''){
@@ -81,81 +125,10 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     .replaceAll('"','&quot;')
     .replaceAll("'","&#39;");
 }
-    function photoFrame(img){return img?.closest?.('.photoFrame')||null}
-    function clearImageTimer(img){
-      const timer=photoTimers.get(img);
-      if(timer)clearTimeout(timer);
-      photoTimers.delete(img);
-    }
-    function setPhotoState(img,state='loading',message='Rasm yuklanmoqda...'){
-      const frame=photoFrame(img);
-      if(!frame)return;
-      frame.classList.remove('loading','loaded','slow','broken');
-      frame.classList.add(state);
-      frame.dataset.status=message;
-    }
-    function startImageWatchdog(img){
-      clearImageTimer(img);
-      const timer=setTimeout(()=>{
-        if(img.complete&&img.naturalWidth>0)return imageLoaded(img);
-        if((img.dataset.mode||'proxy')==='proxy'&&img.dataset.direct&&img.dataset.triedDirect!=='1'){
-          setPhotoState(img,'slow',"Proxy sekin, to'g'ridan urinmoqda...");
-          loadPhoto(img,img.dataset.direct,'direct');
-          return;
-        }
-        if((img.dataset.mode||'proxy')==='direct'&&img.dataset.direct&&img.dataset.triedProxy!=='1'){
-          setPhotoState(img,'slow',"Direct sekin, proxy orqali urinmoqda...");
-          loadPhoto(img,img.dataset.direct,'proxy');
-          return;
-        }
-        setPhotoState(img,'broken','Rasm yuklanmadi · Qayta yuklash');
-        img.removeAttribute('src');
-      },PHOTO_CLIENT_TIMEOUT_MS);
-      photoTimers.set(img,timer);
-    }
-    function loadPhoto(img,url,mode='proxy'){
-      const direct=String(url||img?.dataset?.direct||'').trim();
-      if(!img||!direct)return;
-      clearImageTimer(img);
-      img.dataset.direct=direct;
-      img.dataset.mode=mode;
-      if(mode==='direct')img.dataset.triedDirect='1';
-      if(mode==='proxy')img.dataset.triedProxy='1';
-      setPhotoState(img,mode==='direct'?'slow':'loading',mode==='direct'?"Proxy sekin, to'g'ridan urinmoqda...":'Rasm yuklanmoqda...');
-      img.src=photoDisplayUrl(direct,mode);
-      startImageWatchdog(img);
-    }
-    function retryPhoto(target){
-      const frame=target?.closest?.('.photoFrame')||target;
-      const img=frame?.querySelector?.('img')||target;
-      const direct=img?.dataset?.direct||'';
-      if(direct){
-        delete img.dataset.triedDirect;
-        delete img.dataset.triedProxy;
-        loadPhoto(img,direct,photoInitialMode());
-      }
-    }
-    function imageError(img){
-      const direct=img.dataset.direct||'';
-      const mode=img.dataset.mode||'proxy';
-      clearImageTimer(img);
-      if(mode==='proxy'&&direct&&img.dataset.triedDirect!=='1'){
-        setPhotoState(img,'slow',"Proxy sekin, to'g'ridan urinmoqda...");
-        loadPhoto(img,direct,'direct');
-        return;
-      }
-      if(mode==='direct'&&direct&&img.dataset.triedProxy!=='1'){
-        setPhotoState(img,'slow',"Direct ochilmadi, proxy orqali urinmoqda...");
-        loadPhoto(img,direct,'proxy');
-        return;
-      }
-      setPhotoState(img,'broken','Rasm yuklanmadi · Qayta yuklash');
-    }
-    function imageLoaded(img){
-      clearImageTimer(img);
-      if(img.naturalWidth===0)return imageError(img);
-      setPhotoState(img,'loaded','');
-    }
+    function loadPhoto(img,url,mode='proxy',variant='full'){return photoLoader.load(img,url,mode,variant)}
+    function retryPhoto(target){return photoLoader.retry(target)}
+    function imageError(img){return photoLoader.imageError(img)}
+    function imageLoaded(img){return photoLoader.imageLoaded(img)}
     function canonicalReason(reason){
       const text=String(reason||'').trim();
       return legacyReasons[text]||text;
@@ -224,33 +197,15 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       }
       return local;
     }
-    function mergeMarks(target,source){
-      for(const [k,v] of Object.entries(source||{})){
-        const prev=target[k];
-        target[k]={...(prev||{}),...v};
-        if(prev?.telegramSentAt||v?.telegramSentAt){
-          target[k].telegramSentAt=prev?.telegramSentAt||v?.telegramSentAt;
-        }
-      }
-      return target;
-    }
-    function markChanged(prev,next){
-      if(!prev||!next)return prev!==next;
-      const keys=new Set([...Object.keys(prev),...Object.keys(next)]);
-      for(const key of keys){
-        const a=prev[key],b=next[key];
-        if(Array.isArray(a)||Array.isArray(b)){
-          if(JSON.stringify(a||[])!==JSON.stringify(b||[]))return true;
-        }else if(a!==b)return true;
-      }
-      return false;
-    }
+    const clientMarkTime=stateTools.recordTime;
+    const mergeMarkValue=stateTools.mergeRecord;
+    const mergeMarks=stateTools.mergeRecords;
+    const markChanged=stateTools.changed;
     function mergeIncomingMarks(source){
       let changed=false;
       for(const [k,v] of Object.entries(source||{})){
         const prev=marks[k];
-        const next={...(prev||{}),...v};
-        if(prev?.telegramSentAt||v?.telegramSentAt)next.telegramSentAt=prev?.telegramSentAt||v?.telegramSentAt;
+        const next=mergeMarkValue(prev,v);
         if(markChanged(prev,next))changed=true;
         marks[k]=next;
       }
@@ -270,6 +225,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const res=await fetch('/api/marks?'+params.toString());
         const data=await res.json();
         if(res.ok&&data.marks)mergeMarks(next,data.marks);
+        if(res.ok&&data.revision)sharedRevisions.marks=String(data.revision);
         mergeMarks(next,localMarks());
       }catch{}
       marks=next;
@@ -292,9 +248,9 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         });
       }catch{}
       try{
-        const res=await fetch('/api/reasons?'+Date.now());
-        const data=await res.json();
-        if(res.ok&&data.ok!==false)mergeReasonState(data);
+        const data=await dataTools.getJson('/api/reasons?'+Date.now(),{timeout:10000});
+        mergeReasonState(data);
+        if(data.revision)sharedRevisions.reasons=String(data.revision);
       }catch{}
     }
     function applySharedBrands(data){
@@ -320,27 +276,36 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     async function syncSharedState(push=false){
       if(sharedSyncBusy)return;
       sharedSyncBusy=true;
+      setSystemSyncState('syncing','Sinxronlanmoqda...');
       try{
         const payload={};
         const method=push||sharedSyncDirty?'POST':'GET';
         if(method==='POST'){
-          payload.marks=marks;
           payload.reasons={customReasons,reasonOverrides,deletedReasons};
+          payload.baseRevisions={...sharedRevisions};
+          payload.clientId=reviewClientId;
         }
-        const res=await fetch('/api/sync'+(method==='GET'?'?light=1&_='+Date.now():''),{
-          method,
-          headers:method==='POST'?{'Content-Type':'application/json'}:undefined,
-          body:method==='POST'?JSON.stringify(payload):undefined
-        });
-        const data=await res.json().catch(()=>({}));
-        if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
-        const marksChanged=data.marks?mergeIncomingMarks(data.marks):false;
+        const url='/api/sync?light=1&_='+Date.now();
+        const data=method==='POST'
+          ?await dataTools.postJson(url,payload,{timeout:15000})
+          :await dataTools.getJson(url,{timeout:15000});
+        const incomingRevisions=data.revisions||{};
+        const marksRevisionChanged=Boolean(incomingRevisions.marks&&incomingRevisions.marks!==sharedRevisions.marks);
+        let marksChanged=data.marks?mergeIncomingMarks(data.marks):false;
+        if(marksRevisionChanged&&(method==='GET'||data.conflicts?.marks)){
+          const before=marksVersion;
+          await loadMarks(true);
+          marksChanged=marksChanged||marksVersion!==before;
+        }
         const reasonsChanged=data.reasons?mergeReasonState(data.reasons):false;
         const brandsChanged=data.brands?applySharedBrands(data.brands):false;
+        sharedRevisions={...sharedRevisions,...Object.fromEntries(Object.entries(incomingRevisions).map(([key,value])=>[key,String(value||'0')]))};
         sharedSyncDirty=false;
         refreshSharedUi(marksChanged,reasonsChanged,brandsChanged);
+        setSystemSyncState('ok',data.conflicts?.reasons?'O‘zgarishlar birlashtirildi':'Sinxron');
       }catch(e){
         if(push)console.warn('Shared sync xato:',e);
+        setSystemSyncState('error','Server bilan aloqa yo‘q');
       }finally{
         sharedSyncBusy=false;
       }
@@ -357,26 +322,20 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         return brandConfig;
       }
       try{
-        const data=await (await fetch('/api/brands')).json();
-        if(data.ok){brandConfig={brands:data.brands||[],warnings:data.warnings||[]};brandsLoadedAt=Date.now();invalidateRenderStats();}
+        const data=await dataTools.getJson('/api/brands',{timeout:10000});
+        brandConfig={brands:data.brands||[],warnings:data.warnings||[]};
+        if(data.revision)sharedRevisions.brands=String(data.revision);
+        brandsLoadedAt=Date.now();
+        invalidateRenderStats();
       }catch(e){brandConfig={brands:[],warnings:[e.message]};}
       renderCollectBrands();
       renderAttendanceBrands();
       return brandConfig;
     }
-    function brandById(id){return (brandConfig.brands||[]).find(b=>b.id===id)||null}
-    function brandByCode(code){
-      const value=String(code||'').toUpperCase();
-      return (brandConfig.brands||[]).find(b=>(b.agentPrefixes||[]).some(p=>value.startsWith(String(p).toUpperCase())))||null;
-    }
-    function brandDisplayName(brand){return brand?.name||brand?.code||brand?.id||''}
-    function slugBrandId(name,prefixes=[]){
-      const base=String(name||prefixes[0]||'brand').trim().toLowerCase()
-        .replace(/['"`]/g,'')
-        .replace(/[^a-z0-9]+/g,'_')
-        .replace(/^_+|_+$/g,'');
-      return base||`brand_${Date.now()}`;
-    }
+    function brandById(id){return brandTools.byId(brandConfig,id)}
+    function brandByCode(code){return brandTools.byCode(brandConfig,code)}
+    function brandDisplayName(brand){return brandTools.displayName(brand)}
+    function slugBrandId(name,prefixes=[]){return brandTools.slug(name,prefixes)}
     function renderBrandTelegramChats(selectedId=''){
       const sel=$('brandTelegramChat');if(!sel)return;
       const chats=window.telegramChats||[];
@@ -438,13 +397,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
           <span class="brandMetaLine"><span>Prefix: ${escapeHtml(prefixes)}</span><span class="brandStatus ${telegramOk?'ok':'off'}">${telegramOk?'Telegram ulangan':'Telegram yoq'}</span></span>
           <span class="brandMetaLine mutedLine">${escapeHtml(telegram)}</span>
         </button>`;
-      }).join('')||'<div class="box">Brend topilmadi</div>';
+      }).join('')||viewStateMarkup('Brend topilmadi','Yangi brend yaratish uchun formani to\'ldiring.',{compact:true});
       document.querySelectorAll('.brandItem').forEach(btn=>btn.onclick=()=>fillBrandForm(brandById(btn.dataset.brandId)));
       const warnings=(brandConfig.warnings||[]).length?`\nWarnings:\n${brandConfig.warnings.map(x=>'- '+x).join('\n')}`:'';
       if($('brandValidation'))$('brandValidation').textContent=`Brands: ${(brandConfig.brands||[]).length}${warnings}`;
     }
     function openBrandSettings(){
-      $('brandPanel').classList.add('open');
+      switchView('brand');
+      if(!(brandConfig.brands||[]).length)uiState.render($('brandList'),'Brendlar yuklanmoqda','Serverdagi sozlamalar olinmoqda.',{type:'loading',compact:true});
       if($('brandValidation'))$('brandValidation').textContent='Brend sozlamalari yuklanmoqda...';
       fillBrandForm(brandById(activeBrandId)||brandConfig.brands[0]||null);
       loadTelegramStatus().catch(()=>{});
@@ -454,7 +414,10 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         if($('brandPanel')?.classList.contains('open')&&!editing)fillBrandForm(brandById(activeBrandId)||brandConfig.brands[0]||null);
       }).catch(e=>notify(e.message,'bad'));
     }
-    function closeBrandSettings(){$('brandPanel')?.classList.remove('open')}
+    function closeBrandSettings(){
+      $('brandPanel')?.classList.remove('open');
+      if(currentView==='brand')switchView('photo');
+    }
     async function saveBrandSettings(){
       const next=selectedBrandFromForm();
       const brands=[...(brandConfig.brands||[])];
@@ -464,6 +427,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const data=await res.json().catch(()=>({}));
       if(!res.ok||data.ok===false)throw new Error((data.errors||[]).join('; ')||data.error||`HTTP ${res.status}`);
       brandConfig={brands:data.brands||brands,warnings:data.warnings||[]};
+      if(data.revision)sharedRevisions.brands=String(data.revision);
       brandsLoadedAt=Date.now();
       invalidateRenderStats();
       const saved=brandById(next.id)||next;
@@ -477,6 +441,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const data=await res.json().catch(()=>({}));
       if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
       brandConfig={brands:data.brands||[],warnings:data.warnings||[]};
+      if(data.revision)sharedRevisions.brands=String(data.revision);
       brandsLoadedAt=Date.now();
       invalidateRenderStats();
       fillBrandForm(brandConfig.brands[0]||null);renderCollectBrands();notify("Brend o'chirildi");
@@ -503,19 +468,91 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const data=await res.json().catch(()=>({}));
       if(!res.ok||data.ok===false)throw new Error((data.errors||[]).join('; ')||data.error||`HTTP ${res.status}`);
       brandConfig={brands:data.brands||[],warnings:data.warnings||[]};
+      if(data.revision)sharedRevisions.brands=String(data.revision);
       brandsLoadedAt=Date.now();
       invalidateRenderStats();
       fillBrandForm(brandConfig.brands[0]||null);renderCollectBrands();notify('Brend config import qilindi');
     }
     function key(a,p){return `${dataset.date}#${a.code}#${p.id}`}
-    function saveMarks(){
+    function cloneReviewValue(value){return stateTools.clone(value)}
+    function markIsReviewed(mark){return markTools.isReviewed(mark)}
+    function reviewProgress(){
+      let reviewed=0,total=0;
+      for(const agent of agents){
+        for(const photo of agent.photos||[]){
+          total+=1;
+          if(markIsReviewed(marks[key(agent,photo)]))reviewed+=1;
+        }
+      }
+      return {reviewed,total,pending:Math.max(0,total-reviewed)};
+    }
+    function updateReviewAssist(){
+      const progress=reviewProgress();
+      if($('reviewProgressText'))$('reviewProgressText').textContent=`${progress.reviewed} / ${progress.total}`;
+      if($('nextUncheckedBtn')){
+        $('nextUncheckedBtn').disabled=!progress.pending;
+        $('nextUncheckedBtn').title=progress.pending?`${progress.pending} ta tekshirilmagan foto qoldi`:'Barcha foto tekshirilgan';
+      }
+      if($('undoReviewBtn'))$('undoReviewBtn').disabled=!undoStack.length;
+      return progress;
+    }
+    function pushReviewUndo(changes,label='Belgilash'){
+      const clean=(changes||[]).filter(item=>item?.key);
+      if(!clean.length)return;
+      undoStack.push({label,changes:clean});
+      if(undoStack.length>30)undoStack.shift();
+      updateReviewAssist();
+    }
+    function undoLastReview(){
+      const action=undoStack.pop();
+      if(!action){notify('Bekor qilinadigan amal yo‘q','bad');return}
+      const now=new Date().toISOString(),changed=[];
+      for(const item of action.changes){
+        marks[item.key]=item.previous
+          ? {...item.previous,updatedAt:now,updatedBy:reviewClientId}
+          : {_deleted:true,date:item.date||dataset?.date||'',code:item.code||'',url:item.url||'',updatedAt:now,updatedBy:reviewClientId};
+        changed.push(item.key);
+      }
+      saveMarks(changed);rebuildAgents();render();refreshAutoReviewAfterMark();
+      notify(`${action.label} bekor qilindi`);
+    }
+    function openNextUnchecked(){
+      if(!agents.length)return;
+      for(let agentOffset=0;agentOffset<agents.length;agentOffset++){
+        const ai=(agentIndex+agentOffset)%agents.length;
+        const agent=agents[ai];
+        const firstPhoto=agentOffset===0?Math.min(agent.photos.length,start):0;
+        for(let photoOffset=0;photoOffset<agent.photos.length;photoOffset++){
+          const pi=(firstPhoto+photoOffset)%agent.photos.length;
+          const photo=agent.photos[pi];
+          if(markIsReviewed(marks[key(agent,photo)]))continue;
+          agentIndex=ai;
+          const size=photoPageSizeFor(agent);
+          start=Math.floor(pi/size)*size;
+          render();
+          setTimeout(()=>openModal(pi),0);
+          return;
+        }
+      }
+      notify('Barcha foto tekshirilgan');
+      updateReviewAssist();
+    }
+    function saveMarks(changedKeys=null){
       invalidateMarksCache();
       localStorage.setItem(LS_MARKS,JSON.stringify(marks));
-      sharedSyncDirty=true;
-      fetch('/api/marks',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({marks})})
+      const keys=Array.isArray(changedKeys)?[...new Set(changedKeys.filter(key=>marks[key]))]:Object.keys(marks);
+      const outgoing=Object.fromEntries(keys.map(key=>[key,{...marks[key],updatedBy:marks[key]?.updatedBy||reviewClientId}]));
+      if(!keys.length)return Promise.resolve();
+      setSystemSyncState('syncing','Saqlanmoqda...');
+      return fetch('/api/marks?compact=1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({marks:outgoing,baseRevision:sharedRevisions.marks,clientId:reviewClientId})})
         .then(res=>res.json().catch(()=>({})))
-        .then(data=>{if(data?.marks)mergeIncomingMarks(data.marks)})
-        .catch(()=>notify('Serverga saqlashda xato. Lokal saqlandi.','bad'));
+        .then(async data=>{
+          if(data?.marks)mergeIncomingMarks(data.marks);
+          if(data?.revision)sharedRevisions.marks=String(data.revision);
+          if(data?.conflict)await loadMarks(true);
+          setSystemSyncState('ok',data?.conflict?'O‘zgarishlar birlashtirildi':'Saqlandi');
+        })
+        .catch(()=>{setSystemSyncState('error','Lokal saqlandi');notify('Serverga saqlashda xato. Lokal saqlandi.','bad')});
     }
     function photoDate(p){return (p.photoTime||dataset?.date||'').slice(0,10)}
     function brandFromCode(code){const found=brandByCode(code);if(found)return found.id;const c=String(code||'').toUpperCase();return c.match(/^[A-Z]+/)?.[0]||'lalaku_mama'}
@@ -525,7 +562,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const id=brand?.id||currentBrand()||brandFromCode(code);
       return {brandId:id,brandCode:brand?.code||(brand?.agentPrefixes||[])[0]||id,brandName:brandDisplayName(brand)||brandName(id)||id};
     }
-    function cleanDate(value){return String(value||'').match(/\d{4}-\d{2}-\d{2}/)?.[0]||''}
+    function cleanDate(value){return filterTools.cleanDate(value)}
     function agentDisplayName(a){
       const raw=String(a?.agent||a?.code||'').trim();
       const bracket=raw.match(/\[([^\]]+)\]/);
@@ -607,7 +644,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       invalidateAgentsCache();
       rebuildAgents();render();
     }
-    function money(value){const n=Number(value||0);return n?n.toLocaleString('ru-RU'):''}
+    function money(value){return exportTools.money(value)}
     function photoClock(p){
       const raw=String(p.photoTime||'').trim();
       if(!raw)return '';
@@ -1225,9 +1262,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         <td><div class="reasonText">${escapeHtml(r.reasons.map(shortReason).join('; '))}</div></td>
         <td><div class="reasonText">${escapeHtml(r.signals.join('; '))}</div></td>
         <td><span class="photoMeta">${r.metrics?`mean ${r.metrics.mean}, std ${r.metrics.std}, edge ${r.metrics.edgeMean||0}, dark ${(r.metrics.darkRatio*100).toFixed(0)}%, bir xil ${((r.metrics.uniformBlockRatio||0)*100).toFixed(0)}%`:'metrika yoq'}</span></td>
-      </tr>`).join('')}</tbody></table>`:`<div class="autoEmpty">Joriy sana bo'yicha shubhali nomzod topilmadi.</div>`}`;
-      $('autoReviewList').classList.add('open');
-      if($('quickNav'))$('quickNav').style.display='none';
+      </tr>`).join('')}</tbody></table>`:viewStateMarkup("Shubhali foto topilmadi","Joriy sana qoidalar bo'yicha tekshirildi.",{compact:true})}`;
+      switchView('auto');
       if($('autoSelectAll'))$('autoSelectAll').onchange=e=>document.querySelectorAll('.autoPick:not(:disabled)').forEach(x=>x.checked=e.target.checked);
       if($('autoSelectStrong'))$('autoSelectStrong').onclick=()=>document.querySelectorAll('.autoPick:not(:disabled)').forEach(x=>x.checked=rows[Number(x.value)]?.score>=.85&&!rows[Number(x.value)]?.orderProtected);
       if($('autoRescan'))$('autoRescan').onclick=()=>{autoReviewResults=[];runAutoReview()};
@@ -1245,7 +1281,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       agentIndex=ai;
       const photoIndex=agents[agentIndex].photos.findIndex(p=>p.id===item.p.id&&p.url===item.p.url);
       if(photoIndex<0)return;
-      start=Math.max(0,Math.floor(photoIndex/4)*4);
+      const pageSize=photoPageSizeFor(agents[agentIndex]);
+      start=Math.max(0,Math.floor(photoIndex/pageSize)*pageSize);
       render();
       autoReviewPreviewOpen=true;
       $('autoReviewList')?.classList.remove('open');
@@ -1254,7 +1291,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function closeAutoReview(){
       autoReviewPreviewOpen=false;
       $('autoReviewList').classList.remove('open');
-      if($('quickNav'))$('quickNav').style.display='';
+      if(currentView==='auto')switchView('photo');
     }
     function refreshAutoReviewAfterMark(){
       if(!autoReviewResults.length)return;
@@ -1269,18 +1306,19 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function applyAutoSelected(){
       const selected=[...document.querySelectorAll('.autoPick:checked')].map(x=>autoReviewResults[Number(x.value)]).filter(x=>x&&!x.orderProtected);
       if(!selected.length){notify('Minus qilish uchun foto tanlanmagan','bad');return}
+      pushReviewUndo(selected.map(r=>({key:r.key,previous:marks[r.key]?cloneReviewValue(marks[r.key]):null,date:dataset.date,code:r.a.code,url:r.p.url})),'Avto belgilash');
       for(const r of selected){
         const prev=marks[r.key]||{};
         const now=new Date().toISOString();
-        marks[r.key]={...prev,...brandPayloadForCode(r.a.code),date:dataset.date,code:r.a.code,agent:r.a.agent,photo:r.index+1,client:r.p.client||'',clientOrderSum:r.p.clientOrderSum||0,clientOrderCount:r.p.clientOrderCount||0,clientHasOrder:r.p.clientHasOrder,clientOrderKnown:r.p.clientOrderKnown,clientOrderSource:r.p.clientOrderSource||'',clientId:r.p.clientId||'',photoTime:r.p.photoTime||'',url:r.p.url,verdict:'MINUS',reasons:r.reasons,note:prev.note||`Avto tekshiruv: ${r.signals.join('; ')}`,source:'rules',ruleScore:r.score,savedAt:now,updatedAt:now};
+        marks[r.key]={...prev,...brandPayloadForCode(r.a.code),date:dataset.date,code:r.a.code,agent:r.a.agent,photo:r.index+1,client:r.p.client||'',clientOrderSum:r.p.clientOrderSum||0,clientOrderCount:r.p.clientOrderCount||0,clientHasOrder:r.p.clientHasOrder,clientOrderKnown:r.p.clientOrderKnown,clientOrderSource:r.p.clientOrderSource||'',clientId:r.p.clientId||'',photoTime:r.p.photoTime||'',url:r.p.url,verdict:'MINUS',reasons:r.reasons,note:prev.note||`Avto tekshiruv: ${r.signals.join('; ')}`,source:'rules',ruleScore:r.score,savedAt:now,updatedAt:now,updatedBy:reviewClientId};
       }
-      saveMarks();rebuildAgents();render();
+      saveMarks(selected.map(r=>r.key));rebuildAgents();render();
       autoReviewResults=autoReviewResults.filter(r=>!selected.includes(r));
       showAutoReviewResults();
       notify(`${selected.length} ta foto minus ro'yxatiga qo'shildi`);
     }
     function lookupKey(value){return String(value||'').toLowerCase().replace(/\s+/g,' ').trim()}
-    function compactKey(value){return lookupKey(value).replace(/[^a-z0-9Р°-СЏС‘]+/gi,'')}
+    function compactKey(value){return lookupKey(value).replace(/[^\p{L}\p{N}]+/gu,'')}
     function buildClientOrderMap(items){
       const map=new Map();
       (items||[]).forEach(c=>{
@@ -1367,8 +1405,9 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       .filter(a=>a.collectStatus!=='duplicate'&&a.collectStatus!=='error')
       .sort((a,b)=>String(a.group).localeCompare(String(b.group))||a.orderSum-b.orderSum||a.tail-b.tail||String(a.code).localeCompare(String(b.code)));
     }
+    function viewStateMarkup(title,message='',options={}){return uiState.markup(title,message,options)}
     function emptyActionButton(message,buttonText='Ma\'lumot yig\'ish'){
-      return `<div class="emptyState"><b>${escapeHtml(message)}</b><span>Kerakli sana va brend bo'yicha ma'lumot yig'ilmagan.</span><button id="emptyCollectBtn" class="primary" type="button">${escapeHtml(buttonText)}</button></div>`;
+      return viewStateMarkup(message,"Kerakli sana va brend bo'yicha ma'lumot yig'ilmagan.",{actionId:'emptyCollectBtn',actionText:buttonText,actionClass:'primary'});
     }
     function showEmpty(message='Sana topilmadi',action=false){
       dataset=null;agents=[];allAgents=[];agentIndex=0;start=0;
@@ -1382,7 +1421,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if($('agentStats'))$('agentStats').textContent='';
       if($('afterHoursStats'))$('afterHoursStats').textContent='';
     }
-    function cleanDatasetDate(value){return cleanDate(String(value||'').replace(/\s*\[[^\]]+\]\s*$/,''))}
+    function cleanDatasetDate(value){return filterTools.cleanDatasetDate(value)}
     function resolveBrandId(value){
       const raw=String(value||'').trim();
       if(!raw)return '';
@@ -1412,8 +1451,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(file.startsWith('lmj_')||file.startsWith('lalaku_mama_'))return resolveBrandId('Lalaku Mama')||'lalaku_mama';
       return String(raw.id||raw.code||raw.name||'').toLowerCase().replace(/[^a-z0-9_]+/g,'_')||'unknown';
     }
-    function datasetDate(item){return cleanDatasetDate(item?.date)||cleanDate(item?.label)||''}
-    function datasetOptionKey(item){return `${datasetDate(item)}||${datasetBrandId(item)}||${item.file||''}`}
+    function datasetDate(item){return filterTools.datasetDate(item)}
+    function datasetOptionKey(item){return filterTools.optionKey(item,datasetBrandId(item))}
     function datasetBrandName(id){
       const b=brandById(id);
       if(b)return brandDisplayName(b);
@@ -1575,10 +1614,58 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function afterHoursSummary(){
       return renderStats().afterHours;
     }
+    function photoPageSizeFor(a=agents[agentIndex]){
+      const total=Array.isArray(a?.photos)?a.photos.length:0;
+      return total?(photoPageAll?total:Math.max(1,Math.min(photoPageSize,total))):1;
+    }
+    function lastPhotoPageStart(a=agents[agentIndex],size=photoPageSizeFor(a)){
+      const total=Array.isArray(a?.photos)?a.photos.length:0;
+      return total?Math.floor((total-1)/size)*size:0;
+    }
+    function updatePhotoPageControls(a,size){
+      const total=a?.photos?.length||0;
+      const input=$('photoPageSize');
+      if(input){
+        input.max=String(Math.max(1,total));
+        input.value=String(total?size:1);
+        input.disabled=!total;
+      }
+      if($('showAllPhotos'))$('showAllPhotos').disabled=!total||photoPageAll;
+      if($('quickPrev')){
+        const atFirst=start<=0;
+        $('quickPrev').disabled=atFirst&&agentIndex<=0;
+        $('quickPrev').title=atFirst&&agentIndex>0?'Oldingi agent':`Oldingi ${size} foto`;
+      }
+      if($('quickNext')){
+        const atLast=!total||start+size>=total;
+        $('quickNext').disabled=atLast&&agentIndex>=agents.length-1;
+        $('quickNext').title=atLast&&agentIndex<agents.length-1?'Keyingi agent':`Keyingi ${size} foto`;
+      }
+    }
+    function setPhotoPageSize(value){
+      const a=agents[agentIndex];
+      const total=a?.photos?.length||1;
+      if(value==='all'){
+        photoPageAll=true;
+        localStorage.setItem(LS_PHOTO_PAGE_SIZE,'all');
+        start=0;
+        render();
+        return;
+      }
+      const next=Math.max(1,Math.min(Number.parseInt(value,10)||1,total));
+      photoPageAll=false;
+      photoPageSize=next;
+      localStorage.setItem(LS_PHOTO_PAGE_SIZE,String(photoPageSize));
+      start=0;
+      render();
+    }
     function render(){
       const a=agents[agentIndex]; if(!a){$('grid').innerHTML='';return}
       agentSel.value=String(agentIndex);
-      const slice=a.photos.slice(start,start+4);
+      const pageSize=photoPageSizeFor(a);
+      start=Math.max(0,Math.min(start,lastPhotoPageStart(a,pageSize)));
+      const slice=a.photos.slice(start,start+pageSize);
+      updatePhotoPageControls(a,pageSize);
       const region=agentRegion(a.code);
       const b=brandById(dataset?.brand?.id)||brandByCode(dataset?.brand?.code||a.code)||dataset?.brand||{};
       const unmatchedCount=allAgents.filter(x=>!x.prefixMatched).length;
@@ -1596,13 +1683,23 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         <div class="metric"><span>Foto</span><b>${totalPhotos}</b></div>
         <div class="metric badMetric"><span>Minus</span><b>${minusCount}</b></div>
       </div>`;
+      updateReviewAssist();
       const collectText=['partial','extra','empty','mismatch','unknown'].includes(a.collectStatus)?` | Yig'ilgan: ${a.photos.length}/${a.expectedPhotos||'?'} ${a.collectStatus}`:'';
-      if($('agentStats'))$('agentStats').textContent=`${a.code}${region?` | Hudud: ${region}`:''} | Buyurtma: ${a.orderSum.toLocaleString('ru-RU')} | Foto: ${start+1}-${Math.min(start+4,a.photos.length)}/${a.photos.length}${collectText} | minus: ${stats.minusByCode.get(a.code)||0}`;
+      if($('agentStats'))$('agentStats').textContent=`${a.code}${region?` | Hudud: ${region}`:''} | Buyurtma: ${a.orderSum.toLocaleString('ru-RU')} | Foto: ${start+1}-${Math.min(start+pageSize,a.photos.length)}/${a.photos.length}${collectText} | minus: ${stats.minusByCode.get(a.code)||0}`;
       if($('afterHoursStats'))$('afterHoursStats').innerHTML=ah.rows.length
         ? `<div class="metrics"><div class="metric badMetric"><span>Jami</span><b>${ah.rows.length}</b></div><div class="metric"><span>Dublikat</span><b>${duplicateCount}</b></div></div><div class="miniList">Agent: ${ah.byAgent.length}<br>${ah.byAgent.slice(0,6).map(x=>`${x.a.code}: ${x.count} ta (${x.times.slice(0,4).join(', ')}${x.times.length>4?', ...':''})`).join('<br>')}</div>`
         : '<span class="muted">Ma\'lumot topilmadi</span>';
       renderReasonLegend();
-      $('grid').innerHTML=slice.map((p,offset)=>{
+      const grid=$('grid');
+      // Keep the chosen slot width on the last page as well. Otherwise a
+      // remainder of one photo can grow to the full workspace width.
+      const columnTarget=photoPageAll?Math.min(5,pageSize):Math.min(5,photoPageSize);
+      const columnCount=Math.max(1,columnTarget);
+      grid.style.setProperty('--photo-columns',String(columnCount));
+      grid.dataset.columns=String(columnCount);
+      grid.classList.toggle('dense',slice.length>4);
+      grid.classList.toggle('veryDense',slice.length>10);
+      grid.innerHTML=slice.map((p,offset)=>{
         const k=key(a,p),m=marks[k],warns=[];
         const photoIndex=start+offset;
         const afterHours=isAfterHours(p);
@@ -1620,11 +1717,11 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const src=safeAttr(p.url);
         const order=orderInfo(p);
         return `<div class="card ${m?.verdict==='MINUS'?'marked':''} ${afterHours||sameMinute?'afterHours':''}" data-i="${photoIndex}">
-          <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" loading="eager" referrerpolicy="no-referrer" onload="imageLoaded(this)" onerror="imageError(this)"><button class="photoRetry" type="button" onclick="event.stopPropagation();retryPhoto(this)">Qayta yuklash</button></div>
+          <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" data-variant="thumb" loading="lazy" decoding="async" referrerpolicy="no-referrer" onload="imageLoaded(this)" onerror="imageError(this)"><button class="photoRetry" type="button" onclick="event.stopPropagation();retryPhoto(this)">Qayta yuklash</button></div>
           <div class="cap"><b>${escapeHtml(a.code)} #${photoIndex+1}</b><br>${escapeHtml(p.client||'')}${order.text?`<br>${escapeHtml(order.text)}`:''}<br>Vaqt: ${escapeHtml(time)}${warns.length?`<div class="badgeRow">${badges}</div>`:''}${!warns.length&&badges?`<div class="badgeRow">${badges}</div>`:''}</div>
         </div>`;
       }).join('');
-      document.querySelectorAll('.photoFrame img').forEach(img=>loadPhoto(img,img.dataset.direct,photoInitialMode()));
+      document.querySelectorAll('.photoFrame img').forEach(img=>loadPhoto(img,img.dataset.direct,photoInitialMode('thumb'),'thumb'));
       document.querySelectorAll('.card').forEach(card=>card.onclick=()=>openModal(Number(card.dataset.i)));
       preload();
     }
@@ -1652,15 +1749,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         img.onload=finish;
         img.onerror=finish;
         img.referrerPolicy='no-referrer';
-        img.src=photoDisplayUrl(url);
+        img.src=photoDisplayUrl(url,photoInitialMode('thumb'),'thumb');
       }
     }
     function preload(){
       const a=agents[agentIndex];if(!a)return;
       const urls=[];
-      for(let i=start;i<Math.min(start+8,a.photos.length);i++)urls.push(a.photos[i].url);
-      const next=agents[agentIndex+1];
-      if(next)for(let i=0;i<Math.min(4,next.photos.length);i++)urls.push(next.photos[i].url);
+      const size=photoPageSizeFor(a);
+      for(let i=start;i<Math.min(start+(size*2),a.photos.length);i++)urls.push(a.photos[i].url);
       [...new Set(urls.filter(Boolean))].forEach(queuePreload);
     }
     function autoReasons(a,p,index=current?.index){
@@ -1740,7 +1836,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       $('modalTitle').textContent=`${a.code} #${index+1}`;
       $('modalMeta').textContent=`${p.client||'Klient nomi yoq'}${order.text?` | ${order.text}`:''} | ${photoClock(p)||'vaqt yoq'}`;
       $('modalImg').style.transform='scale(1)';
-      loadPhoto($('modalImg'),p.url,photoInitialMode());
+      loadPhoto($('modalImg'),p.url,photoInitialMode('full'),'full');
       $('note').value=m.note||'';renderChecks(m.reasons||autoReasons(a,p));$('modal').classList.add('open');paused=true;updatePauseButtons();
     }
     function closeModal(){
@@ -1754,11 +1850,32 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(!current)return;const {a,p,index}=current;
       const k=key(a,p),prev=marks[k]||{};
       const now=new Date().toISOString();
-      marks[k]={...prev,...brandPayloadForCode(a.code),date:dataset.date,code:a.code,agent:a.agent,photo:index+1,client:p.client||'',clientOrderSum:p.clientOrderSum||0,clientOrderCount:p.clientOrderCount||0,clientHasOrder:p.clientHasOrder,clientOrderKnown:p.clientOrderKnown,clientOrderSource:p.clientOrderSource||'',clientId:p.clientId||'',photoTime:p.photoTime||'',url:p.url,verdict,reasons:[...document.querySelectorAll('#reasonChecks input:checked')].map(x=>x.value),note:$('note').value.trim(),approvedAt:prev.source?now:prev.approvedAt,savedAt:now,updatedAt:now};
-      saveMarks();rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
+      pushReviewUndo([{key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url}],verdict==='MINUS'?'Minus belgilash':'OK belgilash');
+      marks[k]={...prev,...brandPayloadForCode(a.code),date:dataset.date,code:a.code,agent:a.agent,photo:index+1,client:p.client||'',clientOrderSum:p.clientOrderSum||0,clientOrderCount:p.clientOrderCount||0,clientHasOrder:p.clientHasOrder,clientOrderKnown:p.clientOrderKnown,clientOrderSource:p.clientOrderSource||'',clientId:p.clientId||'',photoTime:p.photoTime||'',url:p.url,verdict,reasons:[...document.querySelectorAll('#reasonChecks input:checked')].map(x=>x.value),note:$('note').value.trim(),approvedAt:prev.source?now:prev.approvedAt,savedAt:now,updatedAt:now,updatedBy:reviewClientId};
+      saveMarks([k]);rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
       notify(verdict==='MINUS'?'Foto minus ro\'yxatiga qo\'shildi':'Foto OK sifatida saqlandi');
     }
-    function move(delta){const a=agents[agentIndex];if(!a)return;start+=delta;if(start<0){if(agentIndex>0){agentIndex--;start=Math.max(0,agents[agentIndex].photos.length-4)}else start=0}else if(start>=a.photos.length){if(agentIndex<agents.length-1){agentIndex++;start=0}else start=Math.max(0,a.photos.length-4)}render()}
+    function move(direction,wrap=false){
+      const a=agents[agentIndex];if(!a?.photos?.length)return;
+      const size=photoPageSizeFor(a),last=lastPhotoPageStart(a,size);
+      const next=start+(direction<0?-size:size);
+      if(next<0){
+        if(agentIndex>0){
+          agentIndex--;
+          const previous=agents[agentIndex];
+          start=lastPhotoPageStart(previous,photoPageSizeFor(previous));
+        }else if(wrap&&agents.length>1){
+          agentIndex=agents.length-1;
+          const previous=agents[agentIndex];
+          start=lastPhotoPageStart(previous,photoPageSizeFor(previous));
+        }else start=0;
+      }else if(next>last){
+        if(agentIndex<agents.length-1){agentIndex++;start=0}
+        else if(wrap&&agents.length>1){agentIndex=0;start=0}
+        else start=last;
+      }else start=next;
+      render();
+    }
     function reviewNavigationReady(ignoreFocus=false){
       const modalOpen=$('modal')?.classList.contains('open');
       const listOpen=$('minusList')?.classList.contains('open');
@@ -1792,7 +1909,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     }
     function restartTimer(){
       if(timer)clearInterval(timer);
-      timer=setInterval(()=>{if(!paused)move(4)},delay);
+      timer=setInterval(()=>{if(!paused)move(1,true)},delay);
     }
     function adjustSpeed(delta){
       delay=Math.max(1000,Math.min(10000,delay+delta));
@@ -1802,13 +1919,18 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function exportRows(){return currentMinusMarks()}
     function closeMinusList(){
       $('minusList')?.classList.remove('open');
-      if($('quickNav'))$('quickNav').style.display='';
+      if(currentView==='minus')switchView('photo');
     }
-    function clearMarksForDate(date){
+    async function clearMarksForDate(date){
       for(const key of Object.keys(marks)){
         if(marks[key]?.date===date)delete marks[key];
       }
-      saveMarks();
+      invalidateMarksCache();
+      localStorage.setItem(LS_MARKS,JSON.stringify(marks));
+      const res=await fetch('/api/marks?date='+encodeURIComponent(date),{method:'DELETE'});
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
+      if(data.revision)sharedRevisions.marks=String(data.revision);
     }
     async function deleteCurrentDate(){
       if(!dataset?.date){alert("O'chirish uchun sana tanlanmagan.");return}
@@ -1832,7 +1954,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const res=await fetch('/api/datasets/delete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({date})});
         const data=await res.json().catch(()=>({}));
         if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
-        clearMarksForDate(date);
+        await clearMarksForDate(date);
         manifest.datasets=data.datasets||manifest.datasets.filter(d=>d.date!==date);
         const next=manifest.datasets.at(-1)?.date||'';
         if(localStorage.getItem(LS_DATE)===date)localStorage.removeItem(LS_DATE);
@@ -1848,11 +1970,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       try{
         const status=await (await fetch('/api/telegram/status?'+Date.now())).json();
         window.telegramChats=status.chats||[];
+        systemHealth.telegram=status.configured?'ok':'warning';
         $('telegramBtn').title=status.configured?`Telegram sozlangan: ${status.chatId}`:'Telegram token/chat ID sozlanmagan';
         renderBrandTelegramChats($('brandTelegramChat')?.value||brandById(activeBrandId)?.telegramChatId||'');
       }catch{
+        systemHealth.telegram='error';
         $('telegramBtn').title="Telegram server statusini tekshirib bo'lmadi";
       }
+      renderSystemStatus();
     }
     function mainTelegramChatOption(){
       const main=(window.telegramChats||[])[0];
@@ -1875,7 +2000,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         id:brandChatId,
         name:brand?.telegramChatName||`${brandDisplayName(brand)||brandChatId} gruppasi`
       });
-      return options.filter((chat,index,list)=>chat.id&&list.findIndex(item=>String(item.id)===String(chat.id))===index);
+      return telegramTools.uniqueChats(options);
     }
     function pickTelegramChat(rows=[]){
       const chats=telegramChatOptions(rows);
@@ -1891,7 +2016,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     }
     function currentBrandTelegramChatId(){
       const brand=brandById(currentBrand())||brandByCode(dataset?.brand?.code||agents[agentIndex]?.code);
-      return String(brand?.telegramChatId||'').trim();
+      return telegramTools.chatId(brand?.telegramChatId);
     }
     function telegramChatName(chatId,rows=[]){
       const fromList=telegramChatOptions(rows).find(c=>String(c.id)===String(chatId));
@@ -1921,13 +2046,15 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const sentAt=new Date().toISOString();
         const sentKeys=new Set((data.sent||[]).map(x=>`${x.code}#${x.photo}`));
         const failedKeys=new Set((data.failed||[]).map(x=>`${x.code}#${x.photo}`));
+        const changedMarkKeys=[];
         for(const [k,m] of entries){
           const sentKey=`${m.code}#${m.photo}`;
           if(sentKeys.size ? sentKeys.has(sentKey) : !failedKeys.has(sentKey)){
-            marks[k]={...m,telegramSentAt:sentAt,updatedAt:sentAt};
+            marks[k]={...m,telegramSentAt:sentAt,updatedAt:sentAt,updatedBy:reviewClientId};
+            changedMarkKeys.push(k);
           }
         }
-        saveMarks();render();
+        saveMarks(changedMarkKeys);render();
         const failedRows=data.failed||[];
         const failed=failedRows.length;
         const batchInfo=data.batches&&data.batches>1?` (${data.batches} ta xabarda)`:'';
@@ -2097,6 +2224,9 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     .replaceAll("'","&#39;");
 }
     async function showList(selectedDate=dataset?.date,selectedBrand=currentBrand(),skipRefresh=false){
+      switchView('minus');
+      uiState.render($('listBody'),"Minus ro'yxati yuklanmoqda",'Saqlangan belgilashlar tayyorlanmoqda.',{type:'loading'});
+      await new Promise(resolve=>requestAnimationFrame(resolve));
       if(typeof selectedDate!=='string')selectedDate=dataset?.date||'';
       const wantsAllDates=selectedDate==='__all__';
       selectedDate=wantsAllDates?'__all__':cleanDate(selectedDate);
@@ -2156,9 +2286,8 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         <div class="listStat"><span>Yangi</span><b>${unsent.length}</b></div>
       </div>
       <div class="listHint">Brend: ${escapeHtml(brandName(selectedBrand))}. Saqlangan minus: ${all.length}. Minus bor sanalar: ${foundDates.length?foundDates.map(escapeHtml).join(', '):'ma\'lumot topilmadi'}. Agent qatorini bossangiz ichidagi fotolar ochiladi.</div>
-      ${entries.length?`<table class="listTable"><colgroup><col style="width:42px"><col style="width:31%"><col style="width:11%"><col style="width:12%"><col style="width:17%"><col></colgroup><thead><tr><th><input id="listSelectAll" type="checkbox" title="Hammasini tanlash"></th><th>Agent / foto</th><th>Filial / holat</th><th>Sana / klient ID</th><th>Holat / buyurtma</th><th>Sabab</th></tr></thead><tbody>${groupRows}</tbody></table>`:`<div class="box"><b>Minus topilmadi</b><div class="meta">Tanlangan brend va sana bo'yicha saqlangan minus foto yo'q.</div></div>`}`;
-      $('minusList').classList.add('open');
-      if($('quickNav'))$('quickNav').style.display='none';
+      ${entries.length?`<table class="listTable"><colgroup><col style="width:42px"><col style="width:31%"><col style="width:11%"><col style="width:12%"><col style="width:17%"><col></colgroup><thead><tr><th><input id="listSelectAll" type="checkbox" title="Hammasini tanlash"></th><th>Agent / foto</th><th>Filial / holat</th><th>Sana / klient ID</th><th>Holat / buyurtma</th><th>Sabab</th></tr></thead><tbody>${groupRows}</tbody></table>`:viewStateMarkup("Minus topilmadi","Tanlangan brend va sana bo'yicha saqlangan minus foto yo'q.",{compact:true})}`;
+      switchView('minus');
       const groupMap=new Map([...groups.values()].map(g=>[g.id,g]));
       const keyToGroup=new Map();
       for(const g of groups.values())for(const [k] of g.items)keyToGroup.set(k,g.id);
@@ -2270,7 +2399,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const recent=(data?.recent||[]).slice(0,60).map(e=>`<div class="adminEvent"><span>${escapeHtml((e.at||'').replace('T',' ').slice(0,19))}</span><b>${escapeHtml(adminEventLabel(e))}</b><em>${escapeHtml([adminUserLabel(e.user||{id:e.userId}),e.code,e.sessionType==='all'?'hammasi':''].filter(Boolean).join(' · '))}</em></div>`).join('');
       const emptyUsers="<tr><td colspan=\"7\">Hali ma'lumot yo'q</td></tr>";
       const emptyAgents="<tr><td colspan=\"6\">Hali ma'lumot yo'q</td></tr>";
-      const emptyEvents="<div class=\"adminEmpty\">Hali event yo'q</div>";
+      const emptyEvents=viewStateMarkup("Harakatlar yo'q","Bot yoki web yuborish hodisasi hali qayd etilmagan.",{compact:true});
       body.innerHTML=`<div class="adminCards">${cards.map(([label,value])=>`<div class="adminCard"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>`).join('')}</div>
         <div class="adminGrid">
           <section class="adminBlock"><div class="adminBlockHead"><b>Kimlar foydalandi</b><span>Oxirgi aktiv userlar</span></div><div class="adminTableWrap"><table class="adminTable"><thead><tr><th>User</th><th>Start</th><th>Hamma</th><th>Agent</th><th>Foto</th><th>Xato</th><th>Oxirgi</th></tr></thead><tbody>${users||emptyUsers}</tbody></table></div></section>
@@ -2283,55 +2412,75 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         renderAdminStats(adminStatsData);
         return adminStatsData;
       }
-      const body=$('adminStatsBody');if(body)body.innerHTML='<div class="adminEmpty">Statistika yuklanmoqda...</div>';
-      const res=await fetch('/api/admin/telegram-stats?'+Date.now());
-      const data=await res.json().catch(()=>({}));
-      if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
-      adminStatsData=data;
-      adminStatsLoadedAt=Date.now();
-      renderAdminStats(data);
-      return data;
+      const body=$('adminStatsBody');
+      if(body)body.innerHTML=viewStateMarkup('Statistika yuklanmoqda','Serverdan so\'nggi ma\'lumotlar olinmoqda.',{type:'loading'});
+      try{
+        const data=await dataTools.getJson('/api/admin/telegram-stats?'+Date.now(),{timeout:15000});
+        adminStatsData=data;
+        adminStatsLoadedAt=Date.now();
+        renderAdminStats(data);
+        return data;
+      }catch(error){
+        if(body)body.innerHTML=viewStateMarkup('Statistika ochilmadi',error.message||'Server bilan aloqa xatosi.',{type:'error'});
+        throw error;
+      }
     }
     function defaultAttendanceMonth(){const date=cleanDate(dataset?.date)||new Date().toISOString().slice(0,10);return date.slice(0,7)}
-    function nextIsoDate(date){
-      const m=String(date||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m)return'';
-      const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));d.setDate(d.getDate()+1);
-      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    }
-    function validIsoDate(date){return /^\d{4}-\d{2}-\d{2}$/.test(String(date||''))}
+    function nextIsoDate(date){return attendanceTools.nextIsoDate(date)}
+    function validIsoDate(date){return attendanceTools.validIsoDate(date)}
     function invalidAttendanceValue(value){return /[kb\u043a]/i.test(String(value||''))}
-    function attendanceValueLooksValid(value){
-      const text=String(value??'').trim();
-      if(!text)return true;
-      if(invalidAttendanceValue(text))return false;
-      return /^\d+([sS])?$/.test(text);
-    }
+    function attendanceValueLooksValid(value){return attendanceTools.valueLooksValid(value)}
     async function loadAttendanceConfig(force=false){
       if(!force&&attendanceConfigLoadedAt&&Date.now()-attendanceConfigLoadedAt<ATTENDANCE_CACHE_MS)return attendanceConfig;
-      const res=await fetch('/api/attendance/config');
-      const data=await res.json().catch(()=>({}));
-      if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
+      const data=await dataTools.getJson('/api/attendance/config',{timeout:15000});
       attendanceConfig={employees:data.employees||[],routes:data.routes||[],assignments:data.assignments||[],settings:data.settings||{},validation:data.validation||{}};
       attendanceConfigLoadedAt=Date.now();
       renderReplaceEmployeeSelect();
       return attendanceConfig;
     }
+    function setPhotoFiltersOpen(open){
+      const shouldOpen=Boolean(open)&&currentView==='photo';
+      document.body.classList.toggle('filtersOpen',shouldOpen);
+      const toggle=$('filterToggleBtn');
+      if(toggle)toggle.setAttribute('aria-expanded',shouldOpen?'true':'false');
+      const panel=$('reviewFilters');
+      if(panel)panel.setAttribute('aria-hidden',currentView==='photo'?(shouldOpen?'false':'true'):'false');
+      const backdrop=$('filterBackdrop');
+      if(backdrop)backdrop.setAttribute('aria-hidden',shouldOpen?'false':'true');
+    }
+    function togglePhotoFilters(){
+      setPhotoFiltersOpen(!document.body.classList.contains('filtersOpen'));
+    }
     function switchView(view){
+      const previousView=currentView;
       currentView=view;
       const isAttendance=view==='attendance';
       const isAdmin=view==='admin';
       const isCollect=view==='collect';
-      const isPhoto=!isAttendance&&!isAdmin&&!isCollect;
+      const isMinus=view==='minus';
+      const isBrand=view==='brand';
+      const isAuto=view==='auto';
+      const isTool=isMinus||isBrand||isAuto;
+      const isPhoto=view==='photo';
+      if(previousView==='collect'&&view!=='collect'){
+        clearInterval(collectTimer);
+        collectTimer=null;
+      }
       document.body.classList.toggle('collectView',isCollect);
       document.body.classList.toggle('photoView',isPhoto);
+      document.body.classList.toggle('toolView',isTool);
+      document.body.classList.toggle('minusView',isMinus);
+      document.body.classList.toggle('brandView',isBrand);
+      document.body.classList.toggle('autoView',isAuto);
+      if(!isPhoto)setPhotoFiltersOpen(false);
       document.querySelector('.wrap').style.display=isPhoto?'grid':'none';
       const controls=document.querySelector('.controls');
-      if(controls)controls.style.display=(isPhoto||isCollect)?'':'none';
+      if(controls)controls.style.display=(isPhoto||isCollect||isTool)?'':'none';
       if($('deleteDateBtn')){
-        if(isCollect){
+        if(isCollect||isTool){
           $('deleteDateBtn').classList.remove('dangerBtn');
           $('deleteDateBtn').innerHTML='Yopish';
-          $('deleteDateBtn').onclick=closeCollect;
+          $('deleteDateBtn').onclick=isCollect?closeCollect:isMinus?closeMinusList:isBrand?closeBrandSettings:closeAutoReview;
         }else{
           $('deleteDateBtn').classList.add('dangerBtn');
           $('deleteDateBtn').innerHTML=`<span class="dangerDot">!</span>Sanani o'chirish`;
@@ -2341,11 +2490,17 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       $('attendancePanel')?.classList.toggle('open',isAttendance);
       $('adminStatsPanel')?.classList.toggle('open',isAdmin);
       $('collectPanel')?.classList.toggle('open',isCollect);
+      $('minusList')?.classList.toggle('open',isMinus);
+      $('brandPanel')?.classList.toggle('open',isBrand);
+      $('autoReviewList')?.classList.toggle('open',isAuto);
       $('quickNav')?.style.setProperty('display',isPhoto?'grid':'none');
       $('sidePhotoBtn')?.classList.toggle('active',isPhoto);
       $('sideAttendanceBtn')?.classList.toggle('active',isAttendance);
       $('sideAdminStatsBtn')?.classList.toggle('active',isAdmin);
       $('sideCollectBtn')?.classList.toggle('active',isCollect);
+      $('sideMinusListBtn')?.classList.toggle('active',isMinus);
+      $('sideBrandSettingsBtn')?.classList.toggle('active',isBrand);
+      $('sideAutoReviewBtn')?.classList.toggle('active',isAuto);
       if(isPhoto){
         if(dataset&&agents[agentIndex])render();
         else {$('title').textContent='Foto nazorati';$('meta').textContent='Ma\'lumotlar yuklanmoqda...'}
@@ -2361,6 +2516,18 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(isCollect){
         $('title').textContent="Ma'lumot yig'ish";
         $('meta').textContent='Sales sahifasidan foto hisobot ma\'lumotlarini xavfsiz yig\'ish';
+      }
+      if(isMinus){
+        $('title').textContent="Minus ro'yxati";
+        $('meta').textContent='Saqlangan minus fotolar va Telegram yuborish nazorati';
+      }
+      if(isBrand){
+        $('title').textContent='Brend sozlamalari';
+        $('meta').textContent='Brend, agent prefixlari va Telegram guruhlarini boshqarish';
+      }
+      if(isAuto){
+        $('title').textContent='Avto tekshiruv';
+        $('meta').textContent='Qoidaviy tekshiruv natijalari va shubhali fotolar';
       }
       if(isAttendance&&!attendanceData)loadAttendanceMonth().catch(e=>notify(e.message,'bad'));
       if(isAdmin)loadAdminStats().catch(e=>notify(e.message,'bad'));
@@ -2465,27 +2632,27 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const validation=attendanceData.validation||attendanceConfig.validation||{};
       const quality=attendanceData.dataQuality||{};
       const warnings=[...(validation.warnings||[])];
-      if(quality.missingRoutes?.length)warnings.push(`Unknown route: ${quality.missingRoutes.length}`);
+      if(quality.missingRoutes?.length)warnings.push(`Yo'nalishsiz qatorlar: ${quality.missingRoutes.length}`);
       const cards=[
         ['Oy',attendanceData.month],
         ['Brend',attendanceData.brand?.name||attendanceData.brandId||'Barcha brendlar'],
         ['Qatorlar',`${rows.length}/${attendanceData.rows.length}`],
-        ['Assigned',`${filtered.assignedRows}/${totals.assignedRows??0}`],
-        ['Vacant',filtered.vacantRows],
-        ['Unknown',filtered.unknownRows],
+        ['Biriktirilgan',`${filtered.assignedRows}/${totals.assignedRows??0}`],
+        ["Bo'sh",filtered.vacantRows],
+        ["Yo'nalishsiz",filtered.unknownRows],
         ['Ish kuni',filtered.workDays],
         ['Kam foto',filtered.lowPhotoDays],
         ['Sababli',filtered.specialDays],
         ['Shtraf',filtered.penaltyCount],
       ];
-      return `<div class="attendanceMetaGrid">${cards.map(([label,value])=>`<div class="attendanceMetric"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>`).join('')}</div><div class="attendanceMetaFoot"><span>Generate: ${escapeHtml(attendanceData.generatedAt||'-')}</span>${warnings.length?`<span class="attendanceWarning">${escapeHtml(warnings.join('; '))}</span>`:''}</div>`;
+      return `<div class="attendanceMetaGrid">${cards.map(([label,value])=>`<div class="attendanceMetric"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>`).join('')}</div><div class="attendanceMetaFoot"><span>Yaratilgan: ${escapeHtml(attendanceData.generatedAt||'-')}</span>${warnings.length?`<span class="attendanceWarning">${escapeHtml(warnings.join('; '))}</span>`:''}</div>`;
     }
     function renderAttendance(){
       const table=$('attendanceTable');if(!table||!attendanceData)return;
       const rows=filteredAttendanceRows();
       const dayCount=new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate();
       $('attendanceMeta').innerHTML=attendanceMetaHtml(rows);
-      const head=['Kod','Xodim','Role','Brend','Action',...Array.from({length:dayCount},(_,i)=>String(i+1)),'Foto kamligi','Sababli','Shtraf','Ish kuni'];
+      const head=['Kod','Xodim','Lavozim','Brend','Amal',...Array.from({length:dayCount},(_,i)=>String(i+1)),'Foto kamligi','Sababli','Shtraf','Ish kuni'];
       const thead=`<thead><tr>${head.map((h,i)=>`<th class="${i===0?'stickyCol':i===1?'stickyCol2':''}">${escapeHtml(h)}</th>`).join('')}</tr></thead>`;
       const body=rows.map(row=>{
         const days=Array.from({length:dayCount},(_,i)=>{
@@ -2508,26 +2675,31 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       });
     }
     async function loadAttendanceMonth(generate=false){
-      if(!(brandConfig.brands||[]).length)await loadBrands();
-      await loadAttendanceConfig(generate);
-      const f=attendanceFilters();
-      const cacheKey=attendanceCacheKey(f.month,f.brandId);
-      const cached=attendanceMonthCache.get(cacheKey);
-      if(!generate&&cached&&Date.now()-cached.at<ATTENDANCE_CACHE_MS){
-        attendanceData=cached.data;
+      uiState.render($('attendanceMeta'),generate?'Tabel yaratilmoqda':'Tabel yuklanmoqda','Oy va brend bo‘yicha ma’lumotlar tayyorlanmoqda.',{type:'loading',compact:true});
+      if($('attendanceTable'))$('attendanceTable').innerHTML='';
+      try{
+        if(!(brandConfig.brands||[]).length)await loadBrands();
+        await loadAttendanceConfig(generate);
+        const f=attendanceFilters();
+        const cacheKey=attendanceCacheKey(f.month,f.brandId);
+        const cached=attendanceMonthCache.get(cacheKey);
+        if(!generate&&cached&&Date.now()-cached.at<ATTENDANCE_CACHE_MS){
+          attendanceData=cached.data;
+          renderAttendance();
+          return attendanceData;
+        }
+        const data=generate
+          ?await dataTools.postJson('/api/attendance/generate',{month:f.month,brandId:f.brandId},{timeout:60000})
+          :await dataTools.getJson(`/api/attendance/month?month=${encodeURIComponent(f.month)}&brandId=${encodeURIComponent(f.brandId)}`,{timeout:30000});
+        if(generate)await loadAttendanceConfig(true);
+        attendanceData=data;
+        attendanceMonthCache.set(cacheKey,{data,at:Date.now()});
         renderAttendance();
-        return attendanceData;
+        return data;
+      }catch(error){
+        uiState.render($('attendanceMeta'),'Tabel ochilmadi',error.message||'Server bilan aloqa xatosi.',{type:'error',compact:true});
+        throw error;
       }
-      const res=generate
-        ? await fetch('/api/attendance/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({month:f.month,brandId:f.brandId})})
-        : await fetch(`/api/attendance/month?month=${encodeURIComponent(f.month)}&brandId=${encodeURIComponent(f.brandId)}`);
-      const data=await res.json().catch(()=>({}));
-      if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
-      if(generate)await loadAttendanceConfig(true);
-      attendanceData=data;
-      attendanceMonthCache.set(cacheKey,{data,at:Date.now()});
-      renderAttendance();
-      return data;
     }
     async function saveAttendanceCell(cell){
       const value=cell.textContent.trim();
@@ -2597,6 +2769,8 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const s=state||{};
       const running=!!s.running;
       const status=s.status||'idle';
+      systemHealth.collect=running?'running':(['failed','error'].includes(status)?'error':(status==='done'?'done':'idle'));
+      renderSystemStatus();
       const waiting=!!s.awaiting;
       $('collectStatusTitle').textContent=collectLabel(status);
       let collectText=running
@@ -2623,8 +2797,8 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     }
     async function refreshCollectStatus(){
       try{
-        const data=await (await fetch('/api/collect/status?'+Date.now())).json();
-        if(data.ok)renderCollect(data.collect);
+        const data=await dataTools.getJson('/api/collect/status?'+Date.now(),{timeout:10000});
+        renderCollect(data.collect);
       }catch(e){
         $('collectStatusTitle').textContent='Server bilan aloqa yoq';
         $('collectStatusText').textContent=e.message;
@@ -2649,9 +2823,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(currentView==='collect')switchView('photo');
     }
     async function collectAction(path,body=null){
-      const res=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):'{}'});
-      const data=await res.json().catch(()=>({}));
-      if(!res.ok||data.ok===false)throw new Error(data.error||`HTTP ${res.status}`);
+      const data=await dataTools.postJson(path,body||{},{timeout:15000});
       renderCollect(data.collect);
       return data.collect;
     }
@@ -2674,8 +2846,13 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         notify("To'xtatish so'rovi yuborildi");
       }catch(e){notify(e.message,'bad')}
     }
+    document.addEventListener('click',e=>{
+      if(!document.body.classList.contains('filtersOpen'))return;
+      if(e.target?.closest?.('#reviewFilters,#filterToggleBtn'))return;
+      setPhotoFiltersOpen(false);
+    });
     window.addEventListener('keydown',e=>{
-      if(e.key==='Escape'){closeModal();closeMinusList();closeAutoReview();closeDeleteConfirm();closeCollect();closeBrandSettings();closeReplaceEmployeeModal();return}
+      if(e.key==='Escape'){setPhotoFiltersOpen(false);closeModal();closeMinusList();closeAutoReview();closeDeleteConfirm();closeCollect();closeBrandSettings();closeReplaceEmployeeModal();return}
       if(e.code==='Space'||e.key===' '){
         if(isEditableTarget(e.target))return;
         e.preventDefault();
@@ -2685,8 +2862,8 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         return;
       }
       if(!reviewNavigationReady())return;
-      if(e.key==='ArrowRight')move(4);
-      if(e.key==='ArrowLeft')move(-4);
+      if(e.key==='ArrowRight')move(1);
+      if(e.key==='ArrowLeft')move(-1);
     });
     let wheelNavAt=0;
     window.addEventListener('wheel',e=>{
@@ -2696,10 +2873,27 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       e.preventDefault();
       const now=Date.now();
       if(now-wheelNavAt<160)return;
-      move(e.deltaY>0?4:-4);
+      move(e.deltaY>0?1:-1);
       wheelNavAt=now;
     },{passive:false});
-    window.addEventListener('load',()=>{applyTheme();brandSel=$('brandSel');dateSel=$('dateSel');agentSel=$('agentSel');if(brandSel)brandSel.onchange=()=>{localStorage.setItem(LS_BRAND,brandSel.value||'');renderDateFilter();loadSelectedDataset().catch(e=>notify(e.message,'bad'))};dateSel.onchange=()=>loadSelectedDataset().catch(e=>notify(e.message,'bad'));agentSel.onchange=()=>{agentIndex=Number(agentSel.value);start=0;render()};$('quickNext').onclick=()=>move(4);$('quickPrev').onclick=()=>move(-4);$('quickPause').onclick=togglePause;$('speedSlower').onclick=()=>adjustSpeed(-500);$('speedFaster').onclick=()=>adjustSpeed(500);$('minusListBtn').onclick=()=>showList();$('telegramBtn').onclick=sendTelegram;$('csvBtn').onclick=csv;$('agentExcelBtn').onclick=agentExcel;$('autoReviewBtn').onclick=runAutoReview;if($('themeToggleBtn'))$('themeToggleBtn').onclick=toggleTheme;if($('sidePhotoBtn'))$('sidePhotoBtn').onclick=()=>switchView('photo');if($('sideAttendanceBtn'))$('sideAttendanceBtn').onclick=()=>switchView('attendance');$('sideMinusListBtn').onclick=()=>showList();$('sideCsvBtn').onclick=csv;$('sideAgentExcelBtn').onclick=agentExcel;$('sideCollectBtn').onclick=()=>openCollect();$('sideBrandSettingsBtn').onclick=openBrandSettings;if($('sideAdminStatsBtn'))$('sideAdminStatsBtn').onclick=()=>switchView('admin');$('sideAutoReviewBtn').onclick=runAutoReview;$('autoReviewClose').onclick=closeAutoReview;$('collectClose').onclick=closeCollect;$('collectStart').onclick=startCollect;$('collectStop').onclick=stopCollect;$('brandClose').onclick=closeBrandSettings;$('brandNew').onclick=()=>fillBrandForm();$('brandSave').onclick=async()=>{try{await saveBrandSettings()}catch(e){notify(e.message,'bad')}};$('brandDelete').onclick=async()=>{try{await deleteBrandSetting()}catch(e){notify(e.message,'bad')}};if($('brandValidate'))$('brandValidate').onclick=validateBrandSettings;if($('brandExport'))$('brandExport').onclick=exportBrandSettings;if($('brandImport'))$('brandImport').onchange=e=>importBrandSettings(e.target.files?.[0]).catch(err=>notify(err.message,'bad'));if($('brandTelegramChat'))$('brandTelegramChat').onchange=()=>{if($('brandTelegramChat')?.value&&$('brandTelegramChatId'))$('brandTelegramChatId').value=''};if($('brandTelegramChatId'))$('brandTelegramChatId').oninput=()=>{if($('brandTelegramChatId')?.value.trim()&&$('brandTelegramChat'))$('brandTelegramChat').value=''};$('agentFilter').onchange=applyAgentFilter;$('deleteDateBtn').onclick=deleteCurrentDate;$('deleteCancel').onclick=closeDeleteConfirm;$('deleteConfirmBtn').onclick=performDeleteCurrentDate;$('deleteConfirm').onclick=e=>{if(e.target.id==='deleteConfirm')closeDeleteConfirm()};$('modalClose').onclick=closeModal;$('modalMinus').onclick=()=>setMark('MINUS');$('modalOk').onclick=()=>setMark('OK');$('sideMinus').onclick=()=>setMark('MINUS');$('sideOk').onclick=()=>setMark('OK');$('addReason').onclick=addReason;$('newReason').onkeydown=e=>{if(e.key==='Enter')addReason()};$('zoomIn').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.min(3,zoom+.15)})`};$('zoomOut').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.max(.35,zoom-.15)})`};$('zoomFit').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=1})`};$('listClose').onclick=closeMinusList;updatePauseButtons();renderSpeed();restartTimer();loadTelegramStatus();refreshCollectStatus();loadManifest().then(()=>{startSharedSync();if(location.hash==='#minus')showList()}).catch(e=>{$('meta').textContent='Xato: '+e.message})});
+    window.addEventListener('load',()=>{
+      $('systemStatusBtn')?.addEventListener('click',()=>toggleSystemStatus());
+      $('systemStatusClose')?.addEventListener('click',()=>toggleSystemStatus(false));
+      $('systemStatusBackdrop')?.addEventListener('click',()=>toggleSystemStatus(false));
+      $('systemStatusRefresh')?.addEventListener('click',refreshSystemStatusCenter);
+      window.addEventListener('online',()=>{setSystemSyncState('syncing','Qayta ulanmoqda...');syncSharedState(false)});
+      window.addEventListener('offline',renderSystemStatus);
+      $('nextUncheckedBtn')?.addEventListener('click',openNextUnchecked);
+      $('undoReviewBtn')?.addEventListener('click',undoLastReview);
+      renderSystemStatus();
+      const filterToggle=$('filterToggleBtn');
+      if(filterToggle)filterToggle.onclick=togglePhotoFilters;
+      const filterClose=$('filterCloseBtn');
+      if(filterClose)filterClose.onclick=()=>setPhotoFiltersOpen(false);
+      const filterBackdrop=$('filterBackdrop');
+      if(filterBackdrop)filterBackdrop.onclick=()=>setPhotoFiltersOpen(false);
+    });
+    window.addEventListener('load',()=>{applyTheme();brandSel=$('brandSel');dateSel=$('dateSel');agentSel=$('agentSel');if(brandSel)brandSel.onchange=()=>{localStorage.setItem(LS_BRAND,brandSel.value||'');renderDateFilter();loadSelectedDataset().catch(e=>notify(e.message,'bad'))};dateSel.onchange=()=>loadSelectedDataset().catch(e=>notify(e.message,'bad'));agentSel.onchange=()=>{agentIndex=Number(agentSel.value);start=0;render()};$('quickNext').onclick=()=>move(1);$('quickPrev').onclick=()=>move(-1);$('quickPause').onclick=togglePause;$('photoPageSize').onchange=e=>setPhotoPageSize(e.target.value);$('photoPageSize').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();setPhotoPageSize(e.target.value);e.target.blur()}};$('showAllPhotos').onclick=()=>setPhotoPageSize('all');$('speedSlower').onclick=()=>adjustSpeed(-500);$('speedFaster').onclick=()=>adjustSpeed(500);$('minusListBtn').onclick=()=>showList();$('telegramBtn').onclick=sendTelegram;$('csvBtn').onclick=csv;$('agentExcelBtn').onclick=agentExcel;$('autoReviewBtn').onclick=runAutoReview;if($('themeToggleBtn'))$('themeToggleBtn').onclick=toggleTheme;if($('sidePhotoBtn'))$('sidePhotoBtn').onclick=()=>switchView('photo');if($('sideAttendanceBtn'))$('sideAttendanceBtn').onclick=()=>switchView('attendance');$('sideMinusListBtn').onclick=()=>showList();$('sideCsvBtn').onclick=csv;$('sideAgentExcelBtn').onclick=agentExcel;$('sideCollectBtn').onclick=()=>openCollect();$('sideBrandSettingsBtn').onclick=openBrandSettings;if($('sideAdminStatsBtn'))$('sideAdminStatsBtn').onclick=()=>switchView('admin');$('sideAutoReviewBtn').onclick=runAutoReview;$('autoReviewClose').onclick=closeAutoReview;$('collectClose').onclick=closeCollect;$('collectStart').onclick=startCollect;$('collectStop').onclick=stopCollect;$('brandClose').onclick=closeBrandSettings;$('brandNew').onclick=()=>fillBrandForm();$('brandSave').onclick=async()=>{try{await saveBrandSettings()}catch(e){notify(e.message,'bad')}};$('brandDelete').onclick=async()=>{try{await deleteBrandSetting()}catch(e){notify(e.message,'bad')}};if($('brandValidate'))$('brandValidate').onclick=validateBrandSettings;if($('brandExport'))$('brandExport').onclick=exportBrandSettings;if($('brandImport'))$('brandImport').onchange=e=>importBrandSettings(e.target.files?.[0]).catch(err=>notify(err.message,'bad'));if($('brandTelegramChat'))$('brandTelegramChat').onchange=()=>{if($('brandTelegramChat')?.value&&$('brandTelegramChatId'))$('brandTelegramChatId').value=''};if($('brandTelegramChatId'))$('brandTelegramChatId').oninput=()=>{if($('brandTelegramChatId')?.value.trim()&&$('brandTelegramChat'))$('brandTelegramChat').value=''};$('agentFilter').onchange=applyAgentFilter;$('deleteDateBtn').onclick=deleteCurrentDate;$('deleteCancel').onclick=closeDeleteConfirm;$('deleteConfirmBtn').onclick=performDeleteCurrentDate;$('deleteConfirm').onclick=e=>{if(e.target.id==='deleteConfirm')closeDeleteConfirm()};$('modalClose').onclick=closeModal;$('modalMinus').onclick=()=>setMark('MINUS');$('modalOk').onclick=()=>setMark('OK');$('sideMinus').onclick=()=>setMark('MINUS');$('sideOk').onclick=()=>setMark('OK');$('addReason').onclick=addReason;$('newReason').onkeydown=e=>{if(e.key==='Enter')addReason()};$('zoomIn').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.min(3,zoom+.15)})`};$('zoomOut').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.max(.35,zoom-.15)})`};$('zoomFit').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=1})`};$('listClose').onclick=closeMinusList;updatePauseButtons();renderSpeed();restartTimer();loadTelegramStatus();refreshCollectStatus();loadManifest().then(()=>{startSharedSync();if(location.hash==='#minus')showList()}).catch(e=>{$('meta').textContent='Xato: '+e.message})});
     window.addEventListener('load',()=>{
       if($('attendanceMonth'))$('attendanceMonth').value=defaultAttendanceMonth();
       if($('adminStatsRefresh'))$('adminStatsRefresh').onclick=()=>loadAdminStats(true).catch(e=>notify(e.message,'bad'));

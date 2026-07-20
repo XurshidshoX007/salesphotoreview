@@ -1,0 +1,23 @@
+Jami Savdo = SUM(Fact_Savdo[Savdo])
+
+Jami Kirim = SUM(Fact_Savdo[Kirim])
+
+Kirim Kassa = SUM(Fact_Kassa[Kirim Kassa])
+
+Naqd Savdo = SUM(Fact_Kassa[Naqd Savdo])
+
+Programma = SUM(Fact_Kassa[Programma])
+
+Farq = SUM(Fact_Kassa[Farq])
+
+Qarzdorlik = SUM(Fact_Kassa[Qarzdorlik])
+
+Farq ABS = SUM(Fact_Kassa[Farq ABS])
+
+Qarzdorlik ABS = SUM(Fact_Kassa[Qarzdorlik ABS])
+
+Farqli filiallar = CALCULATE(DISTINCTCOUNT(Fact_Kassa[Filial]), Fact_Kassa[Farq] <> 0)
+
+Savdo / Kirim = DIVIDE([Jami Savdo], [Jami Kirim], 0)
+
+Naqd ulushi = DIVIDE([Naqd Savdo], [Kirim Kassa], 0)

@@ -1,0 +1,1930 @@
+{
+  "surface": "dashboard",
+  "manifest": {
+    "version": 1,
+    "surface": "dashboard",
+    "title": "Kirim va savdo nazorati",
+    "description": "LM va SOF bo‘yicha kirim, savdo, farq va qarzdorlik dashboardi.",
+    "generatedAt": "2026-07-13T07:52:35.032Z",
+    "filters": [
+      {
+        "id": "brand_filter",
+        "label": "Brand",
+        "dataset": "branch_sales",
+        "field": "brand",
+        "includeAll": true,
+        "targets": [
+          {
+            "dataset": "branch_sales",
+            "field": "brand"
+          },
+          {
+            "dataset": "branch_cash",
+            "field": "brand"
+          },
+          {
+            "dataset": "branch_model",
+            "field": "brand"
+          }
+        ]
+      },
+      {
+        "id": "branch_filter",
+        "label": "Filial",
+        "dataset": "branch_sales",
+        "field": "filial",
+        "includeAll": true,
+        "targets": [
+          {
+            "dataset": "branch_sales",
+            "field": "filial"
+          },
+          {
+            "dataset": "branch_cash",
+            "field": "filial"
+          },
+          {
+            "dataset": "branch_model",
+            "field": "filial"
+          }
+        ]
+      }
+    ],
+    "cards": [
+      {
+        "id": "sales_card",
+        "description": "LM va SOF bo‘yicha jami savdo.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Jami savdo",
+            "field": "jami_savdo",
+            "format": "number",
+            "unit": "so‘m"
+          }
+        ]
+      },
+      {
+        "id": "income_card",
+        "description": "LM va SOF bo‘yicha jami kirim.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Jami kirim",
+            "field": "jami_kirim",
+            "format": "number",
+            "unit": "so‘m"
+          }
+        ]
+      },
+      {
+        "id": "cash_card",
+        "description": "Kassa jadvalidagi jami naqd savdo.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Naqd savdo",
+            "field": "naqd_savdo",
+            "format": "number",
+            "unit": "so‘m"
+          }
+        ]
+      },
+      {
+        "id": "difference_card",
+        "description": "Kirim va programma o‘rtasidagi jami farq.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Farq",
+            "field": "farq",
+            "format": "number",
+            "unit": "so‘m",
+            "signed": true
+          }
+        ]
+      },
+      {
+        "id": "debt_card",
+        "description": "Barcha filiallarning jami qarzdorligi.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Qarzdorlik",
+            "field": "qarzdorlik",
+            "format": "number",
+            "unit": "so‘m",
+            "signed": true
+          }
+        ]
+      },
+      {
+        "id": "coverage_card",
+        "description": "Snapshotdagi filiallar soni.",
+        "dataset": "kpis",
+        "sourceId": "kirim_sof_excel",
+        "metrics": [
+          {
+            "label": "Filiallar",
+            "field": "filiallar",
+            "format": "number"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "sales_branch",
+        "title": "Savdo filiallar bo‘yicha",
+        "subtitle": "LM va SOF, 11-iyul 2026 · so‘m",
+        "type": "bar",
+        "dataset": "branch_sales",
+        "sourceId": "kirim_sof_excel",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {
+            "field": "filial",
+            "type": "nominal",
+            "label": "Filial"
+          },
+          "y": {
+            "field": "savdo",
+            "type": "quantitative",
+            "label": "Savdo, so‘m"
+          },
+          "color": {
+            "field": "brand",
+            "type": "nominal",
+            "label": "Brand"
+          },
+          "tooltip": [
+            {
+              "field": "kirim",
+              "type": "quantitative",
+              "label": "Kirim",
+              "format": "number"
+            }
+          ]
+        }
+      },
+      {
+        "id": "debt_branch",
+        "title": "Qarzdorlik hajmi filiallar bo‘yicha",
+        "subtitle": "Absolyut qiymat · LM va SOF, so‘m",
+        "type": "bar",
+        "dataset": "branch_cash",
+        "sourceId": "kirim_sof_excel",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {
+            "field": "filial",
+            "type": "nominal",
+            "label": "Filial"
+          },
+          "y": {
+            "field": "qarzdorlik_abs",
+            "type": "quantitative",
+            "label": "Qarzdorlik, so‘m"
+          },
+          "color": {
+            "field": "brand",
+            "type": "nominal",
+            "label": "Brand"
+          },
+          "tooltip": [
+            {
+              "field": "farq",
+              "type": "quantitative",
+              "label": "Farq",
+              "format": "number"
+            },
+            {
+              "field": "qarzdorlik",
+              "type": "quantitative",
+              "label": "Qarzdorlik",
+              "format": "number"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sales_income_scatter",
+        "title": "Savdo va kirim munosabati",
+        "subtitle": "Har nuqta — bitta brand-filial kombinatsiyasi",
+        "type": "scatter",
+        "dataset": "branch_model",
+        "sourceId": "kirim_sof_excel",
+        "encodings": {
+          "x": {
+            "field": "kirim",
+            "type": "quantitative",
+            "label": "Kirim, so‘m"
+          },
+          "y": {
+            "field": "savdo",
+            "type": "quantitative",
+            "label": "Savdo, so‘m"
+          },
+          "color": {
+            "field": "brand",
+            "type": "nominal",
+            "label": "Brand"
+          },
+          "tooltip": [
+            {
+              "field": "filial",
+              "type": "nominal",
+              "label": "Filial"
+            },
+            {
+              "field": "qarzdorlik",
+              "type": "quantitative",
+              "label": "Qarzdorlik",
+              "format": "number"
+            }
+          ]
+        }
+      },
+      {
+        "id": "top_agents",
+        "title": "Eng katta agent to‘lovlari",
+        "subtitle": "Top 12 agent · aniq lookup uchun jadval pastda",
+        "type": "bar",
+        "dataset": "top_agents",
+        "sourceId": "kirim_sof_excel",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {
+            "field": "agent_kodi",
+            "type": "nominal",
+            "label": "Agent"
+          },
+          "y": {
+            "field": "tolov",
+            "type": "quantitative",
+            "label": "To‘lov, so‘m"
+          },
+          "tooltip": [
+            {
+              "field": "brand",
+              "type": "nominal",
+              "label": "Brand"
+            },
+            {
+              "field": "rank",
+              "type": "quantitative",
+              "label": "O‘rin"
+            }
+          ]
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "branch_detail",
+        "title": "Filiallar bo‘yicha nazorat jadvali",
+        "subtitle": "Savdo, kirim, farq va qarzdorlikning aniq qiymatlari.",
+        "dataset": "branch_model",
+        "sourceId": "kirim_sof_excel",
+        "defaultSort": {
+          "field": "qarzdorlik_abs",
+          "direction": "desc"
+        },
+        "columns": [
+          {
+            "field": "brand",
+            "label": "Brand",
+            "type": "text"
+          },
+          {
+            "field": "filial",
+            "label": "Filial",
+            "type": "text"
+          },
+          {
+            "field": "savdo",
+            "label": "Savdo",
+            "format": "number"
+          },
+          {
+            "field": "kirim",
+            "label": "Kirim",
+            "format": "number"
+          },
+          {
+            "field": "farq",
+            "label": "Farq",
+            "format": "number"
+          },
+          {
+            "field": "qarzdorlik",
+            "label": "Qarzdorlik",
+            "format": "number"
+          },
+          {
+            "field": "qarzdorlik_abs",
+            "label": "Qarzdorlik ABS",
+            "format": "number"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "kirim_sof_excel",
+        "label": "Kirim SOF/LM Excel snapshot",
+        "path": "PowerBI_Kirim_SOF_manba.xlsx"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "intro",
+        "type": "markdown",
+        "body": "# Kirim va savdo nazorati\n\nLM va SOF bo‘yicha operatsion holat · **11-iyul 2026**"
+      },
+      {
+        "id": "metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "sales_card",
+          "income_card",
+          "cash_card",
+          "difference_card",
+          "debt_card",
+          "coverage_card"
+        ]
+      },
+      {
+        "id": "sales_chart",
+        "type": "chart",
+        "chartId": "sales_branch"
+      },
+      {
+        "id": "debt_chart",
+        "type": "chart",
+        "chartId": "debt_branch"
+      },
+      {
+        "id": "scatter_chart",
+        "type": "chart",
+        "chartId": "sales_income_scatter"
+      },
+      {
+        "id": "agents_chart",
+        "type": "chart",
+        "chartId": "top_agents"
+      },
+      {
+        "id": "detail_table",
+        "type": "table",
+        "tableId": "branch_detail"
+      },
+      {
+        "id": "method",
+        "type": "markdown",
+        "body": "## Metodologiya\n\n- **Farq** — manba faylidagi `FARQ` qiymati.\n- **Qarzdorlik** — manba faylidagi filial qarzdorligi.\n- Dashboard bir kunlik snapshot; vaqt trendi uchun keyingi sanalar shu modelga append qilinadi."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-13T07:52:35.032Z",
+    "status": "ready",
+    "datasets": {
+      "kpis": [
+        {
+          "jami_savdo": 3730730100,
+          "jami_kirim": 146168255,
+          "naqd_savdo": 116340555,
+          "farq": -6091800,
+          "qarzdorlik": -2555318918.92,
+          "filiallar": 20,
+          "agentlar": 96
+        }
+      ],
+      "branch_sales": [
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Andijon",
+          "ombor": "Andijon SKLAD",
+          "savdo": 48526400,
+          "kirim": 0
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Namangan",
+          "ombor": "Namangan SKLAD",
+          "savdo": 116001500,
+          "kirim": 853600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Farg'ona",
+          "ombor": "Farg'ona SKLAD",
+          "savdo": 262460000,
+          "kirim": 539800
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qoqon",
+          "ombor": "Qoqon SKLAD",
+          "savdo": 213433500,
+          "kirim": 4314400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Yunusobod",
+          "ombor": "Yunusobod SKLAD",
+          "savdo": 83367600,
+          "kirim": 9924500
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Sergeli",
+          "ombor": "Sergeli sklad",
+          "savdo": 68812000,
+          "kirim": 17606200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Olmaliq",
+          "ombor": "Olmaliq sklad",
+          "savdo": 61495900,
+          "kirim": 848000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Jizzax",
+          "ombor": "Jizzax SKLAD",
+          "savdo": 45604000,
+          "kirim": 1981200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Guliston",
+          "ombor": "Guliston SKLAD",
+          "savdo": 67883400,
+          "kirim": 1721300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Samarqand",
+          "ombor": "Samarqand SKLAD",
+          "savdo": 251162500,
+          "kirim": 5362300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Kattaqo'rgon",
+          "ombor": "Kattaqo'rgon SKLAD",
+          "savdo": 27088400,
+          "kirim": 707200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Buxoro",
+          "ombor": "Buxoro SKLAD",
+          "savdo": 110348300,
+          "kirim": 2602300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Navoiy",
+          "ombor": "Navoiy SKLAD",
+          "savdo": 161270000,
+          "kirim": 3993300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Zarafshon",
+          "ombor": "Zarafshon LLK",
+          "savdo": 24802900,
+          "kirim": 2333500
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qarshi",
+          "ombor": "Qarshi SKLAD",
+          "savdo": 93904700,
+          "kirim": 11364800
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Shaxrisabz",
+          "ombor": "Shaxrisabz Sklad",
+          "savdo": 16726700,
+          "kirim": 725200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Termiz",
+          "ombor": "Termiz SKLAD",
+          "savdo": 111156400,
+          "kirim": 336200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Denov",
+          "ombor": "Denov SKLAD",
+          "savdo": 63312700,
+          "kirim": 4136754
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Xorazm",
+          "ombor": "Xorazm SKLAD",
+          "savdo": 157424900,
+          "kirim": 2185600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Nukus",
+          "ombor": "Nukus Sklad",
+          "savdo": 73430500,
+          "kirim": 4246600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Andijon",
+          "ombor": "Andijon SKLAD",
+          "savdo": 21667800,
+          "kirim": 3895101
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Namangan",
+          "ombor": "Namangan SKLAD",
+          "savdo": 170087000,
+          "kirim": 4925400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Farg'ona",
+          "ombor": "Farg'ona SKLAD",
+          "savdo": 51599400,
+          "kirim": 874000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qoqon",
+          "ombor": "Qoqon SKLAD",
+          "savdo": 117445200,
+          "kirim": 4318400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Yunusobod",
+          "ombor": "Yunusobod SKLAD",
+          "savdo": 30269000,
+          "kirim": 279000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Sergeli",
+          "ombor": "Sergeli sklad",
+          "savdo": 51515200,
+          "kirim": 445600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Olmaliq",
+          "ombor": "Olmaliq sklad",
+          "savdo": 16375800,
+          "kirim": 0
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Jizzax",
+          "ombor": "Jizzax SKLAD",
+          "savdo": 75620800,
+          "kirim": 1468000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Guliston",
+          "ombor": "Guliston SKLAD",
+          "savdo": 94386000,
+          "kirim": 25034400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Samarqand",
+          "ombor": "Samarqand SKLAD",
+          "savdo": 194383000,
+          "kirim": 2152000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Kattaqo'rgon",
+          "ombor": "Kattaqo'rgon SKLAD",
+          "savdo": 25822000,
+          "kirim": 12335000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Buxoro",
+          "ombor": "Buxoro SKLAD",
+          "savdo": 161184600,
+          "kirim": 4008000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Navoiy",
+          "ombor": "Navoiy SKLAD",
+          "savdo": 129375600,
+          "kirim": 0
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Zarafshon",
+          "ombor": "Zarafshon LLK",
+          "savdo": 0,
+          "kirim": 460000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qarshi",
+          "ombor": "Qarshi SKLAD",
+          "savdo": 69254400,
+          "kirim": 647000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Shaxrisabz",
+          "ombor": "Shaxrisabz Sklad",
+          "savdo": 15463000,
+          "kirim": 856000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Termiz",
+          "ombor": "Termiz SKLAD",
+          "savdo": 85350400,
+          "kirim": 504000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Denov",
+          "ombor": "Denov SKLAD",
+          "savdo": 49767800,
+          "kirim": 4444800
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Xorazm",
+          "ombor": "Xorazm SKLAD",
+          "savdo": 211308600,
+          "kirim": 1492000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Nukus",
+          "ombor": "Nukus Sklad",
+          "savdo": 101642200,
+          "kirim": 2246800
+        }
+      ],
+      "branch_cash": [
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Andijon",
+          "kirim_kassa": 2333500,
+          "naqd_savdo": 2126300,
+          "programma": 2333500,
+          "farq": 0,
+          "qarzdorlik": -11411620,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 11411620
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Namangan",
+          "kirim_kassa": 4136754,
+          "naqd_savdo": 4136754,
+          "programma": 4136754,
+          "farq": 0,
+          "qarzdorlik": -88430946,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 88430946
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Farg'ona",
+          "kirim_kassa": 5362300,
+          "naqd_savdo": 5018500,
+          "programma": 5362300,
+          "farq": 0,
+          "qarzdorlik": -231812735,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 231812735
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qoqon",
+          "kirim_kassa": 9924500,
+          "naqd_savdo": 9924500,
+          "programma": 9924500,
+          "farq": 0,
+          "qarzdorlik": -163929820,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 163929820
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Yunusobod",
+          "kirim_kassa": 4314400,
+          "naqd_savdo": 4314400,
+          "programma": 4314400,
+          "farq": 0,
+          "qarzdorlik": -47330991,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 47330991
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Sergeli",
+          "kirim_kassa": 2602300,
+          "naqd_savdo": 2486300,
+          "programma": 2602300,
+          "farq": 0,
+          "qarzdorlik": -48006401,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 48006401
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Olmaliq",
+          "kirim_kassa": 848000,
+          "naqd_savdo": 848000,
+          "programma": 848000,
+          "farq": 0,
+          "qarzdorlik": -38578200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 38578200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Jizzax",
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 4595800,
+          "farq": -4595800,
+          "qarzdorlik": -32999060,
+          "farq_abs": 4595800,
+          "qarzdorlik_abs": 32999060
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Guliston",
+          "kirim_kassa": 3993300,
+          "naqd_savdo": 3845300,
+          "programma": 3993300,
+          "farq": 0,
+          "qarzdorlik": -34481300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 34481300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Samarqand",
+          "kirim_kassa": 17606200,
+          "naqd_savdo": 9112400,
+          "programma": 17606200,
+          "farq": 0,
+          "qarzdorlik": -93782680,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 93782680
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Kattaqo'rgon",
+          "kirim_kassa": 853600,
+          "naqd_savdo": 853600,
+          "programma": 853600,
+          "farq": 0,
+          "qarzdorlik": -12793644,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 12793644
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Buxoro",
+          "kirim_kassa": 1981200,
+          "naqd_savdo": 1799200,
+          "programma": 1981200,
+          "farq": 0,
+          "qarzdorlik": -78341116,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 78341116
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Navoiy",
+          "kirim_kassa": 4246600,
+          "naqd_savdo": 3276400,
+          "programma": 4246600,
+          "farq": 0,
+          "qarzdorlik": -109293606.02,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 109293606.02
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Zarafshon",
+          "kirim_kassa": 336200,
+          "naqd_savdo": 247400,
+          "programma": 336200,
+          "farq": 0,
+          "qarzdorlik": -15483300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 15483300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qarshi",
+          "kirim_kassa": 1721300,
+          "naqd_savdo": 1721300,
+          "programma": 1721300,
+          "farq": 0,
+          "qarzdorlik": -83072608,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 83072608
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Shaxrisabz",
+          "kirim_kassa": 725200,
+          "naqd_savdo": 725200,
+          "programma": 725200,
+          "farq": 0,
+          "qarzdorlik": -10698100,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 10698100
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Termiz",
+          "kirim_kassa": 539800,
+          "naqd_savdo": 539800,
+          "programma": 539800,
+          "farq": 0,
+          "qarzdorlik": -74431499.9,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 74431499.9
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Denov",
+          "kirim_kassa": 707200,
+          "naqd_savdo": 707200,
+          "programma": 707200,
+          "farq": 0,
+          "qarzdorlik": -41255240,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 41255240
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Xorazm",
+          "kirim_kassa": 11364800,
+          "naqd_savdo": 7728100,
+          "programma": 11364800,
+          "farq": 0,
+          "qarzdorlik": -88340982,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 88340982
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Nukus",
+          "kirim_kassa": 2185600,
+          "naqd_savdo": 1655000,
+          "programma": 2185600,
+          "farq": 0,
+          "qarzdorlik": -52825700,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 52825700
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Andijon",
+          "kirim_kassa": 3895101,
+          "naqd_savdo": 3895101,
+          "programma": 3895101,
+          "farq": 0,
+          "qarzdorlik": -35122377,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 35122377
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Namangan",
+          "kirim_kassa": 4925400,
+          "naqd_savdo": 9194200,
+          "programma": 4925400,
+          "farq": 0,
+          "qarzdorlik": -114336000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 114336000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Farg'ona",
+          "kirim_kassa": 874000,
+          "naqd_savdo": 874000,
+          "programma": 874000,
+          "farq": 0,
+          "qarzdorlik": -40300400,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 40300400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qoqon",
+          "kirim_kassa": 4318400,
+          "naqd_savdo": 4318400,
+          "programma": 4318400,
+          "farq": 0,
+          "qarzdorlik": -85361320,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 85361320
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Yunusobod",
+          "kirim_kassa": 279000,
+          "naqd_savdo": 279000,
+          "programma": 279000,
+          "farq": 0,
+          "qarzdorlik": -28982000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 28982000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Sergeli",
+          "kirim_kassa": 1492000,
+          "naqd_savdo": 1492000,
+          "programma": 1492000,
+          "farq": 0,
+          "qarzdorlik": -39299800,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 39299800
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Olmaliq",
+          "kirim_kassa": 445600,
+          "naqd_savdo": 0,
+          "programma": 445600,
+          "farq": 0,
+          "qarzdorlik": -12186700,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 12186700
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Jizzax",
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 1496000,
+          "farq": -1496000,
+          "qarzdorlik": -67130060,
+          "farq_abs": 1496000,
+          "qarzdorlik_abs": 67130060
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Guliston",
+          "kirim_kassa": 1468000,
+          "naqd_savdo": 1258000,
+          "programma": 1468000,
+          "farq": 0,
+          "qarzdorlik": -69263100,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 69263100
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Samarqand",
+          "kirim_kassa": 25034400,
+          "naqd_savdo": 18444400,
+          "programma": 25034400,
+          "farq": 0,
+          "qarzdorlik": -84124600,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 84124600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Kattaqo'rgon",
+          "kirim_kassa": 2152000,
+          "naqd_savdo": 2152000,
+          "programma": 2152000,
+          "farq": 0,
+          "qarzdorlik": -7564000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 7564000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Buxoro",
+          "kirim_kassa": 12335000,
+          "naqd_savdo": 3486000,
+          "programma": 12335000,
+          "farq": 0,
+          "qarzdorlik": -112629437,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 112629437
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Navoiy",
+          "kirim_kassa": 4008000,
+          "naqd_savdo": 3060000,
+          "programma": 4008000,
+          "farq": 0,
+          "qarzdorlik": -83711200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 83711200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Zarafshon",
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 0,
+          "farq": 0,
+          "qarzdorlik": 0,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 0
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qarshi",
+          "kirim_kassa": 460000,
+          "naqd_savdo": 460000,
+          "programma": 460000,
+          "farq": 0,
+          "qarzdorlik": -42116640,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 42116640
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Shaxrisabz",
+          "kirim_kassa": 647000,
+          "naqd_savdo": 647000,
+          "programma": 647000,
+          "farq": 0,
+          "qarzdorlik": -11404000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 11404000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Termiz",
+          "kirim_kassa": 856000,
+          "naqd_savdo": 372000,
+          "programma": 856000,
+          "farq": 0,
+          "qarzdorlik": -76073200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 76073200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Denov",
+          "kirim_kassa": 504000,
+          "naqd_savdo": 504000,
+          "programma": 504000,
+          "farq": 0,
+          "qarzdorlik": -59931300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 59931300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Xorazm",
+          "kirim_kassa": 4444800,
+          "naqd_savdo": 3296000,
+          "programma": 4444800,
+          "farq": 0,
+          "qarzdorlik": -152603752,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 152603752
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Nukus",
+          "kirim_kassa": 2246800,
+          "naqd_savdo": 1542800,
+          "programma": 2246800,
+          "farq": 0,
+          "qarzdorlik": -75879484,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 75879484
+        }
+      ],
+      "branch_model": [
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Andijon",
+          "ombor": "Andijon SKLAD",
+          "savdo": 48526400,
+          "kirim": 0,
+          "kirim_kassa": 2333500,
+          "naqd_savdo": 2126300,
+          "programma": 2333500,
+          "farq": 0,
+          "qarzdorlik": -11411620,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 11411620
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Namangan",
+          "ombor": "Namangan SKLAD",
+          "savdo": 116001500,
+          "kirim": 853600,
+          "kirim_kassa": 4136754,
+          "naqd_savdo": 4136754,
+          "programma": 4136754,
+          "farq": 0,
+          "qarzdorlik": -88430946,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 88430946
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Farg'ona",
+          "ombor": "Farg'ona SKLAD",
+          "savdo": 262460000,
+          "kirim": 539800,
+          "kirim_kassa": 5362300,
+          "naqd_savdo": 5018500,
+          "programma": 5362300,
+          "farq": 0,
+          "qarzdorlik": -231812735,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 231812735
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qoqon",
+          "ombor": "Qoqon SKLAD",
+          "savdo": 213433500,
+          "kirim": 4314400,
+          "kirim_kassa": 9924500,
+          "naqd_savdo": 9924500,
+          "programma": 9924500,
+          "farq": 0,
+          "qarzdorlik": -163929820,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 163929820
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Yunusobod",
+          "ombor": "Yunusobod SKLAD",
+          "savdo": 83367600,
+          "kirim": 9924500,
+          "kirim_kassa": 4314400,
+          "naqd_savdo": 4314400,
+          "programma": 4314400,
+          "farq": 0,
+          "qarzdorlik": -47330991,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 47330991
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Sergeli",
+          "ombor": "Sergeli sklad",
+          "savdo": 68812000,
+          "kirim": 17606200,
+          "kirim_kassa": 2602300,
+          "naqd_savdo": 2486300,
+          "programma": 2602300,
+          "farq": 0,
+          "qarzdorlik": -48006401,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 48006401
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Olmaliq",
+          "ombor": "Olmaliq sklad",
+          "savdo": 61495900,
+          "kirim": 848000,
+          "kirim_kassa": 848000,
+          "naqd_savdo": 848000,
+          "programma": 848000,
+          "farq": 0,
+          "qarzdorlik": -38578200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 38578200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Jizzax",
+          "ombor": "Jizzax SKLAD",
+          "savdo": 45604000,
+          "kirim": 1981200,
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 4595800,
+          "farq": -4595800,
+          "qarzdorlik": -32999060,
+          "farq_abs": 4595800,
+          "qarzdorlik_abs": 32999060
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Guliston",
+          "ombor": "Guliston SKLAD",
+          "savdo": 67883400,
+          "kirim": 1721300,
+          "kirim_kassa": 3993300,
+          "naqd_savdo": 3845300,
+          "programma": 3993300,
+          "farq": 0,
+          "qarzdorlik": -34481300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 34481300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Samarqand",
+          "ombor": "Samarqand SKLAD",
+          "savdo": 251162500,
+          "kirim": 5362300,
+          "kirim_kassa": 17606200,
+          "naqd_savdo": 9112400,
+          "programma": 17606200,
+          "farq": 0,
+          "qarzdorlik": -93782680,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 93782680
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Kattaqo'rgon",
+          "ombor": "Kattaqo'rgon SKLAD",
+          "savdo": 27088400,
+          "kirim": 707200,
+          "kirim_kassa": 853600,
+          "naqd_savdo": 853600,
+          "programma": 853600,
+          "farq": 0,
+          "qarzdorlik": -12793644,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 12793644
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Buxoro",
+          "ombor": "Buxoro SKLAD",
+          "savdo": 110348300,
+          "kirim": 2602300,
+          "kirim_kassa": 1981200,
+          "naqd_savdo": 1799200,
+          "programma": 1981200,
+          "farq": 0,
+          "qarzdorlik": -78341116,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 78341116
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Navoiy",
+          "ombor": "Navoiy SKLAD",
+          "savdo": 161270000,
+          "kirim": 3993300,
+          "kirim_kassa": 4246600,
+          "naqd_savdo": 3276400,
+          "programma": 4246600,
+          "farq": 0,
+          "qarzdorlik": -109293606.02,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 109293606.02
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Zarafshon",
+          "ombor": "Zarafshon LLK",
+          "savdo": 24802900,
+          "kirim": 2333500,
+          "kirim_kassa": 336200,
+          "naqd_savdo": 247400,
+          "programma": 336200,
+          "farq": 0,
+          "qarzdorlik": -15483300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 15483300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Qarshi",
+          "ombor": "Qarshi SKLAD",
+          "savdo": 93904700,
+          "kirim": 11364800,
+          "kirim_kassa": 1721300,
+          "naqd_savdo": 1721300,
+          "programma": 1721300,
+          "farq": 0,
+          "qarzdorlik": -83072608,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 83072608
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Shaxrisabz",
+          "ombor": "Shaxrisabz Sklad",
+          "savdo": 16726700,
+          "kirim": 725200,
+          "kirim_kassa": 725200,
+          "naqd_savdo": 725200,
+          "programma": 725200,
+          "farq": 0,
+          "qarzdorlik": -10698100,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 10698100
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Termiz",
+          "ombor": "Termiz SKLAD",
+          "savdo": 111156400,
+          "kirim": 336200,
+          "kirim_kassa": 539800,
+          "naqd_savdo": 539800,
+          "programma": 539800,
+          "farq": 0,
+          "qarzdorlik": -74431499.9,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 74431499.9
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Denov",
+          "ombor": "Denov SKLAD",
+          "savdo": 63312700,
+          "kirim": 4136754,
+          "kirim_kassa": 707200,
+          "naqd_savdo": 707200,
+          "programma": 707200,
+          "farq": 0,
+          "qarzdorlik": -41255240,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 41255240
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Xorazm",
+          "ombor": "Xorazm SKLAD",
+          "savdo": 157424900,
+          "kirim": 2185600,
+          "kirim_kassa": 11364800,
+          "naqd_savdo": 7728100,
+          "programma": 11364800,
+          "farq": 0,
+          "qarzdorlik": -88340982,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 88340982
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "LM",
+          "filial": "Nukus",
+          "ombor": "Nukus Sklad",
+          "savdo": 73430500,
+          "kirim": 4246600,
+          "kirim_kassa": 2185600,
+          "naqd_savdo": 1655000,
+          "programma": 2185600,
+          "farq": 0,
+          "qarzdorlik": -52825700,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 52825700
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Andijon",
+          "ombor": "Andijon SKLAD",
+          "savdo": 21667800,
+          "kirim": 3895101,
+          "kirim_kassa": 3895101,
+          "naqd_savdo": 3895101,
+          "programma": 3895101,
+          "farq": 0,
+          "qarzdorlik": -35122377,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 35122377
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Namangan",
+          "ombor": "Namangan SKLAD",
+          "savdo": 170087000,
+          "kirim": 4925400,
+          "kirim_kassa": 4925400,
+          "naqd_savdo": 9194200,
+          "programma": 4925400,
+          "farq": 0,
+          "qarzdorlik": -114336000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 114336000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Farg'ona",
+          "ombor": "Farg'ona SKLAD",
+          "savdo": 51599400,
+          "kirim": 874000,
+          "kirim_kassa": 874000,
+          "naqd_savdo": 874000,
+          "programma": 874000,
+          "farq": 0,
+          "qarzdorlik": -40300400,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 40300400
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qoqon",
+          "ombor": "Qoqon SKLAD",
+          "savdo": 117445200,
+          "kirim": 4318400,
+          "kirim_kassa": 4318400,
+          "naqd_savdo": 4318400,
+          "programma": 4318400,
+          "farq": 0,
+          "qarzdorlik": -85361320,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 85361320
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Yunusobod",
+          "ombor": "Yunusobod SKLAD",
+          "savdo": 30269000,
+          "kirim": 279000,
+          "kirim_kassa": 279000,
+          "naqd_savdo": 279000,
+          "programma": 279000,
+          "farq": 0,
+          "qarzdorlik": -28982000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 28982000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Sergeli",
+          "ombor": "Sergeli sklad",
+          "savdo": 51515200,
+          "kirim": 445600,
+          "kirim_kassa": 1492000,
+          "naqd_savdo": 1492000,
+          "programma": 1492000,
+          "farq": 0,
+          "qarzdorlik": -39299800,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 39299800
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Olmaliq",
+          "ombor": "Olmaliq sklad",
+          "savdo": 16375800,
+          "kirim": 0,
+          "kirim_kassa": 445600,
+          "naqd_savdo": 0,
+          "programma": 445600,
+          "farq": 0,
+          "qarzdorlik": -12186700,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 12186700
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Jizzax",
+          "ombor": "Jizzax SKLAD",
+          "savdo": 75620800,
+          "kirim": 1468000,
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 1496000,
+          "farq": -1496000,
+          "qarzdorlik": -67130060,
+          "farq_abs": 1496000,
+          "qarzdorlik_abs": 67130060
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Guliston",
+          "ombor": "Guliston SKLAD",
+          "savdo": 94386000,
+          "kirim": 25034400,
+          "kirim_kassa": 1468000,
+          "naqd_savdo": 1258000,
+          "programma": 1468000,
+          "farq": 0,
+          "qarzdorlik": -69263100,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 69263100
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Samarqand",
+          "ombor": "Samarqand SKLAD",
+          "savdo": 194383000,
+          "kirim": 2152000,
+          "kirim_kassa": 25034400,
+          "naqd_savdo": 18444400,
+          "programma": 25034400,
+          "farq": 0,
+          "qarzdorlik": -84124600,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 84124600
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Kattaqo'rgon",
+          "ombor": "Kattaqo'rgon SKLAD",
+          "savdo": 25822000,
+          "kirim": 12335000,
+          "kirim_kassa": 2152000,
+          "naqd_savdo": 2152000,
+          "programma": 2152000,
+          "farq": 0,
+          "qarzdorlik": -7564000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 7564000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Buxoro",
+          "ombor": "Buxoro SKLAD",
+          "savdo": 161184600,
+          "kirim": 4008000,
+          "kirim_kassa": 12335000,
+          "naqd_savdo": 3486000,
+          "programma": 12335000,
+          "farq": 0,
+          "qarzdorlik": -112629437,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 112629437
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Navoiy",
+          "ombor": "Navoiy SKLAD",
+          "savdo": 129375600,
+          "kirim": 0,
+          "kirim_kassa": 4008000,
+          "naqd_savdo": 3060000,
+          "programma": 4008000,
+          "farq": 0,
+          "qarzdorlik": -83711200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 83711200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Zarafshon",
+          "ombor": "Zarafshon LLK",
+          "savdo": 0,
+          "kirim": 460000,
+          "kirim_kassa": 0,
+          "naqd_savdo": 0,
+          "programma": 0,
+          "farq": 0,
+          "qarzdorlik": 0,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 0
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Qarshi",
+          "ombor": "Qarshi SKLAD",
+          "savdo": 69254400,
+          "kirim": 647000,
+          "kirim_kassa": 460000,
+          "naqd_savdo": 460000,
+          "programma": 460000,
+          "farq": 0,
+          "qarzdorlik": -42116640,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 42116640
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Shaxrisabz",
+          "ombor": "Shaxrisabz Sklad",
+          "savdo": 15463000,
+          "kirim": 856000,
+          "kirim_kassa": 647000,
+          "naqd_savdo": 647000,
+          "programma": 647000,
+          "farq": 0,
+          "qarzdorlik": -11404000,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 11404000
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Termiz",
+          "ombor": "Termiz SKLAD",
+          "savdo": 85350400,
+          "kirim": 504000,
+          "kirim_kassa": 856000,
+          "naqd_savdo": 372000,
+          "programma": 856000,
+          "farq": 0,
+          "qarzdorlik": -76073200,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 76073200
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Denov",
+          "ombor": "Denov SKLAD",
+          "savdo": 49767800,
+          "kirim": 4444800,
+          "kirim_kassa": 504000,
+          "naqd_savdo": 504000,
+          "programma": 504000,
+          "farq": 0,
+          "qarzdorlik": -59931300,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 59931300
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Xorazm",
+          "ombor": "Xorazm SKLAD",
+          "savdo": 211308600,
+          "kirim": 1492000,
+          "kirim_kassa": 4444800,
+          "naqd_savdo": 3296000,
+          "programma": 4444800,
+          "farq": 0,
+          "qarzdorlik": -152603752,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 152603752
+        },
+        {
+          "sana": "2026-07-11",
+          "brand": "SOF",
+          "filial": "Nukus",
+          "ombor": "Nukus Sklad",
+          "savdo": 101642200,
+          "kirim": 2246800,
+          "kirim_kassa": 2246800,
+          "naqd_savdo": 1542800,
+          "programma": 2246800,
+          "farq": 0,
+          "qarzdorlik": -75879484,
+          "farq_abs": 0,
+          "qarzdorlik_abs": 75879484
+        }
+      ],
+      "top_agents": [
+        {
+          "agent_kodi": "JYBX002",
+          "tolov": 7808000,
+          "brand": "SOF",
+          "rank": 1
+        },
+        {
+          "agent_kodi": "JYNV005",
+          "tolov": 4324000,
+          "brand": "SOF",
+          "rank": 2
+        },
+        {
+          "agent_kodi": "JYXM004",
+          "tolov": 3904000,
+          "brand": "SOF",
+          "rank": 3
+        },
+        {
+          "agent_kodi": "LMJISM05",
+          "tolov": 3829000,
+          "brand": "LM",
+          "rank": 4
+        },
+        {
+          "agent_kodi": "JYSAM003",
+          "tolov": 3564500,
+          "brand": "SOF",
+          "rank": 5
+        },
+        {
+          "agent_kodi": "LMJTO07",
+          "tolov": 3456500,
+          "brand": "LM",
+          "rank": 6
+        },
+        {
+          "agent_kodi": "JYTZ007",
+          "tolov": 2948000,
+          "brand": "SOF",
+          "rank": 7
+        },
+        {
+          "agent_kodi": "LMJISM07",
+          "tolov": 2869000,
+          "brand": "LM",
+          "rank": 8
+        },
+        {
+          "agent_kodi": "LMJTZ03",
+          "tolov": 2700000,
+          "brand": "LM",
+          "rank": 9
+        },
+        {
+          "agent_kodi": "JYNM005",
+          "tolov": 2646000,
+          "brand": "SOF",
+          "rank": 10
+        },
+        {
+          "agent_kodi": "JYNM006",
+          "tolov": 2473000,
+          "brand": "SOF",
+          "rank": 11
+        },
+        {
+          "agent_kodi": "JYSAM008",
+          "tolov": 2448000,
+          "brand": "SOF",
+          "rank": 12
+        }
+      ]
+    },
+    "accessIssues": []
+  },
+  "sources": [
+    {
+      "id": "kirim_sof_excel",
+      "label": "Kirim SOF/LM Excel snapshot",
+      "path": "PowerBI_Kirim_SOF_manba.xlsx",
+      "description": "Asl Kirim SOF_LM.xlsx faylidan tozalangan va Power BI uchun normalizatsiya qilingan snapshot.",
+      "query": {
+        "engine": "Power BI semantic model",
+        "language": "sql",
+        "sql": "SELECT * FROM Fact_Savdo;\nSELECT * FROM Fact_Kassa;\nSELECT * FROM Agent_Tolov;",
+        "description": "Power BI import modelidagi savdo, kassa va agent jadvallarini yuklaydi.",
+        "tables_used": [
+          "Fact_Savdo",
+          "Fact_Kassa",
+          "Agent_Tolov"
+        ],
+        "filters": {
+          "snapshot_date": "2026-07-11"
+        },
+        "executed_at": "2026-07-13T07:52:35.033Z",
+        "metric_definitions": {
+          "jami_savdo": "SUM(Fact_Savdo[Savdo])",
+          "jami_kirim": "SUM(Fact_Savdo[Kirim])",
+          "naqd_savdo": "SUM(Fact_Kassa[Naqd Savdo])",
+          "farq": "SUM(Fact_Kassa[Farq])",
+          "qarzdorlik": "SUM(Fact_Kassa[Qarzdorlik])"
+        }
+      }
+    }
+  ],
+  "package_info": {
+    "originUrl": "artifact://kirim-sof-powerbi-preview",
+    "controls": {
+      "edit": false,
+      "refresh": false
+    }
+  }
+}

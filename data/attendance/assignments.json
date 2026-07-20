@@ -3670,6 +3670,51 @@
       "endDate": null,
       "reason": "Sales outputdan avtomatik import",
       "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_lmjish04_20260701_1783935155020_k5cv2z",
+      "agentCode": "LMJISH04",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "lalaku_mama"
+    },
+    {
+      "id": "assign_jyqrdiller_20260701_1784104585352_r2l3hj",
+      "agentCode": "JYQRDILLER",
+      "employeeId": "emp_nuriddin_optom",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh007_20260701_1784104585352_qgtlr4",
+      "agentCode": "JYQSH007",
+      "employeeId": "emp_vacant",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_ggqsh010_20260701_1784122357031_jcsiv1",
+      "agentCode": "GGQSH010",
+      "employeeId": "emp_erkinov_raufjon",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "giga"
+    },
+    {
+      "id": "assign_ggqshoptom_20260701_1784122357031_h64nn6",
+      "agentCode": "GGQSHOPTOM",
+      "employeeId": "emp_ggqsh_nuriddin_optom",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales outputdan avtomatik import",
+      "brandId": "giga"
     }
   ]
 }

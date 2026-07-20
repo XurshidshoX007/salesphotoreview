@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Foto nazorati</title>
-  <link rel="stylesheet" href="review-ui/styles/main.css?v=design-system-64">
+  <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
+  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-75">
 </head>
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
     <div class="sideBrand">
-      <div class="salesLogo"></div>
+      <div class="salesLogo" role="img" aria-label="Foto nazorati logosi"></div>
       <div class="sideBrandText"><b>Foto nazorati</b><span>Savdo foto hisobotlari nazorati</span></div>
     </div>
     <div class="sideActions">
@@ -32,29 +33,56 @@
         <button id="sideAutoReviewBtn" class="wideAction">Avto tekshiruv</button>
       </div>
     </div>
+    <button id="systemStatusBtn" class="systemStatusBtn" type="button" aria-expanded="false" aria-controls="systemStatusPanel"><span id="systemStatusDot" class="systemStatusDot loading" aria-hidden="true"></span><span id="systemStatusLabel">Ulanmoqda...</span></button>
   </nav>
+  <aside id="systemStatusPanel" class="systemStatusPanel" aria-hidden="true" aria-label="Tizim holati"><div class="systemStatusHead"><div><b>Tizim holati</b><span id="systemStatusUpdated">Tekshirilmoqda...</span></div><button id="systemStatusClose" type="button" aria-label="Yopish">×</button></div><div id="systemStatusRows" class="systemStatusRows"></div><button id="systemStatusRefresh" class="systemStatusRefresh" type="button">Qayta tekshirish</button></aside>
+  <div id="systemStatusBackdrop" class="systemStatusBackdrop" aria-hidden="true"></div>
   <header>
-    <div>
+    <div class="headerIdentity">
       <div class="title" id="title">Foto nazorati</div>
       <div class="meta" id="meta">Ma'lumotlar yuklanmoqda...</div>
     </div>
-      <div class="controls">
-      <select id="brandSel"></select>
-      <input id="dateSel" type="date" aria-label="Sana">
-      <select id="agentSel"></select>
-      <select id="agentFilter"><option value="matching">Mos agentlar</option><option value="unmatched">Mos kelmagan agentlar</option><option value="all">Barchasi</option></select>
+    <section id="photoStatsBar" class="photoStatsBar" aria-label="Joriy sana ko'rsatkichlari">
+      <div id="dateStats" class="photoStatsMetrics"></div>
+    </section>
+    <div id="reviewAssist" class="reviewAssist" aria-label="Tekshiruv yordamchilari">
+      <button id="nextUncheckedBtn" type="button" title="Keyingi tekshirilmagan fotoni ochish"><span>Tekshirilmagan</span><b id="reviewProgressText">0 / 0</b></button>
+      <button id="undoReviewBtn" type="button" title="Oxirgi belgilashni bekor qilish" disabled>Bekor qilish</button>
+    </div>
+    <button id="filterToggleBtn" class="filterToggleBtn" type="button" aria-expanded="false" aria-controls="reviewFilters">
+      <span>Filtrlar</span><i aria-hidden="true"></i>
+    </button>
+    <aside id="reviewFilters" class="controls filterDrawer" aria-label="Foto Review filtrlari" aria-hidden="true">
+      <div class="filterPanelHead">
+        <div><b>Filtrlar</b><span>Ko‘rsatiladigan ma’lumotlarni tanlang</span></div>
+        <button id="filterCloseBtn" class="filterCloseBtn" type="button" title="Filtrlarni yopish" aria-label="Filtrlarni yopish">×</button>
+      </div>
+      <div class="filterPanelBody">
+        <section class="filterSection" aria-labelledby="filterDataTitle">
+          <div id="filterDataTitle" class="filterSectionTitle">Ma’lumot</div>
+          <div class="filterFieldGrid">
+            <label class="filterField"><span>Brend</span><select id="brandSel"></select></label>
+            <label class="filterField"><span>Sana</span><input id="dateSel" type="date" aria-label="Sana"></label>
+          </div>
+        </section>
+        <section class="filterSection" aria-labelledby="filterAgentTitle">
+          <div id="filterAgentTitle" class="filterSectionTitle">Agent</div>
+          <label class="filterField"><span>Agentni tanlang</span><select id="agentSel"></select></label>
+          <label class="filterField"><span>Ro‘yxat turi</span><select id="agentFilter"><option value="matching">Mos agentlar</option><option value="unmatched">Mos kelmagan agentlar</option><option value="all">Barchasi</option></select></label>
+        </section>
+      </div>
       <button id="minusListBtn" style="display:none">Minus ro'yxati</button>
       <button id="telegramBtn" class="primary" style="display:none">Telegramga yuborish</button>
       <button id="csvBtn" style="display:none">Excel</button>
       <button id="agentExcelBtn" style="display:none">Agent Excel</button>
       <button id="autoReviewBtn" style="display:none">Avto tekshiruv</button>
-      <button id="themeToggleBtn" class="themeToggle" type="button" title="Tungi rejimga o'tish">Tun</button>
-      <button id="deleteDateBtn" class="dangerBtn"><span class="dangerDot">!</span>Sanani o'chirish</button>
-    </div>
+      <div class="filterPanelFoot">
+        <button id="themeToggleBtn" class="themeToggle" type="button" title="Tungi rejimga o'tish">Tungi rejim</button>
+        <button id="deleteDateBtn" class="dangerBtn"><span class="dangerDot">!</span>Sanani o'chirish</button>
+      </div>
+    </aside>
+    <div id="filterBackdrop" class="filterBackdrop" aria-hidden="true"></div>
   </header>
-  <section id="photoStatsBar" class="photoStatsBar" aria-label="Joriy sana ko'rsatkichlari">
-    <div id="dateStats" class="photoStatsMetrics"></div>
-  </section>
   <div class="wrap">
     <main><div id="grid" class="grid"></div></main>
   </div>
@@ -63,13 +91,13 @@
       <label>Oy<input id="attendanceMonth" type="month" value="2026-06"></label>
       <label>Brend<select id="attendanceBrand"></select></label>
       <label>Prefix<input id="attendancePrefix" placeholder="JY"></label>
-      <label>Role<input id="attendanceRole" placeholder="agent"></label>
+      <label>Lavozim<input id="attendanceRole" placeholder="agent"></label>
       <label>Xodim<input id="attendanceEmployee" placeholder="Ism"></label>
-      <label>Status<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Assigned</option><option value="vacant">Vacant</option><option value="unknown_route">Unknown route</option></select></label>
+      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Bo'sh</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
       <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> SVR</label>
       <button id="attendanceLoad" class="primary">Yuklash</button>
-      <button id="attendanceGenerate">Generate</button>
-      <button id="attendanceExport">Export</button>
+      <button id="attendanceGenerate">Yaratish</button>
+      <button id="attendanceExport">Excel</button>
       <button id="attendanceReplace">Xodim almashtirish</button>
     </div>
     <div id="attendanceMeta" class="attendanceMeta">Tabel yuklanmagan.</div>
@@ -219,24 +247,34 @@
     </div>
   </div>
   <div id="quickNav" class="quickNav" aria-label="Foto navigatsiya">
-    <button id="quickPrev" title="Oldingi 4 foto">Oldingi</button>
+    <button id="quickPrev" title="Oldingi fotolar">Oldingi</button>
     <button id="quickPause" class="primary navMain" title="Pause / Resume">Resume</button>
-    <button id="quickNext" class="primary" title="Keyingi 4 foto">Keyingi</button>
+    <button id="quickNext" class="primary" title="Keyingi fotolar">Keyingi</button>
+    <div class="pageSizeBox" title="Bir sahifada ko'rinadigan foto soni">
+      <label for="photoPageSize">Ko'rinish</label>
+      <input id="photoPageSize" type="number" min="1" step="1" value="4" inputmode="numeric" aria-label="Ko'rinadigan foto soni">
+      <span>ta</span>
+      <button id="showAllPhotos" type="button" title="Joriy agentning barcha fotosini ko'rsatish">Barchasi</button>
+    </div>
     <div class="speedBox" title="Avto almashish vaqti">
       <button id="speedSlower" title="Vaqtni kamaytirish: tezroq o'tadi">-</button>
       <span id="speedText" class="speedText">3.5s</span>
       <button id="speedFaster" title="Vaqtni oshirish: sekinroq o'tadi">+</button>
     </div>
   </div>
-  <script src="review-ui/js/utils.js"></script>
-    <script src="review-ui/js/state.js"></script>
-    <script src="review-ui/js/data-loader.js"></script>
-    <script src="review-ui/js/counters.js"></script>
-    <script src="review-ui/js/filters.js"></script>
-    <script src="review-ui/js/marks.js"></script>
-    <script src="review-ui/js/auto-review.js"></script>
-    <script src="review-ui/js/telegram.js"></script>
-    <script src="review-ui/js/export.js"></script>
-  <script src="review-ui/js/app.js?v=telegram-summary-62"></script>
+  <script src="review-ui/js/photo-loader.js?v=project-opt-75"></script>
+  <script src="review-ui/js/utils.js?v=project-opt-75"></script>
+  <script src="review-ui/js/state.js?v=project-opt-75"></script>
+  <script src="review-ui/js/data-loader.js?v=project-opt-75"></script>
+  <script src="review-ui/js/filters.js?v=project-opt-75"></script>
+  <script src="review-ui/js/marks.js?v=project-opt-75"></script>
+  <script src="review-ui/js/brands.js?v=project-opt-75"></script>
+  <script src="review-ui/js/attendance.js?v=project-opt-75"></script>
+  <script src="review-ui/js/ui-state.js?v=project-opt-75"></script>
+  <script src="review-ui/js/counters.js?v=project-opt-75"></script>
+  <script src="review-ui/js/auto-review.js?v=project-opt-75"></script>
+  <script src="review-ui/js/telegram.js?v=project-opt-75"></script>
+  <script src="review-ui/js/export.js?v=project-opt-75"></script>
+  <script src="review-ui/js/app.js?v=project-opt-75"></script>
   </body>
 </html>

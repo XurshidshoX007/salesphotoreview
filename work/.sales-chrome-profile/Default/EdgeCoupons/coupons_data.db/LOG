@@ -1,6 +1,15 @@
-2026/07/09-10:18:37.733 4b5c Reusing MANIFEST C:\Users\Xursh\Desktop\disturibitsiya-avto-tekshiruv-1522-fix\disturibitsiya-sohasida-operatorman-sales-programmadan-kirib\work\.sales-chrome-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/07/09-10:18:37.734 4b5c Recovering log #143
-2026/07/09-10:18:37.735 4b5c Reusing old log C:\Users\Xursh\Desktop\disturibitsiya-avto-tekshiruv-1522-fix\disturibitsiya-sohasida-operatorman-sales-programmadan-kirib\work\.sales-chrome-profile\Default\EdgeCoupons/coupons_data.db/000143.log 
-2026/07/09-10:18:37.811 4680 Level-0 table #147: started
-2026/07/09-10:18:37.819 4680 Level-0 table #147: 683004 bytes OK
-2026/07/09-10:18:37.821 4680 Delete type=0 #143
+2026/07/13-15:05:49.056 2468 Reusing MANIFEST C:\Users\Xursh\Desktop\disturibitsiya-avto-tekshiruv-1522-fix\disturibitsiya-sohasida-operatorman-sales-programmadan-kirib\work\.sales-chrome-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/07/13-15:05:49.057 2468 Recovering log #146
+2026/07/13-15:05:49.057 2468 Reusing old log C:\Users\Xursh\Desktop\disturibitsiya-avto-tekshiruv-1522-fix\disturibitsiya-sohasida-operatorman-sales-programmadan-kirib\work\.sales-chrome-profile\Default\EdgeCoupons/coupons_data.db/000146.log 
+2026/07/13-15:05:49.291 3270 Level-0 table #150: started
+2026/07/13-15:05:49.305 3270 Level-0 table #150: 683012 bytes OK
+2026/07/13-15:05:49.306 3270 Delete type=0 #146
+2026/07/13-15:05:49.307 3204 Compacting 4@0 + 1@1 files
+2026/07/13-15:05:49.319 3204 Generated table #151@0: 3 keys, 683012 bytes
+2026/07/13-15:05:49.319 3204 Compacted 4@0 + 1@1 files => 683012 bytes
+2026/07/13-15:05:49.320 3204 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/07/13-15:05:49.321 3204 Delete type=2 #138
+2026/07/13-15:05:49.321 3204 Delete type=2 #141
+2026/07/13-15:05:49.321 3204 Delete type=2 #144
+2026/07/13-15:05:49.321 3204 Delete type=2 #147
+2026/07/13-15:05:49.321 3204 Delete type=2 #150

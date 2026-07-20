@@ -8,7 +8,18 @@ import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { gzipSync } from "node:zlib";
-import { findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
+import sharp from "sharp";
+import { BRANDS_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
+import { buildReviewCss } from "../scripts/build-review-css.mjs";
+import {
+  apiError,
+  isValidIsoDate,
+  mapWithConcurrency,
+  readJsonBody,
+  readTextBody,
+  sendJson,
+  sleep,
+} from "./lib/review-http.mjs";
 import {
   FILES as ATT_FILES,
   attendanceToCsv,
@@ -86,11 +97,13 @@ function isRateLimited(ip) {
 
 const photoCache = new Map();
 const photoInflight = new Map();
+const photoThumbnailInflight = new Map();
 const staticFileCache = new Map();
 const staticGzipCache = new Map();
 let marksWriteQueue = Promise.resolve();
 let reasonsWriteQueue = Promise.resolve();
 const PHOTO_DISK_CACHE_DIR = join(ROOT, "work", ".photo-cache");
+const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
 const COLLECT_SCRIPT = join(ROOT, "work", "run_collect_playwright.mjs");
 const LOGIN_SCRIPT = join(ROOT, "work", "open_sales_login.mjs");
 const LOGIN_BAT = join(ROOT, "0-SALES-LOGIN-TAYYORLASH.bat");
@@ -138,6 +151,7 @@ const MIME = {
   ".jpeg": "image/jpeg",
   ".png": "image/png",
   ".webp": "image/webp",
+  ".svg": "image/svg+xml; charset=utf-8",
 };
 
 function safePath(urlPath) {
@@ -146,15 +160,6 @@ function safePath(urlPath) {
   const abs = normalize(join(OUTPUTS, rel));
   if (!abs.startsWith(normalize(OUTPUTS))) return null;
   return abs;
-}
-
-function sendJson(res, status, data, headers = {}) {
-  res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "no-store",
-    ...headers,
-  });
-  res.end(JSON.stringify(data));
 }
 
 function reviewAccessToken() {
@@ -354,6 +359,25 @@ function weakEtag(info) {
   return `W/"${Math.round(info.mtimeMs)}-${info.size}"`;
 }
 
+async function fileRevision(filePath) {
+  try {
+    const info = await stat(filePath);
+    return `${Math.round(info.mtimeMs)}-${info.size}`;
+  } catch (error) {
+    if (error?.code === "ENOENT") return "0";
+    throw error;
+  }
+}
+
+async function reviewStateRevisions() {
+  const [marks, reasons, brands] = await Promise.all([
+    fileRevision(MARKS_FILE),
+    fileRevision(REASONS_FILE),
+    fileRevision(BRANDS_FILE),
+  ]);
+  return { marks, reasons, brands };
+}
+
 function gzipStaticFile(filePath, data, info) {
   const key = `${filePath}:${info.mtimeMs}:${info.size}`;
   const cached = staticGzipCache.get(key);
@@ -458,26 +482,25 @@ function startPhotoCacheCleanup() {
   }, 6 * 60 * 60 * 1000).unref?.();
 }
 
-async function readJsonBody(req, limit = 512_000) {
-  const chunks = [];
-  let total = 0;
-  for await (const chunk of req) {
-    total += chunk.length;
-    if (total > limit) throw new Error("Body too large");
-    chunks.push(chunk);
-  }
-  return JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
+function runScheduledMaintenance() {
+  const child = spawn(process.execPath, [MAINTENANCE_SCRIPT, "--apply"], {
+    cwd: ROOT,
+    windowsHide: true,
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  child.stdout.on("data", (chunk) => console.log(String(chunk).trimEnd()));
+  child.stderr.on("data", (chunk) => console.warn(String(chunk).trimEnd()));
+  child.on("error", (error) => console.warn("Maintenance ishga tushmadi:", error?.message || error));
 }
 
-async function readTextBody(req, limit = 64_000) {
-  const chunks = [];
-  let total = 0;
-  for await (const chunk of req) {
-    total += chunk.length;
-    if (total > limit) throw new Error("Body too large");
-    chunks.push(chunk);
-  }
-  return Buffer.concat(chunks).toString("utf8");
+function startMaintenanceSchedule() {
+  if (String(process.env.MAINTENANCE_AUTO_APPLY || "1") === "0") return;
+  const intervalHours = Math.max(1, Number(process.env.MAINTENANCE_INTERVAL_HOURS || 24) || 24);
+  const firstDelayMinutes = Math.max(1, Number(process.env.MAINTENANCE_INITIAL_DELAY_MINUTES || 15) || 15);
+  setTimeout(() => {
+    runScheduledMaintenance();
+    setInterval(runScheduledMaintenance, intervalHours * 60 * 60 * 1000).unref?.();
+  }, firstDelayMinutes * 60 * 1000).unref?.();
 }
 
 async function readPinFromRequest(req) {
@@ -503,26 +526,10 @@ function safeCompareSecret(a, b) {
   return timingSafeEqual(left, right);
 }
 
-function isValidIsoDate(value) {
-  const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return false;
-  const [, y, m, d] = match.map(Number);
-  const date = new Date(y, m - 1, d);
-  return date.getFullYear() === y
-    && date.getMonth() === m - 1
-    && date.getDate() === d;
-}
-
 async function resolveCollectBrand(value) {
   const config = await loadBrandsConfig({ includeDisabled: false });
   const brand = findBrand(config, value);
   return brand ? publicBrand(brand) : null;
-}
-
-function apiError(message, status = 400) {
-  const error = new Error(message);
-  error.status = status;
-  return error;
 }
 
 function publicCollectState() {
@@ -841,6 +848,19 @@ function mergeReviewMarks(base, incoming) {
   for (const [key, value] of Object.entries(incoming || {})) {
     if (!value || typeof value !== "object" || Array.isArray(value)) continue;
     const previous = merged[key];
+    if (value._deleted === true) {
+      if (!previous || markTime(value) >= markTime(previous)) {
+        merged[key] = {
+          _deleted: true,
+          date: value.date || previous?.date || "",
+          code: value.code || previous?.code || "",
+          url: value.url || previous?.url || "",
+          updatedAt: value.updatedAt || new Date().toISOString(),
+          updatedBy: value.updatedBy || "",
+        };
+      }
+      continue;
+    }
     const next = { ...(previous || {}), ...value };
     if (previous?.telegramSentAt || value?.telegramSentAt) {
       next.telegramSentAt = previous?.telegramSentAt || value?.telegramSentAt;
@@ -885,6 +905,28 @@ async function writeReviewMarks(marks) {
     await safeWriteJson(MARKS_FILE, merged, "review marks");
     await rebuildSuspiciousPhotosFromMarks(merged);
     return merged;
+  };
+  const job = marksWriteQueue.then(writeJob, writeJob);
+  marksWriteQueue = job.catch(() => {});
+  return job;
+}
+
+async function deleteReviewMarks({ date = "" } = {}) {
+  const cleanDate = String(date || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(cleanDate)) throw apiError("Marks sanasi noto'g'ri", 400);
+  const writeJob = async () => {
+    const current = await readReviewMarks();
+    const now = new Date().toISOString();
+    const filtered = { ...current };
+    let deleted = 0;
+    for (const [key, mark] of Object.entries(current)) {
+      if (String(mark?.date || "") !== cleanDate || mark?._deleted) continue;
+      filtered[key] = { _deleted: true, date: cleanDate, code: mark?.code || "", url: mark?.url || "", updatedAt: now, updatedBy: "dataset-delete" };
+      deleted += 1;
+    }
+    await safeWriteJson(MARKS_FILE, filtered, "review marks");
+    await rebuildSuspiciousPhotosFromMarks(filtered);
+    return { marks: filtered, deleted };
   };
   const job = marksWriteQueue.then(writeJob, writeJob);
   marksWriteQueue = job.catch(() => {});
@@ -1000,6 +1042,62 @@ async function proxyPhoto(url) {
     return { ...photo, cached: false };
   } finally {
     photoInflight.delete(text);
+  }
+}
+
+function photoThumbnailWidth() {
+  return Math.max(320, Math.min(1200, Number(process.env.PHOTO_THUMB_WIDTH || 720) || 720));
+}
+
+function photoThumbnailHeight() {
+  return Math.max(480, Math.min(1600, Number(process.env.PHOTO_THUMB_HEIGHT || 960) || 960));
+}
+
+function photoThumbnailQuality() {
+  return Math.max(45, Math.min(90, Number(process.env.PHOTO_THUMB_QUALITY || 74) || 74));
+}
+
+async function proxyPhotoThumbnail(url) {
+  const text = await validatePhotoUrlForProxy(String(url || "").trim());
+  const width = photoThumbnailWidth();
+  const height = photoThumbnailHeight();
+  const quality = photoThumbnailQuality();
+  const variantKey = `${text}\nthumb:${width}x${height}:q${quality}`;
+  const cached = photoCache.get(variantKey);
+  if (cached) {
+    photoCache.delete(variantKey);
+    photoCache.set(variantKey, cached);
+    return { ...cached, cached: true };
+  }
+  const diskCached = await readPhotoFromDisk(variantKey);
+  if (diskCached) {
+    photoCache.set(variantKey, diskCached);
+    while (photoCache.size > photoCacheMax()) photoCache.delete(photoCache.keys().next().value);
+    return { ...diskCached, cached: true };
+  }
+  if (photoThumbnailInflight.has(variantKey)) {
+    const photo = await photoThumbnailInflight.get(variantKey);
+    return { ...photo, cached: true };
+  }
+  const job = (async () => {
+    const original = await proxyPhoto(text);
+    const data = await sharp(original.data, { limitInputPixels: 60_000_000 })
+      .rotate()
+      .resize({ width, height, fit: "inside", withoutEnlargement: true })
+      .webp({ quality, effort: 4 })
+      .toBuffer();
+    const photo = { contentType: "image/webp", data };
+    photoCache.set(variantKey, photo);
+    while (photoCache.size > photoCacheMax()) photoCache.delete(photoCache.keys().next().value);
+    await writePhotoToDisk(variantKey, photo).catch(() => {});
+    return photo;
+  })();
+  photoThumbnailInflight.set(variantKey, job);
+  try {
+    const photo = await job;
+    return { ...photo, cached: false };
+  } finally {
+    photoThumbnailInflight.delete(variantKey);
   }
 }
 
@@ -1304,10 +1402,6 @@ function telegramHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 function telegramErrorText(json, method) {
   return String(json?.description || json?.error || `Telegram ${method} xatosi`);
 }
@@ -1506,20 +1600,6 @@ async function enqueueTelegramWarmCache(items, avoidChatId = "") {
   }
   pumpTelegramWarmCacheQueue();
   return { queued, enabled: true };
-}
-
-async function mapWithConcurrency(items, limit, worker) {
-  const results = [];
-  let nextIndex = 0;
-  const workers = Array.from({ length: Math.max(1, Math.min(limit, items.length)) }, async () => {
-    while (nextIndex < items.length) {
-      const index = nextIndex;
-      nextIndex += 1;
-      results[index] = await worker(items[index], index);
-    }
-  });
-  await Promise.all(workers);
-  return results;
 }
 
 async function readTelegramSessions() {
@@ -2230,6 +2310,32 @@ async function resolveTelegramChatIdForItems(items, targetChatId) {
   return resolveTelegramChatId("");
 }
 
+async function telegramSuspiciousPreview(items, targetChatId) {
+  if (!Array.isArray(items) || items.length === 0) throw apiError("Tekshiriladigan foto yo'q", 400);
+  const groups = groupSuspiciousByAgent(items);
+  const chatId = await resolveTelegramChatIdForItems(items, targetChatId);
+  const validPhotos = items.filter((item) => /^https?:\/\//i.test(cleanText(item?.url))).length;
+  const dates = [...new Set(items.map((item) => cleanText(item?.date)).filter(Boolean))].sort();
+  const first = items[0] || {};
+  const brand = brandFromItem(first);
+  return {
+    chatId: maskChatId(chatId),
+    brand: brand.name,
+    dates,
+    photos: items.length,
+    validPhotos,
+    invalidPhotos: items.length - validPhotos,
+    agents: groups.length,
+    groups: groups.map((group) => ({
+      code: group.code,
+      agent: agentDisplayName(group.agent) || group.agent || group.code,
+      date: group.date,
+      photos: group.items.length,
+      token: telegramSessionToken(group.items[0] || group),
+    })),
+  };
+}
+
 async function sendSuspiciousToTelegramChat(items, targetChatId) {
   const chatId = await resolveTelegramChatIdForItems(items, targetChatId);
   const threadId = process.env.TELEGRAM_THREAD_ID ? Number(process.env.TELEGRAM_THREAD_ID) : undefined;
@@ -2740,17 +2846,23 @@ function startTelegramBotPolling() {
   if (telegramPollingStarted) return;
   if (!process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_POLLING === "0") return;
   telegramPollingStarted = true;
+  let failureCount = 0;
   const loop = async () => {
+    let nextDelay = 250;
     try {
       await pollTelegramUpdatesOnce();
+      failureCount = 0;
     } catch (error) {
-      console.error("Telegram polling xatosi:", error?.message || error);
-      await sleep(5000);
+      failureCount += 1;
+      nextDelay = Math.min(60_000, 2_000 * (2 ** Math.min(failureCount - 1, 5)));
+      if (failureCount <= 3 || failureCount % 10 === 0) {
+        console.error(`Telegram polling xatosi (${failureCount}), ${Math.round(nextDelay / 1000)}s dan keyin qayta urinadi:`, error?.message || error);
+      }
     } finally {
-      if (telegramPollingStarted) setTimeout(loop, 250);
+      if (telegramPollingStarted) setTimeout(loop, nextDelay).unref?.();
     }
   };
-  setTimeout(loop, 1000);
+  setTimeout(loop, 1000).unref?.();
 }
 
 function openBrowser(url) {
@@ -2790,6 +2902,8 @@ function openBrowser(url) {
 }
 
 await loadEnv();
+
+await buildReviewCss();
 
 const server = createServer(async (req, res) => {
   try {
@@ -2859,13 +2973,13 @@ const server = createServer(async (req, res) => {
     if (parsed.pathname === "/api/brands") {
       if (req.method === "GET") {
         const config = await loadBrandsConfig({ includeDisabled: true });
-        sendJson(res, 200, { ok: true, ...config });
+        sendJson(res, 200, { ok: true, ...config, revision: await fileRevision(BRANDS_FILE) });
         return;
       }
       if (req.method === "POST") {
         const body = await readJsonBody(req, 1_000_000);
         const saved = await saveBrandsConfig(body);
-        sendJson(res, 200, { ok: true, ...saved });
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
         return;
       }
       sendJson(res, 405, { ok: false, error: "Method not allowed" });
@@ -2873,20 +2987,28 @@ const server = createServer(async (req, res) => {
     }
     if (parsed.pathname === "/api/reasons") {
       if (req.method === "GET") {
-        sendJson(res, 200, { ok: true, ...(await readReviewReasons()) }, access.headers);
+        sendJson(res, 200, { ok: true, ...(await readReviewReasons()), revision: await fileRevision(REASONS_FILE) }, access.headers);
         return;
       }
       if (req.method === "POST") {
         const body = await readJsonBody(req, 1_000_000);
-        sendJson(res, 200, { ok: true, ...(await writeReviewReasons(body)) }, access.headers);
+        sendJson(res, 200, { ok: true, ...(await writeReviewReasons(body)), revision: await fileRevision(REASONS_FILE) }, access.headers);
         return;
       }
       sendJson(res, 405, { ok: false, error: "Method not allowed" });
       return;
     }
     if (parsed.pathname === "/api/sync") {
+      const beforeRevisions = await reviewStateRevisions();
+      let conflicts = {};
       if (req.method === "POST") {
         const body = await readJsonBody(req, 6_000_000);
+        const base = body.baseRevisions && typeof body.baseRevisions === "object" ? body.baseRevisions : {};
+        conflicts = {
+          marks: Boolean(base.marks && base.marks !== beforeRevisions.marks),
+          reasons: Boolean(base.reasons && base.reasons !== beforeRevisions.reasons),
+          brands: Boolean(base.brands && base.brands !== beforeRevisions.brands),
+        };
         if (body.marks) await writeReviewMarks(body.marks);
         if (body.reasons) await writeReviewReasons(body.reasons);
       } else if (req.method !== "GET") {
@@ -2897,6 +3019,7 @@ const server = createServer(async (req, res) => {
       const reasons = await readReviewReasons();
       const light = parsed.searchParams.get("light") === "1";
       const marks = light ? undefined : await readReviewMarks();
+      const revisions = await reviewStateRevisions();
       sendJson(res, 200, {
         ok: true,
         serverTime: new Date().toISOString(),
@@ -2904,6 +3027,8 @@ const server = createServer(async (req, res) => {
         marksLight: light,
         reasons,
         brands,
+        revisions,
+        conflicts,
       }, access.headers);
       return;
     }
@@ -2926,13 +3051,13 @@ const server = createServer(async (req, res) => {
         const body = await readJsonBody(req, 1_000_000);
         config.brands[index] = { ...config.brands[index], ...body, id };
         const saved = await saveBrandsConfig(config);
-        sendJson(res, 200, { ok: true, ...saved });
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
         return;
       }
       if (req.method === "DELETE") {
         config.brands = config.brands.filter((brand) => brand.id !== id);
         const saved = await saveBrandsConfig(config);
-        sendJson(res, 200, { ok: true, ...saved });
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
         return;
       }
       sendJson(res, 405, { ok: false, error: "Method not allowed" });
@@ -3067,6 +3192,41 @@ const server = createServer(async (req, res) => {
       res.end(`\uFEFF${csv}\n`);
       return;
     }
+    if (parsed.pathname === "/api/telegram/preview-suspicious") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req);
+      const items = Array.isArray(body.items) ? body.items : [];
+      if (!items.length) throw apiError("Tekshirish uchun foto yo'q", 400);
+      const groups = groupSuspiciousByAgent(items);
+      const chatId = await resolveTelegramChatIdForItems(items, body.chatId);
+      sendJson(res, 200, {
+        ok: true,
+        mode: cleanText(body.mode || process.env.TELEGRAM_SEND_MODE || "summary").toLowerCase(),
+        chatId: maskChatId(chatId),
+        photos: items.length,
+        agents: groups.length,
+        groups: groups.map((group) => ({
+          date: group.date,
+          code: group.code,
+          agent: group.agent,
+          photos: group.items.length,
+        })),
+      });
+      return;
+    }
+    if (parsed.pathname === "/api/telegram/preview-suspicious") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 2_000_000);
+      const preview = await telegramSuspiciousPreview(body.items, body.chatId);
+      sendJson(res, 200, { ok: true, preview }, access.headers);
+      return;
+    }
     if (parsed.pathname === "/api/telegram/send-suspicious") {
       if (req.method !== "POST") {
         sendJson(res, 405, { ok: false, error: "Method not allowed" });
@@ -3124,7 +3284,8 @@ const server = createServer(async (req, res) => {
     }
     if (parsed.pathname === "/api/photo") {
       const photoUrl = parsed.searchParams.get("url");
-      const photoEtag = `W/"photo-${photoCacheKey(photoUrl)}"`;
+      const photoVariant = parsed.searchParams.get("view") === "thumb" ? "thumb" : "full";
+      const photoEtag = `W/"photo-${photoVariant}-${photoCacheKey(photoUrl)}"`;
       if (req.headers["if-none-match"] === photoEtag) {
         res.writeHead(304, {
           "Cache-Control": "public, max-age=604800, immutable",
@@ -3134,12 +3295,15 @@ const server = createServer(async (req, res) => {
         res.end();
         return;
       }
-      const photo = await proxyPhoto(photoUrl);
+      const photo = photoVariant === "thumb"
+        ? await proxyPhotoThumbnail(photoUrl)
+        : await proxyPhoto(photoUrl);
       res.writeHead(200, {
         "Content-Type": photo.contentType,
         "Cache-Control": "public, max-age=604800, immutable",
         ETag: photoEtag,
         "X-Photo-Cache": photo.cached ? "hit" : "miss",
+        "X-Photo-Variant": photoVariant,
         ...access.headers,
       });
       res.end(photo.data);
@@ -3154,12 +3318,28 @@ const server = createServer(async (req, res) => {
           date: parsed.searchParams.get("date") || "",
           verdict: parsed.searchParams.get("verdict") || "",
         }, brands);
-        sendJson(res, 200, { ok: true, marks: filtered, total: Object.keys(filtered).length }, access.headers);
+        sendJson(res, 200, { ok: true, marks: filtered, total: Object.keys(filtered).length, revision: await fileRevision(MARKS_FILE) }, access.headers);
         return;
       }
       if (req.method === "POST") {
         const body = await readJsonBody(req, 5_000_000);
-        sendJson(res, 200, { ok: true, marks: await writeReviewMarks(body.marks) }, access.headers);
+        const beforeRevision = await fileRevision(MARKS_FILE);
+        const merged = await writeReviewMarks(body.marks);
+        const compact = parsed.searchParams.get("compact") === "1";
+        const responseMarks = compact
+          ? Object.fromEntries(Object.keys(body.marks || {}).filter((key) => merged[key]).map((key) => [key, merged[key]]))
+          : merged;
+        sendJson(res, 200, {
+          ok: true,
+          marks: responseMarks,
+          revision: await fileRevision(MARKS_FILE),
+          conflict: Boolean(body.baseRevision && body.baseRevision !== beforeRevision),
+        }, access.headers);
+        return;
+      }
+      if (req.method === "DELETE") {
+        const result = await deleteReviewMarks({ date: parsed.searchParams.get("date") || "" });
+        sendJson(res, 200, { ok: true, deleted: result.deleted, revision: await fileRevision(MARKS_FILE) }, access.headers);
         return;
       }
       sendJson(res, 405, { ok: false, error: "Method not allowed" });
@@ -3271,6 +3451,7 @@ server.listen(PORT, HOST, async () => {
     console.warn("Telegram eski link sessionlarini tiklash xatosi:", error?.message || error);
   }
   startPhotoCacheCleanup();
+  startMaintenanceSchedule();
   startTelegramBotPolling();
   openBrowser(REVIEW_URL);
 });

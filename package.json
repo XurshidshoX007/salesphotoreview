@@ -2,6 +2,7 @@
   "name": "lmj-photo-review-launcher",
   "private": true,
   "scripts": {
+    "build:review-css": "node scripts/build-review-css.mjs",
     "review": "node work/run_review_server.mjs",
     "public:link": "node work/start_cloudflare_tunnel.mjs",
     "stop": "node work/stop_review_server.mjs",
@@ -22,9 +23,16 @@
     "attendance:export": "node scripts/attendance-export.js",
     "attendance:validate": "node scripts/attendance-validate.js",
     "attendance:list": "node scripts/attendance-list.js",
-    "test:attendance": "node scripts/test-attendance.mjs"
+    "test:attendance": "node scripts/test-attendance.mjs",
+    "test:review-api": "node scripts/test-review-api.mjs",
+    "test:review-ui": "node scripts/test-review-ui.mjs",
+    "test:review-workflows": "node scripts/test-review-workflows.mjs",
+    "test:review": "npm run build:review-css && npm run test:brands && npm run test:attendance && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
+    "maintenance:check": "node scripts/maintenance-cleanup.mjs",
+    "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },
   "dependencies": {
-    "playwright": "^1.60.0"
+    "playwright": "^1.60.0",
+    "sharp": "^0.34.3"
   }
 }

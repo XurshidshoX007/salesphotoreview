@@ -1,0 +1,13 @@
+{
+  "overrides": [
+    {
+      "date": "2026-07-08",
+      "agentCode": "LMJAN05",
+      "employeeId": "emp_kenjaboev_xojiakbar",
+      "manualValue": "0s",
+      "reason": "Manual tabel tahriri",
+      "updatedAt": "2026-07-13T09:32:58.423Z",
+      "updatedBy": "local-user"
+    }
+  ]
+}

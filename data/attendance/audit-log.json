@@ -39,6 +39,16 @@
       "oldValue": "0s",
       "newValue": "",
       "reason": "Manual qiymat tozalandi"
+    },
+    {
+      "changedAt": "2026-07-13T09:32:58.423Z",
+      "type": "attendance_override",
+      "agentCode": "LMJAN05",
+      "employeeId": "emp_kenjaboev_xojiakbar",
+      "date": "2026-07-08",
+      "oldValue": "",
+      "newValue": "0s",
+      "reason": "Manual tabel tahriri"
     }
   ]
 }

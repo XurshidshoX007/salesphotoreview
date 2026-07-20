@@ -1,0 +1,13 @@
+/* Selected Foto Nazorati logo. Loaded last to override legacy FN marks. */
+.salesLogo{
+  flex:0 0 auto;
+  background-color:#fff !important;
+  background-image:url("../assets/foto-nazorati-logo.svg") !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  background-size:30px 30px !important;
+}
+
+.salesLogo:after{
+  content:none !important;
+}

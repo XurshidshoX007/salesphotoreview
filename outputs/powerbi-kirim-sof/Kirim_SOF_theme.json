@@ -1,0 +1,29 @@
+{
+  "name": "Kirim SOF · Tezkor nazorat",
+  "dataColors": ["#0F766E", "#2563EB", "#D97706", "#7C3AED", "#DC2626", "#64748B"],
+  "background": "#F3F7F8",
+  "foreground": "#13232F",
+  "tableAccent": "#0F766E",
+  "good": "#0F766E",
+  "neutral": "#D97706",
+  "bad": "#C2413B",
+  "maximum": "#0F766E",
+  "center": "#E2E8F0",
+  "minimum": "#C2413B",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{"show": true, "color": {"solid": {"color": "#FFFFFF"}}, "transparency": 0}],
+        "border": [{"show": true, "color": {"solid": {"color": "#D9E4E8"}}, "radius": 10}],
+        "visualHeader": [{"show": true, "foreground": {"solid": {"color": "#64748B"}}}],
+        "title": [{"show": true, "fontFamily": "Segoe UI Semibold", "fontSize": 12, "fontColor": {"solid": {"color": "#13232F"}}}]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [{"fontFamily": "Segoe UI Semibold", "fontSize": 26, "color": {"solid": {"color": "#13232F"}}}],
+        "categoryLabels": [{"show": true, "fontFamily": "Segoe UI", "fontSize": 11, "color": {"solid": {"color": "#64748B"}}}]
+      }
+    }
+  }
+}
