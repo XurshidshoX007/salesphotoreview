@@ -1,3 +1,0 @@
-Port band: 127.0.0.1:8877 boshqa dastur tomonidan ishlatyapti.
-Eski serverni yopib qayta urinib ko'ring yoki boshqa PORT bering:
-  $env:PORT=8766; npm run review

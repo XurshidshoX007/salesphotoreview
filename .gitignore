@@ -1,17 +1,26 @@
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
+# Dependencies
+node_modules/
+
+# Secrets — hech qachon git'ga qo'shilmasin
+.env
+.env.local
+.env.*.local
+
+# Brauzer profili (Sales sessiya cookie'lari!)
+work/.sales-chrome-profile/
+
+# Loglar
+*.log
+work/*.log
+
+# Yig'ilgan xom ma'lumotlar va keshlar (dastur o'zi yaratadi)
+outputs/*_raw.json
+outputs/lmj_photo_metrics_cache.json
+outputs/lmj_telegram_file_cache.json
+outputs/photo-cache/
+
+# Test artefaktlari va vaqtinchalik fayllar
+work/test-artifacts/
+work/ui-check/
+work/*.png
+work/sales_assets_probe/
