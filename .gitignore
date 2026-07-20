@@ -19,6 +19,9 @@ outputs/lmj_photo_metrics_cache.json
 outputs/lmj_telegram_file_cache.json
 outputs/photo-cache/
 
+work/.photo-cache/
+data/attendance/backups/
+
 # Test artefaktlari va vaqtinchalik fayllar
 work/test-artifacts/
 work/ui-check/
