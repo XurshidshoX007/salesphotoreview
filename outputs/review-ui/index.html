@@ -6,7 +6,7 @@
   <meta name="description" content="Savdo foto hisobotlari nazorati">
   <title>Foto nazorati</title>
   <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
-  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-77">
+  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-78">
 </head>
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
@@ -199,6 +199,11 @@
       </div>
       <div class="collectLog">
         <div class="collectLogTop"><b>Jarayon holati</b><span id="collectBadge" class="collectBadge">idle</span></div>
+        <div id="collectProgress" class="collectProgress" hidden>
+          <div class="collectProgressBar"><i id="collectProgressFill"></i></div>
+          <div class="collectProgressMeta"><span id="collectProgressText">0 / 0 agent</span><span id="collectProgressPct">0%</span></div>
+        </div>
+        <div id="collectSummary" class="collectSummary" hidden></div>
         <pre id="collectLog">Hali jarayon boshlanmagan.</pre>
       </div>
     </div>
@@ -267,19 +272,19 @@
       <button id="speedFaster" title="Vaqtni oshirish: sekinroq o'tadi">+</button>
     </div>
   </div>
-  <script src="review-ui/js/photo-loader.js?v=project-opt-77"></script>
-  <script src="review-ui/js/utils.js?v=project-opt-77"></script>
-  <script src="review-ui/js/state.js?v=project-opt-77"></script>
-  <script src="review-ui/js/data-loader.js?v=project-opt-77"></script>
-  <script src="review-ui/js/filters.js?v=project-opt-77"></script>
-  <script src="review-ui/js/marks.js?v=project-opt-77"></script>
-  <script src="review-ui/js/brands.js?v=project-opt-77"></script>
-  <script src="review-ui/js/attendance.js?v=project-opt-77"></script>
-  <script src="review-ui/js/ui-state.js?v=project-opt-77"></script>
-  <script src="review-ui/js/counters.js?v=project-opt-77"></script>
-  <script src="review-ui/js/auto-review.js?v=project-opt-77"></script>
-  <script src="review-ui/js/telegram.js?v=project-opt-77"></script>
-  <script src="review-ui/js/export.js?v=project-opt-77"></script>
-  <script src="review-ui/js/app.js?v=project-opt-77"></script>
+  <script src="review-ui/js/photo-loader.js?v=project-opt-78"></script>
+  <script src="review-ui/js/utils.js?v=project-opt-78"></script>
+  <script src="review-ui/js/state.js?v=project-opt-78"></script>
+  <script src="review-ui/js/data-loader.js?v=project-opt-78"></script>
+  <script src="review-ui/js/filters.js?v=project-opt-78"></script>
+  <script src="review-ui/js/marks.js?v=project-opt-78"></script>
+  <script src="review-ui/js/brands.js?v=project-opt-78"></script>
+  <script src="review-ui/js/attendance.js?v=project-opt-78"></script>
+  <script src="review-ui/js/ui-state.js?v=project-opt-78"></script>
+  <script src="review-ui/js/counters.js?v=project-opt-78"></script>
+  <script src="review-ui/js/auto-review.js?v=project-opt-78"></script>
+  <script src="review-ui/js/telegram.js?v=project-opt-78"></script>
+  <script src="review-ui/js/export.js?v=project-opt-78"></script>
+  <script src="review-ui/js/app.js?v=project-opt-78"></script>
   </body>
 </html>

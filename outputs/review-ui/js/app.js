@@ -2784,9 +2784,52 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       $('collectStop').disabled=!running;
       $('collectBadge').textContent=status;
       $('collectBadge').className=`collectBadge ${running?'busy':(status==='done'?'done':(['failed','error'].includes(status)?'badState':''))}`;
-      const logs=(s.logs||[]).join('\n');
-      $('collectLog').textContent=logs||"Log hali yo'q.";
+      const logLines=s.logs||[];
+      const logs=logLines.join('\n');
+      // Rangli log qatorlari
+      $('collectLog').innerHTML=logLines.length?logLines.map(raw=>{
+        const t=escapeHtml(raw);
+        let cls='clLine';
+        if(/^\s*===|TUGADI/.test(raw))cls+=' clHead';
+        else if(/\[perf\]/.test(raw))cls+=' clDim';
+        else if(/xato|failed|error|Xatolik|noto'g'ri/i.test(raw))cls+=' clBad';
+        else if(/muvaffaqiyat|Manifest|token olindi|\(ok,/i.test(raw))cls+=' clOk';
+        else if(/Login|rejim:|boshlandi/i.test(raw))cls+=' clInfo';
+        return `<span class="${cls}">${t}</span>`;
+      }).join('\n'):"Log hali yo'q.";
       $('collectLog').scrollTop=$('collectLog').scrollHeight;
+      // Progress bar (yig'ilyapti)
+      const prog=$('collectProgress');
+      if(prog){
+        let dn=0,tot=0;
+        for(const ln of logLines){const m=/(\d+)\s*\/\s*(\d+)\s+agent/.exec(ln);if(m){dn=+m[1];tot=+m[2];}}
+        if(running&&tot>0){
+          const pct=Math.min(100,Math.round(dn/tot*100));
+          prog.hidden=false;
+          $('collectProgressFill').style.width=pct+'%';
+          $('collectProgressText').textContent=`${dn} / ${tot} agent`;
+          $('collectProgressPct').textContent=pct+'%';
+        }else prog.hidden=true;
+      }
+      // Yakuniy statistika plitalari (tugadi)
+      const summary=$('collectSummary');
+      if(summary){
+        const g=re=>{const m=re.exec(logs);return m?m[1]:null;};
+        const agentlar=g(/Agentlar:\s*(\d+)/), fotoli=g(/Fotoli:\s*(\d+)/), url=g(/Jami URL:\s*(\d+)/);
+        if(status==='done'&&(agentlar||url)){
+          const ok=g(/\bok:\s*(\d+)/), partial=g(/partial:\s*(\d+)/), err=g(/\berror:\s*(\d+)/), secs=g(/TUGADI\s*\(([\d.]+)s\)/);
+          const tile=(label,val,cls='')=>`<div class="ctile ${cls}"><b>${escapeHtml(val??'—')}</b><span>${escapeHtml(label)}</span></div>`;
+          summary.innerHTML=
+            tile('Agentlar',agentlar)+
+            tile('Fotoli',fotoli)+
+            tile('Jami foto',url,'ctileAccent')+
+            tile('OK',ok,'ctileOk')+
+            tile('Qisman',partial,(partial&&+partial>0)?'ctileWarn':'')+
+            tile('Xato',err,(err&&+err>0)?'ctileBad':'')+
+            (secs?`<div class="ctile ctileTime"><b>${escapeHtml(secs)}s</b><span>Vaqt</span></div>`:'');
+          summary.hidden=false;
+        }else summary.hidden=true;
+      }
       if(status==='done'&&s.finishedAt&&collectLastDone!==s.finishedAt){
         collectLastDone=s.finishedAt;
         notify("Ma'lumot yig'ish tugadi, ro'yxat yangilanmoqda");
