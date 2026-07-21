@@ -1560,7 +1560,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       invalidateAgentsCache();
       if(dataset._meta?.reCollectRequired||bad.length){
         const msg=dataset._meta?.message||`${bad.length} ta agent noto'g'ri yig'ilgan`;
-        $('meta').innerHTML=`<span style="color:#ffd479">${dataset.date}: FAQAT ${agents.length} agent ishonchli. ${msg}. Sales ochib qayta yig'ing.</span>`;
+        $('meta').innerHTML=`<span style="color:#ffd479">${dataset.date}: FAQAT ${agents.length} agent ishonchli. ${msg}. Qayta yig'ing.</span>`;
       }
       applyAgentFilter();
     }
@@ -2753,12 +2753,12 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     function collectLabel(status){
       return {
         idle:'Tayyor',
-        starting:'Brauzer ochilmoqda',
+        starting:'Login qilinmoqda',
         waiting_login:'Login kutilmoqda',
         waiting_dashboard:'Sales tayyorligini kutyapti',
-        preparing:'Sales tayyorlanmoqda',
+        preparing:'Tayyorlanmoqda',
         collecting:"Yig'ilyapti",
-        waiting_close:'Tugadi, brauzer yopilishi kutilmoqda',
+        waiting_close:'Yakunlanmoqda',
         stopping:"To'xtatilmoqda",
         done:'Tugadi',
         failed:'Xatolik bilan yakunlandi',
@@ -2777,9 +2777,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         ? `${s.date||''} | ${s.brand||''}${s.pid?` | PID ${s.pid}`:''}`
         : (s.finishedAt?`Oxirgi holat: ${collectLabel(status)}${s.outputFile?` | ${s.outputFile.split(/[\\/]/).pop()}`:''}`:"Sanani va brendni tanlab boshlang.");
       if(status==='waiting_login'){
-        collectText=isPublicView()
-          ? "Login server kompyuteridagi brauzerda qilinadi. Serverda Edge/Chromium oynasini taskbar yoki Alt+Tab orqali topib Salesga kiring; login tugasa yig'ish o'zi davom etadi."
-          : "Ochilgan Edge/Chromium oynasida Salesga login qiling. Ko'rinmasa taskbar yoki Alt+Tab orqali tekshiring; login tugasa yig'ish o'zi davom etadi.";
+        collectText="Sales login ma'lumotlari to'g'ri emas yoki muddati o'tgan. .env.local dagi SALES_USERNAME/SALES_PASSWORD ni tekshirib qayta urinib ko'ring.";
       }
       $('collectStatusText').textContent=collectText;
       $('collectStart').disabled=running;
@@ -2833,10 +2831,10 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(!date){notify('Sana tanlanmagan','bad');return}
       if(!brand){notify('Brend tanlanmagan','bad');return}
       const brandText=$('collectBrand').selectedOptions[0]?.textContent||brandDisplayName(brandById(brand))||brand;
-      if(!confirm(`${date} sanasi uchun ${brandText} ma'lumot yig'ish boshlansinmi?\n\nBrauzer ochiladi. Login/parol web serverga saqlanmaydi.`))return;
+      if(!confirm(`${date} sanasi uchun ${brandText} ma'lumot yig'ilsinmi?\n\nBrauzersiz — to'g'ridan-to'g'ri Sales API orqali. Login/parol hech qayerga saqlanmaydi.`))return;
       try{
         await collectAction('/api/collect/start',{date,brand,browserHint:isPublicView()?'':(navigator.userAgent||'')});
-        notify("Brauzer ochilmoqda. Salesga kirib sanani tekshiring.");
+        notify("Yig'ish boshlandi (brauzersiz).");
       }catch(e){notify(e.message,'bad')}
     }
     async function stopCollect(){

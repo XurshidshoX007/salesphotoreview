@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Foto nazorati</title>
   <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
-  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-76">
+  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-77">
 </head>
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
@@ -181,15 +181,19 @@
           <select id="collectBrand"></select>
         </label>
         <div class="collectStatus">
-          <b id="collectStatusTitle">Tayyor</b>
-          <span id="collectStatusText">Sanani va brendni tanlab boshlang.</span>
+          <span class="collectStatusDot" aria-hidden="true"></span>
+          <div class="collectStatusBody">
+            <b id="collectStatusTitle">Tayyor</b>
+            <span id="collectStatusText">Sanani va brendni tanlab boshlang.</span>
+          </div>
         </div>
         <div class="collectActions">
           <button id="collectStart" class="primary wideAction">Yig'ishni boshlash</button>
           <button id="collectStop" class="bad wideAction" disabled>To'xtatish</button>
         </div>
         <div class="collectHelp">
-          Yig'ish server kompyuterida ochiladi. Salesga oldin shu kompyuterda login qilingan bo'lsa, saqlangan brauzer sessiyasi orqali avtomatik kirib ketadi. Login va parol dasturga yozilmaydi.
+          <span class="collectHelpIcon" aria-hidden="true"></span>
+          <span>Ma'lumot to'g'ridan-to'g'ri Sales API orqali yig'iladi — brauzer ochilmaydi. Saqlangan login avtomatik ishlatiladi; login va parol hech qayerga yozilmaydi.</span>
         </div>
       </div>
       <div class="collectLog">
@@ -262,19 +266,19 @@
       <button id="speedFaster" title="Vaqtni oshirish: sekinroq o'tadi">+</button>
     </div>
   </div>
-  <script src="review-ui/js/photo-loader.js?v=project-opt-75"></script>
-  <script src="review-ui/js/utils.js?v=project-opt-75"></script>
-  <script src="review-ui/js/state.js?v=project-opt-75"></script>
-  <script src="review-ui/js/data-loader.js?v=project-opt-75"></script>
-  <script src="review-ui/js/filters.js?v=project-opt-75"></script>
-  <script src="review-ui/js/marks.js?v=project-opt-75"></script>
-  <script src="review-ui/js/brands.js?v=project-opt-75"></script>
-  <script src="review-ui/js/attendance.js?v=project-opt-75"></script>
-  <script src="review-ui/js/ui-state.js?v=project-opt-75"></script>
-  <script src="review-ui/js/counters.js?v=project-opt-75"></script>
-  <script src="review-ui/js/auto-review.js?v=project-opt-75"></script>
-  <script src="review-ui/js/telegram.js?v=project-opt-75"></script>
-  <script src="review-ui/js/export.js?v=project-opt-75"></script>
-  <script src="review-ui/js/app.js?v=project-opt-75"></script>
+  <script src="review-ui/js/photo-loader.js?v=project-opt-77"></script>
+  <script src="review-ui/js/utils.js?v=project-opt-77"></script>
+  <script src="review-ui/js/state.js?v=project-opt-77"></script>
+  <script src="review-ui/js/data-loader.js?v=project-opt-77"></script>
+  <script src="review-ui/js/filters.js?v=project-opt-77"></script>
+  <script src="review-ui/js/marks.js?v=project-opt-77"></script>
+  <script src="review-ui/js/brands.js?v=project-opt-77"></script>
+  <script src="review-ui/js/attendance.js?v=project-opt-77"></script>
+  <script src="review-ui/js/ui-state.js?v=project-opt-77"></script>
+  <script src="review-ui/js/counters.js?v=project-opt-77"></script>
+  <script src="review-ui/js/auto-review.js?v=project-opt-77"></script>
+  <script src="review-ui/js/telegram.js?v=project-opt-77"></script>
+  <script src="review-ui/js/export.js?v=project-opt-77"></script>
+  <script src="review-ui/js/app.js?v=project-opt-77"></script>
   </body>
 </html>
