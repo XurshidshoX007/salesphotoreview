@@ -487,6 +487,9 @@ function normalizePhotoApiData(data, clientMap, { orderLookupKnown = false } = {
 
 async function salesApiPost(tab, path, payload) {
   const timeoutMs = Math.max(5000, Number(process.env.SALES_API_TIMEOUT_MS || 45000) || 45000);
+  // Brauzersiz (Node-HTTP) transport: aynan shu so'rov, faqat Node fetch orqali.
+  // Parse/normalize mantiqi umuman tegilmaydi => natija brauzer bilan bir xil.
+  if (tab?.nodeHttp) return tab.nodeHttp(path, payload, timeoutMs);
   return tab.playwright.evaluate(async ({ path, payload, timeoutMs }) => {
     const getCookie = (name) => document.cookie
       .split(";")

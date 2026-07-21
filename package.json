@@ -8,6 +8,7 @@
     "stop": "node work/stop_review_server.mjs",
     "stop:review": "node work/stop_review_server.mjs",
     "collect": "node work/run_collect_playwright.mjs",
+    "collect:http": "node work/run_collect_http.mjs",
     "login:sales": "node work/open_sales_login.mjs",
     "collect:date": "node work/run_collect_playwright.mjs",
     "manifest:sync": "node work/sync_manifest.mjs",
