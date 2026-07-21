@@ -1006,6 +1006,52 @@
         "code": "JY",
         "filePrefix": "sof"
       }
+    },
+    {
+      "date": "2026-07-18 [JY]",
+      "file": "sof_browser_collect_2026-07-18_raw.json",
+      "updatedAt": "2026-07-20T13:03:54.049Z",
+      "label": "2026-07-18 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
+    },
+    {
+      "date": "2026-07-20 [JY]",
+      "file": "sof_browser_collect_2026-07-20_raw.json",
+      "updatedAt": "2026-07-21T04:10:03.020Z",
+      "label": "2026-07-20 | SOF",
+      "brand": {
+        "id": "sof",
+        "name": "SOF",
+        "salesBrandNames": [
+          "SOF",
+          "Sof"
+        ],
+        "agentPrefixes": [
+          "JY"
+        ],
+        "telegramChatId": "",
+        "telegramChatName": "",
+        "enabled": true,
+        "notes": "SOF agentlari odatda JY bilan boshlanadi",
+        "code": "JY",
+        "filePrefix": "sof"
+      }
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "datasets": [
+    {
+      "date": "2026-07-14 [GG]",
+      "file": "giga_browser_collect_2026-07-14_raw.json",
+      "updatedAt": "2026-07-21T04:57:25.795Z",
+      "brand": "giga"
+    },
+    {
+      "date": "2026-07-20 [JY]",
+      "file": "sof_browser_collect_2026-07-20_raw.json",
+      "updatedAt": "2026-07-21T04:27:09.986Z",
+      "brand": "sof"
+    }
+  ]
+}

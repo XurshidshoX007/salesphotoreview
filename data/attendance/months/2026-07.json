@@ -15,7 +15,7 @@
     "code": "GG",
     "filePrefix": "giga"
   },
-  "generatedAt": "2026-07-20T10:03:52.514Z",
+  "generatedAt": "2026-07-21T04:40:56.004Z",
   "rules": {
     "minPhotoForWorkDay": 20,
     "specialPhotoCount": 19,
@@ -467,7 +467,7 @@
           "autoValue": 25,
           "finalValue": 25,
           "photoCount": 25,
-          "salesAmount": 1620000,
+          "salesAmount": 1396000,
           "state": "workday"
         },
         {
@@ -1663,7 +1663,7 @@
           "autoValue": 50,
           "finalValue": 50,
           "photoCount": 50,
-          "salesAmount": 1896000,
+          "salesAmount": 948000,
           "state": "workday"
         },
         {
@@ -1962,7 +1962,7 @@
           "autoValue": 26,
           "finalValue": 26,
           "photoCount": 26,
-          "salesAmount": 22478000,
+          "salesAmount": 22004000,
           "state": "workday"
         },
         {
@@ -8241,7 +8241,7 @@
           "autoValue": 21,
           "finalValue": 21,
           "photoCount": 21,
-          "salesAmount": 1422000,
+          "salesAmount": 948000,
           "state": "workday"
         },
         {
@@ -8839,7 +8839,7 @@
           "autoValue": 22,
           "finalValue": 22,
           "photoCount": 22,
-          "salesAmount": 3822000,
+          "salesAmount": 1674000,
           "state": "workday"
         },
         {
@@ -10035,7 +10035,7 @@
           "autoValue": 25,
           "finalValue": 25,
           "photoCount": 25,
-          "salesAmount": 1646000,
+          "salesAmount": 1172000,
           "state": "workday"
         },
         {
@@ -12726,7 +12726,7 @@
           "autoValue": 22,
           "finalValue": 22,
           "photoCount": 22,
-          "salesAmount": 2844000,
+          "salesAmount": 2370000,
           "state": "workday"
         },
         {
@@ -13623,7 +13623,7 @@
           "autoValue": 24,
           "finalValue": 24,
           "photoCount": 24,
-          "salesAmount": 3792000,
+          "salesAmount": 1422000,
           "state": "workday"
         },
         {
@@ -19005,7 +19005,7 @@
           "autoValue": 25,
           "finalValue": 25,
           "photoCount": 25,
-          "salesAmount": 6110000,
+          "salesAmount": 5636000,
           "state": "workday"
         },
         {
@@ -22294,7 +22294,7 @@
           "autoValue": 23,
           "finalValue": 23,
           "photoCount": 23,
-          "salesAmount": 3266000,
+          "salesAmount": 1870000,
           "state": "workday"
         },
         {
@@ -22892,7 +22892,7 @@
           "autoValue": 20,
           "finalValue": 20,
           "photoCount": 20,
-          "salesAmount": 22407300,
+          "salesAmount": 21459300,
           "state": "workday"
         },
         {
@@ -24686,7 +24686,7 @@
           "autoValue": 34,
           "finalValue": 34,
           "photoCount": 34,
-          "salesAmount": 5874000,
+          "salesAmount": 4674000,
           "state": "workday"
         },
         {
@@ -26480,7 +26480,7 @@
           "autoValue": 30,
           "finalValue": 30,
           "photoCount": 30,
-          "salesAmount": 912400,
+          "salesAmount": 800400,
           "state": "workday"
         },
         {
@@ -26779,7 +26779,7 @@
           "autoValue": 7,
           "finalValue": 7,
           "photoCount": 7,
-          "salesAmount": 1370000,
+          "salesAmount": 0,
           "state": "low"
         },
         {
@@ -27975,7 +27975,7 @@
           "autoValue": 34,
           "finalValue": 34,
           "photoCount": 34,
-          "salesAmount": 474000,
+          "salesAmount": 0,
           "state": "workday"
         },
         {
@@ -32941,7 +32941,7 @@
     "rawDatesFound": [
       "2026-07-14"
     ],
-    "generatedAt": "2026-07-20T10:03:52.514Z"
+    "generatedAt": "2026-07-21T04:40:56.004Z"
   },
   "summaryTotals": {
     "rows": 110,
