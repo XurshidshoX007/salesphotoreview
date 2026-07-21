@@ -16,7 +16,7 @@ import { loadBrandsConfig, findBrand, publicBrand } from "../scripts/brand-confi
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
 const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
-const BASE = (process.env.SALES_BASE_URL || "https://lalaku.lalakusales.com").replace(/\/$/, "");
+const BASE = (process.env.SALES_BASE_URL || "https://cactustizim.com").replace(/\/$/, "");
 const LOGIN_PATH = process.env.SALES_LOGIN_PATH || "/api/v1.1/web/Tokens";
 
 function yesterdayIso() {
