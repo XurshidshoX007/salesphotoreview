@@ -104,7 +104,12 @@ let marksWriteQueue = Promise.resolve();
 let reasonsWriteQueue = Promise.resolve();
 const PHOTO_DISK_CACHE_DIR = join(ROOT, "work", ".photo-cache");
 const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
-const COLLECT_SCRIPT = join(ROOT, "work", "run_collect_playwright.mjs");
+// Yig'ish rejimi: "http" (brauzersiz, tez, default) yoki "browser" (Playwright zaxira).
+// COLLECT_MODE=browser qilib eski Chrome yo'liga qaytish mumkin.
+const COLLECT_MODE = String(process.env.COLLECT_MODE || "http").trim().toLowerCase();
+const COLLECT_SCRIPT = COLLECT_MODE === "browser"
+  ? join(ROOT, "work", "run_collect_playwright.mjs")
+  : join(ROOT, "work", "run_collect_http.mjs");
 const LOGIN_SCRIPT = join(ROOT, "work", "open_sales_login.mjs");
 const LOGIN_BAT = join(ROOT, "0-SALES-LOGIN-TAYYORLASH.bat");
 const collectState = {
@@ -635,7 +640,7 @@ async function startCollectJob({ date, brand, browserHint }) {
     windowsHide: false,
   });
   collectState.pid = collectProcess.pid;
-  addCollectLog(`Web orqali ishga tushdi: ${date} | ${resolvedBrand.name}${hintedBrowserChannel ? ` | browser: ${hintedBrowserChannel}` : ""}`);
+  addCollectLog(`Web orqali ishga tushdi: ${date} | ${resolvedBrand.name} | rejim: ${COLLECT_MODE === "browser" ? "brauzer (Chrome)" : "HTTP (brauzersiz)"}${hintedBrowserChannel && COLLECT_MODE === "browser" ? ` | browser: ${hintedBrowserChannel}` : ""}`);
 
   collectProcess.stdout.on("data", (data) => addCollectLog(data));
   collectProcess.stderr.on("data", (data) => addCollectLog(data));
