@@ -1,15 +1,15 @@
 import { createServer } from "node:http";
 import { lookup } from "node:dns/promises";
 import { existsSync } from "node:fs";
-import { mkdir, readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
 import { isIP } from "node:net";
-import { join, extname, normalize, dirname } from "node:path";
+import { join, extname, normalize, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import sharp from "sharp";
-import { BRANDS_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
+import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
 import { buildReviewCss } from "../scripts/build-review-css.mjs";
 import {
   apiError,
@@ -34,17 +34,26 @@ import {
 } from "../scripts/attendance-core.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+// OUTPUTS = statik kod (review-ui, HTML) — image ichida, faqat o'qish uchun.
 const OUTPUTS = join(ROOT, "outputs");
-const MARKS_FILE = join(OUTPUTS, "lmj_review_marks.json");
-const SUSPICIOUS_PHOTOS_FILE = join(OUTPUTS, "lmj_suspicious_photos.json");
-const PHOTO_METRICS_FILE = join(OUTPUTS, "lmj_photo_metrics_cache.json");
+// DATA_ROOT = o'zgaruvchan ma'lumotlar (marks, datasets, tabel, brendlar).
+// DATA_DIR o'rnatilmasa lokalda ROOT bilan bir xil => xatti-harakat o'zgarmaydi.
+// Railway'da DATA_DIR=/data (Volume) => ma'lumotlar deploy'lar orasida saqlanadi.
+const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
+const DATA_OUTPUTS = join(DATA_ROOT, "outputs");
+const MARKS_FILE = join(DATA_OUTPUTS, "lmj_review_marks.json");
+const SUSPICIOUS_PHOTOS_FILE = join(DATA_OUTPUTS, "lmj_suspicious_photos.json");
+const PHOTO_METRICS_FILE = join(DATA_OUTPUTS, "lmj_photo_metrics_cache.json");
 const PHOTO_METRICS_LIMIT = Number(process.env.PHOTO_METRICS_LIMIT || 5000);
-const REASONS_FILE = join(OUTPUTS, "lmj_review_reasons.json");
-const TELEGRAM_SESSIONS_FILE = join(OUTPUTS, "lmj_telegram_review_sessions.json");
-const TELEGRAM_FILE_CACHE_FILE = join(OUTPUTS, "lmj_telegram_file_cache.json");
-const TELEGRAM_USAGE_STATS_FILE = join(OUTPUTS, "lmj_telegram_usage_stats.json");
+const REASONS_FILE = join(DATA_OUTPUTS, "lmj_review_reasons.json");
+const TELEGRAM_SESSIONS_FILE = join(DATA_OUTPUTS, "lmj_telegram_review_sessions.json");
+const TELEGRAM_FILE_CACHE_FILE = join(DATA_OUTPUTS, "lmj_telegram_file_cache.json");
+const TELEGRAM_USAGE_STATS_FILE = join(DATA_OUTPUTS, "lmj_telegram_usage_stats.json");
 const PORT = Number(process.env.PORT || 8765);
-const HOST = process.env.HOST || "127.0.0.1";
+// Railway/konteynerda 0.0.0.0 ga bog'lanish shart (aks holda tashqaridan ochilmaydi).
+// Muhit aniqlansa avtomatik; lokalda 127.0.0.1 (xavfsiz) qoladi.
+const IS_CLOUD = Boolean(process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID || process.env.RENDER || process.env.FLY_APP_NAME);
+const HOST = process.env.HOST || (IS_CLOUD ? "0.0.0.0" : "127.0.0.1");
 const PUBLIC_HOST = HOST === "0.0.0.0" ? "127.0.0.1" : HOST;
 const REVIEW_URL = `http://${PUBLIC_HOST}:${PORT}/lmj_date_photo_review.html`;
 const DEFAULT_REASONS = [
@@ -102,7 +111,7 @@ const staticFileCache = new Map();
 const staticGzipCache = new Map();
 let marksWriteQueue = Promise.resolve();
 let reasonsWriteQueue = Promise.resolve();
-const PHOTO_DISK_CACHE_DIR = join(ROOT, "work", ".photo-cache");
+const PHOTO_DISK_CACHE_DIR = join(DATA_ROOT, "work", ".photo-cache");
 const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
 // Yig'ish rejimi: "http" (brauzersiz, tez, default) yoki "browser" (Playwright zaxira).
 // COLLECT_MODE=browser qilib eski Chrome yo'liga qaytish mumkin.
@@ -162,6 +171,10 @@ const MIME = {
 function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split("?")[0]);
   const rel = decoded.replace(/^\/+/, "");
+  // Avval o'zgaruvchan ma'lumot (Volume) da qidiramiz — yig'ilgan datasetlar,
+  // manifest shu yerda. Topilmasa image ichidagi statik kodga (review-ui) qaytamiz.
+  const dataAbs = normalize(join(DATA_OUTPUTS, rel));
+  if (dataAbs.startsWith(normalize(DATA_OUTPUTS)) && existsSync(dataAbs)) return dataAbs;
   const abs = normalize(join(OUTPUTS, rel));
   if (!abs.startsWith(normalize(OUTPUTS))) return null;
   return abs;
@@ -1111,7 +1124,7 @@ async function deleteDatasetByDate(date) {
     throw new Error("Sana qiymati noto'g'ri");
   }
 
-  const manifestPath = join(OUTPUTS, "lmj_review_datasets.json");
+  const manifestPath = join(DATA_OUTPUTS, "lmj_review_datasets.json");
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   const before = Array.isArray(manifest.datasets) ? manifest.datasets : [];
   const item = before.find((dataset) => dataset.date === date);
@@ -2907,6 +2920,26 @@ function openBrowser(url) {
 }
 
 await loadEnv();
+
+// Railway (DATA_DIR o'rnatilgan) uchun: Volume papkalarini yaratamiz va bo'sh
+// bo'lsa image ichidagi brend konfiguratsiyasini ko'chiramiz. Lokalda
+// (DATA_ROOT===ROOT) hech narsa o'zgarmaydi — fayllar joyida bo'ladi.
+async function seedDataDir() {
+  if (DATA_ROOT === ROOT) return;
+  try {
+    await mkdir(DATA_OUTPUTS, { recursive: true });
+    await mkdir(join(DATA_ROOT, "data", "attendance"), { recursive: true });
+    await mkdir(join(DATA_ROOT, "config"), { recursive: true });
+    if (!existsSync(BRANDS_FILE) && existsSync(BRANDS_SEED_FILE)) {
+      await copyFile(BRANDS_SEED_FILE, BRANDS_FILE);
+      console.log(`Seed: brendlar konfiguratsiyasi Volume'ga ko'chirildi (${BRANDS_FILE})`);
+    }
+    console.log(`Ma'lumotlar papkasi: ${DATA_ROOT}`);
+  } catch (error) {
+    console.warn("Seed xatosi:", String(error?.message || error));
+  }
+}
+await seedDataDir();
 
 await buildReviewCss();
 

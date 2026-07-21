@@ -5,8 +5,10 @@ import { fileURLToPath } from "node:url";
 import { findBrand, loadBrandsConfig, publicBrand } from "./brand-config.mjs";
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-export const OUTPUTS_DIR = join(ROOT, "outputs");
-export const ATT_DIR = join(ROOT, "data", "attendance");
+// Railway'da tabel ma'lumotlari Volume'da; lokalda ROOT bilan bir xil.
+const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
+export const OUTPUTS_DIR = join(DATA_ROOT, "outputs");
+export const ATT_DIR = join(DATA_ROOT, "data", "attendance");
 export const ATT_BACKUP_DIR = join(ATT_DIR, "backups");
 export const ATT_MONTHS_DIR = join(ATT_DIR, "months");
 export const ATT_OVERRIDES_DIR = join(ATT_DIR, "overrides");

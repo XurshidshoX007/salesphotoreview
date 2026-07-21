@@ -2,6 +2,7 @@
   "name": "lmj-photo-review-launcher",
   "private": true,
   "scripts": {
+    "start": "node work/run_review_server.mjs",
     "build:review-css": "node scripts/build-review-css.mjs",
     "review": "node work/run_review_server.mjs",
     "public:link": "node work/start_cloudflare_tunnel.mjs",
@@ -33,7 +34,12 @@
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },
   "dependencies": {
-    "playwright": "^1.60.0",
     "sharp": "^0.34.3"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.60.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

@@ -4,8 +4,12 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-export const BRANDS_FILE = join(ROOT, "config", "brands.json");
-export const BRAND_BACKUP_DIR = join(ROOT, "config", "backups");
+// Railway'da brendlar Volume'da saqlanadi; lokalda ROOT bilan bir xil.
+const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
+export const BRANDS_FILE = join(DATA_ROOT, "config", "brands.json");
+export const BRAND_BACKUP_DIR = join(DATA_ROOT, "config", "backups");
+// Image ichidagi asl (seed uchun) — Volume bo'sh bo'lsa shundan ko'chiriladi.
+export const BRANDS_SEED_FILE = join(ROOT, "config", "brands.json");
 
 export const DEFAULT_BRANDS_CONFIG = {
   brands: [

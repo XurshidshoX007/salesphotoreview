@@ -14,6 +14,8 @@ import { collectLmjForSalesDate, updateDatasetManifest } from "./lmj_sales_brows
 import { loadBrandsConfig, findBrand, publicBrand } from "../scripts/brand-config.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+// Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
+const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
 const BASE = (process.env.SALES_BASE_URL || "https://lalaku.lalakusales.com").replace(/\/$/, "");
 const LOGIN_PATH = process.env.SALES_LOGIN_PATH || "/api/v1.1/web/Tokens";
 
@@ -114,7 +116,7 @@ async function main() {
   const brandArg = process.argv.slice(process.argv[2] && /^\d{4}-\d{2}-\d{2}$/.test(process.argv[2]) ? 3 : 2).join(" ").trim();
   const brand = await resolveBrand(brandArg);
   const filePrefix = brand?.filePrefix || (String(process.env.BRAND_PREFIX || "LMJ").toUpperCase() === "JY" ? "jy" : "lmj");
-  const outPath = join(ROOT, "outputs", `${filePrefix}_browser_collect_${targetDate}_raw.json`);
+  const outPath = join(DATA_ROOT, "outputs", `${filePrefix}_browser_collect_${targetDate}_raw.json`);
 
   console.log(`\n=== HTTP yig'ish (brauzersiz) ===`);
   console.log(`Sana: ${targetDate} | Brend: ${brand?.name || process.env.BRAND_PREFIX || "avto"}`);
@@ -149,7 +151,8 @@ async function main() {
   console.log(`Fayl: ${outPath}`);
 
   try {
-    const manifestPath = join(ROOT, "outputs", "lmj_photo_review_manifest.json");
+    // Server aynan shu manifestni o'qiydi (lmj_review_datasets.json).
+    const manifestPath = join(DATA_ROOT, "outputs", "lmj_review_datasets.json");
     const manifestDate = brand && brand.id !== "lalaku_mama"
       ? `${targetDate} [${(brand.agentPrefixes?.[0] || "").toUpperCase()}]`
       : targetDate;
