@@ -1031,27 +1031,17 @@
       }
     },
     {
+      "date": "2026-07-20",
+      "file": "lalaku_mama_browser_collect_2026-07-20_raw.json",
+      "updatedAt": "2026-07-21T12:02:31.416Z",
+      "brand": "lalaku_mama"
+    },
+    {
       "date": "2026-07-20 [JY]",
       "file": "sof_browser_collect_2026-07-20_raw.json",
-      "updatedAt": "2026-07-21T04:10:03.020Z",
+      "updatedAt": "2026-07-21T12:03:03.667Z",
       "label": "2026-07-20 | SOF",
-      "brand": {
-        "id": "sof",
-        "name": "SOF",
-        "salesBrandNames": [
-          "SOF",
-          "Sof"
-        ],
-        "agentPrefixes": [
-          "JY"
-        ],
-        "telegramChatId": "",
-        "telegramChatName": "",
-        "enabled": true,
-        "notes": "SOF agentlari odatda JY bilan boshlanadi",
-        "code": "JY",
-        "filePrefix": "sof"
-      }
+      "brand": "sof"
     }
   ]
 }
