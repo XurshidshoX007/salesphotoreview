@@ -89,6 +89,7 @@ async function login() {
     body: JSON.stringify({ login, password, device_id }),
   });
   const text = await res.text();
+  console.log(res.status, text);
   let json = null;
   try { json = JSON.parse(text); } catch {}
   if (!res.ok || !json?.token) {
