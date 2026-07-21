@@ -6,7 +6,7 @@
 // Foydalanish:  node work/run_collect_http.mjs [YYYY-MM-DD] [brend]
 // Env:          SALES_USERNAME, SALES_PASSWORD (.env.local); ixtiyoriy BRAND_PREFIX
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
@@ -51,12 +51,32 @@ async function resolveBrand(arg) {
   return null; // collectLmjForSalesDate o'zi fallback brand yasaydi
 }
 
+// Barqaror device_id — har yig'ishda YANGI sessiya yaratmaslik uchun.
+// Sales foydalanuvchi bo'yicha faol sessiyalar sonini cheklaydi (HTTP 420,
+// ErrorCode 8036). Bir xil device_id qayta ishlatilsa, Sales o'sha slotni
+// almashtiradi, sessiyalar to'planib qolmaydi. Fayl DATA_ROOT/config da saqlanadi.
+async function stableDeviceId() {
+  if (process.env.SALES_DEVICE_ID) return process.env.SALES_DEVICE_ID;
+  const file = join(DATA_ROOT, "config", ".sales_device_id");
+  try {
+    const v = (await readFile(file, "utf8")).trim();
+    if (v) return v;
+  } catch {}
+  const id = randomUUID();
+  try {
+    await mkdir(dirname(file), { recursive: true });
+    await writeFile(file, id, "utf8");
+  } catch {}
+  return id;
+}
+
 async function login() {
   const login = process.env.SALES_USERNAME || process.env.SALES_LOGIN || "";
   const password = process.env.SALES_PASSWORD || process.env.SALES_PASS || "";
   if (!login || !password) {
     throw new Error(".env.local da SALES_USERNAME va SALES_PASSWORD bo'lishi shart");
   }
+  const device_id = await stableDeviceId();
   const res = await fetch(`${BASE}${LOGIN_PATH}`, {
     method: "POST",
     headers: {
@@ -66,13 +86,14 @@ async function login() {
       "User-Agent": process.env.SALES_USER_AGENT
         || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     },
-    body: JSON.stringify({ login, password, device_id: process.env.SALES_DEVICE_ID || randomUUID() }),
+    body: JSON.stringify({ login, password, device_id }),
   });
   const text = await res.text();
   let json = null;
   try { json = JSON.parse(text); } catch {}
   if (!res.ok || !json?.token) {
-    const reason = json?.errors ? JSON.stringify(json.errors) : (json?.title || `HTTP ${res.status}`);
+    const reason = json?.Messages?.join("; ")
+      || (json?.errors ? JSON.stringify(json.errors) : (json?.title || `HTTP ${res.status}`));
     throw new Error(`Login ishlamadi: ${reason}`);
   }
   return json.token;
