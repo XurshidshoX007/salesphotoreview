@@ -2769,6 +2769,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const s=state||{};
       const running=!!s.running;
       const status=s.status||'idle';
+      const configured=s.configured!==false;
       systemHealth.collect=running?'running':(['failed','error'].includes(status)?'error':(status==='done'?'done':'idle'));
       renderSystemStatus();
       const waiting=!!s.awaiting;
@@ -2779,8 +2780,13 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(status==='waiting_login'){
         collectText="Sales login ma'lumotlari to'g'ri emas yoki muddati o'tgan. .env.local dagi SALES_USERNAME/SALES_PASSWORD ni tekshirib qayta urinib ko'ring.";
       }
+      if(!configured&&!running){
+        collectText=".env.local da SALES_USERNAME va SALES_PASSWORD kiritilmagan.";
+      }else if(['failed','error'].includes(status)&&!running&&s.logs?.length){
+        collectText=s.logs[s.logs.length-1];
+      }
       $('collectStatusText').textContent=collectText;
-      $('collectStart').disabled=running;
+      $('collectStart').disabled=running||!configured;
       $('collectStop').disabled=!running;
       $('collectBadge').textContent=status;
       $('collectBadge').className=`collectBadge ${running?'busy':(status==='done'?'done':(['failed','error'].includes(status)?'badState':''))}`;
@@ -2875,10 +2881,20 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(!brand){notify('Brend tanlanmagan','bad');return}
       const brandText=$('collectBrand').selectedOptions[0]?.textContent||brandDisplayName(brandById(brand))||brand;
       if(!confirm(`${date} sanasi uchun ${brandText} ma'lumot yig'ilsinmi?\n\nBrauzersiz — to'g'ridan-to'g'ri Sales API orqali. Login/parol hech qayerga saqlanmaydi.`))return;
+      const startBtn=$('collectStart');
+      const oldText=startBtn.textContent;
+      startBtn.disabled=true;
+      startBtn.textContent='Boshlanmoqda...';
       try{
         await collectAction('/api/collect/start',{date,brand,browserHint:isPublicView()?'':(navigator.userAgent||'')});
         notify("Yig'ish boshlandi (brauzersiz).");
-      }catch(e){notify(e.message,'bad')}
+      }catch(e){
+        notify(e.message,'bad');
+        startBtn.disabled=false;
+        await refreshCollectStatus();
+      }finally{
+        startBtn.textContent=oldText;
+      }
     }
     async function stopCollect(){
       if(!confirm("Ma'lumot yig'ishni to'xtatamizmi? Saqlanmagan qism yo'qolishi mumkin."))return;

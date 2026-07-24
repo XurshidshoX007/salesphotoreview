@@ -91,17 +91,28 @@ async function login() {
     throw new Error(".env.local da SALES_USERNAME va SALES_PASSWORD bo'lishi shart");
   }
   const device_id = await stableDeviceId();
-  const res = await fetch(`${salesBaseUrl()}${salesLoginPath()}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "Accept-Language": "uz",
-      "User-Agent": process.env.SALES_USER_AGENT
-        || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
-    },
-    body: JSON.stringify({ login, password, device_id }),
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), Math.max(5000, Number(process.env.SALES_LOGIN_TIMEOUT_MS || 30000)));
+  let res;
+  try {
+    res = await fetch(`${salesBaseUrl()}${salesLoginPath()}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "uz",
+        "User-Agent": process.env.SALES_USER_AGENT
+          || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      },
+      body: JSON.stringify({ login, password, device_id }),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error?.name === "AbortError") throw new Error("Sales login javobi uchun vaqt tugadi");
+    throw new Error(`Sales serveriga ulanib bo'lmadi: ${error.message}`);
+  } finally {
+    clearTimeout(timer);
+  }
   const text = await res.text();
   let json = null;
   try { json = JSON.parse(text); } catch {}

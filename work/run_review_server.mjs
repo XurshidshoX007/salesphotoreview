@@ -558,7 +558,13 @@ async function resolveCollectBrand(value) {
 }
 
 function publicCollectState() {
+  const configured = COLLECT_MODE === "browser" || Boolean(
+    String(process.env.SALES_USERNAME || process.env.SALES_LOGIN || "").trim()
+    && String(process.env.SALES_PASSWORD || process.env.SALES_PASS || "").trim()
+  );
   return {
+    mode: COLLECT_MODE,
+    configured,
     running: collectState.running,
     startedAt: collectState.startedAt,
     finishedAt: collectState.finishedAt,
@@ -605,6 +611,9 @@ function addCollectLog(chunk) {
       collectState.status = "waiting_close";
       collectState.awaiting = "close";
       collectState.outputFile = clean.replace(/^TAYYOR:\s*/, "").trim();
+    }
+    if (clean.startsWith("Fayl:")) {
+      collectState.outputFile = clean.replace(/^Fayl:\s*/, "").trim();
     }
     if (clean.includes("Brauzerni yopish uchun ENTER")) {
       collectState.status = "waiting_close";
