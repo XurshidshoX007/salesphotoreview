@@ -16,8 +16,22 @@ import { loadBrandsConfig, findBrand, publicBrand } from "../scripts/brand-confi
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
 const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
-const BASE = (process.env.SALES_BASE_URL || "https://cactustizim.com").replace(/\/$/, "");
-const LOGIN_PATH = process.env.SALES_LOGIN_PATH || "/api/v1.1/web/Tokens";
+function salesBaseUrl() {
+  const value = String(process.env.SALES_BASE_URL || "https://lalaku.lalakusales.com").trim().replace(/\/+$/, "");
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error("SALES_BASE_URL noto'g'ri URL");
+  }
+  if (!["https:", "http:"].includes(parsed.protocol)) throw new Error("SALES_BASE_URL faqat HTTP yoki HTTPS bo'lishi kerak");
+  return value;
+}
+
+function salesLoginPath() {
+  const value = String(process.env.SALES_LOGIN_PATH || "/api/v1.1/web/Tokens").trim();
+  return value.startsWith("/") ? value : `/${value}`;
+}
 
 function yesterdayIso() {
   const d = new Date(Date.now() - 86400000);
@@ -77,7 +91,7 @@ async function login() {
     throw new Error(".env.local da SALES_USERNAME va SALES_PASSWORD bo'lishi shart");
   }
   const device_id = await stableDeviceId();
-  const res = await fetch(`${BASE}${LOGIN_PATH}`, {
+  const res = await fetch(`${salesBaseUrl()}${salesLoginPath()}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -89,26 +103,28 @@ async function login() {
     body: JSON.stringify({ login, password, device_id }),
   });
   const text = await res.text();
-  console.log(res.status, text);
   let json = null;
   try { json = JSON.parse(text); } catch {}
   if (!res.ok || !json?.token) {
+    console.log(`Login HTTP ${res.status}`);
     const reason = json?.Messages?.join("; ")
       || (json?.errors ? JSON.stringify(json.errors) : (json?.title || `HTTP ${res.status}`));
     throw new Error(`Login ishlamadi: ${reason}`);
   }
+  console.log(`Login HTTP ${res.status}`);
   return json.token;
 }
 
 // Mavjud kod kutgan "tab" interfeysi — faqat nodeHttp transport.
 function makeNodeTab(token) {
+  const base = salesBaseUrl();
   return {
     nodeHttp: async (path, payload, timeoutMs) => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       let res, text = "";
       try {
-        res = await fetch(`${BASE}${path}`, {
+        res = await fetch(`${base}${path}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -145,6 +161,10 @@ async function main() {
   console.log("Login qilinmoqda...");
   const token = await login();
   console.log("Login OK, token olindi. Yig'ish boshlandi...\n");
+  if (process.env.COLLECT_LOGIN_CHECK === "1") {
+    console.log("Sales login tekshiruvi muvaffaqiyatli.");
+    return;
+  }
 
   const tab = makeNodeTab(token);
   const t0 = Date.now();

@@ -217,7 +217,7 @@ Server sozlamalari:
 ```env
 PORT=8765
 DATA_DIR=./data
-SALES_BASE_URL=https://cactustizim.com
+SALES_BASE_URL=https://lalaku.lalakusales.com
 ```
 
 `DATA_DIR` bo'sh qoldirilsa loyiha ichidagi standart `data/` katalogi ishlatiladi.

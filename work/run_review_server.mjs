@@ -624,6 +624,14 @@ function collectBrowserChannelFromHint(browserHint) {
 async function startCollectJob({ date, brand, browserHint }) {
   if (collectState.running) throw apiError("Ma'lumot yig'ish allaqachon ishlayapti", 409);
   if (!isValidIsoDate(date)) throw apiError("Sana noto'g'ri. Format: YYYY-MM-DD", 400);
+  if (!existsSync(COLLECT_SCRIPT)) throw apiError(`Collect dasturi topilmadi: ${COLLECT_SCRIPT}`, 500);
+  if (COLLECT_MODE !== "browser") {
+    const username = String(process.env.SALES_USERNAME || process.env.SALES_LOGIN || "").trim();
+    const password = String(process.env.SALES_PASSWORD || process.env.SALES_PASS || "").trim();
+    if (!username || !password) {
+      throw apiError(".env.local da SALES_USERNAME va SALES_PASSWORD kiritilmagan", 400);
+    }
+  }
   const resolvedBrand = await resolveCollectBrand(brand);
   if (!resolvedBrand) throw apiError("Brend noto'g'ri. Brand Settings yoki config/brands.json ni tekshiring", 400);
   if (!resolvedBrand.agentPrefixes.length) throw apiError("Bu brend uchun agent prefix kiritilmagan. Agentlarni filterlash imkonsiz.", 400);
@@ -664,6 +672,21 @@ async function startCollectJob({ date, brand, browserHint }) {
 
   collectProcess.stdout.on("data", (data) => addCollectLog(data));
   collectProcess.stderr.on("data", (data) => addCollectLog(data));
+  try {
+    await new Promise((resolveSpawn, rejectSpawn) => {
+      collectProcess.once("spawn", resolveSpawn);
+      collectProcess.once("error", rejectSpawn);
+    });
+  } catch (error) {
+    collectState.running = false;
+    collectState.finishedAt = new Date().toISOString();
+    collectState.status = "error";
+    collectState.awaiting = null;
+    collectState.exitCode = -1;
+    collectProcess = null;
+    addCollectLog(`XATO: collect jarayoni ishga tushmadi: ${error.message}`);
+    throw apiError(`Collect jarayoni ishga tushmadi: ${error.message}`, 500);
+  }
   collectProcess.on("error", (error) => {
     collectState.status = "error";
     collectState.awaiting = null;
@@ -744,7 +767,17 @@ function stopCollectJob() {
   collectState.status = "stopping";
   collectState.awaiting = null;
   addCollectLog("Webdan to'xtatish so'rovi yuborildi.");
-  collectProcess.kill();
+  const pid = collectProcess.pid;
+  if (process.platform === "win32" && pid) {
+    const killer = spawn("taskkill", ["/PID", String(pid), "/T", "/F"], {
+      cwd: ROOT,
+      stdio: "ignore",
+      windowsHide: true,
+    });
+    killer.on("error", () => collectProcess?.kill());
+  } else {
+    collectProcess.kill();
+  }
 }
 
 async function readReviewMarks() {
