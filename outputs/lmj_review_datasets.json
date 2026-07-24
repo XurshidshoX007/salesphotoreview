@@ -1042,6 +1042,12 @@
       "updatedAt": "2026-07-24T06:10:45.828Z",
       "label": "2026-07-20 | SOF",
       "brand": "sof"
+    },
+    {
+      "date": "2026-07-21 [JY]",
+      "file": "sof_browser_collect_2026-07-21_raw.json",
+      "updatedAt": "2026-07-24T06:24:03.975Z",
+      "brand": "sof"
     }
   ]
 }

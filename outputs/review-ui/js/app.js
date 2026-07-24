@@ -129,6 +129,14 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function retryPhoto(target){return photoLoader.retry(target)}
     function imageError(img){return photoLoader.imageError(img)}
     function imageLoaded(img){return photoLoader.imageLoaded(img)}
+    document.addEventListener('load',event=>{
+      const img=event.target;
+      if(img instanceof HTMLImageElement&&img.matches('#modalImg,.photoFrame img'))imageLoaded(img);
+    },true);
+    document.addEventListener('error',event=>{
+      const img=event.target;
+      if(img instanceof HTMLImageElement&&img.matches('#modalImg,.photoFrame img'))imageError(img);
+    },true);
     function canonicalReason(reason){
       const text=String(reason||'').trim();
       return legacyReasons[text]||text;
@@ -1717,11 +1725,15 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const src=safeAttr(p.url);
         const order=orderInfo(p);
         return `<div class="card ${m?.verdict==='MINUS'?'marked':''} ${afterHours||sameMinute?'afterHours':''}" data-i="${photoIndex}">
-          <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" data-variant="thumb" loading="lazy" decoding="async" referrerpolicy="no-referrer" onload="imageLoaded(this)" onerror="imageError(this)"><button class="photoRetry" type="button" onclick="event.stopPropagation();retryPhoto(this)">Qayta yuklash</button></div>
+          <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" data-variant="thumb" loading="lazy" decoding="async" referrerpolicy="no-referrer"><button class="photoRetry" type="button">Qayta yuklash</button></div>
           <div class="cap"><b>${escapeHtml(a.code)} #${photoIndex+1}</b><br>${escapeHtml(p.client||'')}${order.text?`<br>${escapeHtml(order.text)}`:''}<br>Vaqt: ${escapeHtml(time)}${warns.length?`<div class="badgeRow">${badges}</div>`:''}${!warns.length&&badges?`<div class="badgeRow">${badges}</div>`:''}</div>
         </div>`;
       }).join('');
       document.querySelectorAll('.photoFrame img').forEach(img=>loadPhoto(img,img.dataset.direct,photoInitialMode('thumb'),'thumb'));
+      document.querySelectorAll('.photoRetry').forEach(button=>button.addEventListener('click',event=>{
+        event.stopPropagation();
+        retryPhoto(button);
+      }));
       document.querySelectorAll('.card').forEach(card=>card.onclick=()=>openModal(Number(card.dataset.i)));
       preload();
     }

@@ -2,38 +2,41 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { chromium } from "playwright";
+import { localEnv } from "./lib/review-test-auth.mjs";
 
 const root = process.cwd();
 const baseUrl = String(process.env.REVIEW_TEST_URL || "http://127.0.0.1:8876").replace(/\/$/, "");
-
-async function localEnv() {
-  const values = {};
-  for (const name of [".env.local", ".env"]) {
-    const file = join(root, name);
-    if (!existsSync(file)) continue;
-    const source = await readFile(file, "utf8");
-    for (const line of source.split(/\r?\n/)) {
-      const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-      if (!match || values[match[1]]) continue;
-      values[match[1]] = match[2].replace(/^["']|["']$/g, "");
-    }
-  }
-  return values;
-}
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
 const env = await localEnv();
-const access = env.REVIEW_ACCESS_TOKEN || env.APP_ACCESS_TOKEN || "";
-const pageUrl = `${baseUrl}/lmj_date_photo_review.html${access ? `?access=${encodeURIComponent(access)}` : ""}`;
+const pin = String(process.env.REVIEW_TEST_PIN || env.REVIEW_ACCESS_PIN || env.REVIEW_ACCESS_PASSWORD || "").trim();
+const pageUrl = `${baseUrl}/lmj_date_photo_review.html`;
 const artifacts = join(root, "work", "test-artifacts");
 await mkdir(artifacts, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
 try {
-  const page = await browser.newPage({ viewport: { width: 1600, height: 950 }, deviceScaleFactor: 1 });
+  const context = await browser.newContext({
+    viewport: { width: 1600, height: 950 },
+    deviceScaleFactor: 1,
+  });
+  const loginResponse = await context.request.post(`${baseUrl}/api/access/login`, { data: { pin } });
+  assert(loginResponse.ok(), `UI test login xato: HTTP ${loginResponse.status()}`);
+  const page = await context.newPage();
+  if (process.env.CI) {
+    await page.route(/\/api\/photo\?/, async (route) => {
+      const variant = new URL(route.request().url()).searchParams.get("view") || "full";
+      await route.fulfill({
+        status: 200,
+        contentType: "image/svg+xml",
+        headers: { "X-Photo-Variant": variant },
+        body: "<svg xmlns='http://www.w3.org/2000/svg' width='640' height='960'><rect width='640' height='960' fill='#d9efec'/></svg>",
+      });
+    });
+  }
   const consoleErrors = [];
   let expectedPhotoFailure = false;
   page.on("console", (message) => {

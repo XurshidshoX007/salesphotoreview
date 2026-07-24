@@ -29,9 +29,10 @@
     "attendance:list": "node scripts/attendance-list.js",
     "test:attendance": "node scripts/test-attendance.mjs",
     "test:review-api": "node scripts/test-review-api.mjs",
+    "test:review-security": "node scripts/test-review-security.mjs",
     "test:review-ui": "node scripts/test-review-ui.mjs",
     "test:review-workflows": "node scripts/test-review-workflows.mjs",
-    "test:review": "npm run build:review && npm run test:brands && npm run test:attendance && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
+    "test:review": "npm run build:review && npm run test:brands && npm run test:attendance && npm run test:review-security && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
     "maintenance:check": "node scripts/maintenance-cleanup.mjs",
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },

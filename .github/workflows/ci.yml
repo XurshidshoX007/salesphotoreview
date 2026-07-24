@@ -1,0 +1,48 @@
+name: Review CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: "1"
+      NO_OPEN: "1"
+      PORT: "8876"
+      HOST: "127.0.0.1"
+      REVIEW_TEST_URL: "http://127.0.0.1:8876"
+      REVIEW_ACCESS_PIN: "482951"
+      REVIEW_TEST_PIN: "482951"
+      REVIEW_ACCESS_SESSION_SECRET: "ci-only-session-secret-at-least-32-characters"
+      MAINTENANCE_AUTO_APPLY: "0"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Start review server
+        run: |
+          node backend/src/server.mjs > review-server.log 2>&1 &
+          echo $! > review-server.pid
+          node -e "const u='http://127.0.0.1:8876';let n=0;const t=setInterval(async()=>{try{const r=await fetch(u);if(r.status===401){clearInterval(t);process.exit(0)}}catch{}if(++n>100){clearInterval(t);process.exit(1)}},200)"
+
+      - run: npm run test:review
+
+      - name: Upload failure logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-ci-logs
+          path: |
+            review-server.log
+            work/test-artifacts/

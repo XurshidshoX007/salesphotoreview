@@ -1,7 +1,8 @@
-import { mkdir, readFile, rename, writeFile, copyFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // Railway'da brendlar Volume'da saqlanadi; lokalda ROOT bilan bir xil.
@@ -109,7 +110,9 @@ export async function ensureBrandsConfig() {
 
 export async function loadBrandsConfig({ includeDisabled = true } = {}) {
   await ensureBrandsConfig();
-  const config = JSON.parse(await readFile(BRANDS_FILE, "utf8"));
+  const config = await readJsonResilient(BRANDS_FILE, DEFAULT_BRANDS_CONFIG, {
+    validate: (value) => validateBrandsConfig(value).ok,
+  });
   const validation = validateBrandsConfig(config);
   if (!validation.ok) {
     throw new Error(`Brand config xato: ${validation.errors.join("; ")}`);
@@ -158,14 +161,8 @@ export async function saveBrandsConfig(nextConfig) {
     throw error;
   }
 
-  await mkdir(dirname(BRANDS_FILE), { recursive: true });
-  if (existsSync(BRANDS_FILE)) {
-    await mkdir(BRAND_BACKUP_DIR, { recursive: true });
-    const stamp = new Date().toISOString().replace(/[:T]/g, "-").slice(0, 19);
-    await copyFile(BRANDS_FILE, join(BRAND_BACKUP_DIR, `brands-${stamp}.json`));
-  }
-  const tempPath = `${BRANDS_FILE}.tmp`;
-  await writeFile(tempPath, `${JSON.stringify({ brands: validation.brands }, null, 2)}\n`, "utf8");
-  await rename(tempPath, BRANDS_FILE);
+  await queueJsonWrite(BRANDS_FILE, { brands: validation.brands }, {
+    validate: (value) => validateBrandsConfig(value).ok,
+  });
   return { brands: validation.brands, warnings: validation.warnings };
 }

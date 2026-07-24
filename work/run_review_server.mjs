@@ -6,16 +6,20 @@ import { isIP } from "node:net";
 import { join, extname, normalize, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
-import { createHash, createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import sharp from "sharp";
 import { createApiRouter } from "../backend/src/routes/index.mjs";
 import { createAuthMiddleware } from "../backend/src/middleware/auth.mjs";
 import { handleRequestError } from "../backend/src/middleware/errors.mjs";
+import { clientIp, createFailureRateLimiter } from "../backend/src/middleware/rate-limit.mjs";
+import { applySecurityHeaders, requestIsSecure } from "../backend/src/middleware/security.mjs";
 import { createAttendanceService } from "../backend/src/services/attendance.service.mjs";
 import { createSalesService } from "../backend/src/services/sales.service.mjs";
 import { createStorageService } from "../backend/src/services/storage.service.mjs";
 import { createTelegramService } from "../backend/src/services/telegram.service.mjs";
+import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
+import { readResponseBuffer } from "../backend/src/lib/http-body.mjs";
 import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
 import { buildReviewCss } from "../scripts/build-review-css.mjs";
 import {
@@ -83,34 +87,6 @@ const LEGACY_REASONS = {
   "Foto talabga javob bermaydi": "Foto talabga javob bermaydi",
 };
 const DEFAULT_PHOTO_CACHE_MAX = 1000;
-const rateMap = new Map();
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 60;
-
-function isRateLimited(ip) {
-  if (!ip) return false;
-  const now = Date.now();
-  const windowMs = 60000;
-  const max = 60;
-  const record = rateMap.get(ip);
-  if (!record) {
-    rateMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  if (now - record.start > windowMs) {
-    // reset window
-    rateMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  if (record.count >= max) {
-    return true;
-  }
-  // increment
-  record.count += 1;
-  rateMap.set(ip, record);
-  return false;
-}
-
 const photoCache = new Map();
 const photoInflight = new Map();
 const photoThumbnailInflight = new Map();
@@ -187,21 +163,23 @@ function safePath(urlPath) {
   return abs;
 }
 
-function reviewAccessToken() {
-  return String(process.env.REVIEW_ACCESS_TOKEN || process.env.APP_ACCESS_TOKEN || "").trim();
-}
-
 function reviewAccessPin() {
   return String(process.env.REVIEW_ACCESS_PIN || process.env.REVIEW_ACCESS_PASSWORD || "").trim();
 }
 
 function accessSessionMaxAgeMs() {
+  const seconds = Number(process.env.REVIEW_ACCESS_SESSION_MAX_AGE_SECONDS || 0);
+  if (seconds > 0) return Math.max(1, Math.min(7 * 24 * 60 * 60, seconds)) * 1000;
   const hours = Number(process.env.REVIEW_ACCESS_SESSION_HOURS || 24);
   return Math.max(1, Math.min(168, hours || 24)) * 60 * 60 * 1000;
 }
 
 function accessSessionSecret() {
-  return String(process.env.REVIEW_ACCESS_SESSION_SECRET || reviewAccessToken() || reviewAccessPin() || "review-access").trim();
+  const configured = String(process.env.REVIEW_ACCESS_SESSION_SECRET || "").trim();
+  if (configured) return configured;
+  const pin = reviewAccessPin();
+  if (!pin) throw new Error("REVIEW_ACCESS_PIN yoki REVIEW_ACCESS_SESSION_SECRET sozlanmagan");
+  return createHash("sha256").update(`sales-photo-review:${pin}`).digest("hex");
 }
 
 function telegramSessionSecret() {
@@ -224,38 +202,64 @@ function cookieValue(req, name) {
   return "";
 }
 
-function accessCookieHeader(token) {
-  return `review_access=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax`;
-}
-
 function pinSessionSignature(value) {
   return createHmac("sha256", accessSessionSecret()).update(value).digest("hex");
 }
 
-function pinSessionCookieHeader() {
-  const stamp = String(Date.now());
-  const value = `${stamp}.${pinSessionSignature(stamp)}`;
-  const maxAge = Math.floor(accessSessionMaxAgeMs() / 1000);
-  return `review_pin=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}`;
+const pinSessions = new Map();
+const pinSessionCleanup = setInterval(() => {
+  const now = Date.now();
+  for (const [id, expiresAt] of pinSessions) {
+    if (expiresAt <= now) pinSessions.delete(id);
+  }
+}, 60_000);
+pinSessionCleanup.unref?.();
+
+function sessionCookieSecurity(req) {
+  return requestIsSecure(req, {
+    trustCloudflare: process.env.TRUST_CLOUDFLARE_PROXY === "1",
+  }) ? "; Secure" : "";
 }
 
-function clearPinSessionCookieHeader() {
-  return "review_pin=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0";
+function pinSessionCookieHeader(req) {
+  const stamp = String(Date.now());
+  const sessionId = randomBytes(24).toString("hex");
+  const unsigned = `${stamp}.${sessionId}`;
+  const value = `${unsigned}.${pinSessionSignature(unsigned)}`;
+  const maxAge = Math.floor(accessSessionMaxAgeMs() / 1000);
+  pinSessions.set(sessionId, Number(stamp) + accessSessionMaxAgeMs());
+  return `review_pin=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${sessionCookieSecurity(req)}`;
+}
+
+function clearPinSessionCookieHeader(req) {
+  return `review_pin=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${sessionCookieSecurity(req)}`;
+}
+
+function parsedPinSession(req) {
+  const raw = cookieValue(req, "review_pin");
+  const match = String(raw || "").match(/^(\d{10,})\.([a-f0-9]{48})\.([a-f0-9]{64})$/i);
+  if (!match) return null;
+  const stamp = match[1];
+  const sessionId = match[2];
+  const age = Date.now() - Number(stamp);
+  if (!Number.isFinite(age) || age < 0 || age > accessSessionMaxAgeMs()) return null;
+  const expected = pinSessionSignature(`${stamp}.${sessionId}`);
+  try {
+    if (!timingSafeEqual(Buffer.from(expected), Buffer.from(match[3]))) return null;
+    if ((pinSessions.get(sessionId) || 0) <= Date.now()) return null;
+    return { stamp: Number(stamp), sessionId };
+  } catch {
+    return null;
+  }
 }
 
 function hasValidPinSession(req) {
-  const raw = cookieValue(req, "review_pin");
-  const match = String(raw || "").match(/^(\d{10,})\.([a-f0-9]{64})$/i);
-  if (!match) return false;
-  const stamp = match[1];
-  const age = Date.now() - Number(stamp);
-  if (!Number.isFinite(age) || age < 0 || age > accessSessionMaxAgeMs()) return false;
-  const expected = pinSessionSignature(stamp);
-  try {
-    return timingSafeEqual(Buffer.from(expected), Buffer.from(match[2]));
-  } catch {
-    return false;
-  }
+  return Boolean(parsedPinSession(req));
+}
+
+function invalidatePinSession(req) {
+  const session = parsedPinSession(req);
+  if (session) pinSessions.delete(session.sessionId);
 }
 
 function isLocalHostHeader(req) {
@@ -263,18 +267,10 @@ function isLocalHostHeader(req) {
   return host === "127.0.0.1" || host === "localhost" || host === "::1";
 }
 
-function accessHeaders(parsed, req) {
-  const token = reviewAccessToken();
+function accessHeaders(_parsed, req) {
   const pin = reviewAccessPin();
-  const queryToken = parsed.searchParams.get("access") || parsed.searchParams.get("token") || "";
-  const allowedByQuery = Boolean(token && queryToken === token);
-  const allowedByCookie = Boolean(token && cookieValue(req, "review_access") === token);
   const allowedByPin = Boolean(pin && hasValidPinSession(req));
-  if (!allowedByQuery && !allowedByCookie && !allowedByPin) return { allowed: false, headers: {} };
-  return {
-    allowed: true,
-    headers: allowedByQuery ? { "Set-Cookie": accessCookieHeader(token) } : {},
-  };
+  return { allowed: allowedByPin, headers: {} };
 }
 
 function sendAccessDenied(req, res) {
@@ -305,6 +301,10 @@ function photoCacheMax() {
 
 function photoFetchTimeoutMs() {
   return Math.max(1000, Number(process.env.PHOTO_FETCH_TIMEOUT_MS || 10000) || 10000);
+}
+
+function photoFetchMaxBytes() {
+  return Math.max(256 * 1024, Number(process.env.PHOTO_FETCH_MAX_BYTES || 15 * 1024 * 1024) || 15 * 1024 * 1024);
 }
 
 function allowedPhotoHosts() {
@@ -790,27 +790,18 @@ function stopCollectJob() {
 }
 
 async function readReviewMarks() {
-  try {
-    const data = JSON.parse(await readFile(MARKS_FILE, "utf8"));
-    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
-  } catch (error) {
-    if (error?.code === "ENOENT") return {};
-    throw error;
-  }
+  return readJsonResilient(MARKS_FILE, {}, {
+    validate: (data) => Boolean(data && typeof data === "object" && !Array.isArray(data)),
+  });
 }
 
 async function readSuspiciousPhotos() {
-  try {
-    const data = JSON.parse(await readFile(SUSPICIOUS_PHOTOS_FILE, "utf8"));
-    const items = Array.isArray(data?.items) ? data.items : [];
-    return {
-      items: items.filter((item) => item && typeof item === "object" && item.url),
-      updatedAt: data?.updatedAt || "",
-    };
-  } catch (error) {
-    if (error?.code === "ENOENT") return { items: [], updatedAt: "" };
-    throw error;
-  }
+  const data = await readJsonResilient(SUSPICIOUS_PHOTOS_FILE, { items: [], updatedAt: "" });
+  const items = Array.isArray(data?.items) ? data.items : [];
+  return {
+    items: items.filter((item) => item && typeof item === "object" && item.url),
+    updatedAt: data?.updatedAt || "",
+  };
 }
 
 function suspiciousPhotoFromMark(key, mark) {
@@ -867,19 +858,14 @@ function normalizeMetricEntry(entry) {
 }
 
 async function readPhotoMetricsCache() {
-  try {
-    const data = JSON.parse(await readFile(PHOTO_METRICS_FILE, "utf8"));
-    const rawItems = data?.items && typeof data.items === "object" && !Array.isArray(data.items) ? data.items : {};
-    const items = {};
-    for (const [url, entry] of Object.entries(rawItems)) {
-      const normalized = normalizeMetricEntry(entry);
-      if (url && normalized) items[url] = normalized;
-    }
-    return { items, updatedAt: data?.updatedAt || "", total: Object.keys(items).length };
-  } catch (error) {
-    if (error?.code === "ENOENT") return { items: {}, updatedAt: "", total: 0 };
-    throw error;
+  const data = await readJsonResilient(PHOTO_METRICS_FILE, { items: {}, updatedAt: "" });
+  const rawItems = data?.items && typeof data.items === "object" && !Array.isArray(data.items) ? data.items : {};
+  const items = {};
+  for (const [url, entry] of Object.entries(rawItems)) {
+    const normalized = normalizeMetricEntry(entry);
+    if (url && normalized) items[url] = normalized;
   }
+  return { items, updatedAt: data?.updatedAt || "", total: Object.keys(items).length };
 }
 
 async function writePhotoMetricsCache(incoming) {
@@ -1001,18 +987,18 @@ async function deleteReviewMarks({ date = "" } = {}) {
 }
 
 async function readReviewReasons() {
-  try {
-    const data = JSON.parse(await readFile(REASONS_FILE, "utf8"));
-    return {
-      customReasons: Array.isArray(data.customReasons) ? data.customReasons.filter(Boolean) : [],
-      reasonOverrides: data.reasonOverrides && typeof data.reasonOverrides === "object" && !Array.isArray(data.reasonOverrides) ? data.reasonOverrides : {},
-      deletedReasons: Array.isArray(data.deletedReasons) ? data.deletedReasons.filter(Boolean) : [],
-      updatedAt: data.updatedAt || "",
-    };
-  } catch (error) {
-    if (error?.code === "ENOENT") return { customReasons: [], reasonOverrides: {}, deletedReasons: [], updatedAt: "" };
-    throw error;
-  }
+  const data = await readJsonResilient(REASONS_FILE, {
+    customReasons: [],
+    reasonOverrides: {},
+    deletedReasons: [],
+    updatedAt: "",
+  });
+  return {
+    customReasons: Array.isArray(data.customReasons) ? data.customReasons.filter(Boolean) : [],
+    reasonOverrides: data.reasonOverrides && typeof data.reasonOverrides === "object" && !Array.isArray(data.reasonOverrides) ? data.reasonOverrides : {},
+    deletedReasons: Array.isArray(data.deletedReasons) ? data.deletedReasons.filter(Boolean) : [],
+    updatedAt: data.updatedAt || "",
+  };
 }
 
 function reasonKey(reason) {
@@ -1090,7 +1076,7 @@ async function proxyPhoto(url) {
       if (!/^image\//i.test(contentType)) throw apiError("URL rasm qaytarmadi", 415);
       const photo = {
         contentType,
-        data: Buffer.from(await response.arrayBuffer()),
+        data: await readResponseBuffer(response, { maxBytes: photoFetchMaxBytes() }),
       };
       photoCache.set(text, photo);
       while (photoCache.size > photoCacheMax()) photoCache.delete(photoCache.keys().next().value);
@@ -1098,6 +1084,7 @@ async function proxyPhoto(url) {
       return photo;
     } catch (error) {
       if (error?.name === "AbortError") throw apiError("Foto yuklash vaqti tugadi", 504);
+      if (Number(error?.status) === 413) throw apiError("Foto hajmi ruxsat etilgan limitdan katta", 413);
       throw error;
     } finally {
       clearTimeout(timeout);
@@ -1556,20 +1543,16 @@ function bestTelegramPhotoFileId(message) {
 
 async function readTelegramFileCache() {
   if (telegramFileCache) return telegramFileCache;
-  try {
-    const data = JSON.parse(await readFile(TELEGRAM_FILE_CACHE_FILE, "utf8"));
-    telegramFileCache = data && typeof data === "object" && !Array.isArray(data) ? data : {};
-  } catch (error) {
-    if (error?.code !== "ENOENT") console.warn("Telegram file cache o'qish xatosi:", error?.message || error);
-    telegramFileCache = {};
-  }
+  telegramFileCache = await readJsonResilient(TELEGRAM_FILE_CACHE_FILE, {}, {
+    validate: (data) => Boolean(data && typeof data === "object" && !Array.isArray(data)),
+  });
   return telegramFileCache;
 }
 
 async function writeTelegramFileCache() {
-  const snapshot = telegramFileCache || {};
+  const snapshot = structuredClone(telegramFileCache || {});
   telegramFileCacheWriteChain = telegramFileCacheWriteChain.then(async () => {
-    await writeFile(TELEGRAM_FILE_CACHE_FILE, JSON.stringify(snapshot, null, 2), "utf8");
+    await queueJsonWrite(TELEGRAM_FILE_CACHE_FILE, snapshot);
   }).catch((error) => {
     console.warn("Telegram file cache yozish xatosi:", error?.message || error);
   });
@@ -1670,13 +1653,9 @@ async function enqueueTelegramWarmCache(items, avoidChatId = "") {
 }
 
 async function readTelegramSessions() {
-  try {
-    const data = JSON.parse(await readFile(TELEGRAM_SESSIONS_FILE, "utf8"));
-    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
-  } catch (error) {
-    if (error?.code === "ENOENT") return {};
-    throw error;
-  }
+  return readJsonResilient(TELEGRAM_SESSIONS_FILE, {}, {
+    validate: (data) => Boolean(data && typeof data === "object" && !Array.isArray(data)),
+  });
 }
 
 async function writeTelegramSessions(sessions) {
@@ -1687,7 +1666,7 @@ async function writeTelegramSessions(sessions) {
     const created = Date.parse(session?.createdAt || "") || now;
     if (now - created <= ttlMs) clean[token] = session;
   }
-  await writeFile(TELEGRAM_SESSIONS_FILE, JSON.stringify(clean, null, 2), "utf8");
+  await queueJsonWrite(TELEGRAM_SESSIONS_FILE, clean);
   return clean;
 }
 
@@ -1714,13 +1693,9 @@ function isTelegramAdminUser(user) {
 let telegramUsageStatsWriteChain = Promise.resolve();
 
 async function readTelegramUsageStats() {
-  try {
-    const data = JSON.parse(await readFile(TELEGRAM_USAGE_STATS_FILE, "utf8"));
-    return data && typeof data === "object" && !Array.isArray(data) ? data : { events: [] };
-  } catch (error) {
-    if (error?.code !== "ENOENT") console.warn("Telegram statistika o'qish xatosi:", error?.message || error);
-    return { events: [] };
-  }
+  return readJsonResilient(TELEGRAM_USAGE_STATS_FILE, { events: [] }, {
+    validate: (data) => Boolean(data && typeof data === "object" && !Array.isArray(data)),
+  });
 }
 
 async function appendTelegramUsageEvent(event) {
@@ -1733,7 +1708,7 @@ async function appendTelegramUsageEvent(event) {
       ...event,
     });
     const kept = events.slice(-50000);
-    await writeFile(TELEGRAM_USAGE_STATS_FILE, JSON.stringify({ events: kept }, null, 2), "utf8");
+    await queueJsonWrite(TELEGRAM_USAGE_STATS_FILE, { events: kept });
   }).catch((error) => {
     console.warn("Telegram statistika yozish xatosi:", error?.message || error);
   });
@@ -2993,8 +2968,17 @@ await seedDataDir();
 await buildReviewCss();
 
 const httpApi = Object.freeze({ apiError, readJsonBody, sendJson });
+const loginRateLimiter = createFailureRateLimiter({
+  windowMs: 10 * 60_000,
+  maxFailures: 5,
+});
 const authService = Object.freeze({
   clearPinSessionCookieHeader,
+  clientIp: (req) => clientIp(req, {
+    trustCloudflare: process.env.TRUST_CLOUDFLARE_PROXY === "1",
+  }),
+  invalidatePinSession,
+  loginRateLimiter,
   pinSessionCookieHeader,
   readPinFromRequest,
   reviewAccessPin,
@@ -3072,43 +3056,9 @@ const apiRouter = createApiRouter({
 
 const server = createServer(async (req, res) => {
   try {
+    applySecurityHeaders(req, res);
     const parsed = new URL(req.url, `http://${req.headers.host || "127.0.0.1"}`);
     if (await apiRouter.handlePublic({ req, res, parsed })) return;
-    if (parsed.pathname === "/api/access/login") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const pin = reviewAccessPin();
-      const given = await readPinFromRequest(req);
-      if (!pin || !safeCompareSecret(given, pin)) {
-        if (/application\/json/i.test(String(req.headers["content-type"] || ""))) {
-          sendJson(res, 401, { ok: false, error: "PIN/parol noto'g'ri" });
-          return;
-        }
-        res.writeHead(303, { Location: "/" });
-        res.end();
-        return;
-      }
-      if (/application\/json/i.test(String(req.headers["content-type"] || ""))) {
-        sendJson(res, 200, { ok: true }, { "Set-Cookie": pinSessionCookieHeader() });
-        return;
-      }
-      res.writeHead(303, {
-        Location: "/lmj_date_photo_review.html",
-        "Set-Cookie": pinSessionCookieHeader(),
-      });
-      res.end();
-      return;
-    }
-    if (parsed.pathname === "/api/access/logout") {
-      res.writeHead(303, {
-        Location: "/",
-        "Set-Cookie": clearPinSessionCookieHeader(),
-      });
-      res.end();
-      return;
-    }
     const access = authMiddleware.authorize(req, res, parsed);
     if (!access) return;
     if (await apiRouter.handleProtected({ req, res, parsed, access })) return;

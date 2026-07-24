@@ -1,10 +1,14 @@
 # Dependencies
 node_modules/
+.claude/settings.local.json
 
 # Secrets — hech qachon git'ga qo'shilmasin
 .env
 .env.local
 .env.*.local
+*.pem
+*.key
+*.p12
 
 # Brauzer profili (Sales sessiya cookie'lari!)
 work/.sales-chrome-profile/
@@ -17,10 +21,19 @@ work/*.log
 outputs/*_raw.json
 outputs/lmj_photo_metrics_cache.json
 outputs/lmj_telegram_file_cache.json
+outputs/lmj_telegram_review_sessions.json
+outputs/lmj_telegram_usage_stats.json
 outputs/photo-cache/
+outputs/*.json.bak
+outputs/*.json.tmp
 
 work/.photo-cache/
 data/attendance/backups/
+data/attendance/archive/
+config/backups/
+config/.sales_device_id
+**/*.json.bak
+**/*.tmp
 
 # Test artefaktlari va vaqtinchalik fayllar
 work/test-artifacts/

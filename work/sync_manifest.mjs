@@ -1,8 +1,9 @@
 import { updateDatasetManifest, projectRoot } from "./lmj_sales_browser_collect.mjs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 
 const root = projectRoot();
-const manifestPath = join(root, "outputs", "lmj_review_datasets.json");
+const dataRoot = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : root;
+const manifestPath = join(dataRoot, "outputs", "lmj_review_datasets.json");
 
 const datasets = [
   { date: "2026-05-30", file: "lmj_30may_all_agents_photos_raw.json" },
@@ -10,7 +11,7 @@ const datasets = [
 ];
 
 for (const { date, file } of datasets) {
-  await updateDatasetManifest(manifestPath, join(root, "outputs", file), date);
+  await updateDatasetManifest(manifestPath, join(dataRoot, "outputs", file), date);
   console.log(`Manifest: ${date} -> ${file}`);
 }
 

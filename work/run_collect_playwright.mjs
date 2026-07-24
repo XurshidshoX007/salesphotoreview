@@ -6,7 +6,7 @@ import { chromium } from "playwright";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { platform } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { existsSync } from "node:fs";
 import { mkdir, readFile } from "node:fs/promises";
 import {
@@ -308,8 +308,9 @@ async function main() {
   }
 
   const root = projectRoot();
-  const outPath = join(root, "outputs", `${brandFilePrefix}_browser_collect_${targetDate}_raw.json`);
-  const manifestPath = join(root, "outputs", "lmj_review_datasets.json");
+  const dataRoot = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : root;
+  const outPath = join(dataRoot, "outputs", `${brandFilePrefix}_browser_collect_${targetDate}_raw.json`);
+  const manifestPath = join(dataRoot, "outputs", "lmj_review_datasets.json");
   const manifestDate = publicSelectedBrand.id === "lalaku_mama" ? targetDate : `${targetDate} [${brandPrefix}]`;
 
   console.log(`\n=== ${brandPrefix} foto yig'ish (${brandName}) ===\n`);

@@ -1,8 +1,9 @@
 import { existsSync } from "node:fs";
-import { copyFile, mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { findBrand, loadBrandsConfig, publicBrand } from "./brand-config.mjs";
+import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // Railway'da tabel ma'lumotlari Volume'da; lokalda ROOT bilan bir xil.
@@ -49,11 +50,7 @@ function stamp() {
 }
 
 async function readJson(path, fallback) {
-  try {
-    return JSON.parse(await readFile(path, "utf8"));
-  } catch {
-    return structuredClone(fallback);
-  }
+  return readJsonResilient(path, fallback);
 }
 
 export async function ensureAttendanceFiles() {
@@ -69,15 +66,8 @@ export async function ensureAttendanceFiles() {
 }
 
 export async function safeWriteJson(path, data, label = "") {
-  await mkdir(dirname(path), { recursive: true });
-  await mkdir(ATT_BACKUP_DIR, { recursive: true });
-  if (existsSync(path)) {
-    const name = label || path.split(/[\\/]/).pop().replace(/\.json$/i, "");
-    await copyFile(path, join(ATT_BACKUP_DIR, `${name}-${stamp()}.json`));
-  }
-  const tempPath = `${path}.tmp`;
-  await writeFile(tempPath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
-  await rename(tempPath, path);
+  void label;
+  return queueJsonWrite(path, data);
 }
 
 export async function loadAttendanceStore() {

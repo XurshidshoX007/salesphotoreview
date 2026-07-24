@@ -1,40 +1,24 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { localEnv, reviewAuth } from "./lib/review-test-auth.mjs";
 
 const root = process.cwd();
 const baseUrl = String(process.env.REVIEW_TEST_URL || "http://127.0.0.1:8876").replace(/\/$/, "");
-
-async function localEnv() {
-  const values = {};
-  for (const name of [".env.local", ".env"]) {
-    const file = join(root, name);
-    if (!existsSync(file)) continue;
-    const source = await readFile(file, "utf8");
-    for (const line of source.split(/\r?\n/)) {
-      const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-      if (!match || values[match[1]]) continue;
-      values[match[1]] = match[2].replace(/^["']|["']$/g, "");
-    }
-  }
-  return values;
-}
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
 const env = await localEnv();
-const access = env.REVIEW_ACCESS_TOKEN || env.APP_ACCESS_TOKEN || "";
+const auth = await reviewAuth(baseUrl, env);
 
 function apiUrl(path) {
-  const url = new URL(path, `${baseUrl}/`);
-  if (access) url.searchParams.set("access", access);
-  return url;
+  return new URL(path, `${baseUrl}/`);
 }
 
 async function get(path) {
-  const response = await fetch(apiUrl(path));
+  const response = await fetch(apiUrl(path), { headers: auth.headers });
   const data = await response.json().catch(() => ({}));
   assert(response.ok && data.ok !== false, `${path} xato: HTTP ${response.status} ${data.error || ""}`);
   return data;
@@ -43,7 +27,7 @@ async function get(path) {
 async function post(path, body) {
   const response = await fetch(apiUrl(path), {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...auth.headers },
     body: JSON.stringify(body),
   });
   const data = await response.json().catch(() => ({}));

@@ -1,6 +1,6 @@
 import { createServer } from "node:net";
 import { spawn } from "node:child_process";
-import { createHash, randomBytes } from "node:crypto";
+import { createHash } from "node:crypto";
 import { appendFile, mkdir, open, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
@@ -43,17 +43,6 @@ function maskSecret(value) {
   return `${text.slice(0, 6)}...${createHash("sha256").update(text).digest("hex").slice(0, 8)}`;
 }
 
-async function ensureAccessToken() {
-  const existing = String(process.env.REVIEW_ACCESS_TOKEN || process.env.APP_ACCESS_TOKEN || "").trim();
-  if (existing) return existing;
-  const token = randomBytes(18).toString("hex");
-  const prefix = existsSync(ENV_LOCAL) ? "\n" : "";
-  await appendFile(ENV_LOCAL, `${prefix}REVIEW_ACCESS_TOKEN=${token}\n`, "utf8");
-  process.env.REVIEW_ACCESS_TOKEN = token;
-  console.log(".env.local ichiga REVIEW_ACCESS_TOKEN yaratildi.");
-  return token;
-}
-
 async function ensureAccessPin() {
   const existing = String(process.env.REVIEW_ACCESS_PIN || process.env.REVIEW_ACCESS_PASSWORD || "").trim();
   if (existing) return existing;
@@ -65,12 +54,12 @@ async function ensureAccessPin() {
   return pin;
 }
 
-async function canReachReviewServer(token) {
+async function canReachReviewServer() {
   try {
-    const res = await fetch(`${LOCAL_BASE_URL}/api/admin/telegram-stats?access=${encodeURIComponent(token)}`, {
+    const res = await fetch(`${LOCAL_BASE_URL}${REVIEW_PATH}`, {
       signal: AbortSignal.timeout(1200),
     });
-    return res.ok;
+    return res.ok || res.status === 401;
   } catch {
     return false;
   }
@@ -89,10 +78,10 @@ async function canReachPinLogin() {
   }
 }
 
-async function waitForReviewServer(token) {
+async function waitForReviewServer() {
   const deadline = Date.now() + 20000;
   while (Date.now() < deadline) {
-    if (await canReachReviewServer(token)) return true;
+    if (await canReachReviewServer()) return true;
     await new Promise((resolve) => setTimeout(resolve, 700));
   }
   return false;
@@ -121,8 +110,8 @@ async function stopExistingReviewServer() {
   await new Promise((resolve) => setTimeout(resolve, 1200));
 }
 
-async function startReviewServer(token) {
-  if ((await canReachReviewServer(token)) && (await canReachPinLogin())) {
+async function startReviewServer() {
+  if ((await canReachReviewServer()) && (await canReachPinLogin())) {
     console.log(`Review server tayyor: ${LOCAL_BASE_URL}`);
     return;
   }
@@ -145,23 +134,19 @@ async function startReviewServer(token) {
       HOST,
       PORT: String(PORT),
       NO_OPEN: "1",
-      REVIEW_ACCESS_TOKEN: token,
       REVIEW_ACCESS_PIN: process.env.REVIEW_ACCESS_PIN || process.env.REVIEW_ACCESS_PASSWORD || "",
     },
   });
   child.unref();
   console.log(`Review server ishga tushdi: PID ${child.pid}`);
-  if (!(await waitForReviewServer(token))) {
+  if (!(await waitForReviewServer())) {
     throw new Error("Review server 20 sekund ichida tayyor bo'lmadi. work/public_review_server.err.log ni tekshiring.");
   }
 }
 
-function reviewUrl(publicBaseUrl, token) {
+function reviewUrl(publicBaseUrl) {
   const base = String(publicBaseUrl || "").replace(/\/+$/, "");
-  if (String(process.env.REVIEW_ACCESS_PIN || process.env.REVIEW_ACCESS_PASSWORD || "").trim()) {
-    return `${base}${REVIEW_PATH}`;
-  }
-  return `${base}${REVIEW_PATH}?access=${encodeURIComponent(token)}`;
+  return `${base}${REVIEW_PATH}`;
 }
 
 function cloudflaredArgs() {
@@ -176,7 +161,7 @@ function cloudflaredArgs() {
   };
 }
 
-async function startTunnel(token) {
+async function startTunnel() {
   await mkdir(WORK, { recursive: true });
   await writeFile(LOG_FILE, `Cloudflare tunnel start: ${new Date().toISOString()}\n`, "utf8");
 
@@ -193,7 +178,7 @@ async function startTunnel(token) {
   if (publicUrlFromEnv) {
     console.log("");
     console.log("Doimiy link:");
-    console.log(reviewUrl(publicUrlFromEnv, token));
+    console.log(reviewUrl(publicUrlFromEnv));
     console.log("");
   } else if (mode !== "quick") {
     console.log("");
@@ -213,7 +198,7 @@ async function startTunnel(token) {
         printedQuickUrl = true;
         console.log("");
         console.log("Vaqtinchalik Cloudflare link:");
-        console.log(reviewUrl(match[0], token));
+        console.log(reviewUrl(match[0]));
         console.log("");
         console.log("Doimiy link uchun .env.local ga CLOUDFLARE_TUNNEL_TOKEN va CLOUDFLARE_PUBLIC_URL qo'ying.");
         console.log("");
@@ -229,9 +214,8 @@ async function startTunnel(token) {
 }
 
 await loadEnv();
-const token = await ensureAccessToken();
 const pin = await ensureAccessPin();
-await startReviewServer(token);
+await startReviewServer();
 console.log(`Umumiy PIN/parol: ${pin}`);
-console.log(`Lokal review: ${reviewUrl(LOCAL_BASE_URL, token)}`);
-await startTunnel(token);
+console.log(`Lokal review: ${reviewUrl(LOCAL_BASE_URL)}`);
+await startTunnel();
