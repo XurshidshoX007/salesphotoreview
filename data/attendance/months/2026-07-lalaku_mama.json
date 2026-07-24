@@ -19,9 +19,9 @@
     "code": "LMJ",
     "filePrefix": "lalaku_mama"
   },
-  "generatedAt": "2026-07-24T10:43:58.843Z",
-  "sourceDatasetUpdatedAt": "2026-07-21T12:02:31.417Z",
-  "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z",
+  "generatedAt": "2026-07-24T11:13:25.562Z",
+  "sourceDatasetUpdatedAt": "2026-07-24T10:49:39.792Z",
+  "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z|lalaku_mama_browser_collect_2026-07-22_raw.json:4284810:2026-07-24T10:49:39.792Z",
   "plannedWorkDays": null,
   "rules": {
     "minPhotoForWorkDay": 20,
@@ -269,11 +269,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 518000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -368,7 +368,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -603,11 +603,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -702,7 +702,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -940,11 +940,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 232000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -1039,7 +1039,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -1274,11 +1274,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -1373,7 +1373,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -1611,11 +1611,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1465000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -1710,7 +1710,7 @@
         }
       ],
       "summary": {
-        "workDays": 6,
+        "workDays": 7,
         "lowPhotoDays": 4,
         "specialDays": 1,
         "penaltyCount": 1
@@ -1945,11 +1945,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -2044,7 +2044,7 @@
         }
       ],
       "summary": {
-        "workDays": 7,
+        "workDays": 8,
         "lowPhotoDays": 3,
         "specialDays": 0,
         "penaltyCount": 1
@@ -2279,11 +2279,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 19,
+          "finalValue": 19,
+          "photoCount": 19,
+          "salesAmount": 103600,
+          "state": "low",
           "source": "auto"
         },
         {
@@ -2379,7 +2379,7 @@
       ],
       "summary": {
         "workDays": 7,
-        "lowPhotoDays": 3,
+        "lowPhotoDays": 4,
         "specialDays": 0,
         "penaltyCount": 1
       }
@@ -2613,11 +2613,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 150000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -2712,7 +2712,7 @@
         }
       ],
       "summary": {
-        "workDays": 6,
+        "workDays": 7,
         "lowPhotoDays": 4,
         "specialDays": 0,
         "penaltyCount": 1
@@ -2947,11 +2947,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 28,
+          "finalValue": 28,
+          "photoCount": 28,
+          "salesAmount": 1419500,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -3046,7 +3046,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -3281,11 +3281,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 28,
+          "finalValue": 28,
+          "photoCount": 28,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -3380,7 +3380,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -3615,11 +3615,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 310800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -3714,7 +3714,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -3949,11 +3949,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 1036000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -4048,7 +4048,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -4283,11 +4283,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -4382,7 +4382,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -4617,11 +4617,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -4716,7 +4716,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -4951,11 +4951,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "low",
           "source": "auto"
         },
         {
@@ -5051,7 +5051,7 @@
       ],
       "summary": {
         "workDays": 0,
-        "lowPhotoDays": 10,
+        "lowPhotoDays": 11,
         "specialDays": 0,
         "penaltyCount": 3
       }
@@ -5285,11 +5285,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 33,
+          "finalValue": 33,
+          "photoCount": 33,
+          "salesAmount": 1772300,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -5384,7 +5384,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -5619,11 +5619,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 4097400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -5718,7 +5718,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -5953,11 +5953,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1243200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -6052,7 +6052,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -6287,11 +6287,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -6386,7 +6386,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -6621,11 +6621,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 1464600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -6720,7 +6720,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -6955,11 +6955,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 518000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -7054,7 +7054,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -7289,11 +7289,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 28,
+          "finalValue": 28,
+          "photoCount": 28,
+          "salesAmount": 1033800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -7388,7 +7388,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -7623,11 +7623,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 7990000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -7722,7 +7722,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -7957,11 +7957,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 452400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -8056,7 +8056,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -8291,11 +8291,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 1,
+          "finalValue": 1,
+          "photoCount": 1,
+          "salesAmount": 3150000,
+          "state": "low",
           "source": "auto"
         },
         {
@@ -8391,7 +8391,7 @@
       ],
       "summary": {
         "workDays": 9,
-        "lowPhotoDays": 1,
+        "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
       }
@@ -8625,11 +8625,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 32,
+          "finalValue": 32,
+          "photoCount": 32,
+          "salesAmount": 621000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -8724,7 +8724,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -8959,11 +8959,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 577200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -9058,7 +9058,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -9293,11 +9293,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 28,
+          "finalValue": 28,
+          "photoCount": 28,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -9392,7 +9392,7 @@
         }
       ],
       "summary": {
-        "workDays": 7,
+        "workDays": 8,
         "lowPhotoDays": 3,
         "specialDays": 0,
         "penaltyCount": 1
@@ -9627,11 +9627,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 1396400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -9726,7 +9726,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -9961,11 +9961,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 675800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -10060,7 +10060,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -10295,10 +10295,10 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 422800,
           "state": "vacant",
           "source": "auto"
         },
@@ -10629,11 +10629,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 1949400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -10728,7 +10728,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -10963,11 +10963,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 38,
+          "finalValue": 38,
+          "photoCount": 38,
+          "salesAmount": 814000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -11062,7 +11062,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -11297,11 +11297,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 32,
+          "finalValue": 32,
+          "photoCount": 32,
+          "salesAmount": 5124800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -11396,7 +11396,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -11631,11 +11631,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 29,
+          "finalValue": 29,
+          "photoCount": 29,
+          "salesAmount": 1036000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -11730,7 +11730,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -11965,11 +11965,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 30,
+          "finalValue": 30,
+          "photoCount": 30,
+          "salesAmount": 875200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -12064,7 +12064,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -12299,11 +12299,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 5130500,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -12398,7 +12398,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 1,
         "penaltyCount": 0
@@ -12633,11 +12633,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 49,
+          "finalValue": 49,
+          "photoCount": 49,
+          "salesAmount": 4590800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -12732,7 +12732,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -12967,11 +12967,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 462000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -13066,7 +13066,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -13301,11 +13301,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 26,
+          "finalValue": 26,
+          "photoCount": 26,
+          "salesAmount": 1201600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -13400,7 +13400,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -13635,11 +13635,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 687400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -13734,7 +13734,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -13969,11 +13969,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 1894800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -14068,7 +14068,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -14303,11 +14303,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1668800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -14402,7 +14402,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -14637,11 +14637,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 581200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -14736,7 +14736,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -14971,11 +14971,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 646800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -15070,7 +15070,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -15305,11 +15305,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -15404,7 +15404,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -15639,11 +15639,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1029200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -15738,7 +15738,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -15973,11 +15973,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 1849200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -16072,7 +16072,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -16307,11 +16307,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1221100,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -16406,7 +16406,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -16641,11 +16641,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 310800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -16740,7 +16740,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -16975,9 +16975,9 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
           "state": "vacant",
           "source": "auto"
@@ -17309,11 +17309,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 878000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -17408,7 +17408,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -17643,11 +17643,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 936600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -17742,7 +17742,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -17977,11 +17977,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 412000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -18076,7 +18076,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -18311,11 +18311,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 621600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -18410,7 +18410,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -18645,11 +18645,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 621600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -18744,7 +18744,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -18979,11 +18979,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 271200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -19078,7 +19078,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -19313,11 +19313,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 1747200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -19412,7 +19412,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -19647,11 +19647,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 2553900,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -19746,7 +19746,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -19981,9 +19981,9 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
           "state": "vacant",
           "source": "auto"
@@ -20315,11 +20315,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 5,
+          "finalValue": 5,
+          "photoCount": 5,
+          "salesAmount": 110000,
+          "state": "low",
           "source": "auto"
         },
         {
@@ -20415,7 +20415,7 @@
       ],
       "summary": {
         "workDays": 0,
-        "lowPhotoDays": 10,
+        "lowPhotoDays": 11,
         "specialDays": 0,
         "penaltyCount": 3
       }
@@ -20649,11 +20649,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 1613600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -20748,7 +20748,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -20983,11 +20983,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 26,
+          "finalValue": 26,
+          "photoCount": 26,
+          "salesAmount": 468000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -21082,7 +21082,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -21317,11 +21317,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 6983000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -21416,7 +21416,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -21651,11 +21651,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 27,
+          "finalValue": 27,
+          "photoCount": 27,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -21750,7 +21750,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -21985,11 +21985,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -22084,7 +22084,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -22319,11 +22319,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 26,
+          "finalValue": 26,
+          "photoCount": 26,
+          "salesAmount": 91000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -22418,7 +22418,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -22653,11 +22653,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 1681000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -22752,7 +22752,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -22987,11 +22987,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 30,
+          "finalValue": 30,
+          "photoCount": 30,
+          "salesAmount": 732800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -23086,7 +23086,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -23321,11 +23321,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 2206200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -23420,7 +23420,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -23655,11 +23655,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 1196000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -23754,7 +23754,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -23989,11 +23989,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 950000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -24088,7 +24088,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -24323,11 +24323,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "low",
           "source": "auto"
         },
         {
@@ -24423,7 +24423,7 @@
       ],
       "summary": {
         "workDays": 0,
-        "lowPhotoDays": 10,
+        "lowPhotoDays": 11,
         "specialDays": 0,
         "penaltyCount": 3
       }
@@ -24657,11 +24657,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -24756,7 +24756,7 @@
         }
       ],
       "summary": {
-        "workDays": 5,
+        "workDays": 6,
         "lowPhotoDays": 5,
         "specialDays": 0,
         "penaltyCount": 1
@@ -24991,11 +24991,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 30,
+          "finalValue": 30,
+          "photoCount": 30,
+          "salesAmount": 310800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -25090,7 +25090,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -25325,11 +25325,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 880500,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -25424,7 +25424,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -25659,11 +25659,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 22,
+          "finalValue": 22,
+          "photoCount": 22,
+          "salesAmount": 236800,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -25758,7 +25758,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -25993,11 +25993,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 34,
+          "finalValue": 34,
+          "photoCount": 34,
+          "salesAmount": 1006600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -26092,7 +26092,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -26327,9 +26327,9 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
           "state": "vacant",
           "source": "auto"
@@ -26661,11 +26661,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 34,
+          "finalValue": 34,
+          "photoCount": 34,
+          "salesAmount": 1799500,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -26760,7 +26760,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -26995,11 +26995,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 28,
+          "finalValue": 28,
+          "photoCount": 28,
+          "salesAmount": 1771200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -27094,7 +27094,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -27329,11 +27329,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 414400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -27428,7 +27428,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -27663,11 +27663,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 207200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -27762,7 +27762,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -27997,11 +27997,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 504500,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -28096,7 +28096,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -28331,11 +28331,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 1361600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -28430,7 +28430,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -28665,9 +28665,9 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
           "state": "vacant",
           "source": "auto"
@@ -28999,11 +28999,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 30,
+          "finalValue": 30,
+          "photoCount": 30,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -29098,7 +29098,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -29333,11 +29333,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 37,
+          "finalValue": 37,
+          "photoCount": 37,
+          "salesAmount": 635600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -29432,7 +29432,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -29667,11 +29667,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 110000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -29766,7 +29766,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -30001,11 +30001,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 25,
+          "finalValue": 25,
+          "photoCount": 25,
+          "salesAmount": 183400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -30100,7 +30100,7 @@
         }
       ],
       "summary": {
-        "workDays": 7,
+        "workDays": 8,
         "lowPhotoDays": 3,
         "specialDays": 0,
         "penaltyCount": 1
@@ -30335,11 +30335,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 103600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -30434,7 +30434,7 @@
         }
       ],
       "summary": {
-        "workDays": 4,
+        "workDays": 5,
         "lowPhotoDays": 6,
         "specialDays": 0,
         "penaltyCount": 2
@@ -30669,11 +30669,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 0,
+          "finalValue": 0,
+          "photoCount": 0,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "low",
           "source": "auto"
         },
         {
@@ -30769,7 +30769,7 @@
       ],
       "summary": {
         "workDays": 0,
-        "lowPhotoDays": 10,
+        "lowPhotoDays": 11,
         "specialDays": 0,
         "penaltyCount": 3
       }
@@ -31003,11 +31003,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 42,
+          "finalValue": 42,
+          "photoCount": 42,
+          "salesAmount": 133200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -31102,7 +31102,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -31337,11 +31337,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
+          "salesAmount": 414400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -31436,7 +31436,7 @@
         }
       ],
       "summary": {
-        "workDays": 7,
+        "workDays": 8,
         "lowPhotoDays": 3,
         "specialDays": 0,
         "penaltyCount": 1
@@ -31671,9 +31671,9 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 37,
+          "finalValue": 37,
+          "photoCount": 37,
           "salesAmount": 0,
           "state": "vacant",
           "source": "auto"
@@ -32005,11 +32005,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 43,
+          "finalValue": 43,
+          "photoCount": 43,
+          "salesAmount": 4295400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -32104,7 +32104,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -32339,11 +32339,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 32,
+          "finalValue": 32,
+          "photoCount": 32,
+          "salesAmount": 631600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -32438,7 +32438,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -32673,11 +32673,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 25554000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -32772,7 +32772,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 1,
         "penaltyCount": 0
@@ -33007,11 +33007,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
+          "autoValue": 24,
+          "finalValue": 24,
+          "photoCount": 24,
           "salesAmount": 0,
-          "state": "missing_dataset",
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -33106,7 +33106,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -33341,11 +33341,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 1139600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -33440,7 +33440,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -33675,11 +33675,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 30,
+          "finalValue": 30,
+          "photoCount": 30,
+          "salesAmount": 621600,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -33774,7 +33774,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -34009,11 +34009,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 5456000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -34108,7 +34108,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -34343,11 +34343,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1194400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -34442,7 +34442,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -34677,11 +34677,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 29,
+          "finalValue": 29,
+          "photoCount": 29,
+          "salesAmount": 5787000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -34776,7 +34776,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -35011,11 +35011,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 23,
+          "finalValue": 23,
+          "photoCount": 23,
+          "salesAmount": 2970400,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -35110,7 +35110,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -35345,11 +35345,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 37,
+          "finalValue": 37,
+          "photoCount": 37,
+          "salesAmount": 625100,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -35444,7 +35444,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -35679,11 +35679,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 21,
+          "finalValue": 21,
+          "photoCount": 21,
+          "salesAmount": 1973200,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -35778,7 +35778,7 @@
         }
       ],
       "summary": {
-        "workDays": 9,
+        "workDays": 10,
         "lowPhotoDays": 1,
         "specialDays": 0,
         "penaltyCount": 0
@@ -36013,11 +36013,11 @@
         {
           "date": "2026-07-22",
           "day": 22,
-          "autoValue": "",
-          "finalValue": "",
-          "photoCount": null,
-          "salesAmount": 0,
-          "state": "missing_dataset",
+          "autoValue": 20,
+          "finalValue": 20,
+          "photoCount": 20,
+          "salesAmount": 479000,
+          "state": "workday",
           "source": "auto"
         },
         {
@@ -36112,7 +36112,7 @@
         }
       ],
       "summary": {
-        "workDays": 8,
+        "workDays": 9,
         "lowPhotoDays": 2,
         "specialDays": 0,
         "penaltyCount": 0
@@ -36245,11 +36245,12 @@
       "2026-07-14",
       "2026-07-15",
       "2026-07-16",
-      "2026-07-20"
+      "2026-07-20",
+      "2026-07-22"
     ],
-    "generatedAt": "2026-07-24T10:43:58.843Z",
-    "sourceDatasetUpdatedAt": "2026-07-21T12:02:31.417Z",
-    "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z"
+    "generatedAt": "2026-07-24T11:13:25.562Z",
+    "sourceDatasetUpdatedAt": "2026-07-24T10:49:39.792Z",
+    "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z|lalaku_mama_browser_collect_2026-07-22_raw.json:4284810:2026-07-24T10:49:39.792Z"
   },
   "monthStatus": {
     "month": "2026-07",
@@ -36261,8 +36262,8 @@
     "assignedRows": 108,
     "vacantRows": 0,
     "unknownRows": 0,
-    "workDays": 839,
-    "lowPhotoDays": 181,
+    "workDays": 935,
+    "lowPhotoDays": 187,
     "specialDays": 3,
     "penaltyCount": 22
   }
