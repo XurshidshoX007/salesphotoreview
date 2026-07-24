@@ -1,11 +1,12 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Savdo foto hisobotlari nazorati">
   <title>Foto nazorati</title>
   <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
-  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-78">
+  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-79">
 </head>
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
@@ -28,7 +29,7 @@
       </div>
       <div class="sideActionGroup">
         <div class="sideActionGroupTitle">Sozlamalar</div>
-        <button id="sideCollectBtn" class="wideAction">Ma'lumot yig'ish</button>
+        <button id="sideCollectBtn" class="wideAction" hidden aria-hidden="true" tabindex="-1">Ma'lumot yig'ish</button>
         <button id="sideBrandSettingsBtn" class="wideAction">Brend sozlamalari</button>
         <button id="sideAutoReviewBtn" class="wideAction">Avto tekshiruv</button>
       </div>
@@ -84,25 +85,48 @@
     </aside>
     <div id="filterBackdrop" class="filterBackdrop" aria-hidden="true"></div>
   </header>
+  <section id="datasetStatusBanner" class="datasetStatusBanner" aria-live="polite" hidden></section>
   <div class="wrap">
     <main><div id="grid" class="grid"></div></main>
   </div>
   <section id="attendancePanel" class="attendancePanel" aria-label="Tabel">
-    <div class="attendanceToolbar">
-      <label>Oy<input id="attendanceMonth" type="month" value="2026-06"></label>
-      <label>Brend<select id="attendanceBrand"></select></label>
+    <div class="attendanceCommandBar">
+      <div class="attendanceViewTabs" role="tablist" aria-label="Tabel ko'rinishi">
+        <button class="active" data-attendance-view="month">Oy bo'yicha</button>
+        <button data-attendance-view="day">Kun bo'yicha</button>
+        <button data-attendance-view="issues">Muammolar</button>
+      </div>
+      <div class="attendanceMonthNav">
+        <button id="attendancePrevMonth" title="Oldingi oy" aria-label="Oldingi oy">‹</button>
+        <label><span>Oy</span><input id="attendanceMonth" type="month" value="2026-06"></label>
+        <button id="attendanceNextMonth" title="Keyingi oy" aria-label="Keyingi oy">›</button>
+      </div>
+      <label class="attendanceBrandField"><span>Brend</span><select id="attendanceBrand"></select></label>
+      <label class="attendanceSearch"><span>Qidirish</span><input id="attendanceEmployee" placeholder="Agent yoki xodim"></label>
+      <button id="attendanceMoreFilters" aria-expanded="false">Qo'shimcha filterlar</button>
+      <button id="attendanceExport">CSV</button>
+      <button id="attendanceGenerate" class="primary">Yangilash</button>
+    </div>
+    <div class="attendanceQuickFilters" role="group" aria-label="Tezkor filterlar">
+      <button class="active" data-attendance-filter="">Barchasi</button>
+      <button data-attendance-filter="low">Kam foto</button>
+      <button data-attendance-filter="vacant">Vacant</button>
+      <button data-attendance-filter="issue">Muammo</button>
+      <button id="attendanceBulkEdit">Ko'p kunni tahrirlash</button>
+      <div id="attendanceMonthState" class="attendanceMonthState"></div>
+    </div>
+    <div id="attendanceAdvancedFilters" class="attendanceAdvancedFilters" hidden>
       <label>Prefix<input id="attendancePrefix" placeholder="JY"></label>
       <label>Lavozim<input id="attendanceRole" placeholder="agent"></label>
-      <label>Xodim<input id="attendanceEmployee" placeholder="Ism"></label>
-      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Bo'sh</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
-      <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> SVR</label>
-      <button id="attendanceLoad" class="primary">Yuklash</button>
-      <button id="attendanceGenerate">Yaratish</button>
-      <button id="attendanceExport">Excel</button>
+      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Vacant</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
+      <label>Hudud<select id="attendanceRegion"><option value="">Barcha hududlar</option></select></label>
+      <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> Faqat SVR</label>
       <button id="attendanceReplace">Xodim almashtirish</button>
     </div>
+    <div id="attendanceCoverage" class="attendanceCoverage" aria-label="Dataset qamrovi"></div>
     <div id="attendanceMeta" class="attendanceMeta">Tabel yuklanmagan.</div>
-    <div class="attendanceTableWrap"><table id="attendanceTable" class="attendanceTable"></table></div>
+    <div class="attendanceTableWrap"><table id="attendanceTable" class="attendanceTable"></table><div id="attendanceListView" class="attendanceListView"></div></div>
+    <div id="attendanceUndo" class="attendanceUndo" hidden></div>
   </section>
   <section id="adminStatsPanel" class="adminStatsPanel" aria-label="Admin statistika">
     <div class="adminStatsHead">
@@ -140,6 +164,13 @@
         <button id="attendanceReplaceSave" class="primary">Saqlash</button>
       </div>
     </div>
+  </div>
+  <div id="attendanceDetailDrawer" class="attendanceDetailDrawer" aria-hidden="true">
+    <button id="attendanceDetailBackdrop" class="attendanceDetailBackdrop" aria-label="Yopish"></button>
+    <aside class="attendanceDetailPanel">
+      <div class="attendanceDetailHead"><div><b id="attendanceDetailTitle">Tabel tafsiloti</b><span id="attendanceDetailSubtitle"></span></div><button id="attendanceDetailClose" aria-label="Yopish">×</button></div>
+      <div id="attendanceDetailBody" class="attendanceDetailBody"></div>
+    </aside>
   </div>
   <div id="modal">
     <div class="modalTop">
@@ -280,6 +311,7 @@
   <script src="review-ui/js/marks.js?v=project-opt-78"></script>
   <script src="review-ui/js/brands.js?v=project-opt-78"></script>
   <script src="review-ui/js/attendance.js?v=project-opt-78"></script>
+  <script src="review-ui/js/dataset-auto-load.js?v=project-opt-79"></script>
   <script src="review-ui/js/ui-state.js?v=project-opt-78"></script>
   <script src="review-ui/js/counters.js?v=project-opt-78"></script>
   <script src="review-ui/js/auto-review.js?v=project-opt-78"></script>

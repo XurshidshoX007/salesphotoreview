@@ -1,13 +1,31 @@
 import assert from "node:assert/strict";
-import {
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+
+const testRoot = await mkdtemp(join(tmpdir(), "attendance-test-"));
+process.env.DATA_DIR = testRoot;
+const {
+  FILES,
   DEFAULT_SETTINGS,
+  attendanceHistory,
+  attendanceIssuesFromMonth,
+  bulkSaveOverrides,
   calculateAgentMonthlySummary,
   findAssignmentForDate,
+  generateAttendanceMonth,
   getDailyAttendanceValue,
+  loadAttendanceMonth,
+  plannedWorkDaysFor,
   prepareReplaceEmployee,
+  resetOverride,
+  safeWriteJson,
+  saveOverride,
+  setAttendanceMonthStatus,
   validateAttendanceData,
   validateManualValue,
-} from "./attendance-core.mjs";
+} = await import(`./attendance-core.mjs?test=${Date.now()}`);
 
 const rules = DEFAULT_SETTINGS.attendanceRules;
 
@@ -49,6 +67,11 @@ assert.equal(getDailyAttendanceValue({ photoCount: 19, salesAmount: 1200000 }, r
 assert.equal(validateManualValue("18k", rules).ok, false);
 assert.equal(validateManualValue("18b", rules).ok, false);
 assert.equal(validateManualValue("18\u043a", rules).ok, false);
+for (const value of ["15s", "16s", "17s", "18s", "19s"]) {
+  assert.equal(validateManualValue(value, rules).ok, true);
+  assert.equal(calculateAgentMonthlySummary([{ finalValue: value, state: "special" }], { name: "Agent" }, rules).specialDays, 1);
+}
+assert.equal(plannedWorkDaysFor({ plannedWorkDays: { "2026-07": { sof: 27 } } }, "2026-07", "sof"), 27);
 
 const validation = validateAttendanceData({
   employees: [{ id: "emp_ali", name: "Ali" }],
@@ -146,4 +169,66 @@ assert.throws(
   /boshqa agent/,
 );
 
+await mkdir(join(testRoot, "outputs"), { recursive: true });
+const raw = async (date, agents) => writeFile(
+  join(testRoot, "outputs", `sof_browser_collect_${date}_raw.json`),
+  `${JSON.stringify({ date, brand: { id: "sof", name: "SOF" }, agents }, null, 2)}\n`,
+  "utf8",
+);
+await raw("2099-07-01", [{ code: "JY001", name: "JY001 [ALI TEST]", tt: 21 }]);
+await raw("2099-07-02", [{ code: "JY001", name: "JY001 [ALI TEST]", tt: 22 }]);
+await raw("2099-07-03", [{ code: "JY001", name: "JY001 [ALI TEST]", tt: 18 }]);
+await raw("2099-07-04", []);
+
+await safeWriteJson(FILES.employees, { employees: [{ id: "emp_ali_test", name: "ALI TEST", role: "agent", active: false, hireDate: "2099-07-02", leftDate: "2099-07-05", region: "Chilonzor" }] });
+await safeWriteJson(FILES.routes, { routes: [{ id: "route_jy001", agentCode: "JY001", brandId: "sof", role: "agent", active: true, region: "Chilonzor" }] });
+await safeWriteJson(FILES.assignments, { assignments: [{ id: "assign_jy001", agentCode: "JY001", employeeId: "emp_ali_test", startDate: "2099-07-01", endDate: "2099-07-31", brandId: "sof" }] });
+await safeWriteJson(FILES.settings, { ...DEFAULT_SETTINGS, plannedWorkDays: { "2099-07": { sof: 27 } } });
+
+let generated = await generateAttendanceMonth({ month: "2099-07", brandId: "sof" });
+let generatedRow = generated.rows.find((row) => row.agentCode === "JY001");
+assert.equal(generatedRow.region, "Chilonzor");
+assert.equal(generatedRow.days[0].state, "not_applicable");
+assert.equal(generatedRow.days[1].state, "workday");
+assert.equal(generatedRow.days[2].state, "low");
+assert.equal(generatedRow.days[3].state, "zero_activity");
+assert.equal(generatedRow.days[4].state, "missing_dataset");
+assert.equal(generatedRow.days[5].state, "not_applicable");
+assert.equal(generated.plannedWorkDays, 27);
+assert.equal(existsSync(join(testRoot, "data", "attendance", "months", "2099-07-sof.json")), true);
+
+await saveOverride({ date: "2099-07-04", agentCode: "JY001", employeeId: "emp_ali_test", brandId: "sof", manualValue: "15s", reason: "Sababli kun", updatedBy: "test" });
+generated = await generateAttendanceMonth({ month: "2099-07", brandId: "sof" });
+generatedRow = generated.rows.find((row) => row.agentCode === "JY001");
+assert.equal(generatedRow.days[3].state, "special");
+assert.equal(generatedRow.days[3].source, "manual");
+assert.equal((await attendanceHistory({ agentCode: "JY001", date: "2099-07-04", brandId: "sof" })).length, 1);
+
+await resetOverride({ date: "2099-07-04", agentCode: "JY001", employeeId: "emp_ali_test", brandId: "sof", updatedBy: "test" });
+await bulkSaveOverrides({ agentCode: "JY001", employeeId: "emp_ali_test", brandId: "sof", startDate: "2099-07-02", endDate: "2099-07-03", manualValue: "16s", reason: "Tasdiqlangan", updatedBy: "test" });
+generated = await generateAttendanceMonth({ month: "2099-07", brandId: "sof" });
+assert.equal(generated.rows.find((row) => row.agentCode === "JY001").days[1].finalValue, "16s");
+assert.ok(attendanceIssuesFromMonth(generated).some((item) => item.type === "manual"));
+
+await setAttendanceMonthStatus({ month: "2099-07", brandId: "sof", status: "approved", updatedBy: "test" });
+await setAttendanceMonthStatus({ month: "2099-07", brandId: "sof", status: "locked", updatedBy: "test" });
+await assert.rejects(
+  saveOverride({ date: "2099-07-02", agentCode: "JY001", employeeId: "emp_ali_test", brandId: "sof", manualValue: "20", reason: "test" }),
+  /yopilgan/i,
+);
+assert.equal((await loadAttendanceMonth({ month: "2099-07", brandId: "sof" })).monthStatus.status, "locked");
+
+const doubleAssignment = validateAttendanceData({
+  employees: [{ id: "emp_one", name: "One" }],
+  routes: [{ agentCode: "JY001" }, { agentCode: "JY002" }],
+  assignments: [
+    { agentCode: "JY001", employeeId: "emp_one", startDate: "2099-07-01", endDate: null },
+    { agentCode: "JY002", employeeId: "emp_one", startDate: "2099-07-01", endDate: null },
+  ],
+  settings: DEFAULT_SETTINGS,
+});
+assert.equal(doubleAssignment.ok, false);
+assert.ok(doubleAssignment.errors.some((item) => item.includes("ikki agent") || item.includes("bir vaqtning")));
+
+await rm(testRoot, { recursive: true, force: true });
 console.log("Attendance tests OK");

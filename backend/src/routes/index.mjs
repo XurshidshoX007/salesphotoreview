@@ -2,6 +2,7 @@ import { createAuthRoutes } from "./auth.mjs";
 import { createAttendanceRoutes } from "./attendance.mjs";
 import { createBrandRoutes } from "./brands.mjs";
 import { createCollectRoutes } from "./collect.mjs";
+import { createDatasetRoutes } from "./datasets.mjs";
 import { createMarksRoutes } from "./marks.mjs";
 import { createPhotoRoutes } from "./photos.mjs";
 import { createTelegramRoutes } from "./telegram.mjs";
@@ -9,6 +10,7 @@ import { createTelegramRoutes } from "./telegram.mjs";
 export function createApiRouter(dependencies) {
   const publicRoutes = [createAuthRoutes(dependencies)];
   const protectedRoutes = [
+    createDatasetRoutes(dependencies),
     createCollectRoutes(dependencies),
     createMarksRoutes(dependencies),
     createBrandRoutes(dependencies),

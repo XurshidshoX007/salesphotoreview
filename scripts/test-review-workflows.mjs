@@ -2,9 +2,11 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { localEnv, reviewAuth } from "./lib/review-test-auth.mjs";
+import { ensureReviewTestServer } from "./lib/review-test-server.mjs";
 
 const root = process.cwd();
 const baseUrl = String(process.env.REVIEW_TEST_URL || "http://127.0.0.1:8876").replace(/\/$/, "");
+await ensureReviewTestServer(baseUrl, root);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);

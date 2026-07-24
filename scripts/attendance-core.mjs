@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { findBrand, loadBrandsConfig, publicBrand } from "./brand-config.mjs";
@@ -20,6 +20,7 @@ export const FILES = {
   assignments: join(ATT_DIR, "assignments.json"),
   settings: join(ATT_DIR, "settings.json"),
   auditLog: join(ATT_DIR, "audit-log.json"),
+  monthStates: join(ATT_DIR, "month-states.json"),
 };
 
 export const DEFAULT_SETTINGS = {
@@ -35,6 +36,7 @@ export const DEFAULT_SETTINGS = {
     countEmptyWorkDayAsLowPhoto: false,
   },
   teams: [],
+  plannedWorkDays: {},
 };
 
 const EMPTY_FILES = {
@@ -43,6 +45,7 @@ const EMPTY_FILES = {
   assignments: { assignments: [] },
   settings: DEFAULT_SETTINGS,
   auditLog: { items: [] },
+  monthStates: { items: [] },
 };
 
 function stamp() {
@@ -78,7 +81,24 @@ export async function loadAttendanceStore() {
     assignments: (await readJson(FILES.assignments, EMPTY_FILES.assignments)).assignments || [],
     settings: await readJson(FILES.settings, EMPTY_FILES.settings),
     auditLog: (await readJson(FILES.auditLog, EMPTY_FILES.auditLog)).items || [],
+    monthStates: (await readJson(FILES.monthStates, EMPTY_FILES.monthStates)).items || [],
   };
+}
+
+function safeBrandKey(value) {
+  return String(value || "all").trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "_") || "all";
+}
+
+function monthStoragePath(month, brandId = "") {
+  return join(ATT_MONTHS_DIR, `${normalizeMonth(month)}-${safeBrandKey(brandId)}.json`);
+}
+
+function legacyMonthStoragePath(month) {
+  return join(ATT_MONTHS_DIR, `${normalizeMonth(month)}.json`);
+}
+
+function overrideStoragePath(month, brandId = "") {
+  return join(ATT_OVERRIDES_DIR, `${normalizeMonth(month)}-${safeBrandKey(brandId)}.json`);
 }
 
 export function normalizeCode(value) {
@@ -161,12 +181,11 @@ export function getDailyAttendanceValue(activity, rules) {
 
 export function valueState(value, employee, rules) {
   const text = String(value ?? "").trim().toLowerCase();
-  const marker = String(rules.specialMarker || "s").toLowerCase();
   if (isVacantEmployee(employee, rules)) return "vacant";
   if (!text) return "empty";
   if (text === "1" && String(employee?.role || "").toLowerCase() === "svr") return "workday";
   if (text === "0" && String(employee?.role || "").toLowerCase() === "svr") return "empty";
-  if (text.includes(marker)) return "special";
+  if (/^\d+s$/i.test(text)) return "special";
   const numericValue = Number(text);
   if (Number.isNaN(numericValue)) return "empty";
   return numericValue >= Number(rules.minPhotoForWorkDay) ? "workday" : "low";
@@ -192,12 +211,12 @@ export function calculateAgentMonthlySummary(days, employee, rules) {
   let workDays = 0;
   let lowPhotoDays = 0;
   let specialDays = 0;
-  const marker = String(rules.specialMarker || "s").toLowerCase();
   for (const day of days) {
+    if (["missing_dataset", "not_applicable", "vacant", "unknown_route"].includes(day.state)) continue;
     const value = String(day.finalValue ?? day.manualValue ?? day.autoValue ?? "").trim().toLowerCase();
     if (!value) continue;
     if (/[kbк]/i.test(value)) continue;
-    if (value.includes(marker)) {
+    if (/^\d+s$/i.test(value)) {
       specialDays += 1;
       workDays += 1;
       continue;
@@ -213,6 +232,26 @@ export function calculateAgentMonthlySummary(days, employee, rules) {
     specialDays,
     penaltyCount: Math.floor(lowPhotoDays / Number(rules.penaltyEveryLowPhotoDays || 3)),
   };
+}
+
+function dateIsApplicable(employee, assignment, date) {
+  if (!employee || !assignment) return false;
+  if (employee.hireDate && isIsoDate(employee.hireDate) && date < employee.hireDate) return false;
+  if (employee.leftDate && isIsoDate(employee.leftDate) && date > employee.leftDate) return false;
+  if (assignment.startDate && date < assignment.startDate) return false;
+  if (assignment.endDate && date > assignment.endDate) return false;
+  return true;
+}
+
+export function plannedWorkDaysFor(settings, month, brandId) {
+  const planned = settings?.plannedWorkDays || {};
+  const monthValue = planned?.[normalizeMonth(month)];
+  if (Number.isFinite(Number(monthValue))) return Number(monthValue);
+  if (monthValue && typeof monthValue === "object") {
+    const value = monthValue[brandId] ?? monthValue[safeBrandKey(brandId)] ?? monthValue.default;
+    if (Number.isFinite(Number(value))) return Number(value);
+  }
+  return null;
 }
 
 export function validateManualValue(value, rules) {
@@ -274,21 +313,43 @@ function activityFromAgent(date, agent) {
   };
 }
 
-export async function loadActivitiesFromOutputs(month, brand) {
+export async function loadActivitySnapshotFromOutputs(month, brand) {
   const activities = new Map();
-  const files = await import("node:fs/promises").then((fs) => fs.readdir(OUTPUTS_DIR));
+  const rawDatesFound = new Set();
+  const sourceFiles = [];
+  const files = await readdir(OUTPUTS_DIR).catch(() => []);
   for (const file of files) {
     if (!file.endsWith("_raw.json") || !file.includes(month)) continue;
-    const data = JSON.parse(await readFile(join(OUTPUTS_DIR, file), "utf8"));
+    const filePath = join(OUTPUTS_DIR, file);
+    const data = JSON.parse(await readFile(filePath, "utf8"));
     const date = String(data.date || file.match(/\d{4}-\d{2}-\d{2}/)?.[0] || "");
     if (!date.startsWith(month) || !isBrandDataset(data, brand)) continue;
+    rawDatesFound.add(date);
+    const info = await stat(filePath);
+    sourceFiles.push({ file, size: info.size, updatedAt: info.mtime.toISOString() });
     for (const agent of data.agents || []) {
       const activity = activityFromAgent(date, agent);
       if (!activity.agentCode) continue;
       activities.set(`${activity.agentCode}#${date}`, activity);
     }
   }
-  return activities;
+  sourceFiles.sort((a, b) => a.file.localeCompare(b.file));
+  const sourceDatasetUpdatedAt = sourceFiles.reduce(
+    (latest, item) => item.updatedAt > latest ? item.updatedAt : latest,
+    "",
+  );
+  const sourceFingerprint = sourceFiles.map((item) => `${item.file}:${item.size}:${item.updatedAt}`).join("|");
+  return {
+    activities,
+    rawDatesFound: [...rawDatesFound].sort(),
+    sourceFiles,
+    sourceDatasetUpdatedAt,
+    sourceFingerprint,
+  };
+}
+
+export async function loadActivitiesFromOutputs(month, brand) {
+  return (await loadActivitySnapshotFromOutputs(month, brand)).activities;
 }
 
 function isExcludedCode(code, rules) {
@@ -348,12 +409,11 @@ function syncEmployeesFromActivities(store, activities, month, brand) {
         phone: "",
         role: "agent",
         active: true,
+        hireDate: monthStart,
+        leftDate: null,
         notes: "Sales outputdan avtomatik qo'shildi",
       };
       store.employees.push(employee);
-      employeesChanged = true;
-    } else if (!employee.active) {
-      employee.active = true;
       employeesChanged = true;
     }
 
@@ -439,18 +499,24 @@ function stateForMissingDay(row) {
   return "empty";
 }
 
-function ensureStableRowDays(row, month, dayCount) {
+function ensureStableRowDays(row, month, dayCount, coveredDates = new Set()) {
   const byDay = new Map((row.days || []).map((day) => [Number(day.day), day]));
   row.days = Array.from({ length: dayCount }, (_, index) => {
     const day = index + 1;
+    const date = monthDate(month, day);
+    const outsideAssignment = (row.startDate && date < row.startDate) || (row.endDate && date > row.endDate);
+    const outsideEmployment = (row.hireDate && date < row.hireDate) || (row.leftDate && date > row.leftDate);
     return byDay.get(day) || {
-      date: monthDate(month, day),
+      date,
       day,
       autoValue: "",
       finalValue: "",
       photoCount: null,
       salesAmount: 0,
-      state: stateForMissingDay(row),
+      state: outsideAssignment || outsideEmployment
+        ? "not_applicable"
+        : coveredDates.has(date) ? stateForMissingDay(row) : "missing_dataset",
+      source: "auto",
     };
   });
   return row;
@@ -507,10 +573,19 @@ export function attendanceSummaryTotals(monthData) {
 
 export async function generateAttendanceMonth({ month, brandId }) {
   const normalizedMonth = normalizeMonth(month);
+  const currentStatus = await getAttendanceMonthStatus(normalizedMonth, brandId || "");
+  if (
+    currentStatus.status === "locked"
+    && (existsSync(monthStoragePath(normalizedMonth, brandId || "")) || existsSync(legacyMonthStoragePath(normalizedMonth)))
+  ) {
+    throw httpError("Yopilgan oyni qayta yaratib bo'lmaydi. Avval oyni oching", 423);
+  }
   const brand = brandId ? await resolveBrand(brandId) : null;
   const store = await loadAttendanceStore();
   const rules = store.settings.attendanceRules || DEFAULT_SETTINGS.attendanceRules;
-  const activities = await loadActivitiesFromOutputs(normalizedMonth, brand);
+  const snapshot = await loadActivitySnapshotFromOutputs(normalizedMonth, brand);
+  const activities = snapshot.activities;
+  const coveredDates = new Set(snapshot.rawDatesFound);
   let routesChanged = false;
   if (brand) {
     for (const route of store.routes) {
@@ -548,7 +623,7 @@ export async function generateAttendanceMonth({ month, brandId }) {
   const codes = [...new Set([...routeCodes, ...activityCodes])].filter((code) => !isExcludedCode(code, rules)).sort();
   const rows = new Map();
   const dayCount = daysInMonth(normalizedMonth);
-  const rawDatesFound = [...new Set([...activities.values()].map((activity) => activity.date).filter(Boolean))].sort();
+  const rawDatesFound = snapshot.rawDatesFound;
   const missingRoutes = [];
 
   for (const agentCode of codes) {
@@ -560,10 +635,15 @@ export async function generateAttendanceMonth({ month, brandId }) {
       const assignment = findAssignmentInIndex(agentCode, date, indexes.assignmentsByCode);
       const employee = indexes.employeesById.get(assignment?.employeeId) || null;
       const role = employee?.role || (route ? "agent" : "unknown");
+      const applicable = dateIsApplicable(employee, assignment, date);
+      const hasDataset = coveredDates.has(date);
+      const employeeIsVacant = isVacantEmployee(employee, rules);
       const isSupervisor = (rules.supervisorRoles || []).includes(String(role).toLowerCase());
-      const autoValue = isSupervisor
-        ? buildSupervisorValue(agentCode, date, store.settings, activities)
-        : getDailyAttendanceValue(activity, rules);
+      const autoValue = applicable && hasDataset
+        ? (isSupervisor
+          ? buildSupervisorValue(agentCode, date, store.settings, activities)
+          : getDailyAttendanceValue(activity, rules) || 0)
+        : "";
       const base = assignment
         ? {
           agentCode,
@@ -575,7 +655,11 @@ export async function generateAttendanceMonth({ month, brandId }) {
           assignmentId: assignment.id,
           startDate: assignment.startDate,
           endDate: assignment.endDate || null,
-          isVacant: false,
+          hireDate: employee?.hireDate || "",
+          leftDate: employee?.leftDate || "",
+          employeeStatus: employeeIsVacant ? "vacant" : (employee?.active === false ? "left" : "active"),
+          region: route?.region || route?.territory || route?.area || employee?.region || employee?.territory || employee?.area || "",
+          isVacant: employeeIsVacant,
         }
         : route
           ? {
@@ -588,6 +672,8 @@ export async function generateAttendanceMonth({ month, brandId }) {
             assignmentId: null,
             startDate: date,
             endDate: date,
+            employeeStatus: "vacant",
+            region: route.region || route.territory || route.area || "",
             isVacant: true,
           }
           : {
@@ -600,6 +686,8 @@ export async function generateAttendanceMonth({ month, brandId }) {
             assignmentId: null,
             startDate: date,
             endDate: date,
+            employeeStatus: "active",
+            region: "",
             isVacant: false,
           };
       const key = base.isVacant
@@ -617,28 +705,39 @@ export async function generateAttendanceMonth({ month, brandId }) {
         finalValue: autoValue,
         photoCount: activity?.photoCount ?? null,
         salesAmount: activity?.salesAmount ?? 0,
-        state: valueState(autoValue, base, rules),
+        state: base.isVacant
+          ? "vacant"
+          : !assignment
+          ? stateForMissingDay(base)
+          : !applicable
+            ? "not_applicable"
+            : !hasDataset
+              ? "missing_dataset"
+              : (!activity && !isSupervisor ? "zero_activity" : valueState(autoValue, base, rules)),
+        source: "auto",
       });
     }
   }
 
-  const overrides = await loadOverrides(normalizedMonth);
+  const overrides = await loadOverrides(normalizedMonth, brand?.id || brandId || "");
   for (const override of overrides) {
     const code = normalizeCode(override.agentCode);
     for (const row of rows.values()) {
       if (normalizeCode(row.agentCode) !== code) continue;
       if ((override.employeeId || null) !== (row.employeeId || null)) continue;
-      const day = row.days.find((item) => item.date === override.date);
+      const day = row.days[Number(String(override.date).slice(-2)) - 1];
       if (!day) continue;
       day.manualValue = override.manualValue;
       day.finalValue = override.manualValue ?? day.autoValue;
       day.reason = override.reason || "";
       day.state = valueState(day.finalValue, row, rules);
+      day.source = "manual";
+      day.manual = true;
     }
   }
 
   const outputRows = [...rows.values()].map((row) => {
-    ensureStableRowDays(row, normalizedMonth, dayCount);
+    ensureStableRowDays(row, normalizedMonth, dayCount, coveredDates);
     const summary = calculateAgentMonthlySummary(row.days, row, rules);
     return { ...row, summary };
   }).sort((a, b) => `${a.agentCode}${a.startDate}`.localeCompare(`${b.agentCode}${b.startDate}`));
@@ -650,31 +749,53 @@ export async function generateAttendanceMonth({ month, brandId }) {
     emptyTeamsWarning: Boolean(validation.warnings.some((warning) => warning.includes("SVR teamMap"))),
     rawDatesFound,
     generatedAt: new Date().toISOString(),
+    sourceDatasetUpdatedAt: snapshot.sourceDatasetUpdatedAt,
+    sourceFingerprint: snapshot.sourceFingerprint,
   };
   const result = {
     month: normalizedMonth,
     brandId: brand?.id || brandId || "",
     brand: brand || null,
     generatedAt: dataQuality.generatedAt,
+    sourceDatasetUpdatedAt: snapshot.sourceDatasetUpdatedAt,
+    sourceFingerprint: snapshot.sourceFingerprint,
+    plannedWorkDays: plannedWorkDaysFor(store.settings, normalizedMonth, brand?.id || brandId || ""),
     rules,
     rows: outputRows,
     validation,
     dataQuality,
   };
+  result.monthStatus = await getAttendanceMonthStatus(normalizedMonth, brand?.id || brandId || "");
   result.summaryTotals = attendanceSummaryTotals(result);
-  await safeWriteJson(join(ATT_MONTHS_DIR, `${normalizedMonth}.json`), result, `${normalizedMonth}`);
+  await safeWriteJson(monthStoragePath(normalizedMonth, result.brandId), result, `${normalizedMonth}-${result.brandId || "all"}`);
   return result;
 }
 
 export async function loadAttendanceMonth({ month, brandId, generateIfMissing = true }) {
   const normalizedMonth = normalizeMonth(month);
-  const path = join(ATT_MONTHS_DIR, `${normalizedMonth}.json`);
+  const normalizedBrand = String(brandId || "").trim();
+  const primaryPath = monthStoragePath(normalizedMonth, normalizedBrand);
+  const legacyPath = legacyMonthStoragePath(normalizedMonth);
+  const path = existsSync(primaryPath) ? primaryPath : legacyPath;
   if (!existsSync(path)) {
     if (!generateIfMissing) return null;
     return generateAttendanceMonth({ month: normalizedMonth, brandId });
   }
   const data = JSON.parse(await readFile(path, "utf8"));
   if (brandId && data.brandId !== brandId) return generateAttendanceMonth({ month: normalizedMonth, brandId });
+  data.monthStatus = await getAttendanceMonthStatus(normalizedMonth, data.brandId || normalizedBrand);
+  data.plannedWorkDays = data.plannedWorkDays ?? plannedWorkDaysFor(
+    (await loadAttendanceStore()).settings,
+    normalizedMonth,
+    data.brandId || normalizedBrand,
+  );
+  if (data.monthStatus.status !== "locked") {
+    const brand = data.brandId ? await resolveBrand(data.brandId) : null;
+    const snapshot = await loadActivitySnapshotFromOutputs(normalizedMonth, brand);
+    if (data.sourceFingerprint !== snapshot.sourceFingerprint) {
+      return generateAttendanceMonth({ month: normalizedMonth, brandId: data.brandId || normalizedBrand });
+    }
+  }
   if (!data.summaryTotals) data.summaryTotals = attendanceSummaryTotals(data);
   if (!data.validation || !data.dataQuality) {
     const store = await loadAttendanceStore();
@@ -691,13 +812,81 @@ export async function loadAttendanceMonth({ month, brandId, generateIfMissing = 
   return data;
 }
 
-export async function loadOverrides(month) {
-  const path = join(ATT_OVERRIDES_DIR, `${normalizeMonth(month)}.json`);
-  return (await readJson(path, { overrides: [] })).overrides || [];
+export async function getAttendanceMonthStatus(month, brandId = "") {
+  const normalizedMonth = normalizeMonth(month);
+  const store = await loadAttendanceStore();
+  return (store.monthStates || []).find(
+    (item) => item.month === normalizedMonth && String(item.brandId || "") === String(brandId || ""),
+  ) || { month: normalizedMonth, brandId: String(brandId || ""), status: "draft" };
 }
 
-export async function saveOverride({ date, agentCode, employeeId = null, manualValue = "", reason = "", updatedBy = "local-user" }) {
+export async function setAttendanceMonthStatus({ month, brandId = "", status, updatedBy = "local-user", confirmUnlock = false }) {
+  const normalizedMonth = normalizeMonth(month);
+  const nextStatus = String(status || "").trim().toLowerCase();
+  if (!["draft", "approved", "locked"].includes(nextStatus)) throw httpError("Oy holati noto'g'ri", 400);
+  const store = await loadAttendanceStore();
+  const items = structuredClone(store.monthStates || []);
+  const index = items.findIndex((item) => item.month === normalizedMonth && String(item.brandId || "") === String(brandId || ""));
+  const previous = index >= 0 ? items[index] : { month: normalizedMonth, brandId: String(brandId || ""), status: "draft" };
+  if (previous.status === "locked" && nextStatus !== "locked" && !confirmUnlock) {
+    throw httpError("Yopilgan oyni ochish uchun tasdiq kerak", 409);
+  }
+  const now = new Date().toISOString();
+  const next = {
+    ...previous,
+    month: normalizedMonth,
+    brandId: String(brandId || ""),
+    status: nextStatus,
+    updatedAt: now,
+    updatedBy,
+    approvedAt: nextStatus === "approved" || nextStatus === "locked" ? previous.approvedAt || now : null,
+    lockedAt: nextStatus === "locked" ? previous.lockedAt || now : null,
+  };
+  if (index >= 0) items[index] = next;
+  else items.push(next);
+  await safeWriteJson(FILES.monthStates, { items }, "month-states");
+  await appendAttendanceAudit({
+    type: "attendance_month_status",
+    month: normalizedMonth,
+    brandId: String(brandId || ""),
+    oldValue: previous.status,
+    newValue: nextStatus,
+    reason: nextStatus === "draft" ? "Oy qayta ochildi" : "Oy holati yangilandi",
+    updatedBy,
+  });
+  return next;
+}
+
+export async function loadOverrides(month, brandId = "") {
+  const normalizedMonth = normalizeMonth(month);
+  const primary = await readJson(overrideStoragePath(normalizedMonth, brandId), { overrides: [] });
+  if ((primary.overrides || []).length || existsSync(overrideStoragePath(normalizedMonth, brandId))) return primary.overrides || [];
+  const legacyPath = join(ATT_OVERRIDES_DIR, `${normalizedMonth}.json`);
+  return (await readJson(legacyPath, { overrides: [] })).overrides || [];
+}
+
+async function appendAttendanceAudit(item) {
+  const audit = await readJson(FILES.auditLog, EMPTY_FILES.auditLog);
+  audit.items = audit.items || [];
+  const entry = {
+    id: `audit_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    changedAt: new Date().toISOString(),
+    ...item,
+  };
+  audit.items.push(entry);
+  await safeWriteJson(FILES.auditLog, audit, "audit-log");
+  return entry;
+}
+
+async function assertMonthEditable(month, brandId) {
+  const monthStatus = await getAttendanceMonthStatus(month, brandId);
+  if (monthStatus.status === "locked") throw httpError("Bu oy yopilgan. Tahrirlashdan oldin oyni qayta oching", 423);
+  return monthStatus;
+}
+
+export async function saveOverride({ date, agentCode, employeeId = null, brandId = "", manualValue = "", reason = "", updatedBy = "local-user" }) {
   const month = normalizeMonth(String(date).slice(0, 7));
+  await assertMonthEditable(month, brandId);
   const store = await loadAttendanceStore();
   const rules = store.settings.attendanceRules || DEFAULT_SETTINGS.attendanceRules;
   const validation = validateManualValue(manualValue, rules);
@@ -706,14 +895,15 @@ export async function saveOverride({ date, agentCode, employeeId = null, manualV
     error.status = 400;
     throw error;
   }
-  const path = join(ATT_OVERRIDES_DIR, `${month}.json`);
-  const overrides = await loadOverrides(month);
+  const path = overrideStoragePath(month, brandId);
+  const overrides = await loadOverrides(month, brandId);
   const index = overrides.findIndex((item) => item.date === date && normalizeCode(item.agentCode) === normalizeCode(agentCode) && (item.employeeId || null) === (employeeId || null));
   const previous = index >= 0 ? overrides[index] : null;
   const next = {
     date,
     agentCode: normalizeCode(agentCode),
     employeeId: employeeId || null,
+    brandId: String(brandId || ""),
     manualValue: String(manualValue ?? "").trim(),
     reason: String(reason || "").trim(),
     updatedAt: new Date().toISOString(),
@@ -721,21 +911,126 @@ export async function saveOverride({ date, agentCode, employeeId = null, manualV
   };
   if (index >= 0) overrides[index] = next;
   else overrides.push(next);
-  const audit = await readJson(FILES.auditLog, EMPTY_FILES.auditLog);
-  audit.items = audit.items || [];
-  audit.items.push({
-    changedAt: next.updatedAt,
+  const auditEntry = await appendAttendanceAudit({
     type: "attendance_override",
     agentCode: next.agentCode,
     employeeId: next.employeeId,
+    brandId: next.brandId,
     date,
     oldValue: previous?.manualValue ?? "",
     newValue: next.manualValue,
     reason: next.reason,
+    updatedBy,
   });
   await safeWriteJson(path, { overrides }, `overrides-${month}`);
-  await safeWriteJson(FILES.auditLog, audit, "audit-log");
-  return next;
+  return { ...next, auditId: auditEntry.id };
+}
+
+export async function resetOverride({ date, agentCode, employeeId = null, brandId = "", reason = "Avtomatik qiymatga qaytarildi", updatedBy = "local-user" }) {
+  const month = normalizeMonth(String(date).slice(0, 7));
+  await assertMonthEditable(month, brandId);
+  const path = overrideStoragePath(month, brandId);
+  const overrides = await loadOverrides(month, brandId);
+  const index = overrides.findIndex((item) => item.date === date && normalizeCode(item.agentCode) === normalizeCode(agentCode) && (item.employeeId || null) === (employeeId || null));
+  if (index < 0) return { removed: false };
+  const [previous] = overrides.splice(index, 1);
+  await safeWriteJson(path, { overrides }, `overrides-${month}`);
+  const auditEntry = await appendAttendanceAudit({
+    type: "attendance_override_reset",
+    agentCode: normalizeCode(agentCode),
+    employeeId: employeeId || null,
+    brandId: String(brandId || ""),
+    date,
+    oldValue: previous.manualValue,
+    newValue: "",
+    reason,
+    updatedBy,
+  });
+  return { removed: true, previous, auditId: auditEntry.id };
+}
+
+export async function bulkSaveOverrides({ agentCode, employeeId = null, brandId = "", startDate, endDate, manualValue, reason = "", updatedBy = "local-user" }) {
+  if (!isIsoDate(startDate) || !isIsoDate(endDate) || startDate > endDate) throw httpError("Sana oralig'i noto'g'ri", 400);
+  if (startDate.slice(0, 7) !== endDate.slice(0, 7)) throw httpError("Bulk tahrir bitta oy ichida bo'lishi kerak", 400);
+  const month = normalizeMonth(startDate.slice(0, 7));
+  await assertMonthEditable(month, brandId);
+  const store = await loadAttendanceStore();
+  const validation = validateManualValue(manualValue, store.settings.attendanceRules || DEFAULT_SETTINGS.attendanceRules);
+  if (!validation.ok) throw httpError(validation.error, 400);
+  if (!String(reason || "").trim()) throw httpError("Bulk tahrir sababi kiritilishi shart", 400);
+  const changed = [];
+  for (let date = startDate; date <= endDate; date = addDaysIso(date, 1)) {
+    changed.push(await saveOverride({ date, agentCode, employeeId, brandId, manualValue, reason, updatedBy }));
+  }
+  return changed;
+}
+
+export async function attendanceHistory({ agentCode = "", date = "", brandId = "", limit = 50 } = {}) {
+  const store = await loadAttendanceStore();
+  return (store.auditLog || [])
+    .filter((item) => String(item.type || "").startsWith("attendance_"))
+    .filter((item) => !agentCode || normalizeCode(item.agentCode) === normalizeCode(agentCode))
+    .filter((item) => !date || item.date === date)
+    .filter((item) => !brandId || !item.brandId || String(item.brandId) === String(brandId))
+    .slice()
+    .sort((a, b) => String(b.changedAt).localeCompare(String(a.changedAt)))
+    .slice(0, Math.max(1, Math.min(200, Number(limit) || 50)));
+}
+
+export function attendanceIssuesFromMonth(monthData) {
+  const issues = [];
+  for (const row of monthData?.rows || []) {
+    if (row.routeStatus === "vacant") {
+      issues.push({ type: "vacant", agentCode: row.agentCode, employeeId: row.employeeId, label: "Vakant yo'nalish" });
+    }
+    if (row.routeStatus === "unknown_route") {
+      issues.push({ type: "unknown_route", agentCode: row.agentCode, employeeId: row.employeeId, label: "Route topilmadi" });
+    }
+    for (const day of row.days || []) {
+      if (day.state === "low" || day.state === "zero_activity") {
+        issues.push({ type: "low", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, value: day.finalValue, label: "Kam foto" });
+      } else if (day.state === "missing_dataset") {
+        issues.push({ type: "missing_dataset", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, label: "Dataset yo'q" });
+      }
+      if (day.manual) {
+        issues.push({ type: "manual", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, value: day.finalValue, label: "Qo'lda tuzatilgan" });
+      }
+    }
+  }
+  for (const item of monthData?.dataQuality?.overlappingAssignments || []) {
+    issues.push({ type: "assignment_overlap", agentCode: item.agentCode, label: "Assignment sanalari ustma-ust" });
+  }
+  return issues;
+}
+
+export async function loadAttendanceDay({ date, brandId = "" }) {
+  if (!isIsoDate(date)) throw httpError("Sana noto'g'ri", 400);
+  const monthData = await loadAttendanceMonth({ month: date.slice(0, 7), brandId });
+  const dayNumber = Number(date.slice(-2));
+  return {
+    date,
+    month: monthData.month,
+    brandId: monthData.brandId,
+    monthStatus: monthData.monthStatus,
+    coverage: (monthData.dataQuality?.rawDatesFound || []).includes(date),
+    rows: (monthData.rows || []).map((row) => ({
+      agentCode: row.agentCode,
+      employeeId: row.employeeId,
+      employeeName: row.employeeName,
+      employeeStatus: row.employeeStatus,
+      role: row.role,
+      region: row.region || "",
+      routeStatus: row.routeStatus,
+      day: (row.days || [])[dayNumber - 1] || null,
+    })),
+  };
+}
+
+export async function loadAttendanceIssues({ month, brandId = "", types = [] }) {
+  const monthData = await loadAttendanceMonth({ month, brandId });
+  const requested = new Set((Array.isArray(types) ? types : String(types || "").split(",")).filter(Boolean));
+  const issues = attendanceIssuesFromMonth(monthData).filter((item) => !requested.size || requested.has(item.type));
+  return { month: monthData.month, brandId: monthData.brandId, issues, count: issues.length };
 }
 
 function employeeIdFromName(name, employees = []) {
@@ -826,16 +1121,24 @@ export function prepareReplaceEmployee(store, payload = {}) {
       phone: input.newEmployee.phone,
       role: input.newEmployee.role,
       active: true,
+      hireDate: input.newStartDate,
+      leftDate: null,
+      region: route.region || "",
       notes: input.newEmployee.notes,
     };
     nextStore.employees.push(employee);
   } else {
     employee.active = true;
+    employee.leftDate = null;
+    if (!employee.hireDate) employee.hireDate = input.newStartDate;
   }
 
   if (closedAssignment?.employeeId && !otherActiveAssignmentForEmployee(nextStore.assignments, closedAssignment.employeeId, code)) {
     const oldEmployee = nextStore.employees.find((item) => item.id === closedAssignment.employeeId);
-    if (oldEmployee && oldEmployee.id !== employeeId) oldEmployee.active = false;
+    if (oldEmployee && oldEmployee.id !== employeeId) {
+      oldEmployee.active = false;
+      oldEmployee.leftDate = input.oldEmployeeEndDate;
+    }
   }
 
   const nextAssignment = {
@@ -845,6 +1148,7 @@ export function prepareReplaceEmployee(store, payload = {}) {
     startDate: input.newStartDate,
     endDate: null,
     reason: input.reason,
+    brandId: input.brandId || route.brandId || "",
   };
   nextStore.assignments.push(nextAssignment);
 
@@ -878,6 +1182,9 @@ export function validateAttendanceData(store) {
   for (const employee of employees) {
     if (!employee.id) errors.push("Employee id bo'sh");
     if (employeeIds.has(employee.id)) errors.push(`Takrorlangan employee id: ${employee.id}`);
+    if (employee.hireDate && !isIsoDate(employee.hireDate)) errors.push(`${employee.id}: hireDate noto'g'ri`);
+    if (employee.leftDate && !isIsoDate(employee.leftDate)) errors.push(`${employee.id}: leftDate noto'g'ri`);
+    if (employee.hireDate && employee.leftDate && employee.hireDate > employee.leftDate) errors.push(`${employee.id}: hireDate leftDate'dan keyin`);
     employeeIds.add(employee.id);
   }
   for (const route of routes) {
@@ -919,7 +1226,25 @@ export function validateAttendanceData(store) {
     activeByEmployee.set(assignment.employeeId, list);
   }
   for (const [employeeId, codes] of activeByEmployee) {
-    if (codes.length > 1) warnings.push(`${employeeId}: bir vaqtning o'zida ${codes.join(", ")} active assignment bor`);
+    if (codes.length > 1) errors.push(`${employeeId}: bir vaqtning o'zida ${codes.join(", ")} active assignment bor`);
+  }
+  const assignmentsByEmployee = new Map();
+  for (const assignment of assignments) {
+    const list = assignmentsByEmployee.get(assignment.employeeId) || [];
+    list.push(assignment);
+    assignmentsByEmployee.set(assignment.employeeId, list);
+  }
+  for (const [employeeId, list] of assignmentsByEmployee) {
+    for (let i = 0; i < list.length; i += 1) {
+      for (let j = i + 1; j < list.length; j += 1) {
+        if (
+          normalizeCode(list[i].agentCode) !== normalizeCode(list[j].agentCode)
+          && rangesOverlap(list[i].startDate, list[i].endDate, list[j].startDate, list[j].endDate)
+        ) {
+          errors.push(`${employeeId}: ikki agent kodda assignment sanalari ustma-ust`);
+        }
+      }
+    }
   }
 
   const rules = store.settings?.attendanceRules || DEFAULT_SETTINGS.attendanceRules;
@@ -938,21 +1263,22 @@ export function validateAttendanceData(store) {
 
 export function attendanceToCsv(monthData) {
   const dayCount = daysInMonth(monthData.month);
-  const headers = ["Kod", "Xodim", "Role", "Brend", ...Array.from({ length: dayCount }, (_, i) => String(i + 1)), "Foto kamligi", "Sababli", "Shtraf", "Ish kuni"];
-  const rows = monthData.rows.map((row) => [
-    row.agentCode,
-    row.employeeName,
-    row.role,
-    row.brandId,
-    ...Array.from({ length: dayCount }, (_, i) => {
-      const day = row.days.find((item) => item.day === i + 1);
-      return day?.finalValue ?? "";
-    }),
-    row.summary.lowPhotoDays,
-    row.summary.specialDays,
-    row.summary.penaltyCount,
-    row.summary.workDays,
-  ]);
+  const headers = ["Kod", "Xodim", "Hudud", "Role", "Brend", ...Array.from({ length: dayCount }, (_, i) => String(i + 1)), "Foto kamligi", "Sababli", "Shtraf", "Ish kuni"];
+  const rows = monthData.rows.map((row) => {
+    const dayMap = new Map((row.days || []).map((item) => [item.day, item]));
+    return [
+      row.agentCode,
+      row.employeeName,
+      row.region || "",
+      row.role,
+      row.brandId,
+      ...Array.from({ length: dayCount }, (_, i) => dayMap.get(i + 1)?.finalValue ?? ""),
+      row.summary.lowPhotoDays,
+      row.summary.specialDays,
+      row.summary.penaltyCount,
+      row.summary.workDays,
+    ];
+  });
   return [headers, ...rows].map((line) => line.map((cell) => `"${String(cell ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
 }
 

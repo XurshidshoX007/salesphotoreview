@@ -1,6 +1,6 @@
 const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_OVERRIDES='lmjReasonOverridesV1',LS_DELETED_REASONS='lmjDeletedReasonsV1',LS_DATE='lmjSelectedDateV2',LS_BRAND='lmjSelectedBrandV1',LS_THEME='lmjUiThemeV1',LS_METRICS='lmjPhotoMetricCacheV1',LS_PHOTO_PAGE_SIZE='lmjPhotoPageSizeV1',LS_CLIENT_ID='lmjReviewClientIdV1';
-    const stateTools=window.PhotoReviewState,dataTools=window.PhotoReviewDataLoader,filterTools=window.PhotoReviewFilters,markTools=window.PhotoReviewMarks,brandTools=window.PhotoReviewBrands,attendanceTools=window.PhotoReviewAttendance,uiState=window.PhotoReviewUiState,telegramTools=window.PhotoReviewTelegram,exportTools=window.PhotoReviewExport;
-    if(!stateTools||!dataTools||!filterTools||!markTools||!brandTools||!attendanceTools||!uiState||!telegramTools||!exportTools)throw new Error('Review modullari toliq yuklanmadi');
+    const stateTools=window.PhotoReviewState,dataTools=window.PhotoReviewDataLoader,filterTools=window.PhotoReviewFilters,markTools=window.PhotoReviewMarks,brandTools=window.PhotoReviewBrands,attendanceTools=window.PhotoReviewAttendance,uiState=window.PhotoReviewUiState,telegramTools=window.PhotoReviewTelegram,exportTools=window.PhotoReviewExport,datasetAutoTools=window.PhotoReviewDatasetAutoLoad;
+    if(!stateTools||!dataTools||!filterTools||!markTools||!brandTools||!attendanceTools||!uiState||!telegramTools||!exportTools||!datasetAutoTools)throw new Error('Review modullari toliq yuklanmadi');
     const defaultReasons=['Ish vaqtidan tashqari olingan foto','Kamera yopilgan yoki to\'sib olingan foto','Bitta do\'kondan takroriy foto','Ekrandan qayta olingan foto','Katalogdan olingan rasm','Faqat mahsulot rasmi','Foto talabga javob bermaydi'];
     const legacyReasons={
       'Ish vaqtidan keyin olingan foto':'Ish vaqtidan tashqari olingan foto',
@@ -12,8 +12,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       'Mahsulot rasmi (Talabga javob bermaydigan foto)':'Faqat mahsulot rasmi',
       'Foto talabga javob bermaydi':'Foto talabga javob bermaydi'
     };
-    let manifest={datasets:[]},dataset=null,agents=[],allAgents=[],brandSel,dateSel,agentSel,agentIndex=0,start=0,photoPageSize=Math.max(1,Number.parseInt(localStorage.getItem(LS_PHOTO_PAGE_SIZE)||'4',10)||4),photoPageAll=localStorage.getItem(LS_PHOTO_PAGE_SIZE)==='all',paused=true,timer=null,delay=3500,current=null,zoom=1,autoReviewResults=[],autoReviewPreviewOpen=false,autoReviewStats=null,brandConfig={brands:[],warnings:[]},activeBrandId='',attendanceData=null,attendanceConfig={employees:[],routes:[],assignments:[],settings:{}},adminStatsData=null,currentView='photo',attendanceConfigLoadedAt=0,attendanceRenderTimer=null,brandsLoadedAt=0,adminStatsLoadedAt=0,lastMarksLoadAt=0;
-    const ATTENDANCE_CACHE_MS=15000,attendanceMonthCache=new Map();
+    let manifest={datasets:[]},dataset=null,agents=[],allAgents=[],brandSel,dateSel,agentSel,agentIndex=0,start=0,photoPageSize=Math.max(1,Number.parseInt(localStorage.getItem(LS_PHOTO_PAGE_SIZE)||'4',10)||4),photoPageAll=localStorage.getItem(LS_PHOTO_PAGE_SIZE)==='all',paused=true,timer=null,delay=3500,current=null,zoom=1,autoReviewResults=[],autoReviewPreviewOpen=false,autoReviewStats=null,brandConfig={brands:[],warnings:[]},activeBrandId='',attendanceData=null,attendanceConfig={employees:[],routes:[],assignments:[],settings:{}},attendanceView=window.innerWidth<=760?'day':'month',attendanceQuickFilter='',attendanceSelectedDate='',attendanceUndoAction=null,adminStatsData=null,currentView='photo',attendanceConfigLoadedAt=0,attendanceRenderTimer=null,brandsLoadedAt=0,adminStatsLoadedAt=0,lastMarksLoadAt=0,datasetAutoController=null,datasetBannerTimer=null;
+    const ATTENDANCE_CACHE_MS=15000,attendanceMonthCache=new Map(),attendanceCollapsedGroups=new Set();
     let marks=stateTools.parseJson(localStorage.getItem(LS_MARKS)||'{}',{}),customReasons=stateTools.parseJson(localStorage.getItem(LS_REASONS)||'[]',[]),reasonOverrides=stateTools.parseJson(localStorage.getItem(LS_REASON_OVERRIDES)||'{}',{}),deletedReasons=stateTools.parseJson(localStorage.getItem(LS_DELETED_REASONS)||'[]',[]),editingReason='';
     const reviewClientId=stateTools.clientId(localStorage,LS_CLIENT_ID);
     let sharedSyncTimer=null,sharedSyncBusy=false,sharedSyncDirty=false,reasonSyncTimer=null;
@@ -1429,6 +1429,66 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if($('agentStats'))$('agentStats').textContent='';
       if($('afterHoursStats'))$('afterHoursStats').textContent='';
     }
+    function selectedDatasetRequest(){return {date:cleanDatasetDate(dateSel?.value||''),brand:brandSel?.value||''}}
+    function isCurrentDatasetRequest(selection){
+      const current=selectedDatasetRequest();
+      return current.date===selection.date&&current.brand===selection.brand;
+    }
+    async function datasetApiRequest(url,options={}){
+      const response=await fetch(dataTools.resolveUrl(url),{...options,credentials:'same-origin'});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok&&!data.status){
+        data.status='error';
+        data.code=data.code||'UNKNOWN_ERROR';
+        data.error=data.error||`HTTP ${response.status}`;
+      }
+      return data;
+    }
+    function datasetBrandLabel(selection){
+      return `${datasetBrandName(selection.brand)} \u2022 ${selection.date.split('-').reverse().join('.')}`;
+    }
+    function showDatasetPreparing(selection,state={status:'checking'}){
+      dataset=null;agents=[];allAgents=[];agentIndex=0;start=0;
+      if(agentSel){agentSel.innerHTML='';agentSel.disabled=true;agentSel.add(new Option('Agent yoq',''))}
+      const progress=state.progress||{};
+      const count=progress.total?`${Number(progress.completed||0)} / ${Number(progress.total||0)} agent`:'';
+      const percent=progress.total?`${Number(progress.percent||0)}%`:'';
+      const title=state.status==='busy'?'Server band':"Ma'lumot tayyorlanmoqda";
+      const message=state.status==='busy'
+        ?'Boshqa ma\u2019lumot tugagach avtomatik boshlanadi'
+        :[datasetBrandLabel(selection),count,percent].filter(Boolean).join(' \u2022 ');
+      $('grid').innerHTML=viewStateMarkup(title,message,{tone:state.status==='busy'?'warning':'loading'});
+      $('title').textContent="Ma'lumot tayyorlanmoqda";
+      $('meta').textContent=datasetBrandLabel(selection);
+      if($('dateStats'))$('dateStats').textContent='';
+      if($('deleteDateBtn'))$('deleteDateBtn').disabled=true;
+    }
+    function renderDatasetStatus(state,selection){
+      if(!isCurrentDatasetRequest(selection))return;
+      const banner=$('datasetStatusBanner');
+      if(!banner)return;
+      clearTimeout(datasetBannerTimer);
+      const status=state.status||'checking';
+      const progress=state.progress||state.active?.progress||{};
+      const summary=state.summary||{};
+      const pct=Math.max(0,Math.min(100,Number(progress.percent||0)));
+      const labels={
+        checking:["Ma'lumot tekshirilmoqda...",'Tanlangan sana va brend tekshirilmoqda'],
+        collecting:[`${datasetBrandLabel(selection)} ma\u2019lumoti tayyorlanmoqda`,progress.total?`${progress.completed||0} / ${progress.total} agent \u2022 ${pct}%`:'Sales ma\u2019lumotlari olinmoqda'],
+        busy:['Server boshqa ma\u2019lumotni tayyorlamoqda','Tanlangan ma\u2019lumot keyin avtomatik boshlanadi'],
+        ready:["Ma'lumot tayyor",`${summary.totalAgents||0} agent \u2022 ${summary.agentsWithPhotos||0} fotoli \u2022 ${summary.totalPhotos||0} foto${summary.elapsedMs?` \u2022 ${(summary.elapsedMs/1000).toFixed(1)} soniya`:''}`],
+        partial:["Ma'lumot tayyor, ayrim agentlarda farq bor",`${summary.ok||0} OK \u2022 ${summary.partial||0} qisman \u2022 ${summary.actualPhotos??summary.totalPhotos??0} / ${summary.expectedPhotos??summary.totalPhotos??0} foto`],
+        error:["Ma'lumotni tayyorlab bo'lmadi",state.message||datasetAutoTools.errorMessage(state)],
+      };
+      const [title,message]=labels[status]||labels.error;
+      const showProgress=status==='collecting'&&Number(progress.total||0)>0;
+      banner.hidden=false;
+      banner.className=`datasetStatusBanner ${status}`;
+      banner.innerHTML=`<span class="datasetStatusIcon" aria-hidden="true"></span><div class="datasetStatusCopy"><b>${escapeHtml(title)}</b><span>${escapeHtml(message)}</span>${showProgress?`<div class="datasetStatusProgress"><i style="width:${pct}%"></i></div>`:''}</div>${status==='error'?'<button id="datasetRetryBtn" type="button">Qayta urinish</button>':''}`;
+      if(status==='error')$('datasetRetryBtn').onclick=()=>datasetAutoController?.retry(selection);
+      if(['checking','collecting','busy'].includes(status))showDatasetPreparing(selection,state);
+      if(status==='ready')datasetBannerTimer=setTimeout(()=>{if(isCurrentDatasetRequest(selection))banner.hidden=true},3500);
+    }
     function cleanDatasetDate(value){return filterTools.cleanDatasetDate(value)}
     function resolveBrandId(value){
       const raw=String(value||'').trim();
@@ -1447,7 +1507,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       return '';
     }
     function datasetBrandId(item){
-      const raw=item?.brand||{};
+      const raw=typeof item?.brand==='string'?{id:item.brand}:item?.brand||{};
       const byId=raw.id&&brandById(raw.id);
       if(byId)return byId.id;
       const byCode=raw.code&&brandByCode(raw.code);
@@ -1465,7 +1525,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const b=brandById(id);
       if(b)return brandDisplayName(b);
       const item=(manifest.datasets||[]).find(d=>datasetBrandId(d)===id);
-      return item?.brand?.name||id;
+      return (typeof item?.brand==='object'?item.brand?.name:'')||id;
     }
     function groupedDatasets(){
       const map=new Map();
@@ -1488,12 +1548,13 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function renderBrandFilter(preferred=''){
       if(!brandSel)return;
       const datasets=groupedDatasets();
-      const ids=[...new Set(datasets.map(d=>d._brandId))];
+      const configured=(brandConfig.brands||[]).filter(b=>b.enabled!==false).map(b=>b.id);
+      const ids=[...new Set([...configured,...datasets.map(d=>d._brandId)])];
       brandSel.innerHTML='';
       brandSel.add(new Option('Brend tanlang',''));
       ids.forEach(id=>brandSel.add(new Option(datasetBrandName(id),id)));
       const saved=localStorage.getItem(LS_BRAND)||'';
-      const next=ids.includes(preferred)?preferred:(ids.includes(saved)?saved:(ids.at(-1)||''));
+      const next=ids.includes(preferred)?preferred:(ids.includes(saved)?saved:(ids[0]||''));
       brandSel.value=next;
     }
     function renderDateFilter(preferred=''){
@@ -1509,10 +1570,11 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const dates=[...new Set(groupedDatasets().filter(d=>d._brandId===brand).map(d=>d._date))].sort();
       dateSel.disabled=false;
       if(!dates.length){
-        dateSel.value='';
         dateSel.removeAttribute('min');
         dateSel.removeAttribute('max');
         dateSel.title=`${datasetBrandName(brand)} uchun yig'ilgan sana topilmadi`;
+        const fallback=cleanDatasetDate(preferred)||cleanDatasetDate(localStorage.getItem(LS_DATE)||'')||yesterday();
+        dateSel.value=fallback;
         return;
       }
       dateSel.removeAttribute('min');
@@ -1520,11 +1582,11 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       dateSel.dataset.availableDates=dates.join(',');
       dateSel.title=`Mavjud sanalar: ${dates.join(', ')}`;
       const saved=cleanDatasetDate(localStorage.getItem(LS_DATE)||'');
-      const next=dates.includes(preferred)?preferred:(dates.includes(saved)?saved:(dates.at(-1)||''));
+      const requested=cleanDatasetDate(preferred);
+      const next=requested||(saved||dates.at(-1)||'');
       dateSel.value=next;
     }
     async function applyManifest(nextDate='',nextBrand=''){
-      if(!manifest.datasets.length){localStorage.removeItem(LS_DATE);showEmpty("Yig'ilgan sana yo'q.",true);return}
       const cleanNextDate=cleanDatasetDate(nextDate);
       let cleanNextBrand=nextBrand||'';
       if(!cleanNextBrand&&nextDate){
@@ -1534,16 +1596,16 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       renderBrandFilter(cleanNextBrand);
       renderDateFilter(cleanNextDate);
       if(!brandSel.value){showEmpty('Avval brendni tanlang');return}
-      if(!dateSel.value){showEmpty(`${datasetBrandName(brandSel.value)} uchun ma'lumot topilmadi`,true);return}
-      await loadSelectedDataset();
+      if(!dateSel.value){showEmpty('Sanani tanlang');return}
+      await handleDatasetSelection({immediate:true});
     }
-    async function loadManifest(){
-      const res=await fetch('lmj_review_datasets.json');
+    async function loadManifest(nextDate='',nextBrand=''){
+      const res=await fetch(`lmj_review_datasets.json?v=${Date.now()}`,{cache:'no-store'});
       manifest=await res.json();
       await loadBrands();
       await loadReasons();
       await loadMarks();
-      await applyManifest();
+      await applyManifest(nextDate,nextBrand);
     }
     async function loadSelectedDataset(){
       if(!(brandConfig.brands||[]).length)await loadBrands();
@@ -1553,11 +1615,13 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(!brand){showEmpty('Avval brendni tanlang');notify('Avval brendni tanlang','bad');return}
       localStorage.setItem(LS_BRAND,brand);
       localStorage.setItem(LS_DATE,date);
-      if(!item){showEmpty(`${datasetBrandName(brand)} | ${date}: ma'lumot topilmadi`,true);return}
+      if(!item)throw new Error('DATASET_NOT_FOUND');
       autoReviewResults=[];autoReviewPreviewOpen=false;autoReviewStats=null;
       dataset=await (await fetch(item.file)).json();
       dataset.date=datasetDate(item)||cleanDate(dataset.date)||date;
-      dataset.brand={...(dataset.brand||{}),...(item.brand||{}),id:brand,name:datasetBrandName(brand)};
+      const datasetBrand=typeof dataset.brand==='object'&&dataset.brand?dataset.brand:{};
+      const manifestBrand=typeof item.brand==='object'&&item.brand?item.brand:{id:item.brand||brand};
+      dataset.brand={...datasetBrand,...manifestBrand,id:brand,name:datasetBrandName(brand)};
       if($('deleteDateBtn'))$('deleteDateBtn').disabled=false;
       const all=dataset.agents||dataset.rows||[];
       const bad=all.filter(a=>['duplicate','error','partial','extra','empty','mismatch','unknown'].includes(a.status)||(!a.status&&a.expectedPhotos&&a.actualUrls&&a.actualUrls!==a.expectedPhotos));
@@ -1571,6 +1635,32 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         $('meta').innerHTML=`<span style="color:#ffd479">${dataset.date}: FAQAT ${agents.length} agent ishonchli. ${msg}. Qayta yig'ing.</span>`;
       }
       applyAgentFilter();
+    }
+    async function activateEnsuredDataset(result,selection){
+      if(!isCurrentDatasetRequest(selection))return;
+      const response=await fetch(`lmj_review_datasets.json?v=${Date.now()}`,{cache:'no-store'});
+      manifest=await response.json();
+      renderBrandFilter(selection.brand);
+      brandSel.value=selection.brand;
+      renderDateFilter(selection.date);
+      dateSel.value=selection.date;
+      if(!selectedDatasetItem())throw new Error('Tayyor dataset manifestda topilmadi');
+      await loadSelectedDataset();
+      renderDatasetStatus(result,selection);
+    }
+    async function handleDatasetSelection({immediate=false}={}){
+      const selection=selectedDatasetRequest();
+      datasetAutoController?.cancel();
+      if(!selection.brand){showEmpty('Avval brendni tanlang');return}
+      if(!selection.date){showEmpty('Sanani tanlang');return}
+      localStorage.setItem(LS_BRAND,selection.brand);
+      localStorage.setItem(LS_DATE,selection.date);
+      if(selectedDatasetItem()){
+        if($('datasetStatusBanner'))$('datasetStatusBanner').hidden=true;
+        try{await loadSelectedDataset();return}catch{}
+      }
+      showDatasetPreparing(selection,{status:'checking'});
+      datasetAutoController?.schedule(selection,{immediate});
     }
     async function loadDate(date){
       if(dateSel)dateSel.value=cleanDatasetDate(date);
@@ -2448,6 +2538,13 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       attendanceConfig={employees:data.employees||[],routes:data.routes||[],assignments:data.assignments||[],settings:data.settings||{},validation:data.validation||{}};
       attendanceConfigLoadedAt=Date.now();
       renderReplaceEmployeeSelect();
+      const regionSelect=$('attendanceRegion');
+      if(regionSelect){
+        const selected=regionSelect.value;
+        const regions=[...new Set([...(attendanceConfig.routes||[]).map(item=>item.region),...(attendanceConfig.employees||[]).map(item=>item.region)].filter(Boolean))].sort();
+        regionSelect.innerHTML='<option value="">Barcha hududlar</option>'+regions.map(region=>`<option value="${escapeHtml(region)}">${escapeHtml(region)}</option>`).join('');
+        if(regions.includes(selected))regionSelect.value=selected;
+      }
       return attendanceConfig;
     }
     function setPhotoFiltersOpen(open){
@@ -2480,6 +2577,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       }
       document.body.classList.toggle('collectView',isCollect);
       document.body.classList.toggle('photoView',isPhoto);
+      document.body.classList.toggle('attendanceView',isAttendance);
       document.body.classList.toggle('toolView',isTool);
       document.body.classList.toggle('minusView',isMinus);
       document.body.classList.toggle('brandView',isBrand);
@@ -2544,17 +2642,22 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if(isAttendance&&!attendanceData)loadAttendanceMonth().catch(e=>notify(e.message,'bad'));
       if(isAdmin)loadAdminStats().catch(e=>notify(e.message,'bad'));
     }
-    function attendanceFilters(){return{month:$('attendanceMonth')?.value||defaultAttendanceMonth(),brandId:$('attendanceBrand')?.value||'',prefix:String($('attendancePrefix')?.value||'').trim().toUpperCase(),role:String($('attendanceRole')?.value||'').trim().toLowerCase(),employee:String($('attendanceEmployee')?.value||'').trim().toLowerCase(),status:$('attendanceStatus')?.value||'',svrOnly:Boolean($('attendanceSvrOnly')?.checked)}}
-    function attClass(day,row){const state=day?.state||'empty';const classes=['attCell',`att-${state==='workday'?'workday':state}`];if(String(row.role||'').toLowerCase()==='svr')classes.push('att-supervisor');return classes.join(' ')}
+    function attendanceFilters(){return{month:$('attendanceMonth')?.value||defaultAttendanceMonth(),brandId:$('attendanceBrand')?.value||'',prefix:String($('attendancePrefix')?.value||'').trim().toUpperCase(),role:String($('attendanceRole')?.value||'').trim().toLowerCase(),employee:String($('attendanceEmployee')?.value||'').trim().toLowerCase(),status:$('attendanceStatus')?.value||'',region:$('attendanceRegion')?.value||'',svrOnly:Boolean($('attendanceSvrOnly')?.checked),quick:attendanceQuickFilter}}
+    function attClass(day,row){const state=day?.state||'empty';const classes=['attCell',`att-${state}`];if(String(row.role||'').toLowerCase()==='svr')classes.push('att-supervisor');if(day?.manual)classes.push('att-manual');return classes.join(' ')}
+    function rowHasIssue(row){return row.routeStatus!=='assigned'||Number(row.summary?.lowPhotoDays||0)>0||(row.days||[]).some(day=>['missing_dataset','unknown_route'].includes(day.state)||day.manual)}
     function filteredAttendanceRows(){
       if(!attendanceData)return[];
       const f=attendanceFilters();
       return (attendanceData.rows||[]).filter(row=>{
         if(f.prefix&&!String(row.agentCode||'').toUpperCase().startsWith(f.prefix))return false;
         if(f.role&&!String(row.role||'').toLowerCase().includes(f.role))return false;
-        if(f.employee&&!String(row.employeeName||'').toLowerCase().includes(f.employee))return false;
+        if(f.employee&&!`${row.agentCode||''} ${row.employeeName||''}`.toLowerCase().includes(f.employee))return false;
         if(f.status&&row.routeStatus!==f.status)return false;
+        if(f.region&&String(row.region||'')!==f.region)return false;
         if(f.svrOnly&&String(row.role||'').toLowerCase()!=='svr')return false;
+        if(f.quick==='low'&&!Number(row.summary?.lowPhotoDays||0))return false;
+        if(f.quick==='vacant'&&row.routeStatus!=='vacant')return false;
+        if(f.quick==='issue'&&!rowHasIssue(row))return false;
         return true;
       });
     }
@@ -2602,6 +2705,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       $('replaceNewNotes').value='';
       $('replaceReason').value='Yangi xodim olindi';
       setReplaceMessage(active?`Active assignment yopiladi: ${active.employeeId}`:'Active assignment topilmadi. Yangi assignment ochiladi.','');
+      if($('replaceMessage'))$('replaceMessage').innerHTML=`<b>${escapeHtml(active?`Joriy assignment: ${activeEmployee?.name||active.employeeId}`:'Joriy assignment topilmadi')}</b>${assignmentTimelineHtml(assignmentHistoryFor(code))}`;
       toggleReplaceNewFields();
       modal.classList.add('open');
       $('replaceAgentCode').focus();
@@ -2629,62 +2733,157 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       }else if(!payload.newEmployeeId){mark('replaceEmployeeSelect');return'Mavjud xodimni tanlang yoki yangi xodim yarating'}
       return'';
     }
-    function attendanceMetaHtml(rows){
-      const totals=attendanceData.summaryTotals||{};
-      const filtered=rows.reduce((sum,row)=>{
+    function attendanceAggregate(rows){
+      return rows.reduce((sum,row)=>{
+        sum.employees.add(row.employeeId||row.agentCode);
         sum.workDays+=Number(row.summary?.workDays||0);
-        sum.lowPhotoDays+=Number(row.summary?.lowPhotoDays||0);
-        sum.specialDays+=Number(row.summary?.specialDays||0);
-        sum.penaltyCount+=Number(row.summary?.penaltyCount||0);
-        if(row.routeStatus==='assigned')sum.assignedRows+=1;
-        else if(row.routeStatus==='vacant')sum.vacantRows+=1;
-        else if(row.routeStatus==='unknown_route')sum.unknownRows+=1;
+        sum.low+=Number(row.summary?.lowPhotoDays||0);
+        sum.special+=Number(row.summary?.specialDays||0);
+        sum.penalty+=Number(row.summary?.penaltyCount||0);
+        if(row.routeStatus==='vacant')sum.vacant+=1;
+        if(row.routeStatus!=='assigned'||rowHasIssue(row))sum.issues+=1;
         return sum;
-      },{workDays:0,lowPhotoDays:0,specialDays:0,penaltyCount:0,assignedRows:0,vacantRows:0,unknownRows:0});
-      const validation=attendanceData.validation||attendanceConfig.validation||{};
-      const quality=attendanceData.dataQuality||{};
-      const warnings=[...(validation.warnings||[])];
-      if(quality.missingRoutes?.length)warnings.push(`Yo'nalishsiz qatorlar: ${quality.missingRoutes.length}`);
+      },{employees:new Set(),workDays:0,low:0,special:0,penalty:0,vacant:0,issues:0});
+    }
+    function attendanceMetaHtml(rows){
+      const sum=attendanceAggregate(rows);
+      const planned=attendanceData.plannedWorkDays;
       const cards=[
-        ['Oy',attendanceData.month],
-        ['Brend',attendanceData.brand?.name||attendanceData.brandId||'Barcha brendlar'],
-        ['Qatorlar',`${rows.length}/${attendanceData.rows.length}`],
-        ['Biriktirilgan',`${filtered.assignedRows}/${totals.assignedRows??0}`],
-        ["Bo'sh",filtered.vacantRows],
-        ["Yo'nalishsiz",filtered.unknownRows],
-        ['Ish kuni',filtered.workDays],
-        ['Kam foto',filtered.lowPhotoDays],
-        ['Sababli',filtered.specialDays],
-        ['Shtraf',filtered.penaltyCount],
+        ['Xodim',sum.employees.size,''],
+        ['Ish kuni',planned?`${sum.workDays} / ${planned}`:sum.workDays,''],
+        ['Kam foto',sum.low,'low'],
+        ['Sababli',sum.special,''],
+        ['Vacant',sum.vacant,'vacant'],
+        ['Shtraf',sum.penalty,'low'],
+        ['Muammo',sum.issues,'issue'],
       ];
-      return `<div class="attendanceMetaGrid">${cards.map(([label,value])=>`<div class="attendanceMetric"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>`).join('')}</div><div class="attendanceMetaFoot"><span>Yaratilgan: ${escapeHtml(attendanceData.generatedAt||'-')}</span>${warnings.length?`<span class="attendanceWarning">${escapeHtml(warnings.join('; '))}</span>`:''}</div>`;
+      return `<div class="attendanceMetaGrid">${cards.map(([label,value,filter])=>`<button class="attendanceMetric ${attendanceQuickFilter===filter&&filter?'active':''}" data-summary-filter="${filter}"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></button>`).join('')}</div>`;
+    }
+    function renderAttendanceCoverage(){
+      const el=$('attendanceCoverage');if(!el||!attendanceData)return;
+      const found=new Set(attendanceData.dataQuality?.rawDatesFound||[]);
+      const count=new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate();
+      el.innerHTML=`<b>Data qamrovi</b><div>${Array.from({length:count},(_,index)=>{
+        const day=index+1,date=`${attendanceData.month}-${String(day).padStart(2,'0')}`;
+        return `<button class="${found.has(date)?'covered':'missing'}" data-coverage-date="${date}" title="${found.has(date)?'Dataset mavjud':'Dataset yo‘q'}">${day}<span>${found.has(date)?'✓':'–'}</span></button>`;
+      }).join('')}</div>`;
+      el.querySelectorAll('[data-coverage-date]').forEach(button=>button.onclick=()=>{attendanceSelectedDate=button.dataset.coverageDate;setAttendanceView('day')});
+    }
+    function renderAttendanceMonthStatus(){
+      const el=$('attendanceMonthState');if(!el||!attendanceData)return;
+      const status=attendanceData.monthStatus?.status||'draft';
+      const labels={draft:'Draft',approved:'Tasdiqlangan',locked:'Yopilgan'};
+      el.innerHTML=`<span class="monthState ${status}">${labels[status]||status}</span>${status==='draft'?'<button data-month-state="approved">Tasdiqlash</button>':status==='approved'?'<button data-month-state="locked">Oyni yopish</button>':'<button data-month-state="draft">Qayta ochish</button>'}`;
+      el.querySelector('[data-month-state]')?.addEventListener('click',async event=>{
+        const next=event.currentTarget.dataset.monthState;
+        if(next==='locked'&&!confirm('Oy yopilgach oddiy tahrir bloklanadi. Davom etilsinmi?'))return;
+        if(next==='draft'&&!confirm('Yopilgan oyni qayta ochasizmi?'))return;
+        const item=await dataTools.postJson('/api/attendance/month-status',{month:attendanceData.month,brandId:attendanceData.brandId||'',status:next,confirmUnlock:next==='draft',updatedBy:'local-user'});
+        attendanceData.monthStatus=item.item;
+        renderAttendanceMonthStatus();renderAttendance();
+      });
+    }
+    function attendanceDayValueLabel(day){
+      if(!day)return'Ma’lumot yo‘q';
+      if(day.state==='missing_dataset')return'Dataset yo‘q';
+      if(day.state==='not_applicable')return'Tegishli emas';
+      if(day.state==='vacant')return'Vacant';
+      if(day.state==='unknown_route')return'Route yo‘q';
+      if(day.state==='zero_activity')return'0 foto';
+      if(day.state==='special')return`${day.finalValue} · Sababli`;
+      if(day.state==='low')return`${day.finalValue} foto · Kam`;
+      return`${day.finalValue??'—'}${day.finalValue!==''?' foto':''}`;
+    }
+    function weekdayLabel(date){return['Ya','Du','Se','Chor','Pay','Ju','Sha'][new Date(`${date}T00:00:00`).getDay()]}
+    function groupedAttendanceRows(rows){
+      const teams=attendanceConfig.settings?.teams||[];
+      if(!teams.length)return rows.map(row=>({type:'row',row}));
+      const byCode=new Map(rows.map(row=>[String(row.agentCode||'').toUpperCase(),row]));
+      const used=new Set(),result=[];
+      teams.forEach(team=>{
+        const supervisor=String(team.supervisorCode||'').toUpperCase();
+        const codes=[supervisor,...(team.agentCodes||[]).map(code=>String(code).toUpperCase())];
+        const members=codes.map(code=>byCode.get(code)).filter(Boolean);
+        if(!members.length)return;
+        result.push({type:'group',code:supervisor,label:byCode.get(supervisor)?.employeeName||supervisor||'SVR',count:members.length});
+        if(!attendanceCollapsedGroups.has(supervisor))members.forEach(row=>{used.add(row);result.push({type:'row',row,grouped:true})});
+      });
+      rows.filter(row=>!used.has(row)).forEach(row=>result.push({type:'row',row}));
+      return result;
+    }
+    function renderAttendanceMonth(rows){
+      const table=$('attendanceTable'),list=$('attendanceListView');if(!table)return;
+      if(list)list.innerHTML='';
+      const dayCount=new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate();
+      const dayHeads=Array.from({length:dayCount},(_,index)=>{
+        const date=`${attendanceData.month}-${String(index+1).padStart(2,'0')}`,weekend=[0,6].includes(new Date(`${date}T00:00:00`).getDay());
+        return `<th class="${weekend?'weekend':''}"><span>${weekdayLabel(date)}</span><b>${index+1}</b></th>`;
+      }).join('');
+      table.innerHTML=`<thead><tr><th class="stickyCol">Kod</th><th class="stickyCol2">Xodim</th><th class="stickyCol3">Hudud</th>${dayHeads}<th class="summaryCol">Kam</th><th class="summaryCol">Sababli</th><th class="summaryCol">Shtraf</th><th class="summaryCol">Ish kuni</th></tr></thead><tbody>${groupedAttendanceRows(rows).map(item=>{
+        if(item.type==='group')return`<tr class="attendanceGroupRow"><td colspan="${dayCount+7}"><button data-att-group="${escapeHtml(item.code)}">${attendanceCollapsedGroups.has(item.code)?'▸':'▾'} SVR ${escapeHtml(item.label)} <span>${item.count} qator</span></button></td></tr>`;
+        const row=item.row,dayMap=new Map((row.days||[]).map(day=>[day.day,day]));
+        const days=Array.from({length:dayCount},(_,index)=>{
+          const day=dayMap.get(index+1)||{date:`${attendanceData.month}-${String(index+1).padStart(2,'0')}`,state:'missing_dataset',finalValue:''};
+          const weekend=[0,6].includes(new Date(`${day.date}T00:00:00`).getDay());
+          return `<td class="${weekend?'weekend':''}"><button class="${attClass(day,row)}" data-att-cell="${escapeHtml(row.agentCode)}|${escapeHtml(day.date)}" ${attendanceData.monthStatus?.status==='locked'?'data-locked="1"':''} title="${escapeHtml(attendanceDayValueLabel(day))}">${day.state==='not_applicable'||day.state==='missing_dataset'?'—':escapeHtml(day.finalValue??'')}</button></td>`;
+        }).join('');
+        return `<tr class="${item.grouped?'grouped':''}"><td class="stickyCol"><button class="attLink" data-agent-detail="${escapeHtml(row.agentCode)}">${escapeHtml(row.agentCode)}</button><span class="routeStatus ${escapeHtml(row.routeStatus)}">${escapeHtml(row.routeStatus)}</span></td><td class="stickyCol2"><button class="attLink" data-employee-detail="${escapeHtml(row.employeeId||'')}">${escapeHtml(row.employeeName)}</button><small>${escapeHtml(row.employeeStatus||'')}</small></td><td class="stickyCol3">${escapeHtml(row.region||'—')}</td>${days}<td class="attendanceSummary">${row.summary.lowPhotoDays}</td><td class="attendanceSummary">${row.summary.specialDays}</td><td class="attendanceSummary">${row.summary.penaltyCount}</td><td class="attendanceSummary">${row.summary.workDays}${attendanceData.plannedWorkDays?`/${attendanceData.plannedWorkDays}`:''}</td></tr>`;
+      }).join('')||`<tr><td colspan="${dayCount+7}">Tabel qatori topilmadi</td></tr>`}</tbody>`;
+    }
+    function selectedAttendanceDate(){
+      const month=attendanceData?.month||attendanceFilters().month;
+      if(attendanceSelectedDate?.startsWith(month))return attendanceSelectedDate;
+      const today=new Date().toISOString().slice(0,10);
+      if(today.startsWith(month))return today;
+      return attendanceData?.dataQuality?.rawDatesFound?.slice(-1)[0]||`${month}-01`;
+    }
+    function renderAttendanceDay(rows){
+      const table=$('attendanceTable'),list=$('attendanceListView');if(table)table.innerHTML='';
+      const date=selectedAttendanceDate(),dayNumber=Number(date.slice(-2));attendanceSelectedDate=date;
+      const options=Array.from({length:new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate()},(_,index)=>{const value=`${attendanceData.month}-${String(index+1).padStart(2,'0')}`;return`<option value="${value}" ${value===date?'selected':''}>${index+1} · ${weekdayLabel(value)}</option>`}).join('');
+      list.innerHTML=`<div class="attendanceDayHead"><button data-day-shift="-1">‹</button><label>Sana<select id="attendanceDaySelect">${options}</select></label><button data-day-shift="1">›</button><span>${(attendanceData.dataQuality?.rawDatesFound||[]).includes(date)?'Dataset mavjud':'Dataset yo‘q'}</span></div><div class="attendanceDayCards">${rows.map(row=>{
+        const day=(row.days||[])[dayNumber-1]||null;
+        return`<button class="attendanceDayCard ${day?.state||'empty'}" data-att-cell="${escapeHtml(row.agentCode)}|${date}"><span><b>${escapeHtml(row.agentCode)}</b><small>${escapeHtml(row.region||'Hudud yo‘q')}</small></span><strong>${escapeHtml(row.employeeName)}</strong><em>${escapeHtml(attendanceDayValueLabel(day))}</em></button>`;
+      }).join('')||'<div class="attendanceEmpty">Qator topilmadi</div>'}</div>`;
+    }
+    function renderAttendanceIssues(rows){
+      const table=$('attendanceTable'),list=$('attendanceListView');if(table)table.innerHTML='';
+      const allowed=new Set(rows.map(row=>`${row.agentCode}#${row.employeeId||''}`)),items=[];
+      rows.forEach(row=>{
+        if(row.routeStatus==='vacant')items.push({type:'vacant',row,label:'Vacant yo‘nalish'});
+        if(row.routeStatus==='unknown_route')items.push({type:'unknown_route',row,label:'Route topilmadi'});
+        (row.days||[]).forEach(day=>{
+          if(['low','zero_activity','missing_dataset'].includes(day.state)||day.manual)items.push({type:day.manual?'manual':day.state,row,day,label:day.manual?'Qo‘lda tuzatilgan':attendanceDayValueLabel(day)});
+        });
+      });
+      (attendanceData.dataQuality?.overlappingAssignments||[]).forEach(issue=>{const row=rows.find(item=>item.agentCode===issue.agentCode);if(row&&allowed.has(`${row.agentCode}#${row.employeeId||''}`))items.push({type:'assignment_overlap',row,label:'Assignment sanalari ustma-ust'})});
+      list.innerHTML=`<div class="attendanceIssuesHead"><b>${items.length} ta muammo</b><span>Amal talab qiladigan holatlar</span></div><div class="attendanceIssueList">${items.map(item=>`<article class="attendanceIssue ${item.type}"><span class="issueTone"></span><div><b>${escapeHtml(item.row.agentCode)} · ${escapeHtml(item.row.employeeName)}</b><span>${escapeHtml(item.label)}${item.day?` · ${escapeHtml(item.day.date)}`:''}</span></div>${item.day?`<button data-att-cell="${escapeHtml(item.row.agentCode)}|${escapeHtml(item.day.date)}">Ko‘rish</button>`:`<button data-agent-detail="${escapeHtml(item.row.agentCode)}">Ko‘rish</button>`}</article>`).join('')||'<div class="attendanceEmpty">Muammo topilmadi</div>'}</div>`;
+    }
+    function bindAttendanceContent(rows){
+      document.querySelectorAll('[data-att-cell]').forEach(button=>button.onclick=()=>{const[code,date]=button.dataset.attCell.split('|'),row=rows.find(item=>item.agentCode===code),day=(row?.days||[]).find(item=>item.date===date);if(row&&day)openAttendanceCellDetail(row,day)});
+      document.querySelectorAll('[data-agent-detail]').forEach(button=>button.onclick=()=>openAttendanceAgentDetail(button.dataset.agentDetail));
+      document.querySelectorAll('[data-employee-detail]').forEach(button=>button.onclick=()=>openAttendanceEmployeeDetail(button.dataset.employeeDetail));
+      document.querySelectorAll('[data-att-group]').forEach(button=>button.onclick=()=>{const code=button.dataset.attGroup;attendanceCollapsedGroups.has(code)?attendanceCollapsedGroups.delete(code):attendanceCollapsedGroups.add(code);renderAttendance()});
+      $('attendanceDaySelect')?.addEventListener('change',event=>{attendanceSelectedDate=event.target.value;renderAttendance()});
+      document.querySelectorAll('[data-day-shift]').forEach(button=>button.onclick=()=>{const current=new Date(`${selectedAttendanceDate()}T00:00:00`);current.setDate(current.getDate()+Number(button.dataset.dayShift));const next=current.toISOString().slice(0,10);if(next.startsWith(attendanceData.month)){attendanceSelectedDate=next;renderAttendance()}});
     }
     function renderAttendance(){
-      const table=$('attendanceTable');if(!table||!attendanceData)return;
+      if(!attendanceData)return;
       const rows=filteredAttendanceRows();
-      const dayCount=new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate();
       $('attendanceMeta').innerHTML=attendanceMetaHtml(rows);
-      const head=['Kod','Xodim','Lavozim','Brend','Amal',...Array.from({length:dayCount},(_,i)=>String(i+1)),'Foto kamligi','Sababli','Shtraf','Ish kuni'];
-      const thead=`<thead><tr>${head.map((h,i)=>`<th class="${i===0?'stickyCol':i===1?'stickyCol2':''}">${escapeHtml(h)}</th>`).join('')}</tr></thead>`;
-      const body=rows.map(row=>{
-        const days=Array.from({length:dayCount},(_,i)=>{
-          const day=row.days.find(d=>d.day===i+1)||{date:`${attendanceData.month}-${String(i+1).padStart(2,'0')}`,finalValue:'',state:row.isVacant?'vacant':'empty'};
-          const value=day.finalValue??'';
-          const title=[`Auto: ${day.autoValue??''}`,day.manualValue!=null?`Manual: ${day.manualValue}`:'',day.reason?`Izoh: ${day.reason}`:'',`Foto: ${day.photoCount??''}`,`Savdo: ${day.salesAmount??''}`].filter(Boolean).join(' | ');
-          return `<td><div class="${attClass(day,row)}" contenteditable="${row.isVacant?'false':'true'}" data-date="${escapeHtml(day.date)}" data-agent="${escapeHtml(row.agentCode)}" data-employee="${escapeHtml(row.employeeId||'')}" data-brand="${escapeHtml(attendanceData.brandId||'')}" data-original="${escapeHtml(value)}" title="${escapeHtml(title)}">${escapeHtml(value)}</div></td>`;
-        }).join('');
-        return `<tr><td class="stickyCol"><b>${escapeHtml(row.agentCode)}</b><div class="routeStatus ${escapeHtml(row.routeStatus)}">${escapeHtml(row.routeStatus)}</div></td><td class="stickyCol2">${escapeHtml(row.employeeName)}</td><td>${escapeHtml(row.role)}</td><td>${escapeHtml(row.brandId)}</td><td><button class="attActionBtn" data-replace-row="${escapeHtml(row.agentCode)}">Almashtirish</button></td>${days}<td class="attendanceSummary">${row.summary.lowPhotoDays}</td><td class="attendanceSummary">${row.summary.specialDays}</td><td class="attendanceSummary">${row.summary.penaltyCount}</td><td class="attendanceSummary">${row.summary.workDays}</td></tr>`;
-      }).join('');
-      table.innerHTML=thead+`<tbody>${body||'<tr><td colspan="40">Tabel qatori topilmadi</td></tr>'}</tbody>`;
-      table.querySelectorAll('[data-replace-row]').forEach(btn=>{
-        const row=rows.find(r=>r.agentCode===btn.dataset.replaceRow);
-        btn.onclick=()=>openReplaceEmployeeModal(row);
-      });
-      table.querySelectorAll('.attCell[contenteditable="true"]').forEach(cell=>{
-        cell.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();cell.blur()}};
-        cell.oninput=()=>cell.classList.toggle('invalid',!attendanceValueLooksValid(cell.textContent));
-        cell.onblur=()=>saveAttendanceCell(cell);
-      });
+      renderAttendanceCoverage();renderAttendanceMonthStatus();
+      document.querySelectorAll('[data-attendance-view]').forEach(button=>button.classList.toggle('active',button.dataset.attendanceView===attendanceView));
+      document.querySelectorAll('[data-attendance-filter]').forEach(button=>button.classList.toggle('active',(button.dataset.attendanceFilter||'')===attendanceQuickFilter));
+      $('attendanceTable')?.classList.toggle('hidden',attendanceView!=='month');
+      if(attendanceView==='day')renderAttendanceDay(rows);
+      else if(attendanceView==='issues')renderAttendanceIssues(rows);
+      else renderAttendanceMonth(rows);
+      bindAttendanceContent(rows);
+      $('attendanceMeta')?.querySelectorAll('[data-summary-filter]').forEach(button=>button.onclick=()=>{attendanceQuickFilter=button.dataset.summaryFilter||'';renderAttendance()});
+    }
+    function setAttendanceView(view){
+      attendanceView=['month','day','issues'].includes(view)?view:'month';
+      renderAttendance();
     }
     async function loadAttendanceMonth(generate=false){
       uiState.render($('attendanceMeta'),generate?'Tabel yaratilmoqda':'Tabel yuklanmoqda','Oy va brend bo‘yicha ma’lumotlar tayyorlanmoqda.',{type:'loading',compact:true});
@@ -2713,6 +2912,85 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         throw error;
       }
     }
+    function closeAttendanceDetail(){
+      $('attendanceDetailDrawer')?.classList.remove('open');
+      $('attendanceDetailDrawer')?.setAttribute('aria-hidden','true');
+    }
+    function showAttendanceDetail(title,subtitle,html){
+      $('attendanceDetailTitle').textContent=title;
+      $('attendanceDetailSubtitle').textContent=subtitle||'';
+      $('attendanceDetailBody').innerHTML=html;
+      $('attendanceDetailDrawer').classList.add('open');
+      $('attendanceDetailDrawer').setAttribute('aria-hidden','false');
+    }
+    function assignmentHistoryFor(agentCode='',employeeId=''){
+      return (attendanceConfig.assignments||[]).filter(item=>(!agentCode||String(item.agentCode).toUpperCase()===String(agentCode).toUpperCase())&&(!employeeId||item.employeeId===employeeId)).sort((a,b)=>String(b.startDate).localeCompare(String(a.startDate)));
+    }
+    function assignmentTimelineHtml(items){
+      return `<div class="attendanceTimeline">${items.map(item=>{const employee=employeeById(item.employeeId);return`<div><span></span><p><b>${escapeHtml(employee?.name||item.employeeId)}</b><small>${escapeHtml(item.startDate)} → ${escapeHtml(item.endDate||'hozir')}</small><em>${escapeHtml(item.reason||'')}</em></p></div>`}).join('')||'<p class="attendanceEmpty">Assignment tarixi yo‘q</p>'}</div>`;
+    }
+    async function loadAttendanceCellHistory(row,day){
+      const target=$('attendanceCellHistory');if(!target)return;
+      try{
+        const data=await dataTools.getJson(`/api/attendance/history?agentCode=${encodeURIComponent(row.agentCode)}&date=${encodeURIComponent(day.date)}&brandId=${encodeURIComponent(attendanceData.brandId||'')}&limit=20`,{timeout:10000});
+        target.innerHTML=(data.items||[]).map(item=>`<div class="attendanceHistoryItem"><b>${new Date(item.changedAt).toLocaleString('uz-UZ')}</b><span>${escapeHtml(item.oldValue??'—')} → ${escapeHtml(item.newValue??'—')}</span><small>${escapeHtml(item.reason||'Sabab yozilmagan')}</small></div>`).join('')||'<p class="attendanceEmpty">O‘zgarish tarixi yo‘q</p>';
+      }catch(error){target.innerHTML=`<p class="attendanceEmpty">${escapeHtml(error.message)}</p>`}
+    }
+    function openAttendanceCellDetail(row,day){
+      const locked=attendanceData.monthStatus?.status==='locked';
+      showAttendanceDetail(`${row.agentCode} · ${row.employeeName}`,`${day.date} · ${row.region||'Hudud ko‘rsatilmagan'}`,`
+        <div class="attendanceDetailFacts">
+          <div><span>Auto qiymat</span><b>${escapeHtml(day.autoValue??'—')}</b></div>
+          <div><span>Final qiymat</span><b>${escapeHtml(day.finalValue??'—')}</b></div>
+          <div><span>Foto</span><b>${escapeHtml(day.photoCount??'—')}</b></div>
+          <div><span>Holat</span><b>${escapeHtml(attendanceDayValueLabel(day))}</b></div>
+        </div>
+        ${locked?'<div class="attendanceLockedNotice">Oy yopilgan. Tahrirlash bloklangan.</div>':`
+        <div class="attendanceEditBox">
+          <label>Qiymat<input id="attendanceEditValue" value="${escapeHtml(day.finalValue??'')}"></label>
+          <label>Sabab<input id="attendanceEditReason" value="${escapeHtml(day.reason||'')}" placeholder="Masalan: Foto keyin yuklandi"></label>
+          <div class="attendanceReasonPresets"><button data-att-reason="Foto keyin yuklandi">Foto keyin yuklandi</button><button data-att-reason="Rahbar tasdiqladi">Rahbar tasdiqladi</button><button data-att-reason="Sababli kun">Sababli kun</button></div>
+          <div class="attendanceDetailActions"><button id="attendanceResetValue">↺ Avtomatik qiymatga qaytarish</button><button id="attendanceSaveValue" class="primary">Saqlash</button></div>
+        </div>`}
+        <section class="attendanceHistory"><h3>Tarix</h3><div id="attendanceCellHistory">Yuklanmoqda...</div></section>`);
+      document.querySelectorAll('[data-att-reason]').forEach(button=>button.onclick=()=>{$('attendanceEditReason').value=button.dataset.attReason});
+      $('attendanceSaveValue')?.addEventListener('click',()=>saveAttendanceOverride(row,day).catch(error=>notify(error.message,'bad')));
+      $('attendanceResetValue')?.addEventListener('click',()=>resetAttendanceOverride(row,day).catch(error=>notify(error.message,'bad')));
+      loadAttendanceCellHistory(row,day);
+    }
+    function applyAttendanceMonthResponse(data){
+      invalidateAttendanceCache(attendanceFilters().month,attendanceFilters().brandId);
+      attendanceData=data.month;
+      attendanceMonthCache.set(attendanceCacheKey(attendanceData.month,attendanceData.brandId),{data:attendanceData,at:Date.now()});
+      renderAttendance();
+    }
+    function showAttendanceUndo(message,action){
+      attendanceUndoAction=action;
+      const el=$('attendanceUndo');if(!el)return;
+      el.hidden=false;el.innerHTML=`<span>${escapeHtml(message)}</span><button id="attendanceUndoBtn">Bekor qilish</button>`;
+      $('attendanceUndoBtn').onclick=async()=>{const fn=attendanceUndoAction;attendanceUndoAction=null;el.hidden=true;if(fn)await fn()};
+      clearTimeout(showAttendanceUndo.timer);
+      showAttendanceUndo.timer=setTimeout(()=>{el.hidden=true;attendanceUndoAction=null},8000);
+    }
+    async function saveAttendanceOverride(row,day){
+      const value=$('attendanceEditValue').value.trim(),reason=$('attendanceEditReason').value.trim();
+      if(!attendanceValueLooksValid(value)){notify('Qiymat son yoki 15s kabi sababli qiymat bo‘lishi kerak','bad');return}
+      if(!reason){notify('O‘zgarish sababini kiriting','bad');$('attendanceEditReason').focus();return}
+      const previous={manual:day.manual,value:day.manualValue,reason:day.reason};
+      const data=await dataTools.postJson('/api/attendance/override',{date:day.date,agentCode:row.agentCode,employeeId:row.employeeId||null,brandId:attendanceData.brandId||'',manualValue:value,reason,updatedBy:'local-user'});
+      applyAttendanceMonthResponse(data);closeAttendanceDetail();
+      showAttendanceUndo(`✓ ${day.finalValue??'—'} → ${value} saqlandi`,async()=>{
+        const undoData=previous.manual
+          ?await dataTools.postJson('/api/attendance/override',{date:day.date,agentCode:row.agentCode,employeeId:row.employeeId||null,brandId:attendanceData.brandId||'',manualValue:previous.value,reason:`Bekor qilindi: ${previous.reason||reason}`,updatedBy:'local-user'})
+          :await dataTools.postJson('/api/attendance/override/reset',{date:day.date,agentCode:row.agentCode,employeeId:row.employeeId||null,brandId:attendanceData.brandId||'',reason:'Oxirgi amal bekor qilindi',updatedBy:'local-user'});
+        applyAttendanceMonthResponse(undoData);notify('O‘zgarish bekor qilindi');
+      });
+    }
+    async function resetAttendanceOverride(row,day){
+      if(!day.manual){notify('Bu qiymat allaqachon avtomatik');return}
+      const data=await dataTools.postJson('/api/attendance/override/reset',{date:day.date,agentCode:row.agentCode,employeeId:row.employeeId||null,brandId:attendanceData.brandId||'',reason:'Avtomatik qiymatga qaytarildi',updatedBy:'local-user'});
+      applyAttendanceMonthResponse(data);closeAttendanceDetail();notify('Avtomatik qiymat tiklandi');
+    }
     async function saveAttendanceCell(cell){
       const value=cell.textContent.trim();
       if(value===(cell.dataset.original||''))return;
@@ -2734,6 +3012,40 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         renderAttendance();
         notify('Tabel qiymati saqlandi');
       }catch(e){cell.textContent=cell.dataset.original||'';cell.classList.remove('saving');cell.setAttribute('contenteditable','true');notify(e.message,'bad')}
+    }
+    function openAttendanceEmployeeDetail(employeeId){
+      const employee=employeeById(employeeId),rows=(attendanceData.rows||[]).filter(row=>row.employeeId===employeeId),sum=attendanceAggregate(rows);
+      if(!employee&&!rows.length)return;
+      const row=rows[0]||{};
+      showAttendanceDetail(employee?.name||row.employeeName,row.agentCode||'',`
+        <div class="attendanceProfile"><span class="employeeStatus ${employee?.active===false?'left':'active'}">${employee?.active===false?`Ishdan ketgan ${employee.leftDate||''}`:'Faol'}</span><dl><dt>Kod</dt><dd>${escapeHtml(row.agentCode||'—')}</dd><dt>Brend</dt><dd>${escapeHtml(row.brandId||attendanceData.brandId||'—')}</dd><dt>Hudud</dt><dd>${escapeHtml(row.region||employee?.region||'—')}</dd><dt>Ishga kirgan</dt><dd>${escapeHtml(employee?.hireDate||'Ko‘rsatilmagan')}</dd><dt>Ish kuni</dt><dd>${sum.workDays}${attendanceData.plannedWorkDays?` / ${attendanceData.plannedWorkDays}`:''}</dd><dt>Kam foto</dt><dd>${sum.low}</dd><dt>Sababli</dt><dd>${sum.special}</dd><dt>Shtraf</dt><dd>${sum.penalty}</dd></dl></div>
+        <h3>Assignment tarixi</h3>${assignmentTimelineHtml(assignmentHistoryFor('',employeeId))}`);
+    }
+    function openAttendanceAgentDetail(agentCode){
+      const rows=(attendanceData.rows||[]).filter(row=>row.agentCode===agentCode),current=rows.find(row=>row.routeStatus==='assigned')||rows[0];
+      showAttendanceDetail(agentCode,current?.employeeName||'Agent tafsiloti',`<div class="attendanceProfile"><dl><dt>Joriy xodim</dt><dd>${escapeHtml(current?.employeeName||'Vacant')}</dd><dt>Hudud</dt><dd>${escapeHtml(current?.region||'—')}</dd><dt>Holat</dt><dd>${escapeHtml(current?.routeStatus||'—')}</dd></dl><button id="attendanceDetailReplace" class="primary">Xodim almashtirish</button></div><h3>Assignment tarixi</h3>${assignmentTimelineHtml(assignmentHistoryFor(agentCode))}`);
+      $('attendanceDetailReplace')?.addEventListener('click',()=>{closeAttendanceDetail();openReplaceEmployeeModal(current)});
+    }
+    function openAttendanceBulkEdit(){
+      const rows=filteredAttendanceRows().filter(row=>row.routeStatus==='assigned');
+      const monthEnd=String(new Date(Number(attendanceData.month.slice(0,4)),Number(attendanceData.month.slice(5,7)),0).getDate()).padStart(2,'0');
+      showAttendanceDetail('Ko‘p kunni tahrirlash','Bitta agent va bitta oy oralig‘i',`
+        <div class="attendanceEditBox attendanceBulkForm">
+          <label>Agent<select id="attendanceBulkAgent">${rows.map(row=>`<option value="${escapeHtml(row.agentCode)}" data-employee="${escapeHtml(row.employeeId||'')}">${escapeHtml(row.agentCode)} · ${escapeHtml(row.employeeName)}</option>`).join('')}</select></label>
+          <label>Boshlanish<input id="attendanceBulkStart" type="date" value="${attendanceData.month}-01"></label>
+          <label>Tugash<input id="attendanceBulkEnd" type="date" value="${attendanceData.month}-${monthEnd}"></label>
+          <label>Qiymat<input id="attendanceBulkValue" placeholder="19s"></label>
+          <label>Sabab<input id="attendanceBulkReason" placeholder="Tasdiqlangan sababli kun"></label>
+          <button id="attendanceBulkSave" class="primary">Saqlash</button>
+        </div>`);
+      $('attendanceBulkSave').onclick=async()=>{
+        const select=$('attendanceBulkAgent'),option=select.selectedOptions[0],value=$('attendanceBulkValue').value.trim(),reason=$('attendanceBulkReason').value.trim();
+        if(!attendanceValueLooksValid(value)||!reason){notify('Qiymat va sababni to‘g‘ri kiriting','bad');return}
+        try{
+          const data=await dataTools.postJson('/api/attendance/bulk-override',{agentCode:select.value,employeeId:option?.dataset.employee||null,brandId:attendanceData.brandId||'',startDate:$('attendanceBulkStart').value,endDate:$('attendanceBulkEnd').value,manualValue:value,reason,updatedBy:'local-user'},{timeout:30000});
+          applyAttendanceMonthResponse(data);closeAttendanceDetail();notify(`${data.changed?.length||0} kun yangilandi`);
+        }catch(error){notify(error.message,'bad')}
+      };
     }
     async function replaceAttendanceEmployee(){
       const payload=replacementPayload();
@@ -2773,6 +3085,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         waiting_close:'Yakunlanmoqda',
         stopping:"To'xtatilmoqda",
         done:'Tugadi',
+        partial:'Qisman tayyor',
         failed:'Xatolik bilan yakunlandi',
         error:'Xato'
       }[status]||status||'Tayyor';
@@ -2782,7 +3095,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const running=!!s.running;
       const status=s.status||'idle';
       const configured=s.configured!==false;
-      systemHealth.collect=running?'running':(['failed','error'].includes(status)?'error':(status==='done'?'done':'idle'));
+      systemHealth.collect=running?'running':(['failed','error'].includes(status)?'error':(['done','partial'].includes(status)?'done':'idle'));
       renderSystemStatus();
       const waiting=!!s.awaiting;
       $('collectStatusTitle').textContent=collectLabel(status);
@@ -2803,7 +3116,6 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       $('collectBadge').textContent=status;
       $('collectBadge').className=`collectBadge ${running?'busy':(status==='done'?'done':(['failed','error'].includes(status)?'badState':''))}`;
       const logLines=s.logs||[];
-      const logs=logLines.join('\n');
       // Rangli log qatorlari
       $('collectLog').innerHTML=logLines.length?logLines.map(raw=>{
         const t=escapeHtml(raw);
@@ -2819,10 +3131,10 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       // Progress bar (yig'ilyapti)
       const prog=$('collectProgress');
       if(prog){
-        let dn=0,tot=0;
-        for(const ln of logLines){const m=/(\d+)\s*\/\s*(\d+)\s+agent/.exec(ln);if(m){dn=+m[1];tot=+m[2];}}
+        const progress=s.progress||{};
+        const dn=Number(progress.completed||0),tot=Number(progress.total||0);
         if(running&&tot>0){
-          const pct=Math.min(100,Math.round(dn/tot*100));
+          const pct=Math.min(100,Number(progress.percent||Math.round(dn/tot*100)));
           prog.hidden=false;
           $('collectProgressFill').style.width=pct+'%';
           $('collectProgressText').textContent=`${dn} / ${tot} agent`;
@@ -2832,10 +3144,10 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       // Yakuniy statistika plitalari (tugadi)
       const summary=$('collectSummary');
       if(summary){
-        const g=re=>{const m=re.exec(logs);return m?m[1]:null;};
-        const agentlar=g(/Agentlar:\s*(\d+)/), fotoli=g(/Fotoli:\s*(\d+)/), url=g(/Jami URL:\s*(\d+)/);
-        if(status==='done'&&(agentlar||url)){
-          const ok=g(/\bok:\s*(\d+)/), partial=g(/partial:\s*(\d+)/), err=g(/\berror:\s*(\d+)/), secs=g(/TUGADI\s*\(([\d.]+)s\)/);
+        const data=s.summary||null;
+        if(['done','partial'].includes(status)&&data){
+          const agentlar=data.totalAgents, fotoli=data.agentsWithPhotos, url=data.totalPhotos;
+          const ok=data.ok, partial=data.partial, err=data.error, secs=data.elapsedMs?(Number(data.elapsedMs)/1000).toFixed(1):'';
           const tile=(label,val,cls='')=>`<div class="ctile ${cls}"><b>${escapeHtml(val??'—')}</b><span>${escapeHtml(label)}</span></div>`;
           summary.innerHTML=
             tile('Agentlar',agentlar)+
@@ -2848,7 +3160,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
           summary.hidden=false;
         }else summary.hidden=true;
       }
-      if(status==='done'&&s.finishedAt&&collectLastDone!==s.finishedAt){
+      if(['done','partial'].includes(status)&&s.finishedAt&&collectLastDone!==s.finishedAt){
         collectLastDone=s.finishedAt;
         notify("Ma'lumot yig'ish tugadi, ro'yxat yangilanmoqda");
         loadManifest().catch(()=>{});
@@ -2962,7 +3274,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       const filterBackdrop=$('filterBackdrop');
       if(filterBackdrop)filterBackdrop.onclick=()=>setPhotoFiltersOpen(false);
     });
-    window.addEventListener('load',()=>{applyTheme();brandSel=$('brandSel');dateSel=$('dateSel');agentSel=$('agentSel');if(brandSel)brandSel.onchange=()=>{localStorage.setItem(LS_BRAND,brandSel.value||'');renderDateFilter();loadSelectedDataset().catch(e=>notify(e.message,'bad'))};dateSel.onchange=()=>loadSelectedDataset().catch(e=>notify(e.message,'bad'));agentSel.onchange=()=>{agentIndex=Number(agentSel.value);start=0;render()};$('quickNext').onclick=()=>move(1);$('quickPrev').onclick=()=>move(-1);$('quickPause').onclick=togglePause;$('photoPageSize').onchange=e=>setPhotoPageSize(e.target.value);$('photoPageSize').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();setPhotoPageSize(e.target.value);e.target.blur()}};$('showAllPhotos').onclick=()=>setPhotoPageSize('all');$('speedSlower').onclick=()=>adjustSpeed(-500);$('speedFaster').onclick=()=>adjustSpeed(500);$('minusListBtn').onclick=()=>showList();$('telegramBtn').onclick=sendTelegram;$('csvBtn').onclick=csv;$('agentExcelBtn').onclick=agentExcel;$('autoReviewBtn').onclick=runAutoReview;if($('themeToggleBtn'))$('themeToggleBtn').onclick=toggleTheme;if($('sidePhotoBtn'))$('sidePhotoBtn').onclick=()=>switchView('photo');if($('sideAttendanceBtn'))$('sideAttendanceBtn').onclick=()=>switchView('attendance');$('sideMinusListBtn').onclick=()=>showList();$('sideCsvBtn').onclick=csv;$('sideAgentExcelBtn').onclick=agentExcel;$('sideCollectBtn').onclick=()=>openCollect();$('sideBrandSettingsBtn').onclick=openBrandSettings;if($('sideAdminStatsBtn'))$('sideAdminStatsBtn').onclick=()=>switchView('admin');$('sideAutoReviewBtn').onclick=runAutoReview;$('autoReviewClose').onclick=closeAutoReview;$('collectClose').onclick=closeCollect;if($('sectionCloseBtn'))$('sectionCloseBtn').onclick=closeCollect;$('collectStart').onclick=startCollect;$('collectStop').onclick=stopCollect;$('brandClose').onclick=closeBrandSettings;$('brandNew').onclick=()=>fillBrandForm();$('brandSave').onclick=async()=>{try{await saveBrandSettings()}catch(e){notify(e.message,'bad')}};$('brandDelete').onclick=async()=>{try{await deleteBrandSetting()}catch(e){notify(e.message,'bad')}};if($('brandValidate'))$('brandValidate').onclick=validateBrandSettings;if($('brandExport'))$('brandExport').onclick=exportBrandSettings;if($('brandImport'))$('brandImport').onchange=e=>importBrandSettings(e.target.files?.[0]).catch(err=>notify(err.message,'bad'));if($('brandTelegramChat'))$('brandTelegramChat').onchange=()=>{if($('brandTelegramChat')?.value&&$('brandTelegramChatId'))$('brandTelegramChatId').value=''};if($('brandTelegramChatId'))$('brandTelegramChatId').oninput=()=>{if($('brandTelegramChatId')?.value.trim()&&$('brandTelegramChat'))$('brandTelegramChat').value=''};$('agentFilter').onchange=applyAgentFilter;$('deleteDateBtn').onclick=deleteCurrentDate;$('deleteCancel').onclick=closeDeleteConfirm;$('deleteConfirmBtn').onclick=performDeleteCurrentDate;$('deleteConfirm').onclick=e=>{if(e.target.id==='deleteConfirm')closeDeleteConfirm()};$('modalClose').onclick=closeModal;$('modalMinus').onclick=()=>setMark('MINUS');$('modalOk').onclick=()=>setMark('OK');$('sideMinus').onclick=()=>setMark('MINUS');$('sideOk').onclick=()=>setMark('OK');$('addReason').onclick=addReason;$('newReason').onkeydown=e=>{if(e.key==='Enter')addReason()};$('zoomIn').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.min(3,zoom+.15)})`};$('zoomOut').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.max(.35,zoom-.15)})`};$('zoomFit').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=1})`};$('listClose').onclick=closeMinusList;updatePauseButtons();renderSpeed();restartTimer();loadTelegramStatus();refreshCollectStatus();loadManifest().then(()=>{startSharedSync();if(location.hash==='#minus')showList()}).catch(e=>{$('meta').textContent='Xato: '+e.message})});
+    window.addEventListener('load',()=>{applyTheme();brandSel=$('brandSel');dateSel=$('dateSel');agentSel=$('agentSel');datasetAutoController=datasetAutoTools.create({request:datasetApiRequest,isCurrent:isCurrentDatasetRequest,onState:renderDatasetStatus,onReady:activateEnsuredDataset,debounceMs:450,pollMs:1000});if(brandSel)brandSel.onchange=()=>{const selectedDate=cleanDatasetDate(dateSel?.value||'');localStorage.setItem(LS_BRAND,brandSel.value||'');renderDateFilter(selectedDate);handleDatasetSelection().catch(e=>notify(e.message,'bad'))};dateSel.onchange=()=>handleDatasetSelection().catch(e=>notify(e.message,'bad'));agentSel.onchange=()=>{agentIndex=Number(agentSel.value);start=0;render()};$('quickNext').onclick=()=>move(1);$('quickPrev').onclick=()=>move(-1);$('quickPause').onclick=togglePause;$('photoPageSize').onchange=e=>setPhotoPageSize(e.target.value);$('photoPageSize').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();setPhotoPageSize(e.target.value);e.target.blur()}};$('showAllPhotos').onclick=()=>setPhotoPageSize('all');$('speedSlower').onclick=()=>adjustSpeed(-500);$('speedFaster').onclick=()=>adjustSpeed(500);$('minusListBtn').onclick=()=>showList();$('telegramBtn').onclick=sendTelegram;$('csvBtn').onclick=csv;$('agentExcelBtn').onclick=agentExcel;$('autoReviewBtn').onclick=runAutoReview;if($('themeToggleBtn'))$('themeToggleBtn').onclick=toggleTheme;if($('sidePhotoBtn'))$('sidePhotoBtn').onclick=()=>switchView('photo');if($('sideAttendanceBtn'))$('sideAttendanceBtn').onclick=()=>switchView('attendance');$('sideMinusListBtn').onclick=()=>showList();$('sideCsvBtn').onclick=csv;$('sideAgentExcelBtn').onclick=agentExcel;if($('sideCollectBtn'))$('sideCollectBtn').onclick=()=>openCollect();$('sideBrandSettingsBtn').onclick=openBrandSettings;if($('sideAdminStatsBtn'))$('sideAdminStatsBtn').onclick=()=>switchView('admin');$('sideAutoReviewBtn').onclick=runAutoReview;$('autoReviewClose').onclick=closeAutoReview;$('collectClose').onclick=closeCollect;if($('sectionCloseBtn'))$('sectionCloseBtn').onclick=closeCollect;$('collectStart').onclick=startCollect;$('collectStop').onclick=stopCollect;$('brandClose').onclick=closeBrandSettings;$('brandNew').onclick=()=>fillBrandForm();$('brandSave').onclick=async()=>{try{await saveBrandSettings()}catch(e){notify(e.message,'bad')}};$('brandDelete').onclick=async()=>{try{await deleteBrandSetting()}catch(e){notify(e.message,'bad')}};if($('brandValidate'))$('brandValidate').onclick=validateBrandSettings;if($('brandExport'))$('brandExport').onclick=exportBrandSettings;if($('brandImport'))$('brandImport').onchange=e=>importBrandSettings(e.target.files?.[0]).catch(err=>notify(err.message,'bad'));if($('brandTelegramChat'))$('brandTelegramChat').onchange=()=>{if($('brandTelegramChat')?.value&&$('brandTelegramChatId'))$('brandTelegramChatId').value=''};if($('brandTelegramChatId'))$('brandTelegramChatId').oninput=()=>{if($('brandTelegramChatId')?.value.trim()&&$('brandTelegramChat'))$('brandTelegramChat').value=''};$('agentFilter').onchange=applyAgentFilter;$('deleteDateBtn').onclick=deleteCurrentDate;$('deleteCancel').onclick=closeDeleteConfirm;$('deleteConfirmBtn').onclick=performDeleteCurrentDate;$('deleteConfirm').onclick=e=>{if(e.target.id==='deleteConfirm')closeDeleteConfirm()};$('modalClose').onclick=closeModal;$('modalMinus').onclick=()=>setMark('MINUS');$('modalOk').onclick=()=>setMark('OK');$('sideMinus').onclick=()=>setMark('MINUS');$('sideOk').onclick=()=>setMark('OK');$('addReason').onclick=addReason;$('newReason').onkeydown=e=>{if(e.key==='Enter')addReason()};$('zoomIn').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.min(3,zoom+.15)})`};$('zoomOut').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.max(.35,zoom-.15)})`};$('zoomFit').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=1})`};$('listClose').onclick=closeMinusList;updatePauseButtons();renderSpeed();restartTimer();loadTelegramStatus();refreshCollectStatus();loadManifest().then(()=>{startSharedSync();if(location.hash==='#minus')showList()}).catch(e=>{$('meta').textContent='Xato: '+e.message})});
     window.addEventListener('load',()=>{
       if($('attendanceMonth'))$('attendanceMonth').value=defaultAttendanceMonth();
       if($('adminStatsRefresh'))$('adminStatsRefresh').onclick=()=>loadAdminStats(true).catch(e=>notify(e.message,'bad'));
@@ -2970,6 +3282,23 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if($('attendanceGenerate'))$('attendanceGenerate').onclick=()=>loadAttendanceMonth(true).catch(e=>notify(e.message,'bad'));
       if($('attendanceExport'))$('attendanceExport').onclick=exportAttendance;
       if($('attendanceReplace'))$('attendanceReplace').onclick=()=>openReplaceEmployeeModal();
+      if($('attendanceBulkEdit'))$('attendanceBulkEdit').onclick=openAttendanceBulkEdit;
+      if($('attendanceDetailClose'))$('attendanceDetailClose').onclick=closeAttendanceDetail;
+      if($('attendanceDetailBackdrop'))$('attendanceDetailBackdrop').onclick=closeAttendanceDetail;
+      document.querySelectorAll('[data-attendance-view]').forEach(button=>button.onclick=()=>setAttendanceView(button.dataset.attendanceView));
+      document.querySelectorAll('[data-attendance-filter]').forEach(button=>button.onclick=()=>{attendanceQuickFilter=button.dataset.attendanceFilter||'';renderAttendance()});
+      if($('attendanceMoreFilters'))$('attendanceMoreFilters').onclick=()=>{
+        const panel=$('attendanceAdvancedFilters'),open=panel.hidden;
+        panel.hidden=!open;$('attendanceMoreFilters').setAttribute('aria-expanded',open?'true':'false');
+      };
+      const shiftAttendanceMonth=delta=>{
+        const current=new Date(`${$('attendanceMonth').value||defaultAttendanceMonth()}-01T00:00:00`);
+        current.setMonth(current.getMonth()+delta);
+        $('attendanceMonth').value=`${current.getFullYear()}-${String(current.getMonth()+1).padStart(2,'0')}`;
+        attendanceSelectedDate='';loadAttendanceMonth().catch(e=>notify(e.message,'bad'));
+      };
+      if($('attendancePrevMonth'))$('attendancePrevMonth').onclick=()=>shiftAttendanceMonth(-1);
+      if($('attendanceNextMonth'))$('attendanceNextMonth').onclick=()=>shiftAttendanceMonth(1);
       if($('attendanceReplaceClose'))$('attendanceReplaceClose').onclick=closeReplaceEmployeeModal;
       if($('attendanceReplaceCancel'))$('attendanceReplaceCancel').onclick=closeReplaceEmployeeModal;
       if($('attendanceReplaceModal'))$('attendanceReplaceModal').onclick=e=>{if(e.target.id==='attendanceReplaceModal')closeReplaceEmployeeModal()};
@@ -2978,7 +3307,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       if($('replaceAgentCode'))$('replaceAgentCode').oninput=renderReplaceEmployeeSelect;
       if($('replaceCreateNew'))$('replaceCreateNew').onchange=toggleReplaceNewFields;
       if($('replaceEmployeeSelect'))$('replaceEmployeeSelect').onchange=()=>{if($('replaceEmployeeSelect').value){$('replaceCreateNew').checked=false;toggleReplaceNewFields()}};
-      ['attendancePrefix','attendanceRole','attendanceEmployee','attendanceStatus','attendanceSvrOnly'].forEach(id=>{if($(id))$(id).oninput=scheduleAttendanceRender});
-      if($('attendanceBrand'))$('attendanceBrand').onchange=()=>loadAttendanceMonth(true).catch(e=>notify(e.message,'bad'));
-      if($('attendanceMonth'))$('attendanceMonth').onchange=()=>loadAttendanceMonth().catch(e=>notify(e.message,'bad'));
+      ['attendancePrefix','attendanceRole','attendanceEmployee','attendanceStatus','attendanceRegion','attendanceSvrOnly'].forEach(id=>{if($(id))$(id).oninput=scheduleAttendanceRender});
+      if($('attendanceBrand'))$('attendanceBrand').onchange=()=>{attendanceSelectedDate='';loadAttendanceMonth().catch(e=>notify(e.message,'bad'))};
+      if($('attendanceMonth'))$('attendanceMonth').onchange=()=>{attendanceSelectedDate='';loadAttendanceMonth().catch(e=>notify(e.message,'bad'))};
     });

@@ -15,6 +15,7 @@ import { handleRequestError } from "../backend/src/middleware/errors.mjs";
 import { clientIp, createFailureRateLimiter } from "../backend/src/middleware/rate-limit.mjs";
 import { applySecurityHeaders, requestIsSecure } from "../backend/src/middleware/security.mjs";
 import { createAttendanceService } from "../backend/src/services/attendance.service.mjs";
+import { createDatasetEnsureService } from "../backend/src/services/dataset-ensure.service.mjs";
 import { createSalesService } from "../backend/src/services/sales.service.mjs";
 import { createStorageService } from "../backend/src/services/storage.service.mjs";
 import { createTelegramService } from "../backend/src/services/telegram.service.mjs";
@@ -33,14 +34,22 @@ import {
 } from "./lib/review-http.mjs";
 import {
   FILES as ATT_FILES,
+  attendanceHistory,
+  attendanceIssuesFromMonth,
   attendanceToCsv,
+  bulkSaveOverrides,
   exportAttendanceCsv,
   generateAttendanceMonth,
+  getAttendanceMonthStatus,
+  loadAttendanceDay,
+  loadAttendanceIssues,
   loadAttendanceMonth,
   loadAttendanceStore,
   replaceEmployee,
+  resetOverride,
   safeWriteJson,
   saveOverride,
+  setAttendanceMonthStatus,
   validateAttendanceData,
 } from "../scripts/attendance-core.mjs";
 
@@ -110,15 +119,22 @@ const collectState = {
   finishedAt: null,
   date: "",
   brand: "",
+  brandId: "",
+  jobKey: "",
   status: "idle",
   awaiting: null,
   pid: null,
   exitCode: null,
   outputFile: "",
+  progress: null,
+  summary: null,
+  error: null,
   logs: [],
 };
 let collectProcess = null;
 let collectStopReason = "";
+let collectOutputBuffer = "";
+const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
 
 async function loadEnv() {
   for (const name of [".env.local", ".env"]) {
@@ -570,11 +586,16 @@ function publicCollectState() {
     finishedAt: collectState.finishedAt,
     date: collectState.date,
     brand: collectState.brand,
+    brandId: collectState.brandId,
+    jobKey: collectState.jobKey,
     status: collectState.status,
     awaiting: collectState.awaiting,
     pid: collectState.pid,
     exitCode: collectState.exitCode,
     outputFile: collectState.outputFile,
+    progress: collectState.progress,
+    summary: collectState.summary,
+    error: collectState.error,
     logs: collectState.logs.slice(-180),
   };
 }
@@ -585,6 +606,44 @@ function addCollectLog(chunk) {
   for (const line of text.split("\n")) {
     const clean = line.trimEnd();
     if (!clean) continue;
+    if (clean.startsWith(COLLECT_EVENT_MARKER)) {
+      try {
+        const event = JSON.parse(clean.slice(COLLECT_EVENT_MARKER.length));
+        if (event.type === "progress") {
+          collectState.status = "collecting";
+          collectState.awaiting = null;
+          collectState.progress = {
+            completed: Math.max(0, Number(event.completed || 0)),
+            total: Math.max(0, Number(event.total || 0)),
+            percent: Math.max(0, Math.min(100, Number(event.percent || 0))),
+            ok: Math.max(0, Number(event.ok || 0)),
+            partial: Math.max(0, Number(event.partial || 0)),
+            error: Math.max(0, Number(event.error || 0)),
+            empty: Math.max(0, Number(event.empty || 0)),
+            extra: Math.max(0, Number(event.extra || 0)),
+            mismatch: Math.max(0, Number(event.mismatch || 0)),
+            unknown: Math.max(0, Number(event.unknown || 0)),
+          };
+        } else if (event.type === "complete") {
+          collectState.status = event.quality === "partial" ? "partial" : "done";
+          collectState.outputFile = String(event.outputFile || collectState.outputFile || "");
+          collectState.summary = event.summary && typeof event.summary === "object" ? event.summary : null;
+          if (collectState.progress) collectState.progress.percent = 100;
+        } else if (event.type === "error") {
+          collectState.status = "error";
+          collectState.error = {
+            code: String(event.code || "COLLECT_PROCESS_FAILED"),
+            message: String(event.message || "Ma'lumot yig'ishda xato"),
+          };
+        }
+      } catch {
+        collectState.error = {
+          code: "COLLECT_PROCESS_FAILED",
+          message: "Collect holatini o'qib bo'lmadi",
+        };
+      }
+      continue;
+    }
     collectState.logs.push(clean);
     if (collectState.logs.length > 240) collectState.logs.splice(0, collectState.logs.length - 240);
     if (clean.includes("Dashboard va sana tayyor")) {
@@ -622,6 +681,18 @@ function addCollectLog(chunk) {
   }
 }
 
+function addCollectOutput(chunk) {
+  collectOutputBuffer += String(chunk || "").replace(/\r/g, "");
+  const lines = collectOutputBuffer.split("\n");
+  collectOutputBuffer = lines.pop() || "";
+  for (const line of lines) addCollectLog(line);
+}
+
+function flushCollectOutput() {
+  if (collectOutputBuffer) addCollectLog(collectOutputBuffer);
+  collectOutputBuffer = "";
+}
+
 function collectBrowserChannelFromHint(browserHint) {
   if (process.env.COLLECT_BROWSER_CHANNEL || process.env.BROWSER_CHANNEL) return "";
   const hint = String(browserHint || "");
@@ -652,13 +723,19 @@ async function startCollectJob({ date, brand, browserHint }) {
     finishedAt: null,
     date,
     brand: resolvedBrand.name,
+    brandId: resolvedBrand.id,
+    jobKey: `${resolvedBrand.id}:${date}`,
     status: "starting",
     awaiting: null,
     pid: null,
     exitCode: null,
     outputFile: "",
+    progress: null,
+    summary: null,
+    error: null,
     logs: [],
   });
+  collectOutputBuffer = "";
 
   collectProcess = spawn(process.execPath, [COLLECT_SCRIPT, date, resolvedBrand.id], {
     cwd: ROOT,
@@ -679,8 +756,8 @@ async function startCollectJob({ date, brand, browserHint }) {
   collectState.pid = collectProcess.pid;
   addCollectLog(`Web orqali ishga tushdi: ${date} | ${resolvedBrand.name} | rejim: ${COLLECT_MODE === "browser" ? "brauzer (Chrome)" : "HTTP (brauzersiz)"}${hintedBrowserChannel && COLLECT_MODE === "browser" ? ` | browser: ${hintedBrowserChannel}` : ""}`);
 
-  collectProcess.stdout.on("data", (data) => addCollectLog(data));
-  collectProcess.stderr.on("data", (data) => addCollectLog(data));
+  collectProcess.stdout.on("data", (data) => addCollectOutput(data));
+  collectProcess.stderr.on("data", (data) => addCollectOutput(data));
   try {
     await new Promise((resolveSpawn, rejectSpawn) => {
       collectProcess.once("spawn", resolveSpawn);
@@ -699,9 +776,14 @@ async function startCollectJob({ date, brand, browserHint }) {
   collectProcess.on("error", (error) => {
     collectState.status = "error";
     collectState.awaiting = null;
+    collectState.error = {
+      code: "COLLECT_PROCESS_FAILED",
+      message: "Collect jarayoni kutilmaganda to'xtadi",
+    };
     addCollectLog(`XATO: ${error.message}`);
   });
   collectProcess.on("close", (code) => {
+    flushCollectOutput();
     collectState.running = false;
     collectState.finishedAt = new Date().toISOString();
     collectState.exitCode = code;
@@ -712,7 +794,13 @@ async function startCollectJob({ date, brand, browserHint }) {
       collectStopReason = "";
       launchSalesLoginProcess();
     } else {
-      if (collectState.status !== "error") collectState.status = code === 0 ? "done" : "failed";
+      if (!["error", "partial"].includes(collectState.status)) collectState.status = code === 0 ? "done" : "failed";
+      if (code !== 0 && !collectState.error) {
+        collectState.error = {
+          code: "COLLECT_PROCESS_FAILED",
+          message: `Collect jarayoni ${code} kodi bilan tugadi`,
+        };
+      }
       addCollectLog(code === 0 ? "Jarayon muvaffaqiyatli tugadi." : `Jarayon ${code} kodi bilan tugadi.`);
     }
     collectProcess = null;
@@ -3009,16 +3097,31 @@ const salesService = createSalesService({
   startCollectJob,
   stopCollectJob,
 });
+const datasetService = createDatasetEnsureService({
+  outputsDir: DATA_OUTPUTS,
+  manifestFile: join(DATA_OUTPUTS, "lmj_review_datasets.json"),
+  loadBrands: () => loadBrandsConfig({ includeDisabled: false }),
+  publicCollectState,
+  startCollectJob,
+});
 const attendanceService = createAttendanceService({
   ATT_FILES,
+  attendanceHistory,
+  attendanceIssuesFromMonth,
   attendanceToCsv,
+  bulkSaveOverrides,
   exportAttendanceCsv,
   generateAttendanceMonth,
+  getAttendanceMonthStatus,
+  loadAttendanceDay,
+  loadAttendanceIssues,
   loadAttendanceMonth,
   loadAttendanceStore,
   replaceEmployee,
+  resetOverride,
   safeWriteJson,
   saveOverride,
+  setAttendanceMonthStatus,
   validateAttendanceData,
 });
 const telegramService = createTelegramService({
@@ -3047,6 +3150,7 @@ const authMiddleware = createAuthMiddleware({ accessHeaders, sendAccessDenied })
 const apiRouter = createApiRouter({
   attendance: attendanceService,
   auth: authService,
+  datasets: datasetService,
   http: httpApi,
   photos: photoService,
   sales: salesService,

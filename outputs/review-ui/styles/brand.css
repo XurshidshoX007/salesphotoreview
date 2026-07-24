@@ -11,3 +11,73 @@
 .salesLogo:after{
   content:none !important;
 }
+
+/* Attendance final layout guard: loaded after legacy layers. */
+.attendancePanel.open{
+  display:grid !important;
+  grid-template-rows:auto auto auto auto minmax(0,1fr) !important;
+  gap:8px !important;
+}
+.attendancePanel.open:has(.attendanceAdvancedFilters:not([hidden])){
+  grid-template-rows:auto auto auto auto auto minmax(0,1fr) !important;
+}
+.attendanceCoverage{min-height:34px !important}
+body.attendanceView > header{
+  height:66px !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  grid-template-rows:1fr !important;
+  padding:8px 14px !important;
+}
+.attendanceTable .stickyCol3{
+  position:sticky;
+  left:282px;
+  z-index:2;
+}
+.attendanceTable th.stickyCol3{z-index:5}
+@media(max-width:760px){
+  body.attendanceView > header{
+    height:72px !important;
+    min-height:72px !important;
+    max-height:72px !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:1fr !important;
+    padding:8px 10px !important;
+  }
+  body.attendanceView .attendanceCommandBar{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    align-items:flex-end !important;
+    width:calc(100vw - 16px) !important;
+    max-width:calc(100vw - 16px) !important;
+    min-width:0 !important;
+    justify-self:start !important;
+  }
+  body.attendanceView .attendanceCommandBar > *{
+    flex:1 1 calc(50% - 4px) !important;
+    min-width:0 !important;
+  }
+  body.attendanceView .attendanceViewTabs,
+  body.attendanceView .attendanceMonthNav{
+    flex-basis:100% !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+  body.attendanceView .attendancePanel.open{
+    height:calc(100vh - var(--studio-topbar) - 72px) !important;
+  }
+  .attendancePanel.open{grid-template-rows:auto auto auto minmax(0,1fr) !important}
+  .attendancePanel.open:has(.attendanceAdvancedFilters:not([hidden])){
+    grid-template-rows:auto auto auto minmax(0,1fr) !important;
+  }
+  .attendanceMetaGrid{
+    display:flex !important;
+    gap:6px !important;
+    overflow-x:auto !important;
+    padding-bottom:2px;
+    scrollbar-width:thin;
+  }
+  .attendanceMetric{
+    flex:0 0 104px;
+    min-height:52px !important;
+  }
+}

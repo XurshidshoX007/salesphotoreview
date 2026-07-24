@@ -49,6 +49,58 @@
       "oldValue": "",
       "newValue": "0s",
       "reason": "Manual tabel tahriri"
+    },
+    {
+      "id": "audit_1784887979282_z84mjh",
+      "changedAt": "2026-07-24T10:12:59.282Z",
+      "type": "attendance_override",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "date": "2026-07-08",
+      "oldValue": "",
+      "newValue": "21",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784887987055_iw2mff",
+      "changedAt": "2026-07-24T10:13:07.055Z",
+      "type": "attendance_override",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "date": "2026-07-14",
+      "oldValue": "",
+      "newValue": "26112331",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784887993478_485xp7",
+      "changedAt": "2026-07-24T10:13:13.478Z",
+      "type": "attendance_override",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "date": "2026-07-14",
+      "oldValue": "26112331",
+      "newValue": "26",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784887996142_n5zspy",
+      "changedAt": "2026-07-24T10:13:16.142Z",
+      "type": "attendance_override",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "date": "2026-07-08",
+      "oldValue": "21",
+      "newValue": "22",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
     }
   ]
 }

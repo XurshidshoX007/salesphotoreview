@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { mkdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { spawn } from "node:child_process";
 import { chromium } from "playwright";
 import { localEnv } from "./lib/review-test-auth.mjs";
 
@@ -16,6 +17,34 @@ const pin = String(process.env.REVIEW_TEST_PIN || env.REVIEW_ACCESS_PIN || env.R
 const pageUrl = `${baseUrl}/lmj_date_photo_review.html`;
 const artifacts = join(root, "work", "test-artifacts");
 await mkdir(artifacts, { recursive: true });
+
+let ownedServer = null;
+async function serverIsReady() {
+  try {
+    const response = await fetch(`${baseUrl}/api/access/status`, { signal: AbortSignal.timeout(1500) });
+    return response.status < 500;
+  } catch {
+    return false;
+  }
+}
+if (!(await serverIsReady())) {
+  const target = new URL(baseUrl);
+  ownedServer = spawn(process.execPath, ["backend/src/server.mjs"], {
+    cwd: root,
+    env: {
+      ...process.env,
+      HOST: target.hostname,
+      PORT: target.port || "80",
+    },
+    stdio: "ignore",
+  });
+  const deadline = Date.now() + 15_000;
+  while (!(await serverIsReady())) {
+    if (ownedServer.exitCode !== null) throw new Error(`UI test server ishga tushmadi: exit ${ownedServer.exitCode}`);
+    if (Date.now() > deadline) throw new Error("UI test server 15 soniyada tayyor bo'lmadi");
+    await new Promise((resolve) => setTimeout(resolve, 150));
+  }
+}
 
 const browser = await chromium.launch({ headless: true });
 try {
@@ -194,12 +223,51 @@ try {
   await page.locator("#sideAttendanceBtn").click();
   await page.waitForFunction(() => document.querySelector("#attendancePanel")?.classList.contains("open"));
   await page.waitForFunction(() => !/yuklanmoqda/i.test(document.querySelector("#attendanceMeta")?.textContent || ""), null, { timeout: 20_000 });
+  assert(await page.locator("[data-attendance-view='month']").isVisible(), "Oy/Kun/Muammolar view tugmalari ko'rinmadi");
+  assert(await page.locator("#attendanceCoverage").isVisible(), "Data coverage ko'rinmadi");
+  assert(await page.locator("#attendanceMeta .attendanceMetric").count() >= 7, "Tabel summary cardlari to'liq emas");
+  await page.locator("[data-attendance-view='day']").click();
+  await page.waitForSelector(".attendanceDayHead");
+  assert(await page.locator(".attendanceDayCard").count() > 0, "Kun bo'yicha qatorlar chiqmadi");
+  await page.locator("[data-attendance-view='issues']").click();
+  await page.waitForSelector(".attendanceIssuesHead");
+  await page.locator("[data-attendance-view='month']").click();
+  await page.waitForSelector("#attendanceTable thead");
+  await page.screenshot({ path: join(artifacts, "review-ui-attendance.png"), fullPage: false });
+  const firstAttendanceCell = page.locator("#attendanceTable [data-att-cell]").first();
+  if (await firstAttendanceCell.count()) {
+    await firstAttendanceCell.click();
+    assert(await page.locator("#attendanceDetailDrawer").getAttribute("aria-hidden") === "false", "Cell detail drawer ochilmadi");
+    assert((await page.locator("#attendanceDetailBody").innerText()).includes("Auto qiymat"), "Cell auto/final tafsiloti ko'rinmadi");
+    await page.locator("#attendanceDetailClose").click();
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator("[data-attendance-view='day']").click();
+  await page.waitForSelector(".attendanceDayCard");
+  const attendanceMobile = await page.evaluate(() => ({
+    overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    cards: document.querySelectorAll(".attendanceDayCard").length,
+    monthTableVisible: Boolean(document.querySelector("#attendanceTable:not(.hidden)")),
+    bodyScrollX: window.scrollX,
+    panel: document.querySelector("#attendancePanel")?.getBoundingClientRect().toJSON(),
+    command: document.querySelector(".attendanceCommandBar")?.getBoundingClientRect().toJSON(),
+    header: document.querySelector("body > header")?.getBoundingClientRect().toJSON(),
+  }));
+  assert(attendanceMobile.cards > 0, "Mobile Kun view qatorlari chiqmadi");
+  assert(!attendanceMobile.monthTableVisible, "Mobile Kun viewda 31 ustunli jadval yashirilmadi");
+  assert(attendanceMobile.overflow <= 1, `Mobile Tabel gorizontal overflow bor: ${attendanceMobile.overflow}px`);
+  assert(attendanceMobile.header?.height <= 74, `Mobile Tabel header balandligi noto'g'ri: ${attendanceMobile.header?.height}px`);
+  assert(attendanceMobile.command?.left >= -1, `Mobile filter panel chapdan chiqib ketgan: ${attendanceMobile.command?.left}px`);
+  assert(attendanceMobile.command?.right <= 391, `Mobile filter panel o'ngdan chiqib ketgan: ${attendanceMobile.command?.right}px`);
+  await page.screenshot({ path: join(artifacts, "review-ui-attendance-mobile.png"), fullPage: false });
+  await page.setViewportSize({ width: 1600, height: 950 });
 
   await page.locator("#sideAdminStatsBtn").click();
   await page.waitForFunction(() => document.querySelector("#adminStatsPanel")?.classList.contains("open"));
   await page.waitForFunction(() => (document.querySelector("#adminStatsBody")?.innerText || "").trim().length > 20, null, { timeout: 20_000 });
 
-  await page.locator("#sideCollectBtn").click();
+  assert(!(await page.locator("#sideCollectBtn").isVisible()), "Legacy Ma'lumot yig'ish tugmasi normal navigatsiyada yashirilmagan");
+  await page.locator("#sideCollectBtn").evaluate((button) => button.click());
   await page.waitForFunction(() => document.querySelector("#collectPanel")?.classList.contains("open"));
   assert((await page.locator("#collectPanel").innerText()).includes("Jarayon holati"), "Ma'lumot yig'ish holati ko'rinmadi");
   assert(await page.locator("#sectionCloseBtn").isVisible(), "Ma'lumot yig'ishda Yopish tugmasi ko'rinmadi");
@@ -213,4 +281,5 @@ try {
   console.log(`Review UI OK | image ${imageState.naturalWidth}x${imageState.naturalHeight} contain | modal/fallback/mobile | all views | remainder ${remainderAgent ? "checked" : "datasetda yo'q"}`);
 } finally {
   await browser.close();
+  ownedServer?.kill();
 }

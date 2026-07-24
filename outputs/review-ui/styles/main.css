@@ -856,6 +856,152 @@ html[data-theme="night"] textarea:focus-visible{
   .adminGrid{grid-template-columns:1fr}
   .adminStatsPanel.open{height:calc(100vh - 112px)}
 }
+
+/* Auto dataset workflow */
+.datasetStatusBanner{
+  position:relative;
+  z-index:18;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-height:58px;
+  margin:10px 18px 0;
+  padding:10px 13px;
+  border:1px solid #c9dce5;
+  border-radius:8px;
+  background:#f8fbfc;
+  color:#172334;
+  box-shadow:0 5px 16px rgba(25,55,70,.07);
+}
+.datasetStatusBanner[hidden]{
+  display:none!important;
+}
+#sideCollectBtn[hidden]{
+  display:none!important;
+}
+.datasetStatusIcon{
+  flex:0 0 12px;
+  width:12px;
+  height:12px;
+  border:3px solid #8aa1ad;
+  border-top-color:var(--c-teal-alt);
+  border-radius:50%;
+  animation:datasetStatusSpin .8s linear infinite;
+}
+.datasetStatusCopy{
+  min-width:0;
+  flex:1;
+  display:grid;
+  gap:2px;
+}
+.datasetStatusCopy b{
+  overflow:hidden;
+  color:inherit;
+  font-size:13px;
+  font-weight:760;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.datasetStatusCopy span{
+  overflow:hidden;
+  color:#607485;
+  font-size:11px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.datasetStatusProgress{
+  width:min(420px,100%);
+  height:4px;
+  margin-top:6px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#dfeaed;
+}
+.datasetStatusProgress i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:var(--c-teal-alt);
+  transition:width .3s ease;
+}
+.datasetStatusBanner.ready,
+.datasetStatusBanner.partial{
+  border-color:#a9dfcb;
+  background:#f1fbf7;
+}
+.datasetStatusBanner.ready .datasetStatusIcon,
+.datasetStatusBanner.partial .datasetStatusIcon{
+  border:0;
+  animation:none;
+  background:#15966d;
+  box-shadow:inset 0 0 0 3px #d9f7eb;
+}
+.datasetStatusBanner.partial{
+  border-color:#ebce8f;
+  background:#fffaf0;
+}
+.datasetStatusBanner.partial .datasetStatusIcon{
+  background:#d08b16;
+  box-shadow:inset 0 0 0 3px #fff0c8;
+}
+.datasetStatusBanner.error{
+  border-color:#f1b7bc;
+  background:#fff6f7;
+}
+.datasetStatusBanner.error .datasetStatusIcon{
+  border-color:#dc6671;
+  border-top-color:#dc6671;
+  animation:none;
+}
+.datasetStatusBanner button{
+  flex:0 0 auto;
+  min-height:34px;
+  padding:7px 12px;
+  border-color:#e0a8ad;
+  color:#a82735;
+}
+html[data-theme="night"] .datasetStatusBanner{
+  border-color:#304553;
+  background:#13212a;
+  color:#eaf2f5;
+  box-shadow:none;
+}
+html[data-theme="night"] .datasetStatusCopy span{
+  color:#9eb0bb;
+}
+html[data-theme="night"] .datasetStatusBanner.ready{
+  border-color:#28644f;
+  background:#112920;
+}
+html[data-theme="night"] .datasetStatusBanner.partial{
+  border-color:#6d582c;
+  background:#292315;
+}
+html[data-theme="night"] .datasetStatusBanner.error{
+  border-color:#6c3940;
+  background:#2b191c;
+}
+@keyframes datasetStatusSpin{
+  to{transform:rotate(360deg)}
+}
+@media(max-width:720px){
+  .datasetStatusBanner{
+    margin:8px 10px 0;
+    padding:9px 10px;
+  }
+  .datasetStatusCopy b,
+  .datasetStatusCopy span{
+    white-space:normal;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .datasetStatusIcon{
+    animation:none;
+  }
+  .datasetStatusProgress i{
+    transition:none;
+  }
+}
 @media(max-width:640px){
   .adminCards{grid-template-columns:1fr}
   .adminCard{padding:12px}

@@ -20,6 +20,33 @@ export function createAttendanceRoutes({ attendance, http }) {
       http.sendJson(res, 200, { ok: true, ...data }, access.headers);
       return true;
     }
+    if (parsed.pathname === "/api/attendance/day") {
+      const data = await attendance.loadAttendanceDay({
+        date: parsed.searchParams.get("date"),
+        brandId: parsed.searchParams.get("brandId") || "",
+      });
+      http.sendJson(res, 200, { ok: true, ...data }, access.headers);
+      return true;
+    }
+    if (parsed.pathname === "/api/attendance/issues") {
+      const data = await attendance.loadAttendanceIssues({
+        month: parsed.searchParams.get("month"),
+        brandId: parsed.searchParams.get("brandId") || "",
+        types: parsed.searchParams.get("types") || "",
+      });
+      http.sendJson(res, 200, { ok: true, ...data }, access.headers);
+      return true;
+    }
+    if (parsed.pathname === "/api/attendance/history") {
+      const items = await attendance.attendanceHistory({
+        agentCode: parsed.searchParams.get("agentCode") || "",
+        date: parsed.searchParams.get("date") || "",
+        brandId: parsed.searchParams.get("brandId") || "",
+        limit: parsed.searchParams.get("limit") || 50,
+      });
+      http.sendJson(res, 200, { ok: true, items }, access.headers);
+      return true;
+    }
     if (parsed.pathname === "/api/attendance/generate") {
       if (req.method !== "POST") return methodNotAllowed(res, http.sendJson, access.headers);
       const body = await http.readJsonBody(req, 1_000_000);
@@ -39,6 +66,33 @@ export function createAttendanceRoutes({ attendance, http }) {
         summaryTotals: data.summaryTotals,
         month: data,
       }, access.headers);
+      return true;
+    }
+    if (parsed.pathname === "/api/attendance/override/reset") {
+      if (req.method !== "POST") return methodNotAllowed(res, http.sendJson, access.headers);
+      const body = await http.readJsonBody(req, 1_000_000);
+      const reset = await attendance.resetOverride(body);
+      const data = await attendance.generateAttendanceMonth({ month: String(body.date || "").slice(0, 7), brandId: body.brandId || "" });
+      http.sendJson(res, 200, { ok: true, reset, month: data, summaryTotals: data.summaryTotals }, access.headers);
+      return true;
+    }
+    if (parsed.pathname === "/api/attendance/bulk-override") {
+      if (req.method !== "POST") return methodNotAllowed(res, http.sendJson, access.headers);
+      const body = await http.readJsonBody(req, 1_000_000);
+      const changed = await attendance.bulkSaveOverrides(body);
+      const data = await attendance.generateAttendanceMonth({ month: String(body.startDate || "").slice(0, 7), brandId: body.brandId || "" });
+      http.sendJson(res, 200, { ok: true, changed, month: data, summaryTotals: data.summaryTotals }, access.headers);
+      return true;
+    }
+    if (parsed.pathname === "/api/attendance/month-status") {
+      if (req.method === "GET") {
+        const item = await attendance.getAttendanceMonthStatus(parsed.searchParams.get("month"), parsed.searchParams.get("brandId") || "");
+        http.sendJson(res, 200, { ok: true, item }, access.headers);
+        return true;
+      }
+      if (req.method !== "POST") return methodNotAllowed(res, http.sendJson, access.headers);
+      const item = await attendance.setAttendanceMonthStatus(await http.readJsonBody(req, 1_000_000));
+      http.sendJson(res, 200, { ok: true, item }, access.headers);
       return true;
     }
     if (["/api/attendance/employees", "/api/attendance/routes", "/api/attendance/assignments"].includes(parsed.pathname)) {

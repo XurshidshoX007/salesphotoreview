@@ -12,5 +12,17 @@ window.PhotoReviewAttendance = (() => {
     if (/[kb\u043a]/i.test(text)) return false;
     return /^\d+([sS])?$/.test(text);
   }
-  return { nextIsoDate, validIsoDate, valueLooksValid };
+  function indexDays(days) {
+    return new Map((days || []).map((day) => [Number(day.day), day]));
+  }
+  function isActionableDay(day) {
+    return Boolean(day && (["low", "zero_activity", "missing_dataset"].includes(day.state) || day.manual));
+  }
+  function employeeAvailable(employee, date) {
+    if (!employee) return false;
+    if (employee.hireDate && date < employee.hireDate) return false;
+    if (employee.leftDate && date > employee.leftDate) return false;
+    return true;
+  }
+  return { nextIsoDate, validIsoDate, valueLooksValid, indexDays, isActionableDay, employeeAvailable };
 })();

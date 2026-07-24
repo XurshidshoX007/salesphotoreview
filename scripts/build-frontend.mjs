@@ -10,6 +10,7 @@ const mappings = [
   ["frontend/src/features/marks.js", "outputs/review-ui/js/marks.js"],
   ["frontend/src/features/brands.js", "outputs/review-ui/js/brands.js"],
   ["frontend/src/features/attendance.js", "outputs/review-ui/js/attendance.js"],
+  ["frontend/src/features/datasetAutoLoad.js", "outputs/review-ui/js/dataset-auto-load.js"],
 ];
 const apiBase = String(process.env.VITE_API_BASE_URL || "").trim().replace(/\/$/, "");
 for (const [sourceName, outputName] of mappings) {
@@ -19,4 +20,10 @@ for (const [sourceName, outputName] of mappings) {
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, source, "utf8");
 }
-console.log(`Frontend build: ${mappings.length} modul | API ${apiBase || "same-origin"}`);
+
+// The compatibility URL is the public entry point used by local and tunnel
+// deployments. Keep it generated from the canonical review UI document.
+const reviewHtml = await readFile(join(root, "outputs/review-ui/index.html"), "utf8");
+await writeFile(join(root, "outputs/lmj_date_photo_review.html"), reviewHtml, "utf8");
+
+console.log(`Frontend build: ${mappings.length} modul + public HTML | API ${apiBase || "same-origin"}`);

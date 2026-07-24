@@ -14,6 +14,7 @@ import { collectLmjForSalesDate, updateDatasetManifest } from "./lmj_sales_brows
 import { loadBrandsConfig, findBrand, publicBrand } from "../scripts/brand-config.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
 // Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
 const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
 function salesBaseUrl() {
@@ -126,6 +127,21 @@ async function login() {
   return json.token;
 }
 
+function emitCollectEvent(event) {
+  console.log(`${COLLECT_EVENT_MARKER}${JSON.stringify(event)}`);
+}
+
+function classifyCollectError(error) {
+  const message = String(error?.message || error || "");
+  if (/SALES_USERNAME|SALES_PASSWORD|credentials?/i.test(message)) return "SALES_CREDENTIALS_MISSING";
+  if (/Login ishlamadi|401|unauthorized/i.test(message)) return "SALES_LOGIN_FAILED";
+  if (/429|rate.?limit/i.test(message)) return "SALES_RATE_LIMIT";
+  if (/vaqt tugadi|timeout|aborted/i.test(message)) return "SALES_TIMEOUT";
+  if (/ulanib bo'lmadi|network|fetch failed|ECONN|ENOTFOUND|socket/i.test(message)) return "SALES_NETWORK_ERROR";
+  if (/Manifest|yoz|write|ENOSPC|EACCES|EPERM/i.test(message)) return "DATASET_WRITE_FAILED";
+  return "COLLECT_PROCESS_FAILED";
+}
+
 // Mavjud kod kutgan "tab" interfeysi — faqat nodeHttp transport.
 function makeNodeTab(token) {
   const base = salesBaseUrl();
@@ -180,6 +196,7 @@ async function main() {
   const tab = makeNodeTab(token);
   const t0 = Date.now();
   let lastLog = 0;
+  const progressCounts = { ok: 0, partial: 0, error: 0, empty: 0, extra: 0, mismatch: 0, unknown: 0 };
   const result = await collectLmjForSalesDate(tab, {
     targetDate,
     outPath,
@@ -188,6 +205,17 @@ async function main() {
     brandPrefix: brand ? undefined : process.env.BRAND_PREFIX,
     progress: (p) => {
       if (p.type === "perf") { console.log(`  [perf] ${p.message}`); return; }
+      const status = String(p.status || "").toLowerCase();
+      if (Object.hasOwn(progressCounts, status)) progressCounts[status] += 1;
+      const completed = Number(p.done || 0);
+      const total = Number(p.total || 0);
+      emitCollectEvent({
+        type: "progress",
+        completed,
+        total,
+        percent: total > 0 ? Math.min(100, Math.round((completed / total) * 100)) : 0,
+        ...progressCounts,
+      });
       if (p.done && (p.done - lastLog >= 10 || p.done === p.total)) {
         lastLog = p.done;
         console.log(`  ${p.done}/${p.total} agent | oxirgi: ${p.code} (${p.status}, ${p.count}/${p.expected})`);
@@ -203,20 +231,43 @@ async function main() {
   console.log(`Rejim: ${result?.collectionMode} | Stats:`, result?.stats || {});
   console.log(`Fayl: ${outPath}`);
 
-  try {
-    // Server aynan shu manifestni o'qiydi (lmj_review_datasets.json).
-    const manifestPath = join(DATA_ROOT, "outputs", "lmj_review_datasets.json");
-    const manifestDate = brand && brand.id !== "lalaku_mama"
-      ? `${targetDate} [${(brand.agentPrefixes?.[0] || "").toUpperCase()}]`
-      : targetDate;
-    await updateDatasetManifest(manifestPath, outPath, manifestDate, { source: "http", brand: brand?.id });
-    console.log("Manifest yangilandi.");
-  } catch (error) {
-    console.warn("Manifest yangilanmadi:", String(error?.message || error));
-  }
+  // Manifest faqat to'liq dataset yozilgach yangilanadi va activation point bo'lib qoladi.
+  const manifestPath = join(DATA_ROOT, "outputs", "lmj_review_datasets.json");
+  const manifestDate = brand && brand.id !== "lalaku_mama"
+    ? `${targetDate} [${(brand.agentPrefixes?.[0] || "").toUpperCase()}]`
+    : targetDate;
+  await updateDatasetManifest(manifestPath, outPath, manifestDate, { source: "http", brand: brand?.id });
+  console.log("Manifest yangilandi.");
+
+  const stats = result?.stats || {};
+  const quality = ["partial", "error", "empty", "extra", "mismatch", "unknown"]
+    .some((name) => Number(stats[name] || 0) > 0) ? "partial" : "ready";
+  emitCollectEvent({
+    type: "complete",
+    quality,
+    outputFile: outPath,
+    summary: {
+      totalAgents: Number(result?.totalAgents || 0),
+      agentsWithPhotos: Number(result?.totalAgentsWithPhotos || 0),
+      totalPhotos: totalUrls,
+      ok: Number(stats.ok || 0),
+      partial: Number(stats.partial || 0),
+      error: Number(stats.error || 0),
+      empty: Number(stats.empty || 0),
+      extra: Number(stats.extra || 0),
+      mismatch: Number(stats.mismatch || 0),
+      unknown: Number(stats.unknown || 0),
+      elapsedMs: Date.now() - t0,
+    },
+  });
 }
 
 main().catch((error) => {
+  emitCollectEvent({
+    type: "error",
+    code: classifyCollectError(error),
+    message: String(error?.message || error || "Noma'lum xato").slice(0, 500),
+  });
   console.error("\nXATO:", String(error?.message || error));
   process.exit(1);
 });

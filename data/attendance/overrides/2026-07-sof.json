@@ -1,0 +1,33 @@
+{
+  "overrides": [
+    {
+      "date": "2026-07-08",
+      "agentCode": "LMJAN05",
+      "employeeId": "emp_kenjaboev_xojiakbar",
+      "manualValue": "0s",
+      "reason": "Manual tabel tahriri",
+      "updatedAt": "2026-07-13T09:32:58.423Z",
+      "updatedBy": "local-user"
+    },
+    {
+      "date": "2026-07-08",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "manualValue": "22",
+      "reason": "Manual tabel tahriri",
+      "updatedAt": "2026-07-24T10:13:16.141Z",
+      "updatedBy": "local-user"
+    },
+    {
+      "date": "2026-07-14",
+      "agentCode": "JYAN004",
+      "employeeId": "emp_ismoilov_oyatillo",
+      "brandId": "sof",
+      "manualValue": "26",
+      "reason": "Manual tabel tahriri",
+      "updatedAt": "2026-07-24T10:13:13.477Z",
+      "updatedBy": "local-user"
+    }
+  ]
+}
