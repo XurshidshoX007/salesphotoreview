@@ -19,7 +19,7 @@
     "code": "LMJ",
     "filePrefix": "lalaku_mama"
   },
-  "generatedAt": "2026-07-24T10:18:27.884Z",
+  "generatedAt": "2026-07-24T10:43:58.843Z",
   "sourceDatasetUpdatedAt": "2026-07-21T12:02:31.417Z",
   "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z",
   "plannedWorkDays": null,
@@ -748,11 +748,14 @@
           "date": "2026-07-03",
           "day": 3,
           "autoValue": 20,
-          "finalValue": 20,
+          "finalValue": "20",
           "photoCount": 20,
           "salesAmount": 230000,
           "state": "workday",
-          "source": "auto"
+          "source": "manual",
+          "manualValue": "20",
+          "reason": "Manual tabel tahriri",
+          "manual": true
         },
         {
           "date": "2026-07-04",
@@ -36244,7 +36247,7 @@
       "2026-07-16",
       "2026-07-20"
     ],
-    "generatedAt": "2026-07-24T10:18:27.884Z",
+    "generatedAt": "2026-07-24T10:43:58.843Z",
     "sourceDatasetUpdatedAt": "2026-07-21T12:02:31.417Z",
     "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z"
   },

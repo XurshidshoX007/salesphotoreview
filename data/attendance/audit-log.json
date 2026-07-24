@@ -101,6 +101,32 @@
       "newValue": "22",
       "reason": "Manual tabel tahriri",
       "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784889835385_x12pry",
+      "changedAt": "2026-07-24T10:43:55.385Z",
+      "type": "attendance_override",
+      "agentCode": "LMJAN03",
+      "employeeId": "emp_abdurasulov_fayzulloh",
+      "brandId": "lalaku_mama",
+      "date": "2026-07-03",
+      "oldValue": "",
+      "newValue": "19",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784889838455_yfd19y",
+      "changedAt": "2026-07-24T10:43:58.455Z",
+      "type": "attendance_override",
+      "agentCode": "LMJAN03",
+      "employeeId": "emp_abdurasulov_fayzulloh",
+      "brandId": "lalaku_mama",
+      "date": "2026-07-03",
+      "oldValue": "19",
+      "newValue": "20",
+      "reason": "Manual tabel tahriri",
+      "updatedBy": "local-user"
     }
   ]
 }
