@@ -2,9 +2,11 @@
   "name": "lmj-photo-review-launcher",
   "private": true,
   "scripts": {
-    "start": "node work/run_review_server.mjs",
+    "start": "node backend/src/server.mjs",
+    "build:frontend": "node scripts/build-frontend.mjs",
+    "build:review": "npm run build:frontend && npm run build:review-css",
     "build:review-css": "node scripts/build-review-css.mjs",
-    "review": "node work/run_review_server.mjs",
+    "review": "node backend/src/server.mjs",
     "public:link": "node work/start_cloudflare_tunnel.mjs",
     "stop": "node work/stop_review_server.mjs",
     "stop:review": "node work/stop_review_server.mjs",
@@ -29,7 +31,7 @@
     "test:review-api": "node scripts/test-review-api.mjs",
     "test:review-ui": "node scripts/test-review-ui.mjs",
     "test:review-workflows": "node scripts/test-review-workflows.mjs",
-    "test:review": "npm run build:review-css && npm run test:brands && npm run test:attendance && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
+    "test:review": "npm run build:review && npm run test:brands && npm run test:attendance && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
     "maintenance:check": "node scripts/maintenance-cleanup.mjs",
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },

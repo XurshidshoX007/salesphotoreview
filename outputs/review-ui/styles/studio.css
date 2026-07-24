@@ -2666,6 +2666,33 @@ body.collectView #filterBackdrop,
 body.collectView .filterToggleBtn{
   display:none !important;
 }
+.sectionCloseBtn{
+  display:none;
+  justify-self:end;
+  min-height:38px;
+  padding:8px 14px;
+  border:1px solid var(--studio-line);
+  border-radius:7px;
+  background:#fff;
+  color:#435463;
+  font-weight:650;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+}
+body.collectView .sectionCloseBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.sectionCloseBtn:hover{
+  border-color:#b9ddda;
+  background:#f5fbfa;
+  color:var(--studio-accent-hover);
+}
+html[data-theme="night"] .sectionCloseBtn{
+  border-color:#30424d;
+  background:#111d25;
+  color:#c7d2da;
+}
 body.collectView header .headerIdentity .title{ font-size:19px !important; letter-spacing:-.01em; }
 body.collectView header .headerIdentity .meta{ color:var(--c-slate) !important; }
 

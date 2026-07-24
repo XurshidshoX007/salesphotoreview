@@ -199,8 +199,8 @@ try {
   await page.locator("#sideCollectBtn").click();
   await page.waitForFunction(() => document.querySelector("#collectPanel")?.classList.contains("open"));
   assert((await page.locator("#collectPanel").innerText()).includes("Jarayon holati"), "Ma'lumot yig'ish holati ko'rinmadi");
-  assert(await page.locator("#deleteDateBtn").isVisible(), "Ma'lumot yig'ishda umumiy Yopish tugmasi ko'rinmadi");
-  await page.locator("#deleteDateBtn").click();
+  assert(await page.locator("#sectionCloseBtn").isVisible(), "Ma'lumot yig'ishda Yopish tugmasi ko'rinmadi");
+  await page.locator("#sectionCloseBtn").click();
   await page.locator("#sidePhotoBtn").click();
 
   const finalOverflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

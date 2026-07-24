@@ -203,16 +203,48 @@ Natija `outputs/auto_review_eval.json` va `outputs/auto_review_eval_details.csv`
 
 `outputs/lmj_review_marks.json` fayli minus belgilari va izohlarni saqlaydi. Bu faylni qo'lda o'zgartirmaslik tavsiya etiladi.
 
+## Loyiha arxitekturasi
+
+Serverning ishga tushish nuqtasi `backend/src/server.mjs`. API yo'nalishlari vazifasiga qarab ajratilgan:
+
+- `backend/src/routes/` - access, collect, marks/sync, brands, attendance, Telegram va photo endpointlari
+- `backend/src/services/` - storage, Sales, Telegram va attendance servis chegaralari
+- `backend/src/middleware/` - autentifikatsiya, rate limit va umumiy xato javoblari
+- `work/run_review_server.mjs` - mavjud biznes logikasi bilan moslik qatlami; yangi route'lar dependency injection orqali undan foydalanadi
+
+Server sozlamalari:
+
+```env
+PORT=8765
+DATA_DIR=./data
+SALES_BASE_URL=https://cactustizim.com
+```
+
+`DATA_DIR` bo'sh qoldirilsa loyiha ichidagi standart `data/` katalogi ishlatiladi.
+
 ## Frontend tuzilishi
 
-Review interfeysi bitta katta yordamchi qatlamga bog'lanib qolmasligi uchun umumiy funksiyalar `outputs/review-ui/js/` ichidagi modullarga ajratilgan:
+Frontendning tahrirlanadigan source fayllari `frontend/src/` ichida:
 
-- `state.js` - versiyali yozuvlarni merge qilish va client ID
-- `data-loader.js` - timeoutli GET/POST so'rovlari
-- `filters.js`, `marks.js`, `brands.js`, `attendance.js` - bo'lim qoidalari
-- `telegram.js`, `export.js` - Telegram tanlovi va eksport formatlari
-- `ui-state.js` - loading, empty, error va success holatlari
-- `photo-loader.js` - thumbnail, original rasm, proxy/direct fallback va retry
+- `api/client.js` - API base URL, timeoutli GET/POST va JSON xatolari
+- `state/reviewState.js` - versiyali yozuvlarni merge qilish va client ID
+- `features/filters.js`, `marks.js`, `brands.js`, `attendance.js` - bo'lim qoidalari
+
+Brauzer ishlatadigan moslik buildi `outputs/review-ui/js/` ichiga yoziladi. Uni qo'lda emas, quyidagi buyruq orqali yangilash kerak:
+
+```powershell
+npm run build:frontend
+```
+
+Frontend boshqa backendga ulanishi kerak bo'lsa build vaqtida:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8765
+```
+
+Cloudflare va bir serverli ish rejimida `VITE_API_BASE_URL` bo'sh qoldiriladi; frontend avtomatik ravishda ochilgan domen bilan ishlaydi.
+
+Hozircha `telegram.js`, `export.js`, `ui-state.js`, `photo-loader.js` va katta review controller moslikni saqlash uchun `outputs/review-ui/js/` ichida turadi. Ular keyingi xavfsiz migratsiyada `frontend/src/features/` va `frontend/src/components/`ga ko'chiriladi.
 
 CSS manbalari build vaqtida yagona faylga yig'iladi:
 
@@ -221,6 +253,12 @@ npm run build:review-css
 ```
 
 Natija: `outputs/review-ui/styles/app.bundle.css`. HTML faqat shu bundle'ni yuklaydi.
+
+Frontend va CSS'ni birga build qilish:
+
+```powershell
+npm run build:review
+```
 
 ## Testlar
 

@@ -9,6 +9,13 @@ import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import sharp from "sharp";
+import { createApiRouter } from "../backend/src/routes/index.mjs";
+import { createAuthMiddleware } from "../backend/src/middleware/auth.mjs";
+import { handleRequestError } from "../backend/src/middleware/errors.mjs";
+import { createAttendanceService } from "../backend/src/services/attendance.service.mjs";
+import { createSalesService } from "../backend/src/services/sales.service.mjs";
+import { createStorageService } from "../backend/src/services/storage.service.mjs";
+import { createTelegramService } from "../backend/src/services/telegram.service.mjs";
 import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
 import { buildReviewCss } from "../scripts/build-review-css.mjs";
 import {
@@ -2943,9 +2950,88 @@ await seedDataDir();
 
 await buildReviewCss();
 
+const httpApi = Object.freeze({ apiError, readJsonBody, sendJson });
+const authService = Object.freeze({
+  clearPinSessionCookieHeader,
+  pinSessionCookieHeader,
+  readPinFromRequest,
+  reviewAccessPin,
+  safeCompareSecret,
+});
+const storageService = createStorageService({
+  BRANDS_FILE,
+  MARKS_FILE,
+  REASONS_FILE,
+  deleteDatasetByDate,
+  deleteReviewMarks,
+  fileRevision,
+  filterReviewMarks,
+  loadBrandsConfig,
+  readReviewMarks,
+  readReviewReasons,
+  reviewStateRevisions,
+  saveBrandsConfig,
+  validateBrandsConfig,
+  writeReviewMarks,
+  writeReviewReasons,
+});
+const salesService = createSalesService({
+  collectContinue,
+  isLocalHostHeader,
+  openSalesLoginHelper,
+  publicCollectState,
+  startCollectJob,
+  stopCollectJob,
+});
+const attendanceService = createAttendanceService({
+  ATT_FILES,
+  attendanceToCsv,
+  exportAttendanceCsv,
+  generateAttendanceMonth,
+  loadAttendanceMonth,
+  loadAttendanceStore,
+  replaceEmployee,
+  safeWriteJson,
+  saveOverride,
+  validateAttendanceData,
+});
+const telegramService = createTelegramService({
+  cleanText,
+  groupSuspiciousByAgent,
+  maskChatId,
+  readTelegramUsageStats,
+  resolveTelegramChatIdForItems,
+  sendSuspiciousSummaryToTelegram,
+  sendSuspiciousToTelegramChat,
+  summarizeTelegramUsageStats,
+  telegramChats,
+  telegramFileCacheChatId,
+});
+const photoService = Object.freeze({
+  photoCacheKey,
+  proxyPhoto,
+  proxyPhotoThumbnail,
+  readPhotoMetricsCache,
+  readReviewMarks,
+  readSuspiciousPhotos,
+  rebuildSuspiciousPhotosFromMarks,
+  writePhotoMetricsCache,
+});
+const authMiddleware = createAuthMiddleware({ accessHeaders, sendAccessDenied });
+const apiRouter = createApiRouter({
+  attendance: attendanceService,
+  auth: authService,
+  http: httpApi,
+  photos: photoService,
+  sales: salesService,
+  storage: storageService,
+  telegram: telegramService,
+});
+
 const server = createServer(async (req, res) => {
   try {
     const parsed = new URL(req.url, `http://${req.headers.host || "127.0.0.1"}`);
+    if (await apiRouter.handlePublic({ req, res, parsed })) return;
     if (parsed.pathname === "/api/access/login") {
       if (req.method !== "POST") {
         sendJson(res, 405, { ok: false, error: "Method not allowed" });
@@ -2981,11 +3067,9 @@ const server = createServer(async (req, res) => {
       res.end();
       return;
     }
-    const access = accessHeaders(parsed, req);
-    if (!access.allowed) {
-      sendAccessDenied(req, res);
-      return;
-    }
+    const access = authMiddleware.authorize(req, res, parsed);
+    if (!access) return;
+    if (await apiRouter.handleProtected({ req, res, parsed, access })) return;
     if (parsed.pathname === "/api/telegram/status") {
       const brandConfig = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
       const chats = [
@@ -3460,10 +3544,7 @@ const server = createServer(async (req, res) => {
     });
     res.end(body);
   } catch (error) {
-    if (String(req.url || "").startsWith("/api/")) {
-      sendJson(res, Number(error?.status || 500), { ok: false, error: String(error?.message || error) });
-      return;
-    }
+    if (handleRequestError(req, res, error, sendJson)) return;
     res.writeHead(404);
     res.end("Not found");
   }

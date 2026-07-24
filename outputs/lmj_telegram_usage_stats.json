@@ -5255,6 +5255,71 @@
         "languageCode": "uz",
         "isAdmin": false
       }
+    },
+    {
+      "at": "2026-07-22T11:31:10.668Z",
+      "action": "plain_start",
+      "chatId": 1235667425,
+      "user": {
+        "id": "1235667425",
+        "username": "g_olibboy",
+        "firstName": "GʻOLIBBOY",
+        "lastName": "",
+        "languageCode": "uz",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-22T15:59:33.477Z",
+      "action": "plain_start",
+      "chatId": 6262003980,
+      "user": {
+        "id": "6262003980",
+        "username": "",
+        "firstName": "Gulnoza Abdurashidovna",
+        "lastName": "",
+        "languageCode": "uz",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-23T11:51:22.882Z",
+      "action": "plain_start",
+      "chatId": 722672147,
+      "user": {
+        "id": "722672147",
+        "username": "",
+        "firstName": "Машхура",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-24T04:56:12.955Z",
+      "action": "plain_start",
+      "chatId": 1202324712,
+      "user": {
+        "id": "1202324712",
+        "username": "MuminovaDurdona",
+        "firstName": "Durdona",
+        "lastName": "",
+        "languageCode": "ru",
+        "isAdmin": false
+      }
+    },
+    {
+      "at": "2026-07-24T04:56:12.960Z",
+      "action": "plain_start",
+      "chatId": 2087606031,
+      "user": {
+        "id": "2087606031",
+        "username": "",
+        "firstName": "Набижонова",
+        "lastName": "Нозимахон",
+        "languageCode": "uz",
+        "isAdmin": false
+      }
     }
   ]
 }
