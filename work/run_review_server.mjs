@@ -134,7 +134,9 @@ const collectState = {
 let collectProcess = null;
 let collectStopReason = "";
 let collectOutputBuffer = "";
+let collectBatch = null;
 const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
+const MAX_COLLECT_RANGE_DAYS = 31;
 
 async function loadEnv() {
   for (const name of [".env.local", ".env"]) {
@@ -597,6 +599,20 @@ function publicCollectState() {
     summary: collectState.summary,
     error: collectState.error,
     logs: collectState.logs.slice(-180),
+    batch: collectBatch ? {
+      active: Boolean(collectBatch.active),
+      startDate: collectBatch.startDate,
+      endDate: collectBatch.endDate,
+      currentDate: collectState.date,
+      current: Math.min(collectBatch.index + 1, collectBatch.total),
+      total: collectBatch.total,
+      completed: collectBatch.completed,
+      succeeded: collectBatch.succeeded,
+      partial: collectBatch.partial,
+      failed: collectBatch.failed,
+      cancelled: Boolean(collectBatch.cancelled),
+      results: collectBatch.results.slice(),
+    } : null,
   };
 }
 
@@ -701,8 +717,136 @@ function collectBrowserChannelFromHint(browserHint) {
   return "";
 }
 
-async function startCollectJob({ date, brand, browserHint }) {
-  if (collectState.running) throw apiError("Ma'lumot yig'ish allaqachon ishlayapti", 409);
+function collectRangeDates(startDate, endDate) {
+  if (!isValidIsoDate(startDate) || !isValidIsoDate(endDate)) {
+    throw apiError("Sana noto'g'ri. Format: YYYY-MM-DD", 400);
+  }
+  const start = new Date(`${startDate}T00:00:00.000Z`);
+  const end = new Date(`${endDate}T00:00:00.000Z`);
+  if (start > end) throw apiError("Boshlanish sanasi tugash sanasidan keyin bo'lishi mumkin emas", 400);
+  const dates = [];
+  for (let cursor = start; cursor <= end; cursor = new Date(cursor.getTime() + 86400000)) {
+    dates.push(cursor.toISOString().slice(0, 10));
+    if (dates.length > MAX_COLLECT_RANGE_DAYS) {
+      throw apiError(`Bir martada ko'pi bilan ${MAX_COLLECT_RANGE_DAYS} kun yig'ish mumkin`, 400);
+    }
+  }
+  return dates;
+}
+
+function collectBatchSummary(batch) {
+  const summaries = batch.results.map((item) => item.summary).filter(Boolean);
+  const sum = (key) => summaries.reduce((total, item) => total + Number(item?.[key] || 0), 0);
+  return {
+    totalDays: batch.total,
+    succeededDays: batch.succeeded,
+    partialDays: batch.partial,
+    failedDays: batch.failed,
+    totalAgents: sum("totalAgents"),
+    agentsWithPhotos: sum("agentsWithPhotos"),
+    totalPhotos: sum("totalPhotos"),
+    ok: sum("ok"),
+    partial: sum("partial"),
+    error: sum("error"),
+    elapsedMs: Math.max(0, Date.now() - new Date(batch.startedAt).getTime()),
+  };
+}
+
+function finishCollectBatch() {
+  if (!collectBatch) return;
+  collectBatch.active = false;
+  collectState.running = false;
+  collectState.finishedAt = new Date().toISOString();
+  collectState.summary = collectBatchSummary(collectBatch);
+  if (collectBatch.cancelled) {
+    collectState.status = "stopped";
+    addCollectLog(`Interval to'xtatildi: ${collectBatch.completed} / ${collectBatch.total} kun bajarildi.`);
+  } else if (collectBatch.failed === collectBatch.total) {
+    collectState.status = "failed";
+    addCollectLog(`Interval xatolik bilan tugadi: ${collectBatch.failed} kun yig'ilmadi.`);
+  } else if (collectBatch.failed > 0 || collectBatch.partial > 0) {
+    collectState.status = "partial";
+    addCollectLog(`Interval qisman tayyor: ${collectBatch.succeeded} muvaffaqiyatli, ${collectBatch.partial} qisman, ${collectBatch.failed} xato.`);
+  } else {
+    collectState.status = "done";
+    addCollectLog(`Interval muvaffaqiyatli tugadi: ${collectBatch.total} kun.`);
+  }
+}
+
+async function continueCollectBatch() {
+  if (!collectBatch?.active || collectBatch.cancelled || collectBatch.index + 1 >= collectBatch.total) {
+    finishCollectBatch();
+    return;
+  }
+  collectBatch.index += 1;
+  const nextDate = collectBatch.dates[collectBatch.index];
+  addCollectLog(`=== ${collectBatch.index + 1}/${collectBatch.total} | ${nextDate} ===`);
+  try {
+    await startCollectJob({
+      date: nextDate,
+      brand: collectBatch.brandId,
+      browserHint: collectBatch.browserHint,
+      internalBatch: true,
+    });
+  } catch (error) {
+    collectBatch.completed += 1;
+    collectBatch.failed += 1;
+    collectBatch.results.push({
+      date: nextDate,
+      status: "failed",
+      outputFile: "",
+      summary: null,
+      error: error.message,
+    });
+    addCollectLog(`XATO: ${nextDate} yig'ilmadi: ${error.message}`);
+    await continueCollectBatch();
+  }
+}
+
+async function startCollectRangeJob({ startDate, endDate, brand, browserHint }) {
+  if (collectState.running || collectBatch?.active) {
+    throw apiError("Ma'lumot yig'ish allaqachon ishlayapti", 409);
+  }
+  const dates = collectRangeDates(startDate, endDate);
+  if (dates.length === 1) {
+    collectBatch = null;
+    return startCollectJob({ date: dates[0], brand, browserHint });
+  }
+  const resolvedBrand = await resolveCollectBrand(brand);
+  if (!resolvedBrand) throw apiError("Brend noto'g'ri. Brand Settings yoki config/brands.json ni tekshiring", 400);
+  collectBatch = {
+    active: true,
+    cancelled: false,
+    startedAt: new Date().toISOString(),
+    startDate: dates[0],
+    endDate: dates[dates.length - 1],
+    dates,
+    index: 0,
+    total: dates.length,
+    completed: 0,
+    succeeded: 0,
+    partial: 0,
+    failed: 0,
+    results: [],
+    brandId: resolvedBrand.id,
+    browserHint,
+  };
+  collectState.logs = [];
+  try {
+    await startCollectJob({ date: dates[0], brand: resolvedBrand.id, browserHint, internalBatch: true });
+    collectState.startedAt = collectBatch.startedAt;
+    collectState.logs.unshift(`=== 1/${collectBatch.total} | ${dates[0]} ===`);
+  } catch (error) {
+    collectBatch.active = false;
+    throw error;
+  }
+}
+
+async function startCollectJob({ date, brand, browserHint, internalBatch = false }) {
+  if (collectState.running || (!internalBatch && collectBatch?.active)) {
+    throw apiError("Ma'lumot yig'ish allaqachon ishlayapti", 409);
+  }
+  if (!internalBatch) collectBatch = null;
   if (!isValidIsoDate(date)) throw apiError("Sana noto'g'ri. Format: YYYY-MM-DD", 400);
   if (!existsSync(COLLECT_SCRIPT)) throw apiError(`Collect dasturi topilmadi: ${COLLECT_SCRIPT}`, 500);
   if (COLLECT_MODE !== "browser") {
@@ -719,7 +863,7 @@ async function startCollectJob({ date, brand, browserHint }) {
 
   Object.assign(collectState, {
     running: true,
-    startedAt: new Date().toISOString(),
+    startedAt: internalBatch && collectBatch ? collectBatch.startedAt : new Date().toISOString(),
     finishedAt: null,
     date,
     brand: resolvedBrand.name,
@@ -733,7 +877,7 @@ async function startCollectJob({ date, brand, browserHint }) {
     progress: null,
     summary: null,
     error: null,
-    logs: [],
+    logs: internalBatch && collectBatch ? collectState.logs : [],
   });
   collectOutputBuffer = "";
 
@@ -785,10 +929,14 @@ async function startCollectJob({ date, brand, browserHint }) {
   collectProcess.on("close", (code) => {
     flushCollectOutput();
     collectState.running = false;
-    collectState.finishedAt = new Date().toISOString();
     collectState.exitCode = code;
     collectState.awaiting = null;
     if (collectStopReason === "login_helper") {
+      if (collectBatch?.active) {
+        collectBatch.cancelled = true;
+        collectBatch.active = false;
+      }
+      collectState.finishedAt = new Date().toISOString();
       collectState.status = "waiting_login";
       addCollectLog("Collect to'xtatildi. Login oynasi alohida ochildi; login tugagach yig'ishni qayta boshlang.");
       collectStopReason = "";
@@ -802,8 +950,34 @@ async function startCollectJob({ date, brand, browserHint }) {
         };
       }
       addCollectLog(code === 0 ? "Jarayon muvaffaqiyatli tugadi." : `Jarayon ${code} kodi bilan tugadi.`);
+      collectStopReason = "";
     }
     collectProcess = null;
+    if (internalBatch && collectBatch?.active) {
+      if (collectBatch.cancelled) {
+        setTimeout(() => continueCollectBatch(), 50);
+        return;
+      }
+      const dayStatus = ["done", "partial"].includes(collectState.status) ? collectState.status : "failed";
+      collectBatch.completed += 1;
+      if (dayStatus === "done") collectBatch.succeeded += 1;
+      else if (dayStatus === "partial") collectBatch.partial += 1;
+      else collectBatch.failed += 1;
+      collectBatch.results.push({
+        date,
+        status: dayStatus,
+        outputFile: collectState.outputFile,
+        summary: collectState.summary,
+        error: collectState.error?.message || "",
+      });
+      setTimeout(() => continueCollectBatch().catch((error) => {
+        collectState.status = "failed";
+        collectState.error = { code: "COLLECT_RANGE_FAILED", message: error.message };
+        finishCollectBatch();
+      }), 50);
+    } else {
+      collectState.finishedAt = new Date().toISOString();
+    }
   });
 }
 
@@ -828,6 +1002,7 @@ function launchSalesLoginProcess() {
 
 function openSalesLoginHelper() {
   if (collectProcess && collectState.running) {
+    if (collectBatch?.active) collectBatch.cancelled = true;
     collectStopReason = "login_helper";
     collectState.status = "stopping";
     collectState.awaiting = null;
@@ -860,10 +1035,18 @@ function collectContinue() {
 }
 
 function stopCollectJob() {
-  if (!collectProcess || !collectState.running) throw apiError("To'xtatiladigan collect jarayoni yo'q", 409);
+  if ((!collectProcess || !collectState.running) && !collectBatch?.active) {
+    throw apiError("To'xtatiladigan collect jarayoni yo'q", 409);
+  }
+  if (collectBatch?.active) collectBatch.cancelled = true;
+  collectStopReason = "user";
   collectState.status = "stopping";
   collectState.awaiting = null;
   addCollectLog("Webdan to'xtatish so'rovi yuborildi.");
+  if (!collectProcess) {
+    finishCollectBatch();
+    return;
+  }
   const pid = collectProcess.pid;
   if (process.platform === "win32" && pid) {
     const killer = spawn("taskkill", ["/PID", String(pid), "/T", "/F"], {
@@ -3094,6 +3277,7 @@ const salesService = createSalesService({
   isLocalHostHeader,
   openSalesLoginHelper,
   publicCollectState,
+  startCollectRangeJob,
   startCollectJob,
   stopCollectJob,
 });
@@ -3469,7 +3653,17 @@ const server = createServer(async (req, res) => {
         return;
       }
       const body = await readJsonBody(req);
-      await startCollectJob({ date: body.date, brand: body.brand, browserHint: isLocalHostHeader(req) ? body.browserHint : "" });
+      const browserHint = isLocalHostHeader(req) ? body.browserHint : "";
+      if (body.startDate || body.endDate) {
+        await startCollectRangeJob({
+          startDate: body.startDate || body.date,
+          endDate: body.endDate || body.startDate || body.date,
+          brand: body.brand,
+          browserHint,
+        });
+      } else {
+        await startCollectJob({ date: body.date, brand: body.brand, browserHint });
+      }
       sendJson(res, 200, { ok: true, collect: publicCollectState() });
       return;
     }

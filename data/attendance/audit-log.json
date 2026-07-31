@@ -127,6 +127,17 @@
       "newValue": "20",
       "reason": "Manual tabel tahriri",
       "updatedBy": "local-user"
+    },
+    {
+      "id": "audit_1784893290793_11wza1",
+      "changedAt": "2026-07-24T11:41:30.793Z",
+      "type": "attendance_month_status",
+      "month": "2026-07",
+      "brandId": "lalaku_mama",
+      "oldValue": "draft",
+      "newValue": "approved",
+      "reason": "Oy holati yangilandi",
+      "updatedBy": "local-user"
     }
   ]
 }

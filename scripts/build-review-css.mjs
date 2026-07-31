@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const STYLE_DIR = join(ROOT, "outputs", "review-ui", "styles");
-const SOURCES = ["main.css", "studio.css", "brand.css"];
+const SOURCES = ["main.css", "studio.css", "brand.css", "attendance.css"];
 const OUTPUT = join(STYLE_DIR, "app.bundle.css");
 
 function topLevelBlocks(source) {

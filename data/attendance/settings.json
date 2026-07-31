@@ -15,5 +15,275 @@
     ],
     "countEmptyWorkDayAsLowPhoto": false
   },
-  "teams": []
+  "teams": [
+    {
+      "supervisorId": "331a6552-dc6d-441e-acfe-24fd29440910",
+      "supervisorCode": "DMNV001",
+      "supervisorName": "POLATOV ILHOM - JYNV",
+      "region": "Navoi",
+      "agentCodes": [
+        "JYNV002",
+        "JYNV005",
+        "JYNV003",
+        "JYNV007"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "2a621c46-9306-43c2-b03c-282a97cf269a",
+      "supervisorCode": "DMTO001",
+      "supervisorName": "MURATOVA MALIKA - JYTO",
+      "region": "Olmaliq",
+      "agentCodes": [
+        "JYTO005",
+        "JYTO002",
+        "JYTO003",
+        "JYTO004"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "33502de7-316a-495e-a137-d11746202786",
+      "supervisorCode": "DMTSH001",
+      "supervisorName": "TUXTAYEV SHERZOD - JYTSH",
+      "region": "Yunusobod",
+      "agentCodes": [
+        "JYTSH002",
+        "JYTSH004",
+        "JYTSH003",
+        "JYTSH005"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "74d05b25-9524-434f-a52c-0fc1a99c95ce",
+      "supervisorCode": "JYAN001",
+      "supervisorName": "AXMADALIYEV SAIDJAXON - JYAN_01",
+      "region": "Andijon",
+      "agentCodes": [
+        "JYAN004",
+        "JYAN008",
+        "JYAN005",
+        "JYAN006",
+        "JYAN007"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "393417c6-2121-4647-a172-17369facb5cb",
+      "supervisorCode": "JYAN100",
+      "supervisorName": "JYAN_02 - BOTIROV KAMOLIDDIN",
+      "region": "Andijon",
+      "agentCodes": [
+        "JYAN102",
+        "JYAN106",
+        "JYAN103",
+        "JYAN105"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "9372e3c5-83af-4800-af6b-c56214b7fc45",
+      "supervisorCode": "JYBX001",
+      "supervisorName": "BAFOYEV KOMIL - JYBX",
+      "region": "Buxoro",
+      "agentCodes": [
+        "JYBX005",
+        "JYBX003",
+        "JYBX004",
+        "JYBX002"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "2c7d45ff-019a-4bd0-aee8-394a2fc57bc9",
+      "supervisorCode": "JYFA001",
+      "supervisorName": "ALEVTINA IVANOVA - JYFA",
+      "region": "Farg'ona",
+      "agentCodes": [
+        "JYFA002",
+        "JYFA004",
+        "JYFA005",
+        "JYFA003"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "ccf0d222-993d-483e-9a0e-ef5b519051b6",
+      "supervisorCode": "JYGL001",
+      "supervisorName": "JYGL - XUDOYBERDIYEV XUSANBOY",
+      "region": "Guliston",
+      "agentCodes": [
+        "JYGL003",
+        "JYGL002",
+        "JYGL004"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "09fb31bb-2907-43b9-82ae-06736dc23864",
+      "supervisorCode": "JYJZ001",
+      "supervisorName": "XALIULLIN ALBERT - JYJZ",
+      "region": "Jizzah",
+      "agentCodes": [
+        "JYJZ003",
+        "JYJZ004",
+        "JYJZ002"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "299b8a32-06f2-4962-8793-3879813960d5",
+      "supervisorCode": "JYNK001",
+      "supervisorName": "TOLIBAEVA ZARAFSHAN - JYNS",
+      "region": "Nukus",
+      "agentCodes": [
+        "JYNS005",
+        "JYNS004",
+        "JYNS003",
+        "JYNS002"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "3f1b14ae-7c87-48be-9383-6c7354ad0253",
+      "supervisorCode": "JYNM001",
+      "supervisorName": "ISABOYEV RAXMATILLO - JYNM",
+      "region": "Namangan",
+      "agentCodes": [
+        "JYNM006",
+        "JYNM004",
+        "JYNM007",
+        "JYNM005",
+        "JYNM002",
+        "JYNM003"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "4efd4c37-e716-40a3-8d0d-13ca3c9ed3a5",
+      "supervisorCode": "JYQQ001",
+      "supervisorName": "IRMATOV ILYOS - JYQQ",
+      "region": "Qo'qon",
+      "agentCodes": [
+        "JYQQ008",
+        "JYQQ003",
+        "JYQQ006",
+        "JYQQ007",
+        "JYQQ004",
+        "JYQQ005"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "db20fdb8-12ea-4ae8-9b25-7795c8663184",
+      "supervisorCode": "JYQSH001",
+      "supervisorName": "JYQSH - XOLIQULOV FAXRIDDIN",
+      "region": "Qarshi",
+      "agentCodes": [
+        "JYQSH004",
+        "JYQSH005",
+        "JYQSH003"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "05de3fef-96cc-43cd-bb20-fd6d33e445e7",
+      "supervisorCode": "JYSAM001",
+      "supervisorName": "LANNIK DIANA - JYSM",
+      "region": "Samarqand",
+      "agentCodes": [
+        "JYSAM004",
+        "JYSAM008",
+        "JYSAM007",
+        "JYSAM006",
+        "JYSAM003"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "ce740fa9-291d-4162-9c44-075269576c79",
+      "supervisorCode": "JYTZ001",
+      "supervisorName": "JYTZ - QODIROV JAMSHID",
+      "region": "Termiz",
+      "agentCodes": [
+        "JYTZ009",
+        "JYTZ007",
+        "JYTZ004",
+        "JYTZ005"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "d50ef7be-7bee-438b-b55d-c6ab2f2beba9",
+      "supervisorCode": "JYXM001",
+      "supervisorName": "XUDAYBERGANOV AZAMAT - JYXM",
+      "region": "Xorazm",
+      "agentCodes": [
+        "JYXM006",
+        "JYXM005",
+        "JYXM002",
+        "JYXM007",
+        "JYXM004",
+        "JYXM003"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "8e9a878f-462b-4541-ae6a-0a4ea76b3e63",
+      "supervisorCode": "LLSVSM03",
+      "supervisorName": "XAMRAYEV BEGZOD - LLKSMK",
+      "region": "Kattaqo'rg'on",
+      "agentCodes": [
+        "JYSAM005"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "supervisorId": "ba4793c6-121c-4d5b-a843-d8055f8ca58f",
+      "supervisorCode": "QRSUBDILLER",
+      "supervisorName": "MAVLONOV RAVSHAN (NURIDDIN OPTOM)",
+      "region": "Qarshi",
+      "agentCodes": [
+        "JYQRDILLER"
+      ],
+      "brandId": "sof",
+      "source": "sales",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    }
+  ]
 }

@@ -1,3 +1,13 @@
 {
-  "items": []
+  "items": [
+    {
+      "month": "2026-07",
+      "brandId": "lalaku_mama",
+      "status": "approved",
+      "updatedAt": "2026-07-24T11:41:30.784Z",
+      "updatedBy": "local-user",
+      "approvedAt": "2026-07-24T11:41:30.784Z",
+      "lockedAt": null
+    }
+  ]
 }

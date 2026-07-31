@@ -19,7 +19,7 @@
     "code": "LMJ",
     "filePrefix": "lalaku_mama"
   },
-  "generatedAt": "2026-07-24T11:13:25.562Z",
+  "generatedAt": "2026-07-26T12:52:50.677Z",
   "sourceDatasetUpdatedAt": "2026-07-24T10:49:39.792Z",
   "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z|lalaku_mama_browser_collect_2026-07-22_raw.json:4284810:2026-07-24T10:49:39.792Z",
   "plannedWorkDays": null,
@@ -36225,16 +36225,24 @@
       "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
       "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
       "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
-      "emp_abdinazarov_husniddin: ikki agent kodda assignment sanalari ustma-ust"
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_vakant: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_abdinazarov_husniddin: ikki agent kodda assignment sanalari ustma-ust",
+      "emp_suvtsh_vakant: ikki agent kodda assignment sanalari ustma-ust"
     ],
-    "warnings": [
-      "SVR teamMap hali bo'sh: settings.json ichidagi teams orqali bog'lanadi"
-    ]
+    "warnings": []
   },
   "dataQuality": {
     "missingRoutes": [],
     "overlappingAssignments": [],
-    "emptyTeamsWarning": true,
+    "emptyTeamsWarning": false,
     "rawDatesFound": [
       "2026-07-03",
       "2026-07-04",
@@ -36248,14 +36256,24 @@
       "2026-07-20",
       "2026-07-22"
     ],
-    "generatedAt": "2026-07-24T11:13:25.562Z",
+    "generatedAt": "2026-07-26T12:52:50.677Z",
     "sourceDatasetUpdatedAt": "2026-07-24T10:49:39.792Z",
-    "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z|lalaku_mama_browser_collect_2026-07-22_raw.json:4284810:2026-07-24T10:49:39.792Z"
+    "sourceFingerprint": "lalaku_mama_browser_collect_2026-07-03_raw.json:4857659:2026-07-03T20:31:26.803Z|lalaku_mama_browser_collect_2026-07-04_raw.json:4909904:2026-07-06T04:15:44.138Z|lalaku_mama_browser_collect_2026-07-07_raw.json:5181810:2026-07-08T07:32:52.478Z|lalaku_mama_browser_collect_2026-07-08_raw.json:4837864:2026-07-09T05:19:11.956Z|lalaku_mama_browser_collect_2026-07-09_raw.json:4659403:2026-07-10T06:25:17.491Z|lalaku_mama_browser_collect_2026-07-12_raw.json:125505:2026-07-13T10:05:59.430Z|lalaku_mama_browser_collect_2026-07-14_raw.json:4459181:2026-07-15T05:27:42.648Z|lalaku_mama_browser_collect_2026-07-15_raw.json:4462291:2026-07-16T09:52:15.083Z|lalaku_mama_browser_collect_2026-07-16_raw.json:4375681:2026-07-17T05:56:02.853Z|lalaku_mama_browser_collect_2026-07-20_raw.json:2937377:2026-07-21T12:02:31.417Z|lalaku_mama_browser_collect_2026-07-22_raw.json:4284810:2026-07-24T10:49:39.792Z",
+    "supervisorSourceDate": "",
+    "supervisorSnapshotStatus": "missing",
+    "supervisorSnapshotAuthoritative": false,
+    "activeSupervisors": 0,
+    "deactivatedSupervisors": 0,
+    "supervisorConflicts": []
   },
   "monthStatus": {
     "month": "2026-07",
     "brandId": "lalaku_mama",
-    "status": "draft"
+    "status": "approved",
+    "updatedAt": "2026-07-24T11:41:30.784Z",
+    "updatedBy": "local-user",
+    "approvedAt": "2026-07-24T11:41:30.784Z",
+    "lockedAt": null
   },
   "summaryTotals": {
     "rows": 108,

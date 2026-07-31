@@ -3715,6 +3715,448 @@
       "endDate": null,
       "reason": "Sales outputdan avtomatik import",
       "brandId": "giga"
+    },
+    {
+      "id": "assign_aptsh-001_20260701_1784897430143_sp832s",
+      "agentCode": "APTSH-001",
+      "employeeId": "emp_ap",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_dmnv001_20260701_1784897430144_9dok33",
+      "agentCode": "DMNV001",
+      "employeeId": "emp_polatov_ilhom_jynv",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_dmto001_20260701_1784897430144_upvqrj",
+      "agentCode": "DMTO001",
+      "employeeId": "emp_muratova_malika_jyto",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_dmtsh001_20260701_1784897430144_749lxb",
+      "agentCode": "DMTSH001",
+      "employeeId": "emp_tuxtayev_sherzod_jytsh",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_ggnk001_20260701_1784897430145_1onw91",
+      "agentCode": "GGNK001",
+      "employeeId": "emp_ggns",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_ggtsh100_20260701_1784897430145_uc5b0c",
+      "agentCode": "GGTSH100",
+      "employeeId": "emp_ggtsh",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_ggxo100_20260701_1784897430145_bobep8",
+      "agentCode": "GGXO100",
+      "employeeId": "emp_ggxm",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_jsan001_20260701_1784897430145_6c55td",
+      "agentCode": "JSAN001",
+      "employeeId": "emp_axmadjonov_mashxurbek_jsan_2",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_jsnav001_20260701_1784897430146_q6r97h",
+      "agentCode": "JSNAV001",
+      "employeeId": "emp_shukurova_nargiza_jsnav",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_jyan001_20260701_1784897430146_hn6mg6",
+      "agentCode": "JYAN001",
+      "employeeId": "emp_axmadaliyev_saidjaxon_jyan_01",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyan100_20260701_1784897430146_6bsajm",
+      "agentCode": "JYAN100",
+      "employeeId": "emp_jyan_02_botirov_kamoliddin",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jybx001_20260701_1784897430146_ij66dy",
+      "agentCode": "JYBX001",
+      "employeeId": "emp_bafoyev_komil_jybx",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyfa001_20260701_1784897430147_ix3zmq",
+      "agentCode": "JYFA001",
+      "employeeId": "emp_alevtina_ivanova_jyfa",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jygl001_20260701_1784897430147_qeyoed",
+      "agentCode": "JYGL001",
+      "employeeId": "emp_jygl_xudoyberdiyev_xusanboy",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyjz001_20260701_1784897430147_eeytv0",
+      "agentCode": "JYJZ001",
+      "employeeId": "emp_xaliullin_albert_jyjz",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynk001_20260701_1784897430148_oz06sb",
+      "agentCode": "JYNK001",
+      "employeeId": "emp_tolibaeva_zarafshan_jyns",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jynm001_20260701_1784897430149_p1nuv4",
+      "agentCode": "JYNM001",
+      "employeeId": "emp_isaboyev_raxmatillo_jynm",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqq001_20260701_1784897430149_quvpv5",
+      "agentCode": "JYQQ001",
+      "employeeId": "emp_irmatov_ilyos_jyqq",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyqsh001_20260701_1784897430150_w6y5nd",
+      "agentCode": "JYQSH001",
+      "employeeId": "emp_jyqsh_xoliqulov_faxriddin",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jysam001_20260701_1784897430150_0u4u4f",
+      "agentCode": "JYSAM001",
+      "employeeId": "emp_lannik_diana_jysm",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jytz001_20260701_1784897430150_vk0ec9",
+      "agentCode": "JYTZ001",
+      "employeeId": "emp_jytz_qodirov_jamshid",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_jyxm001_20260701_1784897430151_9rkr19",
+      "agentCode": "JYXM001",
+      "employeeId": "emp_xudayberganov_azamat_jyxm",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_llsvsm03_20260701_1784897430151_qrpvx0",
+      "agentCode": "LLSVSM03",
+      "employeeId": "emp_xamrayev_begzod_llksmk",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_monnoan001_20260701_1784897430152_0dn5qk",
+      "agentCode": "MONNOAN001",
+      "employeeId": "emp_monnoan",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_qrsubdiller_20260701_1784897430152_zgzd92",
+      "agentCode": "QRSUBDILLER",
+      "employeeId": "emp_mavlonov_ravshan_nuriddin_optom",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof"
+    },
+    {
+      "id": "assign_suvan001_20260701_1784897430152_lpdp8t",
+      "agentCode": "SUVAN001",
+      "employeeId": "emp_suvan_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvfa001_20260701_1784897430152_w8m3lr",
+      "agentCode": "SUVFA001",
+      "employeeId": "emp_suvfa_svr_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvgl001_20260701_1784897430153_qbrpqh",
+      "agentCode": "SUVGL001",
+      "employeeId": "emp_suvgl_xudoyberdiyev_xusanboy",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvjz001_20260701_1784897430153_kgoz7i",
+      "agentCode": "SUVJZ001",
+      "employeeId": "emp_suvjz_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvnk001_20260701_1784897430154_uzz3n8",
+      "agentCode": "SUVNK001",
+      "employeeId": "emp_suvnk_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvnm001_20260701_1784897430154_ldmwkd",
+      "agentCode": "SUVNM001",
+      "employeeId": "emp_suvnm_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvnv001_20260701_1784897430154_y3o99o",
+      "agentCode": "SUVNV001",
+      "employeeId": "emp_suvnav_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvosdo001_20260701_1784897430154_nlorkn",
+      "agentCode": "SUVOSDO001",
+      "employeeId": "emp_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvqar001_20260701_1784897430155_nv81cj",
+      "agentCode": "SUVQAR001",
+      "employeeId": "emp_suvqar_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvqq001_20260701_1784897430155_e3vuh0",
+      "agentCode": "SUVQQ001",
+      "employeeId": "emp_suvqq_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvsm001_20260701_1784897430156_letdzo",
+      "agentCode": "SUVSM001",
+      "employeeId": "emp_suv_vakant_suvsm",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "assign_suvto001_20260701_1784897430156_m37e90",
+      "agentCode": "SUVTO001",
+      "employeeId": "emp_suvto_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_suvtsh001_20260701_1784897430157_oselsn",
+      "agentCode": "SUVTSH001",
+      "employeeId": "emp_suvtsh_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_suvtsh100_20260701_1784897430157_nu7m6c",
+      "agentCode": "SUVTSH100",
+      "employeeId": "emp_suvtsh_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_suvtsh200_20260701_1784897430157_uvrnnk",
+      "agentCode": "SUVTSH200",
+      "employeeId": "emp_zulayxo_mirabidova_suvtsh",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_suvtz001_20260701_1784897430157_633wqw",
+      "agentCode": "SUVTZ001",
+      "employeeId": "emp_suvtz_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_suvxr001_20260701_1784897430158_uuq2m0",
+      "agentCode": "SUVXR001",
+      "employeeId": "emp_suvxr_vakant",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_sxnv001_20260701_1784897430158_0g2fh5",
+      "agentCode": "SXNV001",
+      "employeeId": "emp_majitov_sharof",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_sxqsh001_20260701_1784897430158_ecjv7g",
+      "agentCode": "SXQSH001",
+      "employeeId": "emp_jumayev_begzod",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_sxran001_20260701_1784897430158_pg78su",
+      "agentCode": "SXRAN001",
+      "employeeId": "emp_kabulov_farruxbek",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
+    },
+    {
+      "id": "assign_sxtr001_20260701_1784897430159_6afn6n",
+      "agentCode": "SXTR001",
+      "employeeId": "emp_qodirov_jamshid",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-24",
+      "reason": "Sales supervisor bo'limidan avtomatik import",
+      "brandId": "sof",
+      "updatedAt": "2026-07-25T20:50:35.933Z"
     }
   ]
 }

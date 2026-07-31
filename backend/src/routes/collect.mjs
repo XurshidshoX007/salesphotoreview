@@ -10,11 +10,21 @@ export function createCollectRoutes({ sales, http }) {
     if (req.method !== "POST") return methodNotAllowed(res, http.sendJson, access.headers);
     if (parsed.pathname === "/api/collect/start") {
       const body = await http.readJsonBody(req);
-      await sales.startCollectJob({
-        date: body.date,
-        brand: body.brand,
-        browserHint: sales.isLocalHostHeader(req) ? body.browserHint : "",
-      });
+      const browserHint = sales.isLocalHostHeader(req) ? body.browserHint : "";
+      if (body.startDate || body.endDate) {
+        await sales.startCollectRangeJob({
+          startDate: body.startDate || body.date,
+          endDate: body.endDate || body.startDate || body.date,
+          brand: body.brand,
+          browserHint,
+        });
+      } else {
+        await sales.startCollectJob({
+          date: body.date,
+          brand: body.brand,
+          browserHint,
+        });
+      }
     } else if (parsed.pathname === "/api/collect/continue") {
       sales.collectContinue();
     } else if (parsed.pathname === "/api/collect/open-login") {

@@ -225,12 +225,28 @@ try {
   await page.waitForFunction(() => !/yuklanmoqda/i.test(document.querySelector("#attendanceMeta")?.textContent || ""), null, { timeout: 20_000 });
   assert(await page.locator("[data-attendance-view='month']").isVisible(), "Oy/Kun/Muammolar view tugmalari ko'rinmadi");
   assert(await page.locator("#attendanceCoverage").isVisible(), "Data coverage ko'rinmadi");
-  assert(await page.locator("#attendanceMeta .attendanceMetric").count() >= 7, "Tabel summary cardlari to'liq emas");
+  assert(await page.locator("#attendanceMeta .attendanceMetric").count() === 4, "Tabel asosiy summary ko'rsatkichlari noto'g'ri");
+  assert(await page.locator("#attendanceMeta .attendanceSecondaryMetric").count() >= 5, "Tabel ikkilamchi ko'rsatkichlari to'liq emas");
+  await page.locator("#attendanceActionsToggle").click();
+  assert(await page.locator("#attendanceActionsMenu").isVisible(), "Tabel amallar menyusi ochilmadi");
+  await page.locator("#attendanceActionsToggle").click();
   await page.locator("[data-attendance-view='day']").click();
   await page.waitForSelector(".attendanceDayHead");
-  assert(await page.locator(".attendanceDayCard").count() > 0, "Kun bo'yicha qatorlar chiqmadi");
+  assert(
+    (await page.locator(".attendanceDayRow").count()) > 0 || (await page.locator(".attendanceDatasetEmpty").count()) === 1,
+    "Kun bo'yicha qator yoki dataset yo'q holati chiqmadi",
+  );
   await page.locator("[data-attendance-view='issues']").click();
   await page.waitForSelector(".attendanceIssuesHead");
+  const issueSemantics = await page.evaluate(() => ({
+    missingDates: document.querySelectorAll("#attendanceCoverage [data-coverage-date].missing").length,
+    missingIssues: document.querySelectorAll(".attendanceIssue.missing_dataset").length,
+    issueNodes: document.querySelectorAll(".attendanceIssue").length,
+    domNodes: document.querySelectorAll("*").length,
+  }));
+  assert(issueSemantics.missingIssues === issueSemantics.missingDates, `Dataset muammolari sana bo'yicha birlashtirilmadi: ${issueSemantics.missingIssues}/${issueSemantics.missingDates}`);
+  assert(issueSemantics.issueNodes < 1000, `Muammolar ro'yxati ortiqcha takrorlangan: ${issueSemantics.issueNodes}`);
+  assert(issueSemantics.domNodes < 10000, `Tabel DOM haddan tashqari katta: ${issueSemantics.domNodes}`);
   await page.locator("[data-attendance-view='month']").click();
   await page.waitForSelector("#attendanceTable thead");
   await page.screenshot({ path: join(artifacts, "review-ui-attendance.png"), fullPage: false });
@@ -243,17 +259,18 @@ try {
   }
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator("[data-attendance-view='day']").click();
-  await page.waitForSelector(".attendanceDayCard");
+  await page.waitForFunction(() => document.querySelector(".attendanceDayRow,.attendanceDatasetEmpty"));
   const attendanceMobile = await page.evaluate(() => ({
     overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    cards: document.querySelectorAll(".attendanceDayCard").length,
+    cards: document.querySelectorAll(".attendanceDayRow").length,
+    emptyState: document.querySelectorAll(".attendanceDatasetEmpty").length,
     monthTableVisible: Boolean(document.querySelector("#attendanceTable:not(.hidden)")),
     bodyScrollX: window.scrollX,
     panel: document.querySelector("#attendancePanel")?.getBoundingClientRect().toJSON(),
     command: document.querySelector(".attendanceCommandBar")?.getBoundingClientRect().toJSON(),
     header: document.querySelector("body > header")?.getBoundingClientRect().toJSON(),
   }));
-  assert(attendanceMobile.cards > 0, "Mobile Kun view qatorlari chiqmadi");
+  assert(attendanceMobile.cards > 0 || attendanceMobile.emptyState === 1, "Mobile Kun view mazmuni chiqmadi");
   assert(!attendanceMobile.monthTableVisible, "Mobile Kun viewda 31 ustunli jadval yashirilmadi");
   assert(attendanceMobile.overflow <= 1, `Mobile Tabel gorizontal overflow bor: ${attendanceMobile.overflow}px`);
   assert(attendanceMobile.header?.height <= 74, `Mobile Tabel header balandligi noto'g'ri: ${attendanceMobile.header?.height}px`);

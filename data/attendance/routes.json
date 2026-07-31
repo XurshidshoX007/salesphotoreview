@@ -3295,6 +3295,448 @@
       "role": "agent",
       "active": true,
       "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_aptsh_001",
+      "agentCode": "APTSH-001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_dmnv001",
+      "agentCode": "DMNV001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Navoi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_dmto001",
+      "agentCode": "DMTO001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Olmaliq",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_dmtsh001",
+      "agentCode": "DMTSH001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Yunusobod",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_ggnk001",
+      "agentCode": "GGNK001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Nukus",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_ggtsh100",
+      "agentCode": "GGTSH100",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Sergeli",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_ggxo100",
+      "agentCode": "GGXO100",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Xorazm",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_jsan001",
+      "agentCode": "JSAN001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Andijon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_jsnav001",
+      "agentCode": "JSNAV001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Navoi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_jyan001",
+      "agentCode": "JYAN001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Andijon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyan100",
+      "agentCode": "JYAN100",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Andijon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jybx001",
+      "agentCode": "JYBX001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Buxoro",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyfa001",
+      "agentCode": "JYFA001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Farg'ona",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jygl001",
+      "agentCode": "JYGL001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Guliston",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyjz001",
+      "agentCode": "JYJZ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Jizzah",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jynk001",
+      "agentCode": "JYNK001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Nukus",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jynm001",
+      "agentCode": "JYNM001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Namangan",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyqq001",
+      "agentCode": "JYQQ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Qo'qon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyqsh001",
+      "agentCode": "JYQSH001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Qarshi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jysam001",
+      "agentCode": "JYSAM001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Samarqand",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jytz001",
+      "agentCode": "JYTZ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Termiz",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_jyxm001",
+      "agentCode": "JYXM001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Xorazm",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_llsvsm03",
+      "agentCode": "LLSVSM03",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Kattaqo'rg'on",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_monnoan001",
+      "agentCode": "MONNOAN001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Andijon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_qrsubdiller",
+      "agentCode": "QRSUBDILLER",
+      "brandId": "sof",
+      "role": "svr",
+      "active": true,
+      "region": "Qarshi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi"
+    },
+    {
+      "id": "route_suvan001",
+      "agentCode": "SUVAN001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Andijon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvfa001",
+      "agentCode": "SUVFA001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Farg'ona",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvgl001",
+      "agentCode": "SUVGL001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Guliston",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvjz001",
+      "agentCode": "SUVJZ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Jizzah",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvnk001",
+      "agentCode": "SUVNK001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Nukus",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvnm001",
+      "agentCode": "SUVNM001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Namangan",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvnv001",
+      "agentCode": "SUVNV001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Navoi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvosdo001",
+      "agentCode": "SUVOSDO001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvqar001",
+      "agentCode": "SUVQAR001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Qarshi",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvqq001",
+      "agentCode": "SUVQQ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Qo'qon",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvsm001",
+      "agentCode": "SUVSM001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvto001",
+      "agentCode": "SUVTO001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvtsh001",
+      "agentCode": "SUVTSH001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvtsh100",
+      "agentCode": "SUVTSH100",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvtsh200",
+      "agentCode": "SUVTSH200",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvtz001",
+      "agentCode": "SUVTZ001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Termiz",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_suvxr001",
+      "agentCode": "SUVXR001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "Xorazm",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_sxnv001",
+      "agentCode": "SXNV001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_sxqsh001",
+      "agentCode": "SXQSH001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_sxran001",
+      "agentCode": "SXRAN001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
+    },
+    {
+      "id": "route_sxtr001",
+      "agentCode": "SXTR001",
+      "brandId": "sof",
+      "role": "svr",
+      "active": false,
+      "region": "",
+      "notes": "Sales supervisor bo'limidan avtomatik qo'shildi",
+      "updatedAt": "2026-07-25T20:50:35.932Z"
     }
   ]
 }

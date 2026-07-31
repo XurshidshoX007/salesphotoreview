@@ -41,6 +41,7 @@ const API = {
   photoReportFiles: "/api/web/dashboard/agent/photo-report/files",
   orderList: "/api/web/orders/order/list",
   ordersByAgentsOrderList: "/api/web/report/orders-by-agents/order-list",
+  supervisorList: "/api/web/teams/supervisor/list",
 };
 
 function brandConfig(options = {}) {
@@ -249,6 +250,159 @@ function normalizeAgentApiRow(item, index, options = {}) {
     photoText: `${tt} T.T. (${expectedPhotos} фото)`,
     apiRow: item,
   };
+}
+
+function bracketName(value) {
+  return String(value || "").match(/\[([^\]]+)\]/)?.[1]?.replace(/\s+/g, " ").trim() || "";
+}
+
+function addUniqueLookup(map, key, code) {
+  if (!key) return;
+  if (!map.has(key)) map.set(key, code);
+  else if (map.get(key) !== code) map.set(key, "");
+}
+
+function isGenericAgentName(value) {
+  const key = normalizeLookupKey(value).replace(/[()[\]{}._-]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!key) return true;
+  return /(^|\s)(vakant|vacant|bo['` ]?sh|bosh|empty|none|null)(\s|$)/i.test(key);
+}
+
+function agentTeamLookup(agentRows = []) {
+  const lookup = new Map();
+  const byId = new Map();
+  const allowed = new Set();
+  for (const row of agentRows || []) {
+    const code = String(typeof row === "object" ? row.code : row || "").trim().toUpperCase();
+    if (!code) continue;
+    allowed.add(code);
+    if (typeof row !== "object") continue;
+    for (const value of [row.agentId, row.apiRow?.agent?.id, row.apiRow?.agent_id]) {
+      addUniqueLookup(byId, String(value || "").trim(), code);
+    }
+    for (const value of [row.name, row.agent, row.rowText, row.apiRow?.agent?.name]) {
+      const employeeName = bracketName(value);
+      if (isGenericAgentName(employeeName)) continue;
+      addUniqueLookup(lookup, normalizeLookupKey(value), code);
+      addUniqueLookup(lookup, compactLookupKey(value), code);
+      addUniqueLookup(lookup, normalizeLookupKey(employeeName), code);
+      addUniqueLookup(lookup, compactLookupKey(employeeName), code);
+    }
+  }
+  return { lookup, byId, allowed };
+}
+
+function teamAgentCode(value, index) {
+  const agentId = String(value && typeof value === "object"
+    ? firstValue(value, ["agent.id", "agent_id", "user.id", "user_id"], "")
+    : "").trim();
+  if (agentId) return index.byId.get(agentId) || "";
+
+  const direct = String(value && typeof value === "object"
+    ? firstValue(value, ["agent.code", "agent.agent_code", "agent_code", "code", "user.code"], "")
+    : "").trim().toUpperCase();
+  if (direct) return index.allowed.has(direct) ? direct : "";
+
+  const label = displayName(value) || String(value || "").trim();
+  const firstToken = label.split(/\s+/)[0]?.toUpperCase() || "";
+  if (index.allowed.has(firstToken)) return firstToken;
+  if (/^[A-Z]{2,}[A-Z0-9_-]*\d[A-Z0-9_-]*$/.test(firstToken)) return "";
+
+  const employeeName = bracketName(label);
+  if (isGenericAgentName(employeeName)) return "";
+  for (const candidate of [label, bracketName(label)]) {
+    if (isGenericAgentName(candidate)) continue;
+    const code = index.lookup.get(normalizeLookupKey(candidate))
+      || index.lookup.get(compactLookupKey(candidate));
+    if (code) return code;
+  }
+  return "";
+}
+
+function supervisorIsActive(item) {
+  const flagPaths = [
+    "active", "is_active", "isActive", "enabled",
+    "supervisor.active", "supervisor.is_active", "supervisor.isActive", "supervisor.enabled",
+  ];
+  for (const path of flagPaths) {
+    const value = valueAt(item, path);
+    if (value === undefined || value === null || value === "") continue;
+    if (value === false || value === 0 || /^(false|0|no|inactive|disabled)$/i.test(String(value).trim())) return false;
+  }
+  const status = normalizeLookupKey(firstValue(item, [
+    "status", "state", "supervisor.status", "supervisor.state",
+  ], ""));
+  return !/(inactive|disabled|blocked|deleted|dismissed|left|archived|not active)/i.test(status);
+}
+
+export function normalizeSupervisorTeamResult(items = [], options = {}, agentRows = []) {
+  const brand = brandConfig(options);
+  const index = agentTeamLookup(agentRows);
+  if (!index.allowed.size) {
+    return { teams: [], conflicts: [], sourceCount: items.length, activeSourceCount: 0 };
+  }
+  const teamsByCode = new Map();
+  let activeSourceCount = 0;
+  for (const item of items || []) {
+    if (!supervisorIsActive(item)) continue;
+    activeSourceCount += 1;
+    const supervisor = item?.supervisor || item || {};
+    const supervisorCode = String(firstValue(item, ["supervisor.code", "code", "supervisor_code"], "")).trim().toUpperCase();
+    const supervisorName = String(firstValue(item, ["supervisor.name", "full_name", "name"], "")).replace(/\s+/g, " ").trim();
+    const supervisorId = String(firstValue(item, ["supervisor.id", "id", "supervisor_id"], "")).trim();
+    const region = displayName(item?.branch || item?.region || item?.territory);
+    const agentCodes = [...new Set((item?.agents || supervisor?.agents || [])
+      .map((agent) => teamAgentCode(agent, index))
+      .filter((code) => code && isAgentAllowed(code, brand) && index.allowed.has(code)))];
+    if (!supervisorCode || !agentCodes.length || isGenericAgentName(supervisorName)) continue;
+    const current = teamsByCode.get(supervisorCode);
+    if (current) {
+      current.agentCodes = [...new Set([...current.agentCodes, ...agentCodes])];
+      if (!current.supervisorId && supervisorId) current.supervisorId = supervisorId;
+      if (!current.region && region) current.region = region;
+      if (current.supervisorName === current.supervisorCode && supervisorName) current.supervisorName = supervisorName;
+    } else {
+      teamsByCode.set(supervisorCode, {
+        supervisorId,
+        supervisorCode,
+        supervisorName: supervisorName || supervisorCode,
+        region,
+        agentCodes,
+        brandId: brand.id,
+        source: "sales",
+      });
+    }
+  }
+
+  const owners = new Map();
+  for (const team of teamsByCode.values()) {
+    for (const code of team.agentCodes) {
+      const list = owners.get(code) || [];
+      list.push(team.supervisorCode);
+      owners.set(code, list);
+    }
+  }
+  const conflicts = [...owners.entries()]
+    .filter(([, supervisorCodes]) => supervisorCodes.length > 1)
+    .map(([agentCode, supervisorCodes]) => ({ agentCode, supervisorCodes: [...new Set(supervisorCodes)].sort() }));
+  const conflictCodes = new Set(conflicts.map((item) => item.agentCode));
+  const teams = [...teamsByCode.values()]
+    .map((team) => ({
+      ...team,
+      agentCodes: team.agentCodes.filter((code) => !conflictCodes.has(code)),
+    }))
+    .filter((team) => team.agentCodes.length)
+    .sort((a, b) => a.supervisorCode.localeCompare(b.supervisorCode));
+  return {
+    teams,
+    conflicts,
+    sourceCount: (items || []).length,
+    activeSourceCount,
+  };
+}
+
+export function normalizeSupervisorTeams(items = [], options = {}, agentRows = []) {
+  return normalizeSupervisorTeamResult(items, options, agentRows).teams;
 }
 
 function normalizeClientApiRow(item) {
@@ -544,6 +698,43 @@ async function fetchPaged(tab, path, basePayload, { pageSize = 500, maxPages = 5
     if (items.length < pageSize || items.length === 0) break;
   }
   return all;
+}
+
+async function fetchSupervisorTeams(tab, brand, rows = []) {
+  if (process.env.COLLECT_SUPERVISORS === "0") {
+    return {
+      teams: [],
+      meta: {
+        status: "disabled",
+        authoritative: false,
+        fetchedAt: new Date().toISOString(),
+        sourceCount: 0,
+        activeSourceCount: 0,
+        teamCount: 0,
+        conflicts: [],
+      },
+    };
+  }
+  const items = await fetchPaged(tab, API.supervisorList, {
+    search: null,
+    order_by: null,
+  }, {
+    pageSize: Math.max(100, Number(process.env.COLLECT_SUPERVISOR_PAGE_SIZE || 500) || 500),
+    maxPages: Math.max(1, Number(process.env.COLLECT_SUPERVISOR_MAX_PAGES || 5) || 5),
+  });
+  const normalized = normalizeSupervisorTeamResult(items, brand, rows);
+  return {
+    teams: normalized.teams,
+    meta: {
+      status: "ok",
+      authoritative: true,
+      fetchedAt: new Date().toISOString(),
+      sourceCount: normalized.sourceCount,
+      activeSourceCount: normalized.activeSourceCount,
+      teamCount: normalized.teams.length,
+      conflicts: normalized.conflicts,
+    },
+  };
 }
 
 function orderListPayloadForAgent(targetDate, row) {
@@ -1261,7 +1452,19 @@ function collectFlushEvery() {
   return Math.max(1, Number(process.env.COLLECT_FLUSH_EVERY || 25) || 25);
 }
 
-function buildCollectData({ targetDate, brand, appliedDateText, collectionMode, apiError, rows, rowsInScope, rowsWithPhotos, agents }) {
+function buildCollectData({
+  targetDate,
+  brand,
+  appliedDateText,
+  collectionMode,
+  apiError,
+  rows,
+  rowsInScope,
+  rowsWithPhotos,
+  agents,
+  attendanceTeams = [],
+  attendanceTeamsMeta = null,
+}) {
   return {
     date: targetDate,
     brand,
@@ -1272,6 +1475,8 @@ function buildCollectData({ targetDate, brand, appliedDateText, collectionMode, 
     totalRows: rows.length,
     totalAgents: rowsInScope.length,
     totalAgentsWithPhotos: rowsWithPhotos.length,
+    attendanceTeams,
+    attendanceTeamsMeta,
     agents: agents.filter(Boolean),
     stats: summarizeAgents(agents.filter(Boolean)),
   };
@@ -1319,6 +1524,38 @@ export async function collectLmjForSalesDate(tab, {
   }
   const rowsInScope = rows.slice(0, limitAgents);
   const rowsWithPhotos = rowsInScope.filter((row) => row.expectedPhotos > 0);
+  let attendanceTeams = [];
+  let attendanceTeamsMeta = {
+    status: "pending",
+    authoritative: false,
+    fetchedAt: "",
+    sourceCount: 0,
+    activeSourceCount: 0,
+    teamCount: 0,
+    conflicts: [],
+  };
+  try {
+    const supervisorResult = await fetchSupervisorTeams(tab, brand, rowsInScope);
+    attendanceTeams = supervisorResult.teams;
+    attendanceTeamsMeta = supervisorResult.meta;
+    if (collectPerfEnabled()) {
+      progress({
+        type: "perf",
+        message: `Supervisor tarkibi: ${attendanceTeams.length} ta SVR, ${attendanceTeams.reduce((sum, team) => sum + team.agentCodes.length, 0)} ta agent, ${attendanceTeamsMeta.conflicts.length} ta konflikt`,
+      });
+    }
+  } catch (error) {
+    attendanceTeamsMeta = {
+      ...attendanceTeamsMeta,
+      status: "error",
+      fetchedAt: new Date().toISOString(),
+      error: String(error?.message || error).slice(0, 500),
+    };
+    progress({
+      type: "perf",
+      message: `Supervisor tarkibi olinmadi, foto yig'ish davom etadi: ${String(error?.message || error).slice(0, 160)}`,
+    });
+  }
   const agents = Array(rowsInScope.length);
   const urlSetsSeen = new Map();
   const flushEvery = collectFlushEvery();
@@ -1365,6 +1602,8 @@ export async function collectLmjForSalesDate(tab, {
       rowsInScope,
       rowsWithPhotos,
       agents,
+      attendanceTeams,
+      attendanceTeamsMeta,
     });
     flushChain = flushChain.then(() => writeFile(absoluteOut, JSON.stringify(partial, null, 2), "utf8"));
     await flushChain;
@@ -1468,7 +1707,19 @@ export async function collectLmjForSalesDate(tab, {
   }
   await flushPartial(true);
 
-  const data = buildCollectData({ targetDate, brand, appliedDateText, collectionMode, apiError, rows, rowsInScope, rowsWithPhotos, agents });
+  const data = buildCollectData({
+    targetDate,
+    brand,
+    appliedDateText,
+    collectionMode,
+    apiError,
+    rows,
+    rowsInScope,
+    rowsWithPhotos,
+    agents,
+    attendanceTeams,
+    attendanceTeamsMeta,
+  });
   await writeFile(absoluteOut, JSON.stringify(data, null, 2), "utf8");
   if (perfEnabled) {
     progress({ type: "perf", message: `Yig'ish jami: ${formatMs(nowMs() - collectStartedAt)}, concurrency=${concurrency}, flushEvery=${flushEvery}` });

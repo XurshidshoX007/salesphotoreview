@@ -6,7 +6,7 @@
   <meta name="description" content="Savdo foto hisobotlari nazorati">
   <title>Foto nazorati</title>
   <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
-  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=project-opt-79">
+  <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=attendance-workspace-82">
 </head>
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
@@ -103,28 +103,40 @@
       </div>
       <label class="attendanceBrandField"><span>Brend</span><select id="attendanceBrand"></select></label>
       <label class="attendanceSearch"><span>Qidirish</span><input id="attendanceEmployee" placeholder="Agent yoki xodim"></label>
-      <button id="attendanceMoreFilters" aria-expanded="false">Qo'shimcha filterlar</button>
-      <button id="attendanceExport">CSV</button>
-      <button id="attendanceGenerate" class="primary">Yangilash</button>
+      <div class="attendanceTopActions">
+        <button id="attendanceMoreFilters" aria-expanded="false">Filtrlar</button>
+        <button id="attendanceGenerate" class="primary">Yangilash</button>
+        <div class="attendanceActions">
+          <button id="attendanceActionsToggle" type="button" aria-expanded="false" aria-controls="attendanceActionsMenu" title="Tabel amallari" aria-label="Tabel amallari">•••</button>
+          <div id="attendanceActionsMenu" class="attendanceActionsMenu" hidden>
+            <button id="attendanceExport" type="button">CSV eksport</button>
+            <button id="attendanceBulkEdit" type="button">Ko'p kunni tahrirlash</button>
+            <button id="attendanceReplace" type="button">Xodim almashtirish</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="attendanceQuickFilters" role="group" aria-label="Tezkor filterlar">
-      <button class="active" data-attendance-filter="">Barchasi</button>
-      <button data-attendance-filter="low">Kam foto</button>
-      <button data-attendance-filter="vacant">Vacant</button>
-      <button data-attendance-filter="issue">Muammo</button>
-      <button id="attendanceBulkEdit">Ko'p kunni tahrirlash</button>
-      <div id="attendanceMonthState" class="attendanceMonthState"></div>
+    <div class="attendanceSummaryShell">
+      <div id="attendanceMeta" class="attendanceMeta">Tabel yuklanmagan.</div>
+      <div class="attendanceQuickFilters" role="group" aria-label="Tezkor filterlar">
+        <button class="active" data-attendance-filter="">Barchasi</button>
+        <button data-attendance-filter="low">Kam foto</button>
+        <button data-attendance-filter="vacant">Vakant</button>
+        <button data-attendance-filter="issue">Muammo</button>
+        <div id="attendanceMonthState" class="attendanceMonthState"></div>
+      </div>
     </div>
     <div id="attendanceAdvancedFilters" class="attendanceAdvancedFilters" hidden>
       <label>Prefix<input id="attendancePrefix" placeholder="JY"></label>
       <label>Lavozim<input id="attendanceRole" placeholder="agent"></label>
-      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Vacant</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
+      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Vakant</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
       <label>Hudud<select id="attendanceRegion"><option value="">Barcha hududlar</option></select></label>
       <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> Faqat SVR</label>
-      <button id="attendanceReplace">Xodim almashtirish</button>
     </div>
-    <div id="attendanceCoverage" class="attendanceCoverage" aria-label="Dataset qamrovi"></div>
-    <div id="attendanceMeta" class="attendanceMeta">Tabel yuklanmagan.</div>
+    <div class="attendanceContextRow">
+      <div id="attendanceCoverage" class="attendanceCoverage" aria-label="Dataset qamrovi"></div>
+      <div id="attendanceDataHealth" class="attendanceDataHealth" hidden></div>
+    </div>
     <div class="attendanceTableWrap"><table id="attendanceTable" class="attendanceTable"></table><div id="attendanceListView" class="attendanceListView"></div></div>
     <div id="attendanceUndo" class="attendanceUndo" hidden></div>
   </section>
@@ -206,9 +218,14 @@
     </div>
     <div class="collectBody">
       <div class="collectForm">
-        <label class="fieldLabel">Sana
-          <input id="collectDate" type="date">
-        </label>
+        <div class="collectDateRange">
+          <label class="fieldLabel">Boshlanish sanasi
+            <input id="collectDate" type="date">
+          </label>
+          <label class="fieldLabel">Tugash sanasi
+            <input id="collectDateTo" type="date">
+          </label>
+        </div>
         <label class="fieldLabel">Brend
           <select id="collectBrand"></select>
         </label>
@@ -303,20 +320,20 @@
       <button id="speedFaster" title="Vaqtni oshirish: sekinroq o'tadi">+</button>
     </div>
   </div>
-  <script src="review-ui/js/photo-loader.js?v=project-opt-78"></script>
-  <script src="review-ui/js/utils.js?v=project-opt-78"></script>
-  <script src="review-ui/js/state.js?v=project-opt-78"></script>
-  <script src="review-ui/js/data-loader.js?v=project-opt-78"></script>
-  <script src="review-ui/js/filters.js?v=project-opt-78"></script>
-  <script src="review-ui/js/marks.js?v=project-opt-78"></script>
-  <script src="review-ui/js/brands.js?v=project-opt-78"></script>
-  <script src="review-ui/js/attendance.js?v=project-opt-78"></script>
-  <script src="review-ui/js/dataset-auto-load.js?v=project-opt-79"></script>
-  <script src="review-ui/js/ui-state.js?v=project-opt-78"></script>
-  <script src="review-ui/js/counters.js?v=project-opt-78"></script>
-  <script src="review-ui/js/auto-review.js?v=project-opt-78"></script>
-  <script src="review-ui/js/telegram.js?v=project-opt-78"></script>
-  <script src="review-ui/js/export.js?v=project-opt-78"></script>
-  <script src="review-ui/js/app.js?v=project-opt-78"></script>
+  <script src="review-ui/js/photo-loader.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/utils.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/state.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/data-loader.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/filters.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/marks.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/brands.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/attendance.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/dataset-auto-load.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/ui-state.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/counters.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/auto-review.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/telegram.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/export.js?v=attendance-svr-81"></script>
+  <script src="review-ui/js/app.js?v=attendance-svr-81"></script>
   </body>
 </html>

@@ -204,10 +204,15 @@ function isVacantEmployee(employee, rules) {
   );
 }
 
+function isGenericVacantLabel(value) {
+  return /(^|[\s[(])(vakant|vacant|bo['` ]?sh|bosh|empty)([\s)\]]|$)/i.test(String(value || "").trim());
+}
+
 export function calculateAgentMonthlySummary(days, employee, rules) {
   if (isVacantEmployee(employee, rules)) {
     return { workDays: 0, lowPhotoDays: 0, specialDays: 0, penaltyCount: 0 };
   }
+  const isSupervisor = (rules?.supervisorRoles || []).includes(String(employee?.role || "").toLowerCase());
   let workDays = 0;
   let lowPhotoDays = 0;
   let specialDays = 0;
@@ -223,6 +228,10 @@ export function calculateAgentMonthlySummary(days, employee, rules) {
     }
     const numericValue = Number(value);
     if (Number.isNaN(numericValue)) continue;
+    if (isSupervisor) {
+      if (numericValue > 0) workDays += 1;
+      continue;
+    }
     if (numericValue >= Number(rules.minPhotoForWorkDay)) workDays += 1;
     else if (numericValue >= 0 && numericValue < Number(rules.minPhotoForWorkDay)) lowPhotoDays += 1;
   }
@@ -315,9 +324,15 @@ function activityFromAgent(date, agent) {
 
 export async function loadActivitySnapshotFromOutputs(month, brand) {
   const activities = new Map();
+  const attendanceTeamsByCode = new Map();
   const rawDatesFound = new Set();
   const sourceFiles = [];
-  const files = await readdir(OUTPUTS_DIR).catch(() => []);
+  const supervisorAgentCodes = new Set();
+  const reportedSupervisorConflicts = [];
+  let supervisorSourceDate = "";
+  let supervisorSnapshotAuthoritative = false;
+  let supervisorSnapshotStatus = "missing";
+  const files = (await readdir(OUTPUTS_DIR).catch(() => [])).sort();
   for (const file of files) {
     if (!file.endsWith("_raw.json") || !file.includes(month)) continue;
     const filePath = join(OUTPUTS_DIR, file);
@@ -327,6 +342,57 @@ export async function loadActivitySnapshotFromOutputs(month, brand) {
     rawDatesFound.add(date);
     const info = await stat(filePath);
     sourceFiles.push({ file, size: info.size, updatedAt: info.mtime.toISOString() });
+    const rawTeams = Array.isArray(data.attendanceTeams) ? data.attendanceTeams : [];
+    const teamMeta = data.attendanceTeamsMeta && typeof data.attendanceTeamsMeta === "object"
+      ? data.attendanceTeamsMeta
+      : null;
+    const isAuthoritativeSupervisorSnapshot = teamMeta
+      ? teamMeta.status === "ok" && teamMeta.authoritative !== false
+      : rawTeams.length > 0;
+    if (isAuthoritativeSupervisorSnapshot && date >= supervisorSourceDate) {
+      if (date > supervisorSourceDate) {
+        attendanceTeamsByCode.clear();
+        supervisorAgentCodes.clear();
+        reportedSupervisorConflicts.length = 0;
+      }
+      supervisorSourceDate = date;
+      supervisorSnapshotAuthoritative = true;
+      supervisorSnapshotStatus = teamMeta?.status || "legacy";
+      for (const agent of data.agents || []) {
+        const code = normalizeCode(agent.code || agent.apiRow?.agent_code);
+        if (code) supervisorAgentCodes.add(code);
+      }
+      for (const conflict of teamMeta?.conflicts || []) {
+        const agentCode = normalizeCode(conflict.agentCode);
+        if (!agentCode) continue;
+        reportedSupervisorConflicts.push({
+          agentCode,
+          supervisorCodes: [...new Set((conflict.supervisorCodes || []).map(normalizeCode).filter(Boolean))].sort(),
+        });
+      }
+      for (const team of rawTeams) {
+        const supervisorCode = normalizeCode(team.supervisorCode);
+        if (!supervisorCode || !Array.isArray(team.agentCodes) || !team.agentCodes.length) continue;
+        const normalized = {
+          supervisorId: String(team.supervisorId || "").trim(),
+          supervisorCode,
+          supervisorName: String(team.supervisorName || supervisorCode).replace(/\s+/g, " ").trim(),
+          region: String(team.region || "").trim(),
+          agentCodes: [...new Set(team.agentCodes.map(normalizeCode).filter(Boolean))],
+          brandId: String(team.brandId || data.brand?.id || brand?.id || "").trim(),
+          source: "sales",
+          sourceDate: date,
+        };
+        const existing = attendanceTeamsByCode.get(supervisorCode);
+        if (existing) {
+          existing.agentCodes = [...new Set([...existing.agentCodes, ...normalized.agentCodes])];
+          if (!existing.region && normalized.region) existing.region = normalized.region;
+          if (!existing.supervisorId && normalized.supervisorId) existing.supervisorId = normalized.supervisorId;
+        } else {
+          attendanceTeamsByCode.set(supervisorCode, normalized);
+        }
+      }
+    }
     for (const agent of data.agents || []) {
       const activity = activityFromAgent(date, agent);
       if (!activity.agentCode) continue;
@@ -339,12 +405,56 @@ export async function loadActivitySnapshotFromOutputs(month, brand) {
     "",
   );
   const sourceFingerprint = sourceFiles.map((item) => `${item.file}:${item.size}:${item.updatedAt}`).join("|");
+  const prefixes = (brand?.agentPrefixes || []).map(normalizeCode).filter(Boolean);
+  const candidateTeams = [...attendanceTeamsByCode.values()]
+    .filter((team) => !brand?.id || !team.brandId || team.brandId === brand.id)
+    .filter((team) => !isGenericVacantLabel(team.supervisorName))
+    .map((team) => ({
+      ...team,
+      agentCodes: team.agentCodes.filter((code) => (
+        (!prefixes.length || prefixes.some((prefix) => code.startsWith(prefix)))
+        && (!supervisorAgentCodes.size || supervisorAgentCodes.has(code))
+      )),
+    }))
+    .filter((team) => team.agentCodes.length);
+  const teamOwners = new Map();
+  for (const team of candidateTeams) {
+    for (const code of team.agentCodes) {
+      const owners = teamOwners.get(code) || [];
+      owners.push(team.supervisorCode);
+      teamOwners.set(code, owners);
+    }
+  }
+  const detectedSupervisorConflicts = [...teamOwners.entries()]
+    .filter(([, supervisorCodes]) => supervisorCodes.length > 1)
+    .map(([agentCode, supervisorCodes]) => ({
+      agentCode,
+      supervisorCodes: [...new Set(supervisorCodes)].sort(),
+    }));
+  const supervisorConflictsByAgent = new Map();
+  for (const conflict of [...reportedSupervisorConflicts, ...detectedSupervisorConflicts]) {
+    const current = supervisorConflictsByAgent.get(conflict.agentCode) || [];
+    supervisorConflictsByAgent.set(conflict.agentCode, [...new Set([...current, ...conflict.supervisorCodes])].sort());
+  }
+  const supervisorConflicts = [...supervisorConflictsByAgent.entries()]
+    .map(([agentCode, supervisorCodes]) => ({ agentCode, supervisorCodes }))
+    .sort((a, b) => a.agentCode.localeCompare(b.agentCode));
+  const conflictCodes = new Set(supervisorConflicts.map((item) => item.agentCode));
+  const attendanceTeams = candidateTeams
+    .map((team) => ({ ...team, agentCodes: team.agentCodes.filter((code) => !conflictCodes.has(code)) }))
+    .filter((team) => team.agentCodes.length)
+    .sort((a, b) => a.supervisorCode.localeCompare(b.supervisorCode));
   return {
     activities,
     rawDatesFound: [...rawDatesFound].sort(),
     sourceFiles,
     sourceDatasetUpdatedAt,
     sourceFingerprint,
+    attendanceTeams,
+    supervisorSourceDate,
+    supervisorSnapshotAuthoritative,
+    supervisorSnapshotStatus,
+    supervisorConflicts,
   };
 }
 
@@ -443,6 +553,202 @@ function syncEmployeesFromActivities(store, activities, month, brand) {
     assignmentsChanged = true;
   }
   return { employeesChanged, assignmentsChanged };
+}
+
+function syncSupervisorTeams(store, teams, month, brand, options = {}) {
+  const monthStart = monthDate(month, 1);
+  const brandId = String(brand?.id || "").trim();
+  const sourceDate = isIsoDate(options.sourceDate) ? options.sourceDate : monthStart;
+  const authoritative = options.authoritative === true;
+  const incoming = (teams || []).filter((team) => (
+    normalizeCode(team.supervisorCode)
+    && Array.isArray(team.agentCodes)
+    && team.agentCodes.length
+    && (!brandId || !team.brandId || team.brandId === brandId)
+  ));
+  if (!authoritative) {
+    return {
+      settingsChanged: false,
+      routesChanged: false,
+      employeesChanged: false,
+      assignmentsChanged: false,
+      activeSupervisors: 0,
+      deactivatedSupervisors: 0,
+    };
+  }
+
+  const existingTeams = Array.isArray(store.settings?.teams) ? store.settings.teams : [];
+  const manualSupervisorCodes = new Set(existingTeams
+    .filter((team) => team.source !== "sales")
+    .map((team) => normalizeCode(team.supervisorCode)));
+  const retained = existingTeams.filter((team) => !(
+    team.source === "sales"
+    && String(team.brandId || "") === brandId
+  ));
+  const normalizedTeams = incoming
+    .filter((team) => !manualSupervisorCodes.has(normalizeCode(team.supervisorCode)))
+    .map((team) => ({
+      supervisorId: String(team.supervisorId || "").trim(),
+      supervisorCode: normalizeCode(team.supervisorCode),
+      supervisorName: String(team.supervisorName || team.supervisorCode).replace(/\s+/g, " ").trim(),
+      region: String(team.region || "").trim(),
+      agentCodes: [...new Set(team.agentCodes.map(normalizeCode).filter(Boolean))],
+      brandId: brandId || String(team.brandId || "").trim(),
+      source: "sales",
+      updatedAt: new Date().toISOString(),
+    }));
+  const incomingCodes = new Set(normalizedTeams.map((team) => team.supervisorCode));
+  const staleCodes = new Set(existingTeams
+    .filter((team) => (
+      team.source === "sales"
+      && String(team.brandId || "") === brandId
+      && !incomingCodes.has(normalizeCode(team.supervisorCode))
+    ))
+    .map((team) => normalizeCode(team.supervisorCode)));
+  const nextTeams = [...retained, ...normalizedTeams];
+  const comparable = (items) => JSON.stringify(items.map(({ updatedAt, ...item }) => item));
+  const settingsChanged = comparable(existingTeams) !== comparable(nextTeams);
+  store.settings.teams = nextTeams;
+
+  let routesChanged = false;
+  let employeesChanged = false;
+  let assignmentsChanged = false;
+  const staleEmployeeIds = new Set();
+  const staleEndDate = addDaysIso(sourceDate, -1);
+  for (const route of store.routes || []) {
+    const code = normalizeCode(route.agentCode);
+    if (
+      staleCodes.has(code)
+      && route.role === "svr"
+      && /Sales supervisor/i.test(String(route.notes || ""))
+      && route.active !== false
+    ) {
+      route.active = false;
+      route.updatedAt = new Date().toISOString();
+      routesChanged = true;
+    }
+  }
+  for (const assignment of store.assignments || []) {
+    const code = normalizeCode(assignment.agentCode);
+    if (
+      !staleCodes.has(code)
+      || !/Sales supervisor/i.test(String(assignment.reason || ""))
+      || (assignment.endDate && parseDate(assignment.endDate) < parseDate(sourceDate))
+    ) continue;
+    assignment.endDate = parseDate(assignment.startDate) > parseDate(staleEndDate)
+      ? assignment.startDate
+      : staleEndDate;
+    assignment.updatedAt = new Date().toISOString();
+    staleEmployeeIds.add(assignment.employeeId);
+    assignmentsChanged = true;
+  }
+  for (const employeeId of staleEmployeeIds) {
+    const employee = store.employees.find((item) => item.id === employeeId);
+    if (isVacantEmployee(employee, store.settings?.attendanceRules || DEFAULT_SETTINGS.attendanceRules)) {
+      if (employee.role === "svr") {
+        employee.role = "agent";
+        employee.active = true;
+        employee.leftDate = null;
+        employee.updatedAt = new Date().toISOString();
+        employeesChanged = true;
+      }
+      continue;
+    }
+    if (
+      !employee
+      || !/Sales supervisor/i.test(String(employee.notes || ""))
+      || (store.assignments || []).some((assignment) => (
+        assignment.employeeId === employeeId
+        && !staleCodes.has(normalizeCode(assignment.agentCode))
+        && (!assignment.endDate || parseDate(assignment.endDate) >= parseDate(sourceDate))
+      ))
+    ) continue;
+    employee.active = false;
+    employee.leftDate = staleEndDate;
+    employee.updatedAt = new Date().toISOString();
+    employeesChanged = true;
+  }
+
+  for (const team of normalizedTeams) {
+    const code = normalizeCode(team.supervisorCode);
+    let route = routeForCode(code, store.routes);
+    if (!route) {
+      route = {
+        id: routeIdFromCode(code),
+        agentCode: code,
+        brandId: team.brandId,
+        role: "svr",
+        active: true,
+        region: team.region,
+        notes: "Sales supervisor bo'limidan avtomatik qo'shildi",
+      };
+      store.routes.push(route);
+      routesChanged = true;
+    } else {
+      const nextRegion = team.region || route.region || "";
+      if (route.role !== "svr" || route.brandId !== team.brandId || route.region !== nextRegion || route.active === false) {
+        route.role = "svr";
+        route.brandId = team.brandId;
+        route.region = nextRegion;
+        route.active = true;
+        routesChanged = true;
+      }
+    }
+
+    const existingAssignment = (store.assignments || []).find((assignment) => (
+      normalizeCode(assignment.agentCode) === code
+      && findAssignmentForDate(code, sourceDate, [assignment])
+    ));
+    let employee = existingAssignment
+      ? store.employees.find((item) => item.id === existingAssignment.employeeId)
+      : employeeForName(cleanEmployeeName(team.supervisorName, code), store.employees);
+    if (!employee) {
+      const name = cleanEmployeeName(team.supervisorName, code) || team.supervisorName || code;
+      employee = {
+        id: employeeIdFromName(name, store.employees),
+        name,
+        phone: "",
+        role: "svr",
+        active: true,
+        hireDate: monthStart,
+        leftDate: null,
+        region: team.region,
+        notes: "Sales supervisor bo'limidan avtomatik qo'shildi",
+      };
+      store.employees.push(employee);
+      employeesChanged = true;
+    } else {
+      const nextRegion = team.region || employee.region || "";
+      if (employee.role !== "svr" || employee.region !== nextRegion || employee.active === false || employee.leftDate) {
+        employee.role = "svr";
+        employee.region = nextRegion;
+        employee.active = true;
+        employee.leftDate = null;
+        employeesChanged = true;
+      }
+    }
+
+    if (!existingAssignment) {
+      store.assignments.push({
+        id: createAssignmentId(code, monthStart),
+        agentCode: code,
+        employeeId: employee.id,
+        startDate: monthStart,
+        endDate: null,
+        reason: "Sales supervisor bo'limidan avtomatik import",
+        brandId: team.brandId,
+      });
+      assignmentsChanged = true;
+    }
+  }
+  return {
+    settingsChanged,
+    routesChanged,
+    employeesChanged,
+    assignmentsChanged,
+    activeSupervisors: normalizedTeams.length,
+    deactivatedSupervisors: staleCodes.size,
+  };
 }
 
 function rowKey(agentCode, employeeId, startDate, endDate) {
@@ -586,7 +892,12 @@ export async function generateAttendanceMonth({ month, brandId }) {
   const snapshot = await loadActivitySnapshotFromOutputs(normalizedMonth, brand);
   const activities = snapshot.activities;
   const coveredDates = new Set(snapshot.rawDatesFound);
-  let routesChanged = false;
+  const supervisorSync = syncSupervisorTeams(store, snapshot.attendanceTeams, normalizedMonth, brand, {
+    sourceDate: snapshot.supervisorSourceDate,
+    authoritative: snapshot.supervisorSnapshotAuthoritative,
+  });
+  if (supervisorSync.settingsChanged) await safeWriteJson(FILES.settings, store.settings, "settings");
+  let routesChanged = supervisorSync.routesChanged;
   if (brand) {
     for (const route of store.routes) {
       if (!route.role) {
@@ -612,11 +923,16 @@ export async function generateAttendanceMonth({ month, brandId }) {
     if (routesChanged) await safeWriteJson(FILES.routes, { routes: store.routes }, "routes");
   }
   const employeeSync = syncEmployeesFromActivities(store, activities, normalizedMonth, brand);
-  if (employeeSync.employeesChanged) await safeWriteJson(FILES.employees, { employees: store.employees }, "employees");
-  if (employeeSync.assignmentsChanged) await safeWriteJson(FILES.assignments, { assignments: store.assignments }, "assignments");
+  if (employeeSync.employeesChanged || supervisorSync.employeesChanged) {
+    await safeWriteJson(FILES.employees, { employees: store.employees }, "employees");
+  }
+  if (employeeSync.assignmentsChanged || supervisorSync.assignmentsChanged) {
+    await safeWriteJson(FILES.assignments, { assignments: store.assignments }, "assignments");
+  }
   const indexes = buildAttendanceIndexes(store);
 
   const routeCodes = store.routes
+    .filter((route) => route.active !== false)
     .filter((route) => !brand || route.brandId === brand.id || (brand.agentPrefixes || []).some((prefix) => normalizeCode(route.agentCode).startsWith(prefix)))
     .map((route) => normalizeCode(route.agentCode));
   const activityCodes = [...new Set([...activities.values()].map((activity) => normalizeCode(activity.agentCode)))];
@@ -751,6 +1067,12 @@ export async function generateAttendanceMonth({ month, brandId }) {
     generatedAt: new Date().toISOString(),
     sourceDatasetUpdatedAt: snapshot.sourceDatasetUpdatedAt,
     sourceFingerprint: snapshot.sourceFingerprint,
+    supervisorSourceDate: snapshot.supervisorSourceDate,
+    supervisorSnapshotStatus: snapshot.supervisorSnapshotStatus,
+    supervisorSnapshotAuthoritative: snapshot.supervisorSnapshotAuthoritative,
+    activeSupervisors: supervisorSync.activeSupervisors,
+    deactivatedSupervisors: supervisorSync.deactivatedSupervisors,
+    supervisorConflicts: snapshot.supervisorConflicts,
   };
   const result = {
     month: normalizedMonth,
@@ -979,6 +1301,7 @@ export async function attendanceHistory({ agentCode = "", date = "", brandId = "
 
 export function attendanceIssuesFromMonth(monthData) {
   const issues = [];
+  const missingDatasetDates = new Map();
   for (const row of monthData?.rows || []) {
     if (row.routeStatus === "vacant") {
       issues.push({ type: "vacant", agentCode: row.agentCode, employeeId: row.employeeId, label: "Vakant yo'nalish" });
@@ -990,15 +1313,41 @@ export function attendanceIssuesFromMonth(monthData) {
       if (day.state === "low" || day.state === "zero_activity") {
         issues.push({ type: "low", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, value: day.finalValue, label: "Kam foto" });
       } else if (day.state === "missing_dataset") {
-        issues.push({ type: "missing_dataset", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, label: "Dataset yo'q" });
+        missingDatasetDates.set(day.date, (missingDatasetDates.get(day.date) || 0) + 1);
       }
       if (day.manual) {
-        issues.push({ type: "manual", agentCode: row.agentCode, employeeId: row.employeeId, employeeName: row.employeeName, date: day.date, value: day.finalValue, label: "Qo'lda tuzatilgan" });
+        issues.push({
+          type: "manual",
+          category: "audit",
+          actionable: false,
+          agentCode: row.agentCode,
+          employeeId: row.employeeId,
+          employeeName: row.employeeName,
+          date: day.date,
+          value: day.finalValue,
+          label: "Qo'lda tuzatilgan",
+        });
       }
     }
   }
+  for (const [date, affectedRows] of [...missingDatasetDates.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+    issues.push({
+      type: "missing_dataset",
+      scope: "date",
+      date,
+      affectedRows,
+      label: "Dataset yo'q",
+    });
+  }
   for (const item of monthData?.dataQuality?.overlappingAssignments || []) {
     issues.push({ type: "assignment_overlap", agentCode: item.agentCode, label: "Assignment sanalari ustma-ust" });
+  }
+  for (const item of monthData?.dataQuality?.supervisorConflicts || []) {
+    issues.push({
+      type: "supervisor_conflict",
+      agentCode: item.agentCode,
+      label: `Bir nechta SVRga bog'langan: ${(item.supervisorCodes || []).join(", ")}`,
+    });
   }
   return issues;
 }
