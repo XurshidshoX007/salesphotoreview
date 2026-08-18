@@ -1,15 +1,10 @@
-.collectHead, .listHead, .listTitle, .brandBody, .collectBody { display: flex; justify-content: space-between; gap: 12px; }
-.collectBody, .brandBody { padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.fieldLabel, .filterField { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
-input, select, textarea { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font: inherit; background: var(--panel); color: var(--ink); }
-.collectProgressBar { height: 8px; background: var(--bg); border-radius: 99px; overflow: hidden; }
-.collectProgressBar i { display: block; height: 100%; width: 0; background: var(--brand); }
-.collectLog, .brandList { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-height: 180px; }
-.brandItem { display: flex; justify-content: space-between; width: 100%; margin-bottom: 6px; }
-.brandGrid { display: grid; gap: 10px; }
-.confirm { position: fixed; inset: 0; display: none; place-items: center; background: rgba(15,23,42,.4); }
-.confirm.open { display: grid; }
-.confirmBox { background: var(--panel); border-radius: 16px; padding: 18px; width: min(420px, calc(100vw - 24px)); }
-@media (max-width: 900px) {
-  .collectBody, .brandBody { grid-template-columns: 1fr; }
+/* studio.css — placeholder */
+.studio-header {
+    padding: 12px;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb
+}
+
+.studio-main {
+    padding: 16px
 }

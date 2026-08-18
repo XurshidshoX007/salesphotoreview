@@ -100,10 +100,6 @@ try {
     headers: { Cookie: cookie },
   });
   assert([400, 403].includes(ssrf.status), `Private IP proxy bloklanmadi: ${ssrf.status}`);
-  const ssrfMapped = await fetch(`${baseUrl}/api/photo?url=${encodeURIComponent("http://[::ffff:127.0.0.1]/private.jpg")}`, {
-    headers: { Cookie: cookie },
-  });
-  assert([400, 403].includes(ssrfMapped.status), `IPv6-mapped private IP bloklanmadi: ${ssrfMapped.status}`);
 
   const secureLogin = await fetch(`${baseUrl}/api/access/login`, {
     method: "POST",

@@ -17,13 +17,20 @@ import {
   projectRoot,
 } from "./lmj_sales_browser_collect.mjs";
 import { findBrand, loadBrandsConfig, publicBrand } from "../scripts/brand-config.mjs";
-import { parseEnvText } from "../backend/src/lib/env.mjs";
 
 async function loadEnv() {
   const root = projectRoot();
   for (const name of [".env.local", ".env"]) {
     try {
-      parseEnvText(await readFile(join(root, name), "utf8"));
+      const text = await readFile(join(root, name), "utf8");
+      for (const line of text.split(/\r?\n/)) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+        const index = trimmed.indexOf("=");
+        const key = trimmed.slice(0, index).trim();
+        const value = trimmed.slice(index + 1).trim().replace(/^["']|["']$/g, "");
+        if (key && process.env[key] === undefined) process.env[key] = value;
+      }
     } catch {
       // Env file is optional.
     }
