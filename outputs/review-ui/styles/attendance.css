@@ -1,11 +1,22 @@
-/* attendance.css — placeholder */
-.attendance-table {
-    width: 100%;
-    border-collapse: collapse
-}
-
-.attendance-table td,
-.attendance-table th {
-    border: 1px solid #e5e7eb;
-    padding: 8px
+.attendanceCommandBar, .attendanceSummaryShell, .attendanceContextRow, .attendanceQuickFilters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.attendanceTable { width: 100%; border-collapse: collapse; font-size: 12px; }
+.attendanceTable th, .attendanceTable td { border: 1px solid var(--line); padding: 4px 6px; text-align: center; }
+.attendanceTable td.low, .attendanceTable td.zero_activity { background: #fef3c7; }
+.attendanceTable td.workday, .attendanceTable td.special { background: #dcfce7; }
+.attendanceTable td.vacant, .attendanceTable td.missing_dataset { background: #e2e8f0; }
+.attendanceMetric, .attendanceSecondaryMetric { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; }
+#attendanceCoverage { display: flex; flex-wrap: wrap; gap: 4px; }
+#attendanceCoverage button { min-width: 28px; }
+#attendanceCoverage .missing { background: #fee2e2; }
+.attendanceDayRow, .attendanceIssue { display: flex; justify-content: space-between; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+.attendanceDetailDrawer { position: fixed; inset: 0; display: none; }
+.attendanceDetailDrawer.open, .attendanceDetailDrawer[aria-hidden="false"] { display: block; }
+.attendanceDetailPanel { position: absolute; right: 0; top: 0; bottom: 0; width: min(380px, 100vw); background: var(--panel); padding: 16px; }
+.attendanceActionsMenu { position: absolute; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px; }
+.attendanceReplaceModal { inset: 0; background: rgba(15,23,42,.35); }
+.attendanceReplaceBox { width: min(640px, calc(100vw - 24px)); margin: 8vh auto; background: var(--panel); border-radius: 16px; padding: 16px; }
+.attendanceReplaceGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 720px) {
+  .attendanceReplaceGrid { grid-template-columns: 1fr; }
+  .attendanceCommandBar { max-width: 100%; }
 }

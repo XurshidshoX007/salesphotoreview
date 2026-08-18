@@ -12,7 +12,7 @@ function findPhotoUrl(value) {
   const stack = [value];
   while (stack.length) {
     const current = stack.pop();
-    if (typeof current === "string" && /^https?:\/\//i.test(current)) return current;
+    if (typeof current === "string" && (/^https?:\/\//i.test(current) || current.includes("review-ui/assets/"))) return current;
     if (Array.isArray(current)) stack.push(...current);
     else if (current && typeof current === "object") stack.push(...Object.values(current));
   }

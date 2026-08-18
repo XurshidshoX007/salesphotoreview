@@ -23,6 +23,7 @@ outputs/lmj_photo_metrics_cache.json
 outputs/lmj_telegram_file_cache.json
 outputs/lmj_telegram_review_sessions.json
 outputs/lmj_telegram_usage_stats.json
+outputs/lmj_pin_sessions.json
 outputs/photo-cache/
 outputs/*.json.bak
 outputs/*.json.tmp

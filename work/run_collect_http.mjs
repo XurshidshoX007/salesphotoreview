@@ -12,6 +12,7 @@ import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 import { collectLmjForSalesDate, updateDatasetManifest } from "./lmj_sales_browser_collect.mjs";
 import { loadBrandsConfig, findBrand, publicBrand } from "../scripts/brand-config.mjs";
+import { parseEnvText } from "../backend/src/lib/env.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
@@ -35,18 +36,16 @@ function salesLoginPath() {
 }
 
 function yesterdayIso() {
-  const d = new Date(Date.now() - 86400000);
-  return d.toISOString().slice(0, 10);
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
 async function loadEnv() {
   for (const name of [".env.local", ".env"]) {
     const file = join(ROOT, name);
     if (!existsSync(file)) continue;
-    for (const line of (await readFile(file, "utf8")).split(/\r?\n/)) {
-      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-      if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
-    }
+    parseEnvText(await readFile(file, "utf8"));
   }
 }
 
