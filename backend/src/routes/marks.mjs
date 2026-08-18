@@ -25,8 +25,8 @@ export function createMarksRoutes({ storage, http }) {
           reasons: Boolean(base.reasons && base.reasons !== beforeRevisions.reasons),
           brands: Boolean(base.brands && base.brands !== beforeRevisions.brands),
         };
-        if (body.marks && !conflicts.marks) await storage.writeReviewMarks(body.marks);
-        if (body.reasons && !conflicts.reasons) await storage.writeReviewReasons(body.reasons);
+        if (body.marks) await storage.writeReviewMarks(body.marks);
+        if (body.reasons) await storage.writeReviewReasons(body.reasons);
       } else if (req.method !== "GET") {
         return methodNotAllowed(res, http.sendJson, access.headers);
       }
@@ -76,13 +76,8 @@ export function createMarksRoutes({ storage, http }) {
     }
     if (parsed.pathname === "/api/datasets/delete") {
       if (req.method !== "POST" && req.method !== "DELETE") return methodNotAllowed(res, http.sendJson, access.headers);
-      const body = req.method === "DELETE"
-        ? { date: parsed.searchParams.get("date"), brand: parsed.searchParams.get("brand") }
-        : await http.readJsonBody(req);
-      http.sendJson(res, 200, {
-        ok: true,
-        ...(await storage.deleteDatasetByDate(body.date, body.brand || body.brandId || "")),
-      }, access.headers);
+      const body = req.method === "DELETE" ? { date: parsed.searchParams.get("date") } : await http.readJsonBody(req);
+      http.sendJson(res, 200, { ok: true, ...(await storage.deleteDatasetByDate(body.date)) }, access.headers);
       return true;
     }
     return false;

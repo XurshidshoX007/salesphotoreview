@@ -219,15 +219,7 @@ export function calculateAgentMonthlySummary(days, employee, rules) {
   for (const day of days) {
     if (["missing_dataset", "not_applicable", "vacant", "unknown_route"].includes(day.state)) continue;
     const value = String(day.finalValue ?? day.manualValue ?? day.autoValue ?? "").trim().toLowerCase();
-    if (!value) {
-      if (
-        rules.countEmptyWorkDayAsLowPhoto
-        && !["missing_dataset", "not_applicable", "vacant", "unknown_route"].includes(day.state)
-      ) {
-        lowPhotoDays += 1;
-      }
-      continue;
-    }
+    if (!value) continue;
     if (/[kbк]/i.test(value)) continue;
     if (/^\d+s$/i.test(value)) {
       specialDays += 1;
@@ -1101,7 +1093,7 @@ export async function generateAttendanceMonth({ month, brandId }) {
   return result;
 }
 
-export async function loadAttendanceMonth({ month, brandId, generateIfMissing = true, refreshIfStale = true } = {}) {
+export async function loadAttendanceMonth({ month, brandId, generateIfMissing = true }) {
   const normalizedMonth = normalizeMonth(month);
   const normalizedBrand = String(brandId || "").trim();
   const primaryPath = monthStoragePath(normalizedMonth, normalizedBrand);
@@ -1112,17 +1104,14 @@ export async function loadAttendanceMonth({ month, brandId, generateIfMissing = 
     return generateAttendanceMonth({ month: normalizedMonth, brandId });
   }
   const data = JSON.parse(await readFile(path, "utf8"));
-  if (brandId && data.brandId !== brandId) {
-    if (!generateIfMissing) return data;
-    return generateAttendanceMonth({ month: normalizedMonth, brandId });
-  }
+  if (brandId && data.brandId !== brandId) return generateAttendanceMonth({ month: normalizedMonth, brandId });
   data.monthStatus = await getAttendanceMonthStatus(normalizedMonth, data.brandId || normalizedBrand);
   data.plannedWorkDays = data.plannedWorkDays ?? plannedWorkDaysFor(
     (await loadAttendanceStore()).settings,
     normalizedMonth,
     data.brandId || normalizedBrand,
   );
-  if (refreshIfStale && data.monthStatus.status !== "locked") {
+  if (data.monthStatus.status !== "locked") {
     const brand = data.brandId ? await resolveBrand(data.brandId) : null;
     const snapshot = await loadActivitySnapshotFromOutputs(normalizedMonth, brand);
     if (data.sourceFingerprint !== snapshot.sourceFingerprint) {
@@ -1365,23 +1354,7 @@ export function attendanceIssuesFromMonth(monthData) {
 
 export async function loadAttendanceDay({ date, brandId = "" }) {
   if (!isIsoDate(date)) throw httpError("Sana noto'g'ri", 400);
-  const monthData = await loadAttendanceMonth({
-    month: date.slice(0, 7),
-    brandId,
-    generateIfMissing: false,
-    refreshIfStale: false,
-  });
-  if (!monthData) {
-    return {
-      date,
-      month: date.slice(0, 7),
-      brandId: String(brandId || ""),
-      monthStatus: await getAttendanceMonthStatus(date.slice(0, 7), brandId),
-      coverage: false,
-      rows: [],
-      needsGenerate: true,
-    };
-  }
+  const monthData = await loadAttendanceMonth({ month: date.slice(0, 7), brandId });
   const dayNumber = Number(date.slice(-2));
   return {
     date,
@@ -1403,10 +1376,7 @@ export async function loadAttendanceDay({ date, brandId = "" }) {
 }
 
 export async function loadAttendanceIssues({ month, brandId = "", types = [] }) {
-  const monthData = await loadAttendanceMonth({ month, brandId, generateIfMissing: false, refreshIfStale: false });
-  if (!monthData) {
-    return { month: normalizeMonth(month), brandId: String(brandId || ""), issues: [], count: 0, needsGenerate: true };
-  }
+  const monthData = await loadAttendanceMonth({ month, brandId });
   const requested = new Set((Array.isArray(types) ? types : String(types || "").split(",")).filter(Boolean));
   const issues = attendanceIssuesFromMonth(monthData).filter((item) => !requested.size || requested.has(item.type));
   return { month: monthData.month, brandId: monthData.brandId, issues, count: issues.length };

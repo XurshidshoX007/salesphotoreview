@@ -8,12 +8,7 @@ import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { gzipSync } from "node:zlib";
-let sharp = null;
-try {
-  sharp = (await import("sharp")).default;
-} catch (error) {
-  console.warn("sharp moduli yuklanmadi, thumbnail original rasm bilan ishlaydi:", error?.message || error);
-}
+import sharp from "sharp";
 import { createApiRouter } from "../backend/src/routes/index.mjs";
 import { createAuthMiddleware } from "../backend/src/middleware/auth.mjs";
 import { handleRequestError } from "../backend/src/middleware/errors.mjs";
@@ -27,7 +22,6 @@ import { createTelegramService } from "../backend/src/services/telegram.service.
 import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
 import { readResponseBuffer } from "../backend/src/lib/http-body.mjs";
 import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
-import { parseEnvText } from "../backend/src/lib/env.mjs";
 import { buildReviewCss } from "../scripts/build-review-css.mjs";
 import {
   apiError,
@@ -147,7 +141,15 @@ const MAX_COLLECT_RANGE_DAYS = 31;
 async function loadEnv() {
   for (const name of [".env.local", ".env"]) {
     try {
-      parseEnvText(await readFile(join(ROOT, name), "utf8"));
+      const text = await readFile(join(ROOT, name), "utf8");
+      for (const line of text.split(/\r?\n/)) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+        const index = trimmed.indexOf("=");
+        const key = trimmed.slice(0, index).trim();
+        const value = trimmed.slice(index + 1).trim().replace(/^["']|["']$/g, "");
+        if (key && process.env[key] === undefined) process.env[key] = value;
+      }
     } catch {
       // Env file is optional.
     }
@@ -172,16 +174,10 @@ function safePath(urlPath) {
   const rel = decoded.replace(/^\/+/, "");
   // Avval o'zgaruvchan ma'lumot (Volume) da qidiramiz — yig'ilgan datasetlar,
   // manifest shu yerda. Topilmasa image ichidagi statik kodga (review-ui) qaytamiz.
-  const inside = (root, target) => {
-    const base = `${normalize(root)}/`.replace(/\\/g, "/");
-    const abs = `${normalize(target)}`.replace(/\\/g, "/");
-    const rootNorm = normalize(root).replace(/\\/g, "/");
-    return abs === rootNorm || abs.startsWith(base);
-  };
   const dataAbs = normalize(join(DATA_OUTPUTS, rel));
-  if (inside(DATA_OUTPUTS, dataAbs) && existsSync(dataAbs)) return dataAbs;
+  if (dataAbs.startsWith(normalize(DATA_OUTPUTS)) && existsSync(dataAbs)) return dataAbs;
   const abs = normalize(join(OUTPUTS, rel));
-  if (!inside(OUTPUTS, abs)) return null;
+  if (!abs.startsWith(normalize(OUTPUTS))) return null;
   return abs;
 }
 
@@ -229,34 +225,11 @@ function pinSessionSignature(value) {
 }
 
 const pinSessions = new Map();
-const PIN_SESSIONS_FILE = join(DATA_OUTPUTS, "lmj_pin_sessions.json");
-let pinSessionsWrite = Promise.resolve();
-
-async function loadPinSessions() {
-  try {
-    const data = JSON.parse(await readFile(PIN_SESSIONS_FILE, "utf8"));
-    const now = Date.now();
-    for (const [id, expiresAt] of Object.entries(data || {})) {
-      if (Number(expiresAt) > now) pinSessions.set(id, Number(expiresAt));
-    }
-  } catch {}
-}
-
-function persistPinSessions() {
-  const snapshot = Object.fromEntries(pinSessions);
-  pinSessionsWrite = pinSessionsWrite.then(() => queueJsonWrite(PIN_SESSIONS_FILE, snapshot, { backup: false })).catch(() => {});
-}
-
 const pinSessionCleanup = setInterval(() => {
   const now = Date.now();
-  let changed = false;
   for (const [id, expiresAt] of pinSessions) {
-    if (expiresAt <= now) {
-      pinSessions.delete(id);
-      changed = true;
-    }
+    if (expiresAt <= now) pinSessions.delete(id);
   }
-  if (changed) persistPinSessions();
 }, 60_000);
 pinSessionCleanup.unref?.();
 
@@ -273,7 +246,6 @@ function pinSessionCookieHeader(req) {
   const value = `${unsigned}.${pinSessionSignature(unsigned)}`;
   const maxAge = Math.floor(accessSessionMaxAgeMs() / 1000);
   pinSessions.set(sessionId, Number(stamp) + accessSessionMaxAgeMs());
-  persistPinSessions();
   return `review_pin=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${sessionCookieSecurity(req)}`;
 }
 
@@ -305,10 +277,7 @@ function hasValidPinSession(req) {
 
 function invalidatePinSession(req) {
   const session = parsedPinSession(req);
-  if (session) {
-    pinSessions.delete(session.sessionId);
-    persistPinSessions();
-  }
+  if (session) pinSessions.delete(session.sessionId);
 }
 
 function isLocalHostHeader(req) {
@@ -316,14 +285,8 @@ function isLocalHostHeader(req) {
   return host === "127.0.0.1" || host === "localhost" || host === "::1";
 }
 
-function socketIsLoopback(req) {
-  const remote = String(req?.socket?.remoteAddress || "").replace(/^::ffff:/, "");
-  return remote === "127.0.0.1" || remote === "::1";
-}
-
 function accessHeaders(_parsed, req) {
   const pin = reviewAccessPin();
-  if (!pin && socketIsLoopback(req) && !IS_CLOUD) return { allowed: true, headers: {} };
   const allowedByPin = Boolean(pin && hasValidPinSession(req));
   return { allowed: allowedByPin, headers: {} };
 }
@@ -376,24 +339,10 @@ function hostnameAllowedByConfig(hostname) {
   return allowed.some((allowedHost) => host === allowedHost || host.endsWith(`.${allowedHost}`));
 }
 
-function mappedIpv4(address) {
-  const text = String(address || "").toLowerCase().replace(/^\[|\]$/g, "");
-  const dotted = text.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/i);
-  if (dotted) return dotted[1];
-  const hex = text.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
-  if (hex) {
-    const high = Number.parseInt(hex[1], 16);
-    const low = Number.parseInt(hex[2], 16);
-    return `${(high >> 8) & 255}.${high & 255}.${(low >> 8) & 255}.${low & 255}`;
-  }
-  return text.replace(/^::ffff:/i, "");
-}
-
 function isBlockedIpAddress(address) {
-  const ip = mappedIpv4(address);
+  const ip = String(address || "").toLowerCase();
   if (!ip) return true;
   if (ip === "localhost") return true;
-  if (ip === "::" || ip === "0:0:0:0:0:0:0:0") return true;
   if (ip === "::1" || ip === "0:0:0:0:0:0:0:1") return true;
   if (/^fe80:/i.test(ip) || /^fc/i.test(ip) || /^fd/i.test(ip)) return true;
   if (!isIP(ip)) return false;
@@ -402,24 +351,12 @@ function isBlockedIpAddress(address) {
   const parts = ip.split(".").map(Number);
   if (parts.length === 4) {
     if (parts[0] === 0) return true;
-    if (parts[0] === 100 && parts[1] >= 64 && parts[1] <= 127) return true;
     if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) return true;
   }
   return false;
 }
 
-function localReviewAssetPath(urlText) {
-  const raw = String(urlText || "").trim();
-  if (!raw || raw.includes("\0") || raw.includes("..")) return null;
-  const rel = raw.replace(/^\/+/, "").replaceAll("\\", "/");
-  if (!rel.startsWith("review-ui/assets/")) return null;
-  const abs = safePath(`/${rel}`);
-  return abs && existsSync(abs) ? abs : null;
-}
-
 async function validatePhotoUrlForProxy(urlText) {
-  const local = localReviewAssetPath(urlText);
-  if (local) return { local, href: String(urlText || "").trim() };
   let parsed;
   try {
     parsed = new URL(urlText);
@@ -438,7 +375,7 @@ async function validatePhotoUrlForProxy(urlText) {
   if (!records.length || records.some((record) => isBlockedIpAddress(record.address))) {
     throw apiError("Ichki tarmoq manziliga ruxsat yo'q", 403);
   }
-  return { href: parsed.toString() };
+  return parsed.toString();
 }
 
 function photoDiskCacheEnabled() {
@@ -626,8 +563,9 @@ async function readPinFromRequest(req) {
 }
 
 function safeCompareSecret(a, b) {
-  const left = createHash("sha256").update(String(a ?? "")).digest();
-  const right = createHash("sha256").update(String(b ?? "")).digest();
+  const left = Buffer.from(String(a || ""));
+  const right = Buffer.from(String(b || ""));
+  if (left.length !== right.length) return false;
   return timingSafeEqual(left, right);
 }
 
@@ -1374,14 +1312,7 @@ async function writeReviewReasons(input) {
 }
 
 async function proxyPhoto(url) {
-  const validated = await validatePhotoUrlForProxy(String(url || "").trim());
-  if (validated.local) {
-    const data = await readFile(validated.local);
-    const ext = extname(validated.local).toLowerCase();
-    const contentType = MIME[ext] || "image/jpeg";
-    return { contentType, data, cached: true };
-  }
-  const text = validated.href;
+  const text = await validatePhotoUrlForProxy(String(url || "").trim());
   const cached = photoCache.get(text);
   if (cached) {
     photoCache.delete(text);
@@ -1452,8 +1383,7 @@ function photoThumbnailQuality() {
 }
 
 async function proxyPhotoThumbnail(url) {
-  const validated = await validatePhotoUrlForProxy(String(url || "").trim());
-  const text = validated.href || validated.local || String(url || "").trim();
+  const text = await validatePhotoUrlForProxy(String(url || "").trim());
   const width = photoThumbnailWidth();
   const height = photoThumbnailHeight();
   const quality = photoThumbnailQuality();
@@ -1475,8 +1405,7 @@ async function proxyPhotoThumbnail(url) {
     return { ...photo, cached: true };
   }
   const job = (async () => {
-    const original = await proxyPhoto(validated.href || validated.local || text);
-    if (!sharp) return { ...original, cached: false };
+    const original = await proxyPhoto(text);
     const data = await sharp(original.data, { limitInputPixels: 60_000_000 })
       .rotate()
       .resize({ width, height, fit: "inside", withoutEnlargement: true })
@@ -1497,18 +1426,7 @@ async function proxyPhotoThumbnail(url) {
   }
 }
 
-function datasetDateKey(value) {
-  return String(value || "").replace(/\s*\[[^\]]+\]\s*$/, "").trim();
-}
-
-function datasetBrandId(entry) {
-  const raw = entry?.brand;
-  if (!raw) return "";
-  if (typeof raw === "string") return raw;
-  return String(raw.id || raw.code || "").trim();
-}
-
-async function deleteDatasetByDate(date, brandId = "") {
+async function deleteDatasetByDate(date) {
   if (!date || String(date).length > 60 || /[/\\]/.test(String(date))) {
     throw new Error("Sana qiymati noto'g'ri");
   }
@@ -1516,14 +1434,7 @@ async function deleteDatasetByDate(date, brandId = "") {
   const manifestPath = join(DATA_OUTPUTS, "lmj_review_datasets.json");
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   const before = Array.isArray(manifest.datasets) ? manifest.datasets : [];
-  const iso = datasetDateKey(date);
-  const wantedBrand = String(brandId || "").trim().toLowerCase();
-  const matches = before.filter((dataset) => dataset.date === date || datasetDateKey(dataset.date) === iso);
-  const item = wantedBrand
-    ? matches.find((dataset) => datasetBrandId(dataset).toLowerCase() === wantedBrand)
-      || matches.find((dataset) => String(dataset.date).toLowerCase().includes(wantedBrand))
-      || matches[0]
-    : (matches.find((dataset) => dataset.date === date) || (matches.length === 1 ? matches[0] : null));
+  const item = before.find((dataset) => dataset.date === date);
   if (!item) throw new Error(`Bu sana topilmadi: ${date}`);
 
   const filePath = safePath(`/${item.file}`);
@@ -1682,26 +1593,11 @@ function formatPhotoTime(value) {
   return [date, time].filter(Boolean).join(" ");
 }
 
-let brandLookup = [];
-
-function refreshBrandLookup(brands) {
-  brandLookup = (brands || []).map((brand) => ({
-    id: brand.id,
-    name: brand.name || brand.id,
-    code: brand.code || brand.agentPrefixes?.[0] || brand.id,
-    prefixes: [...(brand.agentPrefixes || [])].map((prefix) => String(prefix || "").toUpperCase()).filter(Boolean)
-      .sort((a, b) => b.length - a.length),
-  }));
-}
-
 function brandFromCode(code) {
   const value = cleanText(code).toUpperCase();
-  for (const brand of brandLookup) {
-    if (brand.prefixes.some((prefix) => value.startsWith(prefix))) {
-      return { code: brand.code, name: brand.name, id: brand.id };
-    }
-  }
-  return { code: value.slice(0, 4) || "UNK", name: value || "Noma'lum" };
+  if (value.startsWith("JY")) return { code: "JY", name: "SOF" };
+  if (value.startsWith("MONNO")) return { code: "MONNO", name: "MONNO" };
+  return { code: "LMJ", name: "LALAKU MAMA" };
 }
 
 function brandFromItem(item) {
@@ -2046,7 +1942,7 @@ async function writeTelegramSessions(sessions) {
 }
 
 function telegramAdminIds() {
-  return new Set(String(process.env.TELEGRAM_ADMIN_IDS || "").split(",").map((id) => cleanText(id)).filter(Boolean));
+  return new Set(String(process.env.TELEGRAM_ADMIN_IDS || "6649270385").split(",").map((id) => cleanText(id)).filter(Boolean));
 }
 
 function telegramUserFromMessage(message) {
@@ -2688,6 +2584,7 @@ async function sendSuspiciousToTelegram(items) {
 function telegramChats() {
   return [
     { id: cleanText(process.env.TELEGRAM_CHAT_ID), name: "Asosiy gruppa" },
+    { id: "-1002547865945", name: "LALAKU MAMA TABEL" },
   ].filter((chat, index, list) => chat.id && list.findIndex((item) => item.id === chat.id) === index);
 }
 
@@ -2695,36 +2592,20 @@ function maskChatId(chatId) {
   return String(chatId || "").replace(/.(?=.{4})/g, "*");
 }
 
-function allowedTelegramChatIds(brandConfig) {
-  const ids = new Set();
-  const envChat = cleanText(process.env.TELEGRAM_CHAT_ID);
-  if (envChat) ids.add(envChat);
-  const cacheChat = telegramFileCacheChatId();
-  if (cacheChat) ids.add(cacheChat);
-  for (const brand of brandConfig?.brands || []) {
-    const id = cleanText(brand.telegramChatId);
-    if (id) ids.add(id);
-  }
-  return ids;
-}
-
-function resolveTelegramChatId(chatId, brandConfig = { brands: [] }) {
+function resolveTelegramChatId(chatId) {
   const requested = cleanText(chatId);
-  const allowed = allowedTelegramChatIds(brandConfig);
-  if (requested) {
-    if (!allowed.has(requested)) throw apiError("Telegram gruppa ruxsat etilmagan", 403);
-    return requested;
-  }
-  const selected = telegramChats()[0];
-  if (!selected) throw new Error("TELEGRAM_CHAT_ID sozlanmagan");
+  if (requested) return requested;
+  const chats = telegramChats();
+  const selected = chats[0];
+  if (!selected) throw new Error("Telegram gruppa tanlovi noto'g'ri");
   return selected.id;
 }
 
 async function resolveTelegramChatIdForItems(items, targetChatId) {
+  const requested = cleanText(targetChatId);
+  if (requested) return requested;
   const first = Array.isArray(items) ? (items[0] || {}) : {};
   const config = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
-  const requested = cleanText(targetChatId);
-  if (requested) return resolveTelegramChatId(requested, config);
   const candidates = [
     first.brandId,
     first.brandName,
@@ -2739,7 +2620,7 @@ async function resolveTelegramChatIdForItems(items, targetChatId) {
     (brand.agentPrefixes || []).some((prefix) => cleanText(first.code).toUpperCase().startsWith(cleanText(prefix).toUpperCase()))
   ));
   if (cleanText(byPrefix?.telegramChatId)) return cleanText(byPrefix.telegramChatId);
-  return resolveTelegramChatId("", config);
+  return resolveTelegramChatId("");
 }
 
 async function telegramSuspiciousPreview(items, targetChatId) {
@@ -3372,7 +3253,6 @@ const authService = Object.freeze({
   pinSessionCookieHeader,
   readPinFromRequest,
   reviewAccessPin,
-  hasValidPinSession,
   safeCompareSecret,
 });
 const storageService = createStorageService({
@@ -3387,11 +3267,7 @@ const storageService = createStorageService({
   readReviewMarks,
   readReviewReasons,
   reviewStateRevisions,
-  saveBrandsConfig: async (next) => {
-    const saved = await saveBrandsConfig(next);
-    refreshBrandLookup(saved.brands);
-    return saved;
-  },
+  saveBrandsConfig,
   validateBrandsConfig,
   writeReviewMarks,
   writeReviewReasons,
@@ -3474,8 +3350,459 @@ const server = createServer(async (req, res) => {
     const access = authMiddleware.authorize(req, res, parsed);
     if (!access) return;
     if (await apiRouter.handleProtected({ req, res, parsed, access })) return;
+    if (parsed.pathname === "/api/telegram/status") {
+      const brandConfig = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
+      const chats = [
+        ...telegramChats(),
+        ...(brandConfig.brands || []).map((brand) => ({
+          id: cleanText(brand.telegramChatId),
+          name: cleanText(brand.telegramChatName) || cleanText(brand.name) || cleanText(brand.id),
+        })),
+      ].filter((chat, index, list) => chat.id && list.findIndex((item) => item.id === chat.id) === index);
+      sendJson(res, 200, {
+        configured: Boolean(process.env.TELEGRAM_BOT_TOKEN && chats.length),
+        chatId: maskChatId(process.env.TELEGRAM_CHAT_ID),
+        chats: chats.map((chat) => ({ ...chat, maskedId: maskChatId(chat.id) })),
+        fileCacheChatConfigured: Boolean(telegramFileCacheChatId()),
+      }, access.headers);
+      return;
+    }
+    if (parsed.pathname === "/api/admin/telegram-stats") {
+      const stats = await readTelegramUsageStats();
+      sendJson(res, 200, { ok: true, ...summarizeTelegramUsageStats(stats) }, access.headers);
+      return;
+    }
+    if (parsed.pathname === "/api/brands") {
+      if (req.method === "GET") {
+        const config = await loadBrandsConfig({ includeDisabled: true });
+        sendJson(res, 200, { ok: true, ...config, revision: await fileRevision(BRANDS_FILE) });
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 1_000_000);
+        const saved = await saveBrandsConfig(body);
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/reasons") {
+      if (req.method === "GET") {
+        sendJson(res, 200, { ok: true, ...(await readReviewReasons()), revision: await fileRevision(REASONS_FILE) }, access.headers);
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 1_000_000);
+        sendJson(res, 200, { ok: true, ...(await writeReviewReasons(body)), revision: await fileRevision(REASONS_FILE) }, access.headers);
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/sync") {
+      const beforeRevisions = await reviewStateRevisions();
+      let conflicts = {};
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 6_000_000);
+        const base = body.baseRevisions && typeof body.baseRevisions === "object" ? body.baseRevisions : {};
+        conflicts = {
+          marks: Boolean(base.marks && base.marks !== beforeRevisions.marks),
+          reasons: Boolean(base.reasons && base.reasons !== beforeRevisions.reasons),
+          brands: Boolean(base.brands && base.brands !== beforeRevisions.brands),
+        };
+        if (body.marks) await writeReviewMarks(body.marks);
+        if (body.reasons) await writeReviewReasons(body.reasons);
+      } else if (req.method !== "GET") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const brands = await loadBrandsConfig({ includeDisabled: true });
+      const reasons = await readReviewReasons();
+      const light = parsed.searchParams.get("light") === "1";
+      const marks = light ? undefined : await readReviewMarks();
+      const revisions = await reviewStateRevisions();
+      sendJson(res, 200, {
+        ok: true,
+        serverTime: new Date().toISOString(),
+        marks,
+        marksLight: light,
+        reasons,
+        brands,
+        revisions,
+        conflicts,
+      }, access.headers);
+      return;
+    }
+    if (parsed.pathname === "/api/brands/validate") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 1_000_000);
+      const validation = validateBrandsConfig(body);
+      sendJson(res, validation.ok ? 200 : 400, { ok: validation.ok, ...validation });
+      return;
+    }
+    if (parsed.pathname.startsWith("/api/brands/")) {
+      const id = decodeURIComponent(parsed.pathname.replace(/^\/api\/brands\//, "")).trim();
+      const config = await loadBrandsConfig({ includeDisabled: true });
+      const index = config.brands.findIndex((brand) => brand.id === id);
+      if (index < 0) throw apiError(`Brend topilmadi: ${id}`, 404);
+      if (req.method === "PUT") {
+        const body = await readJsonBody(req, 1_000_000);
+        config.brands[index] = { ...config.brands[index], ...body, id };
+        const saved = await saveBrandsConfig(config);
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
+        return;
+      }
+      if (req.method === "DELETE") {
+        config.brands = config.brands.filter((brand) => brand.id !== id);
+        const saved = await saveBrandsConfig(config);
+        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/config") {
+      const store = await loadAttendanceStore();
+      sendJson(res, 200, {
+        ok: true,
+        employees: store.employees,
+        routes: store.routes,
+        assignments: store.assignments,
+        settings: store.settings,
+        validation: validateAttendanceData(store),
+      });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/month") {
+      const month = parsed.searchParams.get("month");
+      const brandId = parsed.searchParams.get("brandId") || "";
+      const data = await loadAttendanceMonth({ month, brandId });
+      sendJson(res, 200, { ok: true, ...data });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/generate") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 1_000_000);
+      const data = await generateAttendanceMonth({ month: body.month, brandId: body.brandId || "" });
+      sendJson(res, 200, { ok: true, ...data });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/override") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 1_000_000);
+      const override = await saveOverride(body);
+      const month = String(body.date || "").slice(0, 7);
+      const data = await generateAttendanceMonth({ month, brandId: body.brandId || "" });
+      sendJson(res, 200, {
+        ok: true,
+        override,
+        changedCell: {
+          date: override.date,
+          agentCode: override.agentCode,
+          employeeId: override.employeeId,
+          manualValue: override.manualValue,
+        },
+        summaryTotals: data.summaryTotals,
+        month: data,
+      });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/employees") {
+      const store = await loadAttendanceStore();
+      if (req.method === "GET") {
+        sendJson(res, 200, { ok: true, employees: store.employees });
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 1_000_000);
+        const employees = Array.isArray(body.employees) ? body.employees : [...store.employees, body];
+        const validation = validateAttendanceData({ ...store, employees });
+        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
+        await safeWriteJson(ATT_FILES.employees, { employees }, "employees");
+        sendJson(res, 200, { ok: true, employees, validation });
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/routes") {
+      const store = await loadAttendanceStore();
+      if (req.method === "GET") {
+        sendJson(res, 200, { ok: true, routes: store.routes });
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 1_000_000);
+        const routes = Array.isArray(body.routes) ? body.routes : [...store.routes, body];
+        const validation = validateAttendanceData({ ...store, routes });
+        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
+        await safeWriteJson(ATT_FILES.routes, { routes }, "routes");
+        sendJson(res, 200, { ok: true, routes, validation });
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/assignments") {
+      const store = await loadAttendanceStore();
+      if (req.method === "GET") {
+        sendJson(res, 200, { ok: true, assignments: store.assignments });
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 1_000_000);
+        const assignments = Array.isArray(body.assignments) ? body.assignments : [...store.assignments, body];
+        const validation = validateAttendanceData({ ...store, assignments });
+        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
+        await safeWriteJson(ATT_FILES.assignments, { assignments }, "assignments");
+        sendJson(res, 200, { ok: true, assignments, validation });
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/assignments/replace-employee") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 1_000_000);
+      const result = await replaceEmployee(body);
+      sendJson(res, 200, { ok: true, ...result });
+      return;
+    }
+    if (parsed.pathname === "/api/attendance/export") {
+      const month = parsed.searchParams.get("month");
+      const brandId = parsed.searchParams.get("brandId") || "";
+      const result = await exportAttendanceCsv({ month, brandId });
+      const csv = attendanceToCsv(result.data);
+      res.writeHead(200, {
+        "Content-Type": "text/csv; charset=utf-8",
+        "Content-Disposition": `attachment; filename="attendance-${result.data.month}${brandId ? `-${brandId}` : ""}.csv"`,
+        "Cache-Control": "no-store",
+      });
+      res.end(`\uFEFF${csv}\n`);
+      return;
+    }
+    if (parsed.pathname === "/api/telegram/preview-suspicious") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req);
+      const items = Array.isArray(body.items) ? body.items : [];
+      if (!items.length) throw apiError("Tekshirish uchun foto yo'q", 400);
+      const groups = groupSuspiciousByAgent(items);
+      const chatId = await resolveTelegramChatIdForItems(items, body.chatId);
+      sendJson(res, 200, {
+        ok: true,
+        mode: cleanText(body.mode || process.env.TELEGRAM_SEND_MODE || "summary").toLowerCase(),
+        chatId: maskChatId(chatId),
+        photos: items.length,
+        agents: groups.length,
+        groups: groups.map((group) => ({
+          date: group.date,
+          code: group.code,
+          agent: group.agent,
+          photos: group.items.length,
+        })),
+      });
+      return;
+    }
+    if (parsed.pathname === "/api/telegram/preview-suspicious") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req, 2_000_000);
+      const preview = await telegramSuspiciousPreview(body.items, body.chatId);
+      sendJson(res, 200, { ok: true, preview }, access.headers);
+      return;
+    }
+    if (parsed.pathname === "/api/telegram/send-suspicious") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req);
+      const mode = cleanText(body.mode || process.env.TELEGRAM_SEND_MODE || "summary").toLowerCase();
+      const allowDirectMedia = process.env.TELEGRAM_ALLOW_DIRECT_MEDIA === "1";
+      const result = mode === "media" && allowDirectMedia
+        ? await sendSuspiciousToTelegramChat(body.items, body.chatId)
+        : await sendSuspiciousSummaryToTelegram(body.items, body.chatId);
+      sendJson(res, result.failed.length ? 207 : 200, { ok: result.failed.length === 0, ...result });
+      return;
+    }
+    if (parsed.pathname === "/api/collect/status") {
+      sendJson(res, 200, { ok: true, collect: publicCollectState() });
+      return;
+    }
+    if (parsed.pathname === "/api/collect/start") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = await readJsonBody(req);
+      const browserHint = isLocalHostHeader(req) ? body.browserHint : "";
+      if (body.startDate || body.endDate) {
+        await startCollectRangeJob({
+          startDate: body.startDate || body.date,
+          endDate: body.endDate || body.startDate || body.date,
+          brand: body.brand,
+          browserHint,
+        });
+      } else {
+        await startCollectJob({ date: body.date, brand: body.brand, browserHint });
+      }
+      sendJson(res, 200, { ok: true, collect: publicCollectState() });
+      return;
+    }
+    if (parsed.pathname === "/api/collect/continue") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      collectContinue();
+      sendJson(res, 200, { ok: true, collect: publicCollectState() });
+      return;
+    }
+    if (parsed.pathname === "/api/collect/open-login") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      openSalesLoginHelper();
+      sendJson(res, 200, { ok: true, collect: publicCollectState() });
+      return;
+    }
+    if (parsed.pathname === "/api/collect/stop") {
+      if (req.method !== "POST") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      stopCollectJob();
+      sendJson(res, 200, { ok: true, collect: publicCollectState() });
+      return;
+    }
+    if (parsed.pathname === "/api/photo") {
+      const photoUrl = parsed.searchParams.get("url");
+      const photoVariant = parsed.searchParams.get("view") === "thumb" ? "thumb" : "full";
+      const photoEtag = `W/"photo-${photoVariant}-${photoCacheKey(photoUrl)}"`;
+      if (req.headers["if-none-match"] === photoEtag) {
+        res.writeHead(304, {
+          "Cache-Control": "public, max-age=604800, immutable",
+          ETag: photoEtag,
+          ...access.headers,
+        });
+        res.end();
+        return;
+      }
+      const photo = photoVariant === "thumb"
+        ? await proxyPhotoThumbnail(photoUrl)
+        : await proxyPhoto(photoUrl);
+      res.writeHead(200, {
+        "Content-Type": photo.contentType,
+        "Cache-Control": "public, max-age=604800, immutable",
+        ETag: photoEtag,
+        "X-Photo-Cache": photo.cached ? "hit" : "miss",
+        "X-Photo-Variant": photoVariant,
+        ...access.headers,
+      });
+      res.end(photo.data);
+      return;
+    }
+    if (parsed.pathname === "/api/marks") {
+      if (req.method === "GET") {
+        const brands = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
+        const marks = await readReviewMarks();
+        const filtered = filterReviewMarks(marks, {
+          brand: parsed.searchParams.get("brand") || "",
+          date: parsed.searchParams.get("date") || "",
+          verdict: parsed.searchParams.get("verdict") || "",
+        }, brands);
+        sendJson(res, 200, { ok: true, marks: filtered, total: Object.keys(filtered).length, revision: await fileRevision(MARKS_FILE) }, access.headers);
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 5_000_000);
+        const beforeRevision = await fileRevision(MARKS_FILE);
+        const merged = await writeReviewMarks(body.marks);
+        const compact = parsed.searchParams.get("compact") === "1";
+        const responseMarks = compact
+          ? Object.fromEntries(Object.keys(body.marks || {}).filter((key) => merged[key]).map((key) => [key, merged[key]]))
+          : merged;
+        sendJson(res, 200, {
+          ok: true,
+          marks: responseMarks,
+          revision: await fileRevision(MARKS_FILE),
+          conflict: Boolean(body.baseRevision && body.baseRevision !== beforeRevision),
+        }, access.headers);
+        return;
+      }
+      if (req.method === "DELETE") {
+        const result = await deleteReviewMarks({ date: parsed.searchParams.get("date") || "" });
+        sendJson(res, 200, { ok: true, deleted: result.deleted, revision: await fileRevision(MARKS_FILE) }, access.headers);
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/suspicious-photos") {
+      if (req.method === "GET") {
+        const rebuild = parsed.searchParams.get("rebuild") === "1";
+        const data = rebuild
+          ? await rebuildSuspiciousPhotosFromMarks(await readReviewMarks())
+          : await readSuspiciousPhotos();
+        sendJson(res, 200, { ok: true, total: data.items.length, updatedAt: data.updatedAt, items: data.items }, access.headers);
+        return;
+      }
+      if (req.method === "POST") {
+        const data = await rebuildSuspiciousPhotosFromMarks(await readReviewMarks());
+        sendJson(res, 200, { ok: true, total: data.items.length, updatedAt: data.updatedAt, items: data.items }, access.headers);
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/photo-metrics") {
+      if (req.method === "GET") {
+        const data = await readPhotoMetricsCache();
+        sendJson(res, 200, { ok: true, total: data.total, updatedAt: data.updatedAt, items: data.items }, access.headers);
+        return;
+      }
+      if (req.method === "POST") {
+        const body = await readJsonBody(req, 5_000_000);
+        const data = await writePhotoMetricsCache(body);
+        sendJson(res, 200, { ok: true, total: data.total, updatedAt: data.updatedAt }, access.headers);
+        return;
+      }
+      sendJson(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    if (parsed.pathname === "/api/datasets/delete") {
+      if (req.method !== "POST" && req.method !== "DELETE") {
+        sendJson(res, 405, { ok: false, error: "Method not allowed" });
+        return;
+      }
+      const body = req.method === "DELETE"
+        ? { date: parsed.searchParams.get("date") }
+        : await readJsonBody(req);
+      const result = await deleteDatasetByDate(body.date);
+      sendJson(res, 200, { ok: true, ...result });
+      return;
+    }
 
-        const urlPath = req.url === "/" ? "/lmj_date_photo_review.html" : req.url;
+    const urlPath = req.url === "/" ? "/lmj_date_photo_review.html" : req.url;
     const filePath = safePath(urlPath);
     if (!filePath) {
       res.writeHead(403);
@@ -3526,18 +3853,6 @@ server.on("error", (error) => {
 server.listen(PORT, HOST, async () => {
   console.log(`LMJ review server: ${REVIEW_URL}`);
   console.log(`Papka: ${OUTPUTS}`);
-  if (!reviewAccessPin()) {
-    console.warn(IS_CLOUD
-      ? "REVIEW_ACCESS_PIN sozlanmagan. Tashqi kirish yopiq."
-      : "REVIEW_ACCESS_PIN sozlanmagan. Faqat localhost ochiq.");
-  }
-  await loadPinSessions();
-  try {
-    const brands = await loadBrandsConfig({ includeDisabled: true });
-    refreshBrandLookup(brands.brands);
-  } catch (error) {
-    console.warn("Brend lookup yuklanmadi:", error?.message || error);
-  }
   try {
     const repaired = await repairTelegramSessionsFromUsageStats();
     if (repaired.repaired) console.log(`Telegram eski link sessionlari tiklandi: ${repaired.repaired}`);

@@ -16,30 +16,7 @@ export function createAttendanceRoutes({ attendance, http }) {
       return true;
     }
     if (parsed.pathname === "/api/attendance/month") {
-      const month = parsed.searchParams.get("month");
-      const brandId = parsed.searchParams.get("brandId") || "";
-      const data = await attendance.loadAttendanceMonth({
-        month,
-        brandId,
-        generateIfMissing: false,
-        refreshIfStale: false,
-      });
-      if (!data) {
-        http.sendJson(res, 200, {
-          ok: true,
-          month,
-          brandId,
-          rows: [],
-          needsGenerate: true,
-          summaryTotals: {
-            rows: 0, assignedRows: 0, vacantRows: 0, unknownRows: 0,
-            workDays: 0, lowPhotoDays: 0, specialDays: 0, penaltyCount: 0,
-          },
-          dataQuality: { rawDatesFound: [], missingRoutes: [], overlappingAssignments: [], supervisorConflicts: [] },
-          monthStatus: await attendance.getAttendanceMonthStatus(month, brandId),
-        }, access.headers);
-        return true;
-      }
+      const data = await attendance.loadAttendanceMonth({ month: parsed.searchParams.get("month"), brandId: parsed.searchParams.get("brandId") || "" });
       http.sendJson(res, 200, { ok: true, ...data }, access.headers);
       return true;
     }
