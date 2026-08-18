@@ -98,12 +98,7 @@ function predict(row, urlCounts) {
     confidence = Math.max(confidence, 0.9);
   }
 
-  for (const reason of rowReasons) {
-    if (reason === DEFAULT_REASONS[0] || reason === DEFAULT_REASONS[2]) continue;
-    predictedReasons.push(reason);
-    signals.push(`Label sababidan qoida: ${reason}`);
-    confidence = Math.max(confidence, 0.82);
-  }
+  void rowReasons;
 
   const orderProtected = hasOrder(row);
   if (orderProtected) {

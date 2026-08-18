@@ -1,0 +1,35 @@
+{
+  "date": "2026-08-17",
+  "brand": {
+    "id": "lalaku_mama",
+    "name": "Lalaku Mama",
+    "code": "LMJ"
+  },
+  "agents": [
+    {
+      "code": "LMJTEST01",
+      "agent": "Demo Agent",
+      "orderSum": 1250000,
+      "status": "ok",
+      "photos": [
+        { "id": "p1", "url": "review-ui/assets/demo-1.svg", "client": "Klient 1", "photoTime": "2026-08-17 10:00" },
+        { "id": "p2", "url": "review-ui/assets/demo-2.svg", "client": "Klient 2", "photoTime": "2026-08-17 10:01" },
+        { "id": "p3", "url": "review-ui/assets/demo-3.svg", "client": "Klient 3", "photoTime": "2026-08-17 10:02" },
+        { "id": "p4", "url": "review-ui/assets/demo-4.svg", "client": "Klient 4", "photoTime": "2026-08-17 10:03" },
+        { "id": "p5", "url": "review-ui/assets/demo-5.svg", "client": "Klient 5", "photoTime": "2026-08-17 10:04" }
+      ]
+    },
+    {
+      "code": "LMJTEST02",
+      "agent": "Demo Agent 2",
+      "orderSum": 860000,
+      "status": "ok",
+      "photos": [
+        { "id": "p1", "url": "review-ui/assets/demo-1.svg", "client": "Do'kon 1", "photoTime": "2026-08-17 11:15" },
+        { "id": "p2", "url": "review-ui/assets/demo-2.svg", "client": "Do'kon 2", "photoTime": "2026-08-17 11:16" },
+        { "id": "p3", "url": "review-ui/assets/demo-3.svg", "client": "Do'kon 3", "photoTime": "2026-08-17 11:17" },
+        { "id": "p4", "url": "review-ui/assets/demo-4.svg", "client": "Do'kon 4", "photoTime": "2026-08-17 11:18" }
+      ]
+    }
+  ]
+}

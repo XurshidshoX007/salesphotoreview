@@ -2,6 +2,14 @@ import { methodNotAllowed } from "../middleware/errors.mjs";
 
 export function createAuthRoutes({ auth, http }) {
   return async function routeAuth({ req, res, parsed }) {
+    if (parsed.pathname === "/api/access/status") {
+      http.sendJson(res, 200, {
+        ok: true,
+        authenticated: Boolean(auth.hasValidPinSession?.(req)),
+        authRequired: Boolean(auth.reviewAccessPin()),
+      });
+      return true;
+    }
     if (parsed.pathname === "/api/access/login") {
       if (req.method !== "POST") return methodNotAllowed(res, http.sendJson);
       const ip = auth.clientIp(req);

@@ -64,7 +64,7 @@ Eng oson ishga tushirish:
 2. Oynada chiqqan linkni hamkasblarga yuboring.
 3. Oynani yopmang; kompyuter yoniq va internet bor bo'lsa link ishlaydi.
 
-Script review serverni o'zi tekshiradi. Server o'chiq bo'lsa `127.0.0.1:8765` portda fon rejimida ishga tushiradi. Public linkga `access` token avtomatik qo'shiladi, shuning uchun oddiy URL topgan odam token bo'lmasa kira olmaydi.
+Script review serverni o'zi tekshiradi. Server o'chiq bo'lsa `127.0.0.1:8765` portda fon rejimida ishga tushiradi. Public kirish faqat PIN va sessiya cookie orqali ishlaydi; URL ichidagi `access` token endi qabul qilinmaydi.
 
 Vaqtinchalik link:
 

@@ -7,14 +7,14 @@ export function createPhotoRoutes({ photos, http }) {
       const variant = parsed.searchParams.get("view") === "thumb" ? "thumb" : "full";
       const etag = `W/"photo-${variant}-${photos.photoCacheKey(url)}"`;
       if (req.headers["if-none-match"] === etag) {
-        res.writeHead(304, { "Cache-Control": "public, max-age=604800, immutable", ETag: etag, ...access.headers });
+        res.writeHead(304, { "Cache-Control": "private, max-age=604800", ETag: etag, ...access.headers });
         res.end();
         return true;
       }
       const photo = variant === "thumb" ? await photos.proxyPhotoThumbnail(url) : await photos.proxyPhoto(url);
       res.writeHead(200, {
         "Content-Type": photo.contentType,
-        "Cache-Control": "public, max-age=604800, immutable",
+        "Cache-Control": "private, max-age=604800",
         ETag: etag,
         "X-Photo-Cache": photo.cached ? "hit" : "miss",
         "X-Photo-Variant": variant,

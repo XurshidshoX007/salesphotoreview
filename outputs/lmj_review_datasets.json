@@ -1102,6 +1102,17 @@
       "file": "sof_browser_collect_2026-07-25_raw.json",
       "updatedAt": "2026-07-25T20:08:17.052Z",
       "brand": "sof"
+    },
+    {
+      "date": "2026-08-17",
+      "file": "demo_review_dataset.json",
+      "updatedAt": "2026-08-17T00:00:00.000Z",
+      "label": "2026-08-17 | Demo",
+      "brand": {
+        "id": "lalaku_mama",
+        "name": "Lalaku Mama",
+        "code": "LMJ"
+      }
     }
   ]
 }

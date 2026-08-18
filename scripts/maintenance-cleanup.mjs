@@ -7,7 +7,8 @@ import { promisify } from "node:util";
 
 const gzipAsync = promisify(gzip);
 const gunzipAsync = promisify(gunzip);
-const root = resolve(process.cwd());
+const codeRoot = resolve(process.cwd());
+const dataRoot = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : codeRoot;
 const apply = process.argv.includes("--apply");
 
 function numberArg(name, fallback) {
@@ -20,10 +21,11 @@ const cacheDays = numberArg("--cache-days", Number(process.env.PHOTO_CACHE_RETEN
 const backupDays = numberArg("--backup-days", Number(process.env.ATTENDANCE_BACKUP_RETENTION_DAYS || 14));
 const artifactDays = numberArg("--artifact-days", Number(process.env.TEST_ARTIFACT_RETENTION_DAYS || 14));
 const now = Date.now();
+const workspaceRoots = [...new Set([codeRoot, dataRoot])];
 
 function insideWorkspace(path) {
   const target = resolve(path);
-  return target === root || target.startsWith(`${root}${sep}`);
+  return workspaceRoots.some((root) => target === root || target.startsWith(`${root}${sep}`));
 }
 
 function assertSafe(path) {
@@ -68,8 +70,8 @@ async function cleanFiles(directory, days, bucket) {
 }
 
 async function archiveBackups() {
-  const sourceRoot = resolve(root, "data", "attendance", "backups");
-  const archiveRoot = resolve(root, "data", "attendance", "archive");
+  const sourceRoot = resolve(dataRoot, "data", "attendance", "backups");
+  const archiveRoot = resolve(dataRoot, "data", "attendance", "archive");
   assertSafe(sourceRoot);
   assertSafe(archiveRoot);
   for (const file of await filesUnder(sourceRoot)) {
@@ -91,11 +93,11 @@ async function archiveBackups() {
     const restored = await gunzipAsync(await readFile(temporary));
     if (source.length !== restored.length || digest(source) !== digest(restored)) {
       await unlink(temporary).catch(() => {});
-      throw new Error(`Arxiv tekshiruvi o'tmadi: ${relative(root, file)}`);
+      throw new Error(`Arxiv tekshiruvi o'tmadi: ${relative(dataRoot, file)}`);
     }
     if (existsSync(target)) {
       const existing = await gunzipAsync(await readFile(target));
-      if (digest(existing) !== digest(source)) throw new Error(`Arxiv nomi to'qnashdi: ${relative(root, target)}`);
+      if (digest(existing) !== digest(source)) throw new Error(`Arxiv nomi to'qnashdi: ${relative(dataRoot, target)}`);
       await unlink(temporary);
     } else {
       await rename(temporary, target);
@@ -105,8 +107,11 @@ async function archiveBackups() {
   }
 }
 
-await cleanFiles(join(root, "work", ".photo-cache"), cacheDays, "cache");
-await cleanFiles(join(root, "work", "test-artifacts"), artifactDays, "artifacts");
+await cleanFiles(join(dataRoot, "work", ".photo-cache"), cacheDays, "cache");
+if (dataRoot !== codeRoot) {
+  await cleanFiles(join(codeRoot, "work", ".photo-cache"), cacheDays, "cache");
+}
+await cleanFiles(join(codeRoot, "work", "test-artifacts"), artifactDays, "artifacts");
 await archiveBackups();
 
 const mb = (bytes) => (bytes / 1024 / 1024).toFixed(1);

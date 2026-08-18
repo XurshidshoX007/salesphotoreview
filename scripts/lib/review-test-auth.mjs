@@ -1,18 +1,14 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { parseEnvText } from "../../backend/src/lib/env.mjs";
 
 export async function localEnv(root = process.cwd()) {
   const values = {};
   for (const name of [".env.local", ".env"]) {
     const file = join(root, name);
     if (!existsSync(file)) continue;
-    const text = await readFile(file, "utf8");
-    for (const line of text.split(/\r?\n/)) {
-      const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-      if (!match || values[match[1]]) continue;
-      values[match[1]] = match[2].replace(/^["']|["']$/g, "");
-    }
+    Object.assign(values, parseEnvText(await readFile(file, "utf8"), values, { override: false }));
   }
   return values;
 }
