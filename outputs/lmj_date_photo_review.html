@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,11 @@
   <title>Foto nazorati</title>
   <link rel="icon" type="image/svg+xml" href="review-ui/assets/foto-nazorati-logo.svg">
   <link rel="stylesheet" href="review-ui/styles/app.bundle.css?v=attendance-workspace-82">
+  <!-- Quick fallback: Bootstrap CDN to restore basic layout until original styles are available -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1FQZ1K/2QZrZl+q2QqQZ6R9VV+8Gf2b5Xr2Q5p3y5i" crossorigin="anonymous">
 </head>
+
 <body class="photoView">
   <nav class="salesNav" aria-label="Review panel">
     <div class="sideBrand">
@@ -34,9 +39,18 @@
         <button id="sideAutoReviewBtn" class="wideAction">Avto tekshiruv</button>
       </div>
     </div>
-    <button id="systemStatusBtn" class="systemStatusBtn" type="button" aria-expanded="false" aria-controls="systemStatusPanel"><span id="systemStatusDot" class="systemStatusDot loading" aria-hidden="true"></span><span id="systemStatusLabel">Ulanmoqda...</span></button>
+    <button id="systemStatusBtn" class="systemStatusBtn" type="button" aria-expanded="false"
+      aria-controls="systemStatusPanel"><span id="systemStatusDot" class="systemStatusDot loading"
+        aria-hidden="true"></span><span id="systemStatusLabel">Ulanmoqda...</span></button>
   </nav>
-  <aside id="systemStatusPanel" class="systemStatusPanel" aria-hidden="true" aria-label="Tizim holati"><div class="systemStatusHead"><div><b>Tizim holati</b><span id="systemStatusUpdated">Tekshirilmoqda...</span></div><button id="systemStatusClose" type="button" aria-label="Yopish">×</button></div><div id="systemStatusRows" class="systemStatusRows"></div><button id="systemStatusRefresh" class="systemStatusRefresh" type="button">Qayta tekshirish</button></aside>
+  <aside id="systemStatusPanel" class="systemStatusPanel" aria-hidden="true" aria-label="Tizim holati">
+    <div class="systemStatusHead">
+      <div><b>Tizim holati</b><span id="systemStatusUpdated">Tekshirilmoqda...</span></div><button
+        id="systemStatusClose" type="button" aria-label="Yopish">×</button>
+    </div>
+    <div id="systemStatusRows" class="systemStatusRows"></div><button id="systemStatusRefresh"
+      class="systemStatusRefresh" type="button">Qayta tekshirish</button>
+  </aside>
   <div id="systemStatusBackdrop" class="systemStatusBackdrop" aria-hidden="true"></div>
   <header>
     <div class="headerIdentity">
@@ -47,17 +61,21 @@
       <div id="dateStats" class="photoStatsMetrics"></div>
     </section>
     <div id="reviewAssist" class="reviewAssist" aria-label="Tekshiruv yordamchilari">
-      <button id="nextUncheckedBtn" type="button" title="Keyingi tekshirilmagan fotoni ochish"><span>Tekshirilmagan</span><b id="reviewProgressText">0 / 0</b></button>
+      <button id="nextUncheckedBtn" type="button"
+        title="Keyingi tekshirilmagan fotoni ochish"><span>Tekshirilmagan</span><b id="reviewProgressText">0 /
+          0</b></button>
       <button id="undoReviewBtn" type="button" title="Oxirgi belgilashni bekor qilish" disabled>Bekor qilish</button>
     </div>
-    <button id="filterToggleBtn" class="filterToggleBtn" type="button" aria-expanded="false" aria-controls="reviewFilters">
+    <button id="filterToggleBtn" class="filterToggleBtn" type="button" aria-expanded="false"
+      aria-controls="reviewFilters">
       <span>Filtrlar</span><i aria-hidden="true"></i>
     </button>
     <button id="sectionCloseBtn" class="sectionCloseBtn" type="button">Yopish</button>
     <aside id="reviewFilters" class="controls filterDrawer" aria-label="Foto Review filtrlari" aria-hidden="true">
       <div class="filterPanelHead">
         <div><b>Filtrlar</b><span>Ko‘rsatiladigan ma’lumotlarni tanlang</span></div>
-        <button id="filterCloseBtn" class="filterCloseBtn" type="button" title="Filtrlarni yopish" aria-label="Filtrlarni yopish">×</button>
+        <button id="filterCloseBtn" class="filterCloseBtn" type="button" title="Filtrlarni yopish"
+          aria-label="Filtrlarni yopish">×</button>
       </div>
       <div class="filterPanelBody">
         <section class="filterSection" aria-labelledby="filterDataTitle">
@@ -70,7 +88,11 @@
         <section class="filterSection" aria-labelledby="filterAgentTitle">
           <div id="filterAgentTitle" class="filterSectionTitle">Agent</div>
           <label class="filterField"><span>Agentni tanlang</span><select id="agentSel"></select></label>
-          <label class="filterField"><span>Ro‘yxat turi</span><select id="agentFilter"><option value="matching">Mos agentlar</option><option value="unmatched">Mos kelmagan agentlar</option><option value="all">Barchasi</option></select></label>
+          <label class="filterField"><span>Ro‘yxat turi</span><select id="agentFilter">
+              <option value="matching">Mos agentlar</option>
+              <option value="unmatched">Mos kelmagan agentlar</option>
+              <option value="all">Barchasi</option>
+            </select></label>
         </section>
       </div>
       <button id="minusListBtn" style="display:none">Minus ro'yxati</button>
@@ -87,7 +109,9 @@
   </header>
   <section id="datasetStatusBanner" class="datasetStatusBanner" aria-live="polite" hidden></section>
   <div class="wrap">
-    <main><div id="grid" class="grid"></div></main>
+    <main>
+      <div id="grid" class="grid"></div>
+    </main>
   </div>
   <section id="attendancePanel" class="attendancePanel" aria-label="Tabel">
     <div class="attendanceCommandBar">
@@ -102,12 +126,14 @@
         <button id="attendanceNextMonth" title="Keyingi oy" aria-label="Keyingi oy">›</button>
       </div>
       <label class="attendanceBrandField"><span>Brend</span><select id="attendanceBrand"></select></label>
-      <label class="attendanceSearch"><span>Qidirish</span><input id="attendanceEmployee" placeholder="Agent yoki xodim"></label>
+      <label class="attendanceSearch"><span>Qidirish</span><input id="attendanceEmployee"
+          placeholder="Agent yoki xodim"></label>
       <div class="attendanceTopActions">
         <button id="attendanceMoreFilters" aria-expanded="false">Filtrlar</button>
         <button id="attendanceGenerate" class="primary">Yangilash</button>
         <div class="attendanceActions">
-          <button id="attendanceActionsToggle" type="button" aria-expanded="false" aria-controls="attendanceActionsMenu" title="Tabel amallari" aria-label="Tabel amallari">•••</button>
+          <button id="attendanceActionsToggle" type="button" aria-expanded="false" aria-controls="attendanceActionsMenu"
+            title="Tabel amallari" aria-label="Tabel amallari">•••</button>
           <div id="attendanceActionsMenu" class="attendanceActionsMenu" hidden>
             <button id="attendanceExport" type="button">CSV eksport</button>
             <button id="attendanceBulkEdit" type="button">Ko'p kunni tahrirlash</button>
@@ -129,20 +155,31 @@
     <div id="attendanceAdvancedFilters" class="attendanceAdvancedFilters" hidden>
       <label>Prefix<input id="attendancePrefix" placeholder="JY"></label>
       <label>Lavozim<input id="attendanceRole" placeholder="agent"></label>
-      <label>Holat<select id="attendanceStatus"><option value="">Barchasi</option><option value="assigned">Biriktirilgan</option><option value="vacant">Vakant</option><option value="unknown_route">Yo'nalishsiz</option></select></label>
-      <label>Hudud<select id="attendanceRegion"><option value="">Barcha hududlar</option></select></label>
+      <label>Holat<select id="attendanceStatus">
+          <option value="">Barchasi</option>
+          <option value="assigned">Biriktirilgan</option>
+          <option value="vacant">Vakant</option>
+          <option value="unknown_route">Yo'nalishsiz</option>
+        </select></label>
+      <label>Hudud<select id="attendanceRegion">
+          <option value="">Barcha hududlar</option>
+        </select></label>
       <label class="checkLine"><input id="attendanceSvrOnly" type="checkbox"> Faqat SVR</label>
     </div>
     <div class="attendanceContextRow">
       <div id="attendanceCoverage" class="attendanceCoverage" aria-label="Dataset qamrovi"></div>
       <div id="attendanceDataHealth" class="attendanceDataHealth" hidden></div>
     </div>
-    <div class="attendanceTableWrap"><table id="attendanceTable" class="attendanceTable"></table><div id="attendanceListView" class="attendanceListView"></div></div>
+    <div class="attendanceTableWrap">
+      <table id="attendanceTable" class="attendanceTable"></table>
+      <div id="attendanceListView" class="attendanceListView"></div>
+    </div>
     <div id="attendanceUndo" class="attendanceUndo" hidden></div>
   </section>
   <section id="adminStatsPanel" class="adminStatsPanel" aria-label="Admin statistika">
     <div class="adminStatsHead">
-      <div><b>Admin statistika</b><span>Telegram botdan foydalanish, agent ochilishlari va yuborilgan fotolar nazorati</span></div>
+      <div><b>Admin statistika</b><span>Telegram botdan foydalanish, agent ochilishlari va yuborilgan fotolar
+          nazorati</span></div>
       <button id="adminStatsRefresh" class="primary">Yangilash</button>
     </div>
     <div id="adminStatsBody" class="adminStatsBody">
@@ -152,22 +189,31 @@
   <div id="attendanceReplaceModal" class="attendanceReplaceModal" aria-label="Xodim almashtirish">
     <div class="attendanceReplaceBox">
       <div class="collectHead">
-        <div><b>Xodim almashtirish</b><span>Agent kodi o'zgarmaydi, faqat assignment yopilib yangisi ochiladi</span></div>
+        <div><b>Xodim almashtirish</b><span>Agent kodi o'zgarmaydi, faqat assignment yopilib yangisi ochiladi</span>
+        </div>
         <button id="attendanceReplaceClose">Yopish</button>
       </div>
       <div class="attendanceReplaceBody">
         <div class="attendanceReplaceGrid">
           <label class="fieldLabel">Agent kodi<input id="replaceAgentCode" placeholder="JY001"></label>
-          <label class="fieldLabel">Joriy xodim<input id="replaceCurrentEmployee" readonly placeholder="Topilmadi"></label>
+          <label class="fieldLabel">Joriy xodim<input id="replaceCurrentEmployee" readonly
+              placeholder="Topilmadi"></label>
           <label class="fieldLabel">Eski xodim oxirgi ish kuni<input id="replaceOldEndDate" type="date"></label>
           <label class="fieldLabel">Yangi xodim boshlanish sanasi<input id="replaceNewStartDate" type="date"></label>
           <label class="fieldLabel">Mavjud xodim<select id="replaceEmployeeSelect"></select></label>
           <label class="replaceCheck"><input id="replaceCreateNew" type="checkbox"> Yangi xodim yaratish</label>
-          <label class="fieldLabel replaceNewOnly">Yangi xodim F.I.Sh.<input id="replaceNewName" placeholder="Vali Karimov"></label>
+          <label class="fieldLabel replaceNewOnly">Yangi xodim F.I.Sh.<input id="replaceNewName"
+              placeholder="Vali Karimov"></label>
           <label class="fieldLabel replaceNewOnly">Telefon<input id="replaceNewPhone" placeholder="+998"></label>
-          <label class="fieldLabel replaceNewOnly">Role<select id="replaceNewRole"><option value="agent">agent</option><option value="svr">svr</option><option value="fd">fd</option><option value="rm">rm</option></select></label>
+          <label class="fieldLabel replaceNewOnly">Role<select id="replaceNewRole">
+              <option value="agent">agent</option>
+              <option value="svr">svr</option>
+              <option value="fd">fd</option>
+              <option value="rm">rm</option>
+            </select></label>
           <label class="fieldLabel replaceNewOnly">Izoh<input id="replaceNewNotes" placeholder="Izoh"></label>
-          <label class="fieldLabel replaceReason">Sabab<textarea id="replaceReason" placeholder="Yangi xodim olindi"></textarea></label>
+          <label class="fieldLabel replaceReason">Sabab<textarea id="replaceReason"
+              placeholder="Yangi xodim olindi"></textarea></label>
         </div>
         <div id="replaceMessage" class="attendanceReplaceMessage">Ma'lumotlarni to'ldiring.</div>
       </div>
@@ -180,7 +226,10 @@
   <div id="attendanceDetailDrawer" class="attendanceDetailDrawer" aria-hidden="true">
     <button id="attendanceDetailBackdrop" class="attendanceDetailBackdrop" aria-label="Yopish"></button>
     <aside class="attendanceDetailPanel">
-      <div class="attendanceDetailHead"><div><b id="attendanceDetailTitle">Tabel tafsiloti</b><span id="attendanceDetailSubtitle"></span></div><button id="attendanceDetailClose" aria-label="Yopish">×</button></div>
+      <div class="attendanceDetailHead">
+        <div><b id="attendanceDetailTitle">Tabel tafsiloti</b><span id="attendanceDetailSubtitle"></span></div><button
+          id="attendanceDetailClose" aria-label="Yopish">×</button>
+      </div>
       <div id="attendanceDetailBody" class="attendanceDetailBody"></div>
     </aside>
   </div>
@@ -193,14 +242,19 @@
       <div class="modalActions">
         <button class="bad" id="modalMinus">Minus</button>
         <button class="ok" id="modalOk">OK</button>
-        <button class="zoomBtn" id="zoomOut">-</button><button class="zoomBtn" id="zoomFit">Fit</button><button class="zoomBtn" id="zoomIn">+</button><button class="closeBtn" id="modalClose">Yopish</button>
+        <button class="zoomBtn" id="zoomOut">-</button><button class="zoomBtn" id="zoomFit">Fit</button><button
+          class="zoomBtn" id="zoomIn">+</button><button class="closeBtn" id="modalClose">Yopish</button>
       </div>
     </div>
     <div class="modalImgBox"><img id="modalImg" alt="" referrerpolicy="no-referrer"></div>
     <div class="side">
-      <div class="sideHead"><div><b>Sababni belgilang</b><span>Foto nima sababdan minus qilinayotganini tanlang.</span></div><span class="sideBadge">Audit</span></div>
+      <div class="sideHead">
+        <div><b>Sababni belgilang</b><span>Foto nima sababdan minus qilinayotganini tanlang.</span></div><span
+          class="sideBadge">Audit</span>
+      </div>
       <div id="reasonChecks"></div>
-      <div class="reasonAdd"><input id="newReason" class="wide" placeholder="Yangi sabab qo'shish"><button id="addReason">Qo'shish</button></div>
+      <div class="reasonAdd"><input id="newReason" class="wide" placeholder="Yangi sabab qo'shish"><button
+          id="addReason">Qo'shish</button></div>
       <textarea id="note" placeholder="Qo'shimcha izoh"></textarea>
       <div class="spacer"></div>
       <div class="sideFoot">
@@ -209,8 +263,20 @@
       </div>
     </div>
   </div>
-  <div id="minusList" class="list"><div class="listHead"><div class="listTitle"><b>Minus ro'yxati</b><span id="listSubtitle">Saqlangan minus fotolar nazorati</span></div><button id="listClose">Yopish</button></div><div class="listBody" id="listBody"></div></div>
-  <div id="autoReviewList" class="list"><div class="listHead"><div class="listTitle"><b>Avto tekshiruv</b><span id="autoReviewSubtitle">Optimallashtirilgan qoidaviy tekshiruv natijalari</span></div><button id="autoReviewClose">Yopish</button></div><div class="listBody" id="autoReviewBody"></div></div>
+  <div id="minusList" class="list">
+    <div class="listHead">
+      <div class="listTitle"><b>Minus ro'yxati</b><span id="listSubtitle">Saqlangan minus fotolar nazorati</span></div>
+      <button id="listClose">Yopish</button>
+    </div>
+    <div class="listBody" id="listBody"></div>
+  </div>
+  <div id="autoReviewList" class="list">
+    <div class="listHead">
+      <div class="listTitle"><b>Avto tekshiruv</b><span id="autoReviewSubtitle">Optimallashtirilgan qoidaviy tekshiruv
+          natijalari</span></div><button id="autoReviewClose">Yopish</button>
+    </div>
+    <div class="listBody" id="autoReviewBody"></div>
+  </div>
   <div id="collectPanel" class="collectPanel" aria-label="Ma'lumot yig'ish">
     <div class="collectHead">
       <div><b>Ma'lumot yig'ish</b><span>Sales sahifasidan foto hisobot ma'lumotlarini xavfsiz yig'ish</span></div>
@@ -242,14 +308,16 @@
         </div>
         <div class="collectHelp">
           <span class="collectHelpIcon" aria-hidden="true"></span>
-          <span>Ma'lumot to'g'ridan-to'g'ri Sales API orqali yig'iladi — brauzer ochilmaydi. Saqlangan login avtomatik ishlatiladi; login va parol hech qayerga yozilmaydi.</span>
+          <span>Ma'lumot to'g'ridan-to'g'ri Sales API orqali yig'iladi — brauzer ochilmaydi. Saqlangan login avtomatik
+            ishlatiladi; login va parol hech qayerga yozilmaydi.</span>
         </div>
       </div>
       <div class="collectLog">
         <div class="collectLogTop"><b>Jarayon holati</b><span id="collectBadge" class="collectBadge">idle</span></div>
         <div id="collectProgress" class="collectProgress" hidden>
           <div class="collectProgressBar"><i id="collectProgressFill"></i></div>
-          <div class="collectProgressMeta"><span id="collectProgressText">0 / 0 agent</span><span id="collectProgressPct">0%</span></div>
+          <div class="collectProgressMeta"><span id="collectProgressText">0 / 0 agent</span><span
+              id="collectProgressPct">0%</span></div>
         </div>
         <div id="collectSummary" class="collectSummary" hidden></div>
         <pre id="collectLog">Hali jarayon boshlanmagan.</pre>
@@ -269,12 +337,17 @@
           <div class="brandSectionTitle">Asosiy</div>
           <label class="fieldLabel">Brend nomi<input id="brandNameInput" placeholder="Texnika Bozori"></label>
           <label class="fieldLabel">Agent prefixlari<input id="brandPrefixes" placeholder="TB, TXB"></label>
-          <label class="fieldLabel">Sales nomlari<input id="brandSalesNames" placeholder="TEXNIKA BOZORI, Texnika bozori"></label>
+          <label class="fieldLabel">Sales nomlari<input id="brandSalesNames"
+              placeholder="TEXNIKA BOZORI, Texnika bozori"></label>
           <div class="brandSectionTitle">Telegram</div>
-          <label class="fieldLabel">Telegram gruppa<select id="brandTelegramChat"><option value="">Umumiy tanlov / ulanmagan</option></select></label>
-          <label class="fieldLabel brandFull">Qo'lda Telegram chat ID<input id="brandTelegramChatId" placeholder="-1001234567890"></label>
+          <label class="fieldLabel">Telegram gruppa<select id="brandTelegramChat">
+              <option value="">Umumiy tanlov / ulanmagan</option>
+            </select></label>
+          <label class="fieldLabel brandFull">Qo'lda Telegram chat ID<input id="brandTelegramChatId"
+              placeholder="-1001234567890"></label>
           <div class="brandSectionTitle">Holat</div>
-          <label class="brandCheck"><input id="brandEnabled" type="checkbox" checked><span class="brandSwitch" aria-hidden="true"></span><span>Faol brend</span></label>
+          <label class="brandCheck"><input id="brandEnabled" type="checkbox" checked><span class="brandSwitch"
+              aria-hidden="true"></span><span>Faol brend</span></label>
           <label class="fieldLabel brandFull">Izoh<textarea id="brandNotes" placeholder="Izoh"></textarea></label>
         </div>
         <div class="brandActions">
@@ -296,7 +369,8 @@
           <div class="deleteStat"><span>Foto</span><b id="deletePhotoText">0</b></div>
           <div class="deleteStat"><span>Minus/izoh</span><b id="deleteMinusText">0</b></div>
         </div>
-        <div class="warn">Bu amal JSON faylni, sana ro'yxatini va shu sana bo'yicha lokal belgilaringizni o'chiradi.</div>
+        <div class="warn">Bu amal JSON faylni, sana ro'yxatini va shu sana bo'yicha lokal belgilaringizni o'chiradi.
+        </div>
       </div>
       <div class="confirmFoot">
         <button id="deleteCancel">Bekor qilish</button>
@@ -310,7 +384,8 @@
     <button id="quickNext" class="primary" title="Keyingi fotolar">Keyingi</button>
     <div class="pageSizeBox" title="Bir sahifada ko'rinadigan foto soni">
       <label for="photoPageSize">Ko'rinish</label>
-      <input id="photoPageSize" type="number" min="1" step="1" value="4" inputmode="numeric" aria-label="Ko'rinadigan foto soni">
+      <input id="photoPageSize" type="number" min="1" step="1" value="4" inputmode="numeric"
+        aria-label="Ko'rinadigan foto soni">
       <span>ta</span>
       <button id="showAllPhotos" type="button" title="Joriy agentning barcha fotosini ko'rsatish">Barchasi</button>
     </div>
@@ -335,5 +410,6 @@
   <script src="review-ui/js/telegram.js?v=attendance-svr-81"></script>
   <script src="review-ui/js/export.js?v=attendance-svr-81"></script>
   <script src="review-ui/js/app.js?v=attendance-svr-81"></script>
-  </body>
+</body>
+
 </html>

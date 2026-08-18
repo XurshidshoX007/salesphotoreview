@@ -1,0 +1,17 @@
+/* main.css — minimal placeholder to allow local review server to start */
+:root {
+    --bg: #ffffff;
+    --fg: #111827;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Inter, system-ui, Segoe UI, Roboto, 'Helvetica Neue', Arial
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+}
