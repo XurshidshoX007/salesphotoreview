@@ -33,6 +33,8 @@
     "test:review-ui": "node scripts/test-review-ui.mjs",
     "test:review-workflows": "node scripts/test-review-workflows.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
+    "backup:data": "node scripts/data-backup.mjs",
+    "test:data-backup": "node scripts/test-data-backup.mjs",
     "test:dataset-ensure": "node scripts/test-dataset-ensure.mjs",
     "test:dataset-auto-load": "node scripts/test-dataset-auto-load.mjs",
     "test:review": "npm run build:review && npm run test:brands && npm run test:attendance && npm run test:dataset-ensure && npm run test:dataset-auto-load && npm run test:review-security && npm run test:review-api && npm run test:review-workflows && npm run test:review-ui",
