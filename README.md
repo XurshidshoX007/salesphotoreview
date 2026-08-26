@@ -64,7 +64,7 @@ Eng oson ishga tushirish:
 2. Oynada chiqqan linkni hamkasblarga yuboring.
 3. Oynani yopmang; kompyuter yoniq va internet bor bo'lsa link ishlaydi.
 
-Script review serverni o'zi tekshiradi. Server o'chiq bo'lsa `127.0.0.1:8765` portda fon rejimida ishga tushiradi. Public linkga `access` token avtomatik qo'shiladi, shuning uchun oddiy URL topgan odam token bo'lmasa kira olmaydi.
+Script review serverni o'zi tekshiradi. Server o'chiq bo'lsa `127.0.0.1:8765` portda fon rejimida ishga tushiradi. Panelga kirish uchun `REVIEW_ACCESS_PIN` talab qilinadi; URL ichidagi eski `access` token autentifikatsiya uchun ishlatilmaydi.
 
 Vaqtinchalik link:
 
@@ -87,7 +87,7 @@ Keyin **`3-PUBLIC-LINK-CLOUDFLARE.bat`** doimiy linkni chiqaradi.
 Xavfsizlik eslatmasi:
 
 - `.env.local` gitga qo'shilmaydi va tokenlar shu yerda saqlanadi.
-- Link ichidagi `access` tokenni faqat kerakli odamlarga yuboring.
+- `REVIEW_ACCESS_PIN`ni faqat kerakli odamlarga bering va uni vaqti-vaqti bilan yangilang.
 - Ish tugaganda tunnel oynasini yopsangiz tashqi kirish to'xtaydi.
 
 ## Brend sozlamalari

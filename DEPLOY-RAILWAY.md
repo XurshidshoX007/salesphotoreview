@@ -4,7 +4,9 @@ Foto nazorati serverini Railway'da xostlash bo'yicha qisqa qo'llanma.
 
 ## Ma'lumot (baza) qayerda saqlanadi?
 
-Bu dasturning "bazasi" — oddiy JSON fayllar (PostgreSQL emas):
+ Asosiy ishchi baza — JSON fayllar. Railway'da PostgreSQL mirror ham qo'shilgan,
+ ammo hozircha o'qish va asosiy yozuvlar JSONdan amalga oshadi. Bu rollbackni
+ xavfsiz va sodda saqlaydi.
 
 | Ma'lumot | Fayl / papka |
 |---|---|
@@ -29,8 +31,19 @@ Baza PostgreSQL bo'lmagani uchun ko'chirish oddiy — **fayllarni nusxalash**:
 2. Yangi serverda `DATA_DIR` papkasiga o'sha fayllarni joylashtiring.
 3. Server ishga tushadi — hammasi joyida. Migratsiya/dump kerak emas.
 
-> Maslahat: har kuni avtomatik backup (zip → Telegram) qo'shsak, ko'chish yanada oson
-> bo'ladi va falokat sug'urtasi ham bo'ladi. (keyingi qadam)
+## Backup va PostgreSQL mirror
+
+- Server `/data/data/backups/review-snapshots/` ichida kunlik gzip snapshot yaratadi.
+  Har fayl SHA-256 bilan tekshiriladi; faqat oxirgi 7 snapshot saqlanadi.
+- Backup Volume ichida turadi — operator xatosi yoki noto'g'ri deploydan tiklashga
+  yordam beradi. Volume butunlay yo'qolishiga qarshi alohida tashqi backup (S3/R2)
+  keyingi alohida ish sifatida kerak bo'ladi.
+- `POSTGRES_MIRROR_WRITES=1` bo'lsa minus, sabab va brend o'zgarishlari JSONdan
+  keyin PostgreSQLga ham yoziladi. PostgreSQL xatosi paneldagi saqlashni to'xtatmaydi.
+- Mirrorni qayta tekshirish: Railway service ichida `node scripts/db-sync-from-json.mjs`.
+  Bu PostgreSQL mirrorini JSONdan qayta yaratadi; JSON fayllarga tegmaydi.
+- Tez rollback: `POSTGRES_MIRROR_WRITES=0` qilib redeploy qiling. Ilova JSON bilan
+  avvalgidek ishlashda davom etadi.
 
 ---
 
@@ -57,6 +70,9 @@ Quyidagilarni qo'shing:
 | `SALES_PASSWORD` | `<sales parol>` | Avto-login |
 | `TELEGRAM_BOT_TOKEN` | `<YANGI token>` | Botni BotFather'da yangilang! |
 | `TELEGRAM_CHAT_ID` | `<chat id>` | Ixtiyoriy |
+| `REVIEW_BACKUP_AUTO` | `1` | Kunlik tekshirilgan backupni yoqadi |
+| `REVIEW_BACKUP_RETENTION_DAYS` | `7` | Saqlanadigan snapshotlar soni |
+| `POSTGRES_MIRROR_WRITES` | `1` | PostgreSQL mirror yozuvlarini yoqadi |
 
 > `PORT` va `HOST` ni qo'lda qo'ymang — Railway `PORT` ni o'zi beradi, server
 > Railway muhitida avtomatik `0.0.0.0` ga bog'lanadi.
@@ -69,8 +85,9 @@ Quyidagilarni qo'shing:
 
 ## Muhim ogohlantirishlar
 
-1. **Tokenlarni almashtiring** — eski `.env`/`.env.local` git tarixida qolgan.
-   Deploy'dan oldin bot token (BotFather) va Sales parolni yangilang.
+1. **Tokenlarni almashtiring** — eski `.env`/`.env.local` yoki terminal chiqishida
+   qolgan maxfiy qiymatlarni xavfsiz deb hisoblamang. BotFather tokeni, Sales paroli,
+   `REVIEW_ACCESS_PIN` va session secretni yangilang.
 2. **IP bloki xavfi** — Sales O'zbekiston tizimi, Railway serverlari chet elda.
    Sales chet el IP'sini bloklashi yoki captcha so'rashi mumkin. Birinchi
    yig'ishda tekshiring; ishlamasa gibrid rejimga o'tamiz (yig'ish lokalda,
