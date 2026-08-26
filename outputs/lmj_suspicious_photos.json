@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-08-26T06:40:11.267Z",
-  "total": 1512,
+  "updatedAt": "2026-08-26T06:55:36.248Z",
+  "total": 1516,
   "items": [
     {
       "key": "2026-06-02#LMJAN10#r1_1",
@@ -33516,6 +33516,94 @@
       "ruleScore": 0,
       "savedAt": "2026-08-26T06:40:11.198Z",
       "updatedAt": "2026-08-26T06:40:11.198Z"
+    },
+    {
+      "key": "2026-08-25#LMJAN07#r1_1",
+      "date": "2026-08-25",
+      "brandId": "lalaku_mama",
+      "brandName": "Lalaku Mama",
+      "code": "LMJAN07",
+      "agent": "LMJAN M [QOZIYEVA MASHXURA]",
+      "photo": 1,
+      "client": "03 APTEKA (YTT 03 APTEKA)",
+      "clientId": "md_21814",
+      "photoTime": "2026-08-25T03:54:18.353526Z",
+      "url": "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/e052cab8-b44e-4448-bec8-e6fd5774a0bb/09ef1bc6c78546f3ab042582202afab7.jpg",
+      "verdict": "MINUS",
+      "reasons": [
+        "Kamera yopilgan yoki to'sib olingan foto"
+      ],
+      "note": "",
+      "source": "manual",
+      "ruleScore": 0,
+      "savedAt": "2026-08-26T06:46:05.845Z",
+      "updatedAt": "2026-08-26T06:46:05.845Z"
+    },
+    {
+      "key": "2026-08-25#LMJAN10#r1_1",
+      "date": "2026-08-25",
+      "brandId": "lalaku_mama",
+      "brandName": "Lalaku Mama",
+      "code": "LMJAN10",
+      "agent": "LMJAN F - [NISHONOVA UMIDAXON]",
+      "photo": 1,
+      "client": "010 MARKET",
+      "clientId": "kd_23246",
+      "photoTime": "2026-08-25T04:43:10.727938Z",
+      "url": "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/4fedb2bc-62f0-4ca6-bb70-5737bced2bab/7ce71d3ec4fa40ae89d61cd3506c3d15.jpg",
+      "verdict": "MINUS",
+      "reasons": [
+        "Kamera yopilgan yoki to'sib olingan foto"
+      ],
+      "note": "",
+      "source": "manual",
+      "ruleScore": 0,
+      "savedAt": "2026-08-26T06:46:42.178Z",
+      "updatedAt": "2026-08-26T06:46:42.178Z"
+    },
+    {
+      "key": "2026-08-25#LMJAN05#r1_1",
+      "date": "2026-08-25",
+      "brandId": "lalaku_mama",
+      "brandName": "Lalaku Mama",
+      "code": "LMJAN05",
+      "agent": "LMJAN M [MIRZARAIMOVA MAXFUZAXON]",
+      "photo": 1,
+      "client": "001 BARAKA (DILKASH JON AKA)",
+      "clientId": "wf_15030",
+      "photoTime": "2026-08-25T03:20:56.905504Z",
+      "url": "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/a684fed5-3ecd-4d62-a875-97986cd3cfe1/23cef44dd7cc46d8abc86dd6f70e0283.jpg",
+      "verdict": "MINUS",
+      "reasons": [
+        "Kamera yopilgan yoki to'sib olingan foto"
+      ],
+      "note": "",
+      "source": "manual",
+      "ruleScore": 0,
+      "savedAt": "2026-08-26T06:52:31.173Z",
+      "updatedAt": "2026-08-26T06:52:31.173Z"
+    },
+    {
+      "key": "2026-08-25#LMJAN01#r15_1",
+      "date": "2026-08-25",
+      "brandId": "lalaku_mama",
+      "brandName": "Lalaku Mama",
+      "code": "LMJAN01",
+      "agent": "LMJAN F - [YUSUPOVA NASIBAXON ]",
+      "photo": 15,
+      "client": "3BLOK 9DOKON (SOTVOLDIEV XOJAKBAR)",
+      "clientId": "zi_21835",
+      "photoTime": "2026-08-25T10:15:52.855098Z",
+      "url": "https://49e1d281-77f6-llk-9b8d-5e73ed76f736.s3.timeweb.cloud/lalaku/f73a2f77-eaef-46b6-be87-9a7aca332982/09f8baa82c7b40fb9e434ec657aa8a53.jpg",
+      "verdict": "MINUS",
+      "reasons": [
+        "Foto talabga javob bermaydi"
+      ],
+      "note": "",
+      "source": "manual",
+      "ruleScore": 0,
+      "savedAt": "2026-08-26T06:55:36.157Z",
+      "updatedAt": "2026-08-26T06:55:36.157Z"
     }
   ]
 }
