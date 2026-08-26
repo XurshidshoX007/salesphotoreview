@@ -62,6 +62,10 @@ child.stderr.on("data", (chunk) => { serverLog += chunk; });
 try {
   await waitForServer(baseUrl, child);
 
+  const health = await fetch(`${baseUrl}/api/health`);
+  const healthBody = await health.json();
+  assert(health.ok && healthBody.ok && healthBody.status === "ready", "Healthcheck tayyor emas");
+
   const unauth = await fetch(`${baseUrl}/api/sync?light=1`);
   assert(unauth.status === 401, `Authsiz API 401 emas: ${unauth.status}`);
   assert(unauth.headers.get("x-frame-options") === "DENY", "X-Frame-Options yo'q");
@@ -95,6 +99,30 @@ try {
 
   const protectedResponse = await fetch(`${baseUrl}/api/sync?light=1`, { headers: { Cookie: cookie } });
   assert(protectedResponse.ok, "Sessiya bilan API ochilmadi");
+
+  const initialMarks = await fetch(`${baseUrl}/api/marks`, { headers: { Cookie: cookie } });
+  const initialMarksBody = await initialMarks.json();
+  const firstMark = await fetch(`${baseUrl}/api/marks?compact=1`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Cookie: cookie },
+    body: JSON.stringify({
+      baseRevision: initialMarksBody.revision,
+      marks: { "2099-07-01#TEST#1": { verdict: "minus", updatedAt: new Date().toISOString() } },
+    }),
+  });
+  assert(firstMark.ok, `Birinchi belgi saqlanmadi: ${firstMark.status}`);
+  const staleMark = await fetch(`${baseUrl}/api/marks?compact=1`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Cookie: cookie },
+    body: JSON.stringify({
+      baseRevision: initialMarksBody.revision,
+      marks: { "2099-07-01#TEST#2": { verdict: "ok", updatedAt: new Date().toISOString() } },
+    }),
+  });
+  const staleBody = await staleMark.json();
+  assert(staleMark.status === 409 && staleBody.code === "REVISION_CONFLICT", "Stale mark write bloklanmadi");
+  const marksAfterConflict = await fetch(`${baseUrl}/api/marks`, { headers: { Cookie: cookie } }).then((response) => response.json());
+  assert(!marksAfterConflict.marks["2099-07-01#TEST#2"], "Konfliktli yozuv saqlanib qoldi");
 
   const ssrf = await fetch(`${baseUrl}/api/photo?url=${encodeURIComponent("http://127.0.0.1/private.jpg")}`, {
     headers: { Cookie: cookie },

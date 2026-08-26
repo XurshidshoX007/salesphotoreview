@@ -54,6 +54,19 @@ export function createMarksRoutes({ storage, http }) {
       if (req.method === "POST") {
         const body = await http.readJsonBody(req, 5_000_000);
         const beforeRevision = await storage.fileRevision(storage.MARKS_FILE);
+        // A file revision represents the state the browser used when the
+        // operator made this decision.  Accepting a stale write here silently
+        // overwrote another operator's work (last-write-wins).
+        if (body.baseRevision && body.baseRevision !== beforeRevision) {
+          http.sendJson(res, 409, {
+            ok: false,
+            code: "REVISION_CONFLICT",
+            conflict: true,
+            revision: beforeRevision,
+            error: "Boshqa operator ma'lumotni o'zgartirdi. Yangilang va bahoni qayta tasdiqlang.",
+          }, access.headers);
+          return true;
+        }
         const merged = await storage.writeReviewMarks(body.marks);
         const compact = parsed.searchParams.get("compact") === "1";
         const responseMarks = compact
@@ -63,7 +76,7 @@ export function createMarksRoutes({ storage, http }) {
           ok: true,
           marks: responseMarks,
           revision: await storage.fileRevision(storage.MARKS_FILE),
-          conflict: Boolean(body.baseRevision && body.baseRevision !== beforeRevision),
+          conflict: false,
         }, access.headers);
         return true;
       }

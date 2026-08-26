@@ -553,14 +553,32 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(!keys.length)return Promise.resolve();
       setSystemSyncState('syncing','Saqlanmoqda...');
       return fetch('/api/marks?compact=1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({marks:outgoing,baseRevision:sharedRevisions.marks,clientId:reviewClientId})})
-        .then(res=>res.json().catch(()=>({})))
+        .then(async res=>{
+          const data=await res.json().catch(()=>({}));
+          if(!res.ok){
+            const error=new Error(data?.error||`HTTP ${res.status}`);
+            error.code=data?.code||'';
+            error.revision=data?.revision||'';
+            throw error;
+          }
+          return data;
+        })
         .then(async data=>{
           if(data?.marks)mergeIncomingMarks(data.marks);
           if(data?.revision)sharedRevisions.marks=String(data.revision);
           if(data?.conflict)await loadMarks(true);
           setSystemSyncState('ok',data?.conflict?'O‘zgarishlar birlashtirildi':'Saqlandi');
         })
-        .catch(()=>{setSystemSyncState('error','Lokal saqlandi');notify('Serverga saqlashda xato. Lokal saqlandi.','bad')});
+        .catch(async error=>{
+          if(error?.code==='REVISION_CONFLICT'){
+            if(error.revision)sharedRevisions.marks=String(error.revision);
+            await loadMarks(true);
+            setSystemSyncState('error','Boshqa operator o\'zgartirdi');
+            notify('Boshqa operator shu paytda ma\'lumotni o\'zgartirdi. Baho lokal saqlandi — yangilangan holatni tekshirib, qayta tasdiqlang.','bad');
+            return;
+          }
+          setSystemSyncState('error','Lokal saqlandi');notify('Serverga saqlashda xato. Lokal saqlandi.','bad');
+        });
     }
     function photoDate(p){return (p.photoTime||dataset?.date||'').slice(0,10)}
     function brandFromCode(code){const found=brandByCode(code);if(found)return found.id;const c=String(code||'').toUpperCase();return c.match(/^[A-Z]+/)?.[0]||'lalaku_mama'}

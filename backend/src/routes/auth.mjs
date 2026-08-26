@@ -2,6 +2,13 @@ import { methodNotAllowed } from "../middleware/errors.mjs";
 
 export function createAuthRoutes({ auth, http }) {
   return async function routeAuth({ req, res, parsed }) {
+    // Railway and other platform probes must not need an operator PIN.  Keep
+    // the response deliberately small: it confirms readiness, not data.
+    if (parsed.pathname === "/api/health") {
+      if (req.method !== "GET") return methodNotAllowed(res, http.sendJson);
+      http.sendJson(res, 200, { ok: true, status: "ready" });
+      return true;
+    }
     if (parsed.pathname === "/api/access/login") {
       if (req.method !== "POST") return methodNotAllowed(res, http.sendJson);
       const ip = auth.clientIp(req);
