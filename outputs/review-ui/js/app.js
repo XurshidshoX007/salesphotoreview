@@ -26,7 +26,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     const metricCache=new Map();
     const metricStoreLimit=3500;
     let metricStoreLoaded=false,metricStore={},metricStoreDirty=false,metricFlushTimer=null,sharedMetricStoreLoaded=false,sharedMetricPending={};
-    const $=id=>document.getElementById(id);
+    const $=id=>document.getElementById(id)||document.querySelector(`.${id}`);
     let toastTimer=null;
     function notify(message,type='ok'){
       const el=$('toast');if(!el)return;
