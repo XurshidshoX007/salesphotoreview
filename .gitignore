@@ -29,6 +29,7 @@ outputs/*.json.tmp
 
 work/.photo-cache/
 data/attendance/backups/
+data/backups/
 data/attendance/archive/
 config/backups/
 config/.sales_device_id

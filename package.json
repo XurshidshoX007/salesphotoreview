@@ -33,6 +33,8 @@
     "test:review-ui": "node scripts/test-review-ui.mjs",
     "test:review-workflows": "node scripts/test-review-workflows.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
+    "db:sync-from-json": "node scripts/db-sync-from-json.mjs",
+    "test:postgres": "node scripts/test-postgres-service.mjs",
     "backup:data": "node scripts/data-backup.mjs",
     "test:data-backup": "node scripts/test-data-backup.mjs",
     "test:dataset-ensure": "node scripts/test-dataset-ensure.mjs",

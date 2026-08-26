@@ -19,6 +19,7 @@ import { createDatasetEnsureService } from "../backend/src/services/dataset-ensu
 import { createSalesService } from "../backend/src/services/sales.service.mjs";
 import { createStorageService } from "../backend/src/services/storage.service.mjs";
 import { createTelegramService } from "../backend/src/services/telegram.service.mjs";
+import { createPostgresService } from "../backend/src/services/postgres.service.mjs";
 import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
 import { readResponseBuffer } from "../backend/src/lib/http-body.mjs";
 import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
@@ -106,6 +107,10 @@ let reasonsWriteQueue = Promise.resolve();
 const PHOTO_DISK_CACHE_DIR = join(DATA_ROOT, "work", ".photo-cache");
 const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
 const DATA_BACKUP_SCRIPT = join(ROOT, "scripts", "data-backup.mjs");
+const POSTGRES_MIRROR_ENABLED = String(process.env.POSTGRES_MIRROR_WRITES || "0") === "1";
+let postgresService = null;
+let postgresMirrorQueue = Promise.resolve();
+let postgresMirrorMigration = null;
 // Yig'ish rejimi: "http" (brauzersiz, tez, default) yoki "browser" (Playwright zaxira).
 // COLLECT_MODE=browser qilib eski Chrome yo'liga qaytish mumkin.
 const COLLECT_MODE = String(process.env.COLLECT_MODE || "http").trim().toLowerCase();
@@ -566,6 +571,22 @@ function startDataBackupSchedule() {
     runScheduledDataBackup();
     setInterval(runScheduledDataBackup, intervalHours * 60 * 60 * 1000).unref?.();
   }, firstDelayMinutes * 60 * 1000).unref?.();
+}
+
+function queuePostgresMirror(label, operation) {
+  if (!POSTGRES_MIRROR_ENABLED) return;
+  const job = postgresMirrorQueue.catch(() => {}).then(async () => {
+    if (!postgresService?.enabled()) throw new Error("PostgreSQL mirror sozlanmagan");
+    if (!postgresMirrorMigration) {
+      postgresMirrorMigration = postgresService.migrate().catch((error) => {
+        postgresMirrorMigration = null;
+        throw error;
+      });
+    }
+    await postgresMirrorMigration;
+    await operation(postgresService);
+  });
+  postgresMirrorQueue = job.catch((error) => console.warn(`PostgreSQL mirror (${label}) xatosi:`, error?.message || error));
 }
 
 async function readPinFromRequest(req) {
@@ -1069,6 +1090,7 @@ async function writeReviewMarks(marks) {
     const merged = mergeReviewMarks(await readReviewMarks(), marks);
     await safeWriteJson(MARKS_FILE, merged, "review marks");
     await rebuildSuspiciousPhotosFromMarks(merged);
+    queuePostgresMirror("marks", (database) => database.upsertReviewMarks(structuredClone(marks)));
     return merged;
   };
   const job = marksWriteQueue.then(writeJob, writeJob);
@@ -1091,6 +1113,7 @@ async function deleteReviewMarks({ date = "" } = {}) {
     }
     await safeWriteJson(MARKS_FILE, filtered, "review marks");
     await rebuildSuspiciousPhotosFromMarks(filtered);
+    queuePostgresMirror("marks-delete", (database) => database.upsertReviewMarks(structuredClone(filtered)));
     return { marks: filtered, deleted };
   };
   const job = marksWriteQueue.then(writeJob, writeJob);
@@ -1145,11 +1168,18 @@ async function writeReviewReasons(input) {
     });
     const saved = { customReasons, reasonOverrides, deletedReasons, updatedAt: new Date().toISOString() };
     await safeWriteJson(REASONS_FILE, saved, "review reasons");
+    queuePostgresMirror("reasons", (database) => database.saveDocument("review-reasons", structuredClone(saved)));
     return saved;
   };
   const job = reasonsWriteQueue.then(writeJob, writeJob);
   reasonsWriteQueue = job.catch(() => {});
   return job;
+}
+
+async function saveBrandsWithMirror(input) {
+  const saved = await saveBrandsConfig(input);
+  queuePostgresMirror("brands", (database) => database.saveDocument("brands", structuredClone(saved)));
+  return saved;
 }
 
 async function proxyPhoto(url) {
@@ -3108,11 +3138,12 @@ const storageService = createStorageService({
   readReviewMarks,
   readReviewReasons,
   reviewStateRevisions,
-  saveBrandsConfig,
+  saveBrandsConfig: saveBrandsWithMirror,
   validateBrandsConfig,
   writeReviewMarks,
   writeReviewReasons,
 });
+postgresService = createPostgresService();
 const salesService = createSalesService({
   collectContinue,
   isLocalHostHeader,
