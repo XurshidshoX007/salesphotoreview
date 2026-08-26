@@ -39,7 +39,8 @@
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },
   "dependencies": {
-    "sharp": "^0.34.3"
+    "pg": "^8.23.0",
+    "sharp": "^0.35.3"
   },
   "optionalDependencies": {
     "playwright": "^1.60.0"
