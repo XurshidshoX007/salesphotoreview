@@ -97,7 +97,7 @@ export async function verifyDataBackup(backupPath) {
   return { backupPath: root, files: manifest.files.length, bytes: manifest.files.reduce((sum, entry) => sum + entry.bytes, 0) };
 }
 
-export async function createDataBackup({ dataRoot = process.env.DATA_DIR || process.cwd(), backupRoot, retention = 7, now = new Date() } = {}) {
+export async function createDataBackup({ dataRoot = process.env.DATA_DIR || process.cwd(), backupRoot, retention = 7, minimumAgeMs = 0, now = new Date() } = {}) {
   const sourceRoot = resolve(dataRoot);
   const destinationRoot = resolve(backupRoot || join(sourceRoot, "data", "backups", "review-snapshots"));
   if (destinationRoot === sourceRoot || !destinationRoot.startsWith(`${sourceRoot}${sep}`)) {
@@ -107,6 +107,16 @@ export async function createDataBackup({ dataRoot = process.env.DATA_DIR || proc
   const target = join(destinationRoot, name);
   const temporary = join(destinationRoot, `.${name}.tmp-${process.pid}`);
   if (existsSync(target)) throw new Error(`Backup allaqachon mavjud: ${name}`);
+  await mkdir(destinationRoot, { recursive: true });
+  const existingSnapshots = (await readdir(destinationRoot, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory() && /^\d{8}T\d{6}Z$/.test(entry.name))
+    .map((entry) => join(destinationRoot, entry.name))
+    .sort();
+  const latest = existingSnapshots.at(-1);
+  if (latest && Number(minimumAgeMs) > 0) {
+    const age = now.getTime() - (await stat(latest)).mtimeMs;
+    if (age >= 0 && age < Number(minimumAgeMs)) return { skipped: true, backupPath: latest, files: 0, bytes: 0 };
+  }
   await mkdir(temporary, { recursive: true });
   try {
     const files = [];

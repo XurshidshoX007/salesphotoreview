@@ -105,6 +105,7 @@ let marksWriteQueue = Promise.resolve();
 let reasonsWriteQueue = Promise.resolve();
 const PHOTO_DISK_CACHE_DIR = join(DATA_ROOT, "work", ".photo-cache");
 const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
+const DATA_BACKUP_SCRIPT = join(ROOT, "scripts", "data-backup.mjs");
 // Yig'ish rejimi: "http" (brauzersiz, tez, default) yoki "browser" (Playwright zaxira).
 // COLLECT_MODE=browser qilib eski Chrome yo'liga qaytish mumkin.
 const COLLECT_MODE = String(process.env.COLLECT_MODE || "http").trim().toLowerCase();
@@ -541,6 +542,29 @@ function startMaintenanceSchedule() {
   setTimeout(() => {
     runScheduledMaintenance();
     setInterval(runScheduledMaintenance, intervalHours * 60 * 60 * 1000).unref?.();
+  }, firstDelayMinutes * 60 * 1000).unref?.();
+}
+
+function runScheduledDataBackup() {
+  const retention = Math.max(1, Number(process.env.REVIEW_BACKUP_RETENTION_DAYS || 7) || 7);
+  const minimumAgeHours = Math.max(1, Number(process.env.REVIEW_BACKUP_INTERVAL_HOURS || 24) || 24);
+  const child = spawn(process.execPath, [DATA_BACKUP_SCRIPT, `--retention=${retention}`, `--minimum-age-hours=${Math.max(1, minimumAgeHours - 1)}`], {
+    cwd: ROOT,
+    windowsHide: true,
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  child.stdout.on("data", (chunk) => console.log(String(chunk).trimEnd()));
+  child.stderr.on("data", (chunk) => console.warn(String(chunk).trimEnd()));
+  child.on("error", (error) => console.warn("Data backup ishga tushmadi:", error?.message || error));
+}
+
+function startDataBackupSchedule() {
+  if (DATA_ROOT === ROOT || String(process.env.REVIEW_BACKUP_AUTO || "0") !== "1") return;
+  const intervalHours = Math.max(1, Number(process.env.REVIEW_BACKUP_INTERVAL_HOURS || 24) || 24);
+  const firstDelayMinutes = Math.max(1, Number(process.env.REVIEW_BACKUP_INITIAL_DELAY_MINUTES || 20) || 20);
+  setTimeout(() => {
+    runScheduledDataBackup();
+    setInterval(runScheduledDataBackup, intervalHours * 60 * 60 * 1000).unref?.();
   }, firstDelayMinutes * 60 * 1000).unref?.();
 }
 
@@ -3667,6 +3691,7 @@ server.listen(PORT, HOST, async () => {
   }
   startPhotoCacheCleanup();
   startMaintenanceSchedule();
+  startDataBackupSchedule();
   startTelegramBotPolling();
   openBrowser(REVIEW_URL);
 });
