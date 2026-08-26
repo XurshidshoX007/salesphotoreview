@@ -1487,7 +1487,9 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       banner.innerHTML=`<span class="datasetStatusIcon" aria-hidden="true"></span><div class="datasetStatusCopy"><b>${escapeHtml(title)}</b><span>${escapeHtml(message)}</span>${showProgress?`<div class="datasetStatusProgress"><i style="width:${pct}%"></i></div>`:''}</div>${status==='error'?'<button id="datasetRetryBtn" type="button">Qayta urinish</button>':''}`;
       if(status==='error')$('datasetRetryBtn').onclick=()=>datasetAutoController?.retry(selection);
       if(['checking','collecting','busy'].includes(status))showDatasetPreparing(selection,state);
-      if(status==='ready')datasetBannerTimer=setTimeout(()=>{if(isCurrentDatasetRequest(selection))banner.hidden=true},3500);
+      // Yakuniy holat xabari ma'lumot kartalarini bosib turmasin. Xatolik esa
+      // foydalanuvchi qayta urinishi uchun ochiq qoladi.
+      if(['ready','partial'].includes(status))datasetBannerTimer=setTimeout(()=>{if(isCurrentDatasetRequest(selection))banner.hidden=true},3500);
     }
     function cleanDatasetDate(value){return filterTools.cleanDatasetDate(value)}
     function resolveBrandId(value){

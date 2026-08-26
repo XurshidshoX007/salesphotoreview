@@ -2964,3 +2964,11 @@ html[data-theme="night"] #collectPanel .collectStatus span{ color:#9fb2bd !impor
 html[data-theme="night"] #collectPanel .collectActions .bad{ background:var(--studio-surface) !important; }
 html[data-theme="night"] #collectPanel .fieldLabel input,
 html[data-theme="night"] #collectPanel .fieldLabel select{ background:#0f1a24 !important; color:var(--text) !important; }
+
+/* The temporary collection banner consumes vertical space. Keep card metadata
+   above the fixed review controls while it is visible. */
+@supports selector(body:has(#datasetStatusBanner:not([hidden]))){
+  body.photoView:has(#datasetStatusBanner:not([hidden])) .wrap{
+    height:calc(100vh - var(--studio-topbar) - var(--studio-header) - var(--studio-stats) - var(--studio-bottom) - 58px) !important;
+  }
+}

@@ -1054,6 +1054,18 @@
       "file": "lalaku_mama_browser_collect_2026-07-22_raw.json",
       "updatedAt": "2026-07-24T10:49:39.808Z",
       "brand": "lalaku_mama"
+    },
+    {
+      "date": "2026-08-25",
+      "file": "lalaku_mama_browser_collect_2026-08-25_raw.json",
+      "updatedAt": "2026-08-26T06:38:28.444Z",
+      "brand": "lalaku_mama"
+    },
+    {
+      "date": "2026-08-25 [JY]",
+      "file": "sof_browser_collect_2026-08-25_raw.json",
+      "updatedAt": "2026-08-26T06:37:56.473Z",
+      "brand": "sof"
     }
   ]
 }
