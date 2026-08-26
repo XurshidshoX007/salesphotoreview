@@ -35,12 +35,18 @@ const MONTH_ALIASES = [
 
 const S3_URL_RE = /s3\.timeweb\.cloud\/lalaku\/.*\.(jpg|jpeg|png|webp)(\?|$)/i;
 const PHOTO_CELL_RE = /(\d+)\s*T\.T\.\s*\((\d+)\s*фото\)/i;
+// Sales has moved under /lalaku. Keeping this prefix configurable preserves
+// compatibility with installations whose API is mounted at the domain root.
+const SALES_API_PREFIX = String(process.env.SALES_API_PREFIX || "/lalaku")
+  .trim()
+  .replace(/^\/+|\/+$/g, "");
+const salesApiPath = (path) => `/${[SALES_API_PREFIX, String(path || "").replace(/^\/+/, "")].filter(Boolean).join("/")}`;
 const API = {
-  agentList: "/api/web/dashboard/agent/list",
-  clientList: "/api/web/dashboard/agent/client/list",
-  photoReportFiles: "/api/web/dashboard/agent/photo-report/files",
-  orderList: "/api/web/orders/order/list",
-  ordersByAgentsOrderList: "/api/web/report/orders-by-agents/order-list",
+  agentList: salesApiPath("api/web/dashboard/agent/list"),
+  clientList: salesApiPath("api/web/dashboard/agent/client/list"),
+  photoReportFiles: salesApiPath("api/web/dashboard/agent/photo-report/files"),
+  orderList: salesApiPath("api/web/orders/order/list"),
+  ordersByAgentsOrderList: salesApiPath("api/web/report/orders-by-agents/order-list"),
 };
 
 function brandConfig(options = {}) {

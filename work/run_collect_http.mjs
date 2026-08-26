@@ -18,7 +18,7 @@ const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
 // Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
 const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
 function salesBaseUrl() {
-  const value = String(process.env.SALES_BASE_URL || "https://cactustizim.com").trim().replace(/\/+$/, "");
+  const value = String(process.env.SALES_BASE_URL || "https://cactustizim.com/lalaku").trim().replace(/\/+$/, "");
   let parsed;
   try {
     parsed = new URL(value);
@@ -146,13 +146,16 @@ function classifyCollectError(error) {
 // Mavjud kod kutgan "tab" interfeysi — faqat nodeHttp transport.
 function makeNodeTab(token) {
   const base = salesBaseUrl();
+  const salesOrigin = new URL(base).origin;
   return {
     nodeHttp: async (path, payload, timeoutMs) => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       let res, text = "";
       try {
-        res = await fetch(`${base}${path}`, {
+        // API paths are absolute in the Sales browser app. Resolve them from
+        // the origin so SALES_BASE_URL may safely contain /lalaku.
+        res = await fetch(new URL(path, salesOrigin), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
