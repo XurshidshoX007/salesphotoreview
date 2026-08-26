@@ -134,6 +134,7 @@ function emitCollectEvent(event) {
 function classifyCollectError(error) {
   const message = String(error?.message || error || "");
   if (/SALES_USERNAME|SALES_PASSWORD|credentials?/i.test(message)) return "SALES_CREDENTIALS_MISSING";
+  if (/Login ishlamadi:\s*HTTP 404/i.test(message)) return "SALES_LOGIN_PATH_NOT_FOUND";
   if (/Login ishlamadi|401|unauthorized/i.test(message)) return "SALES_LOGIN_FAILED";
   if (/429|rate.?limit/i.test(message)) return "SALES_RATE_LIMIT";
   if (/vaqt tugadi|timeout|aborted/i.test(message)) return "SALES_TIMEOUT";
