@@ -57,7 +57,11 @@ try {
   const page = await context.newPage();
   if (process.env.CI) {
     await page.route(/\/api\/photo\?/, async (route) => {
-      const variant = new URL(route.request().url()).searchParams.get("view") || "full";
+      const request = new URL(route.request().url());
+      // Keep fallback cases on the real local endpoint: mock success here would
+      // hide the proxy -> direct and final broken-image transitions below.
+      if ((request.searchParams.get("url") || "").startsWith("data:")) return route.continue();
+      const variant = request.searchParams.get("view") || "full";
       await route.fulfill({
         status: 200,
         contentType: "image/svg+xml",
@@ -125,7 +129,9 @@ try {
     const makeFrame = () => {
       const frame = document.createElement("div");
       frame.className = "photoFrame";
-      frame.hidden = true;
+      // `hidden` prevents image decoding in some headless Chromium versions.
+      // Keep it rendered but inert so the loader's native load/error path is tested.
+      frame.style.cssText = "position:fixed;left:-9999px;top:0;width:2px;height:2px;overflow:hidden";
       const img = document.createElement("img");
       img.onload = () => window.PhotoReviewPhotoLoader.imageLoaded(img);
       img.onerror = () => window.PhotoReviewPhotoLoader.imageError(img);
@@ -204,6 +210,21 @@ try {
   }));
   assert(mobileLayout.overflow <= 1, `Mobile gorizontal overflow bor: ${mobileLayout.overflow}px`);
   assert(mobileLayout.cardWidth > 0 && mobileLayout.cardWidth <= mobileLayout.viewport, `Mobile foto kengligi noto'g'ri: ${mobileLayout.cardWidth}px`);
+  const mobileNavHeight = await page.locator("#quickNav button").first().evaluate((button) => button.getBoundingClientRect().height);
+  assert(mobileNavHeight >= 44, `Mobile navigatsiya touch maydoni kichik: ${mobileNavHeight}px`);
+  await page.locator("#grid .card").first().click();
+  await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"));
+  await page.locator(".modalImgBox").click({ button: "right" });
+  await page.waitForFunction(() => !document.querySelector("#reasonContextMenu")?.hidden);
+  const reasonMenu = await page.locator("#reasonContextMenu").evaluate((menu) => {
+    const rect = menu.getBoundingClientRect();
+    const item = menu.querySelector(".reasonContextItem")?.getBoundingClientRect();
+    return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, itemHeight: item?.height || 0, viewport: window.innerWidth, viewportHeight: window.innerHeight };
+  });
+  assert(reasonMenu.left >= 0 && reasonMenu.right <= reasonMenu.viewport + 1, "Mobile sabab menyusi ekrandan chiqib ketdi");
+  assert(reasonMenu.top >= 0 && reasonMenu.bottom <= reasonMenu.viewportHeight + 1, "Mobile sabab menyusi pastdan chiqib ketdi");
+  assert(reasonMenu.itemHeight >= 44, `Mobile sabab touch maydoni kichik: ${reasonMenu.itemHeight}px`);
+  await page.locator("#modalClose").click();
   await page.screenshot({ path: join(artifacts, "review-ui-mobile.png"), fullPage: false });
 
   await page.setViewportSize({ width: 1600, height: 950 });

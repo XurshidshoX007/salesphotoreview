@@ -81,3 +81,21 @@ body.attendanceView > header{
     min-height:52px !important;
   }
 }
+/* Final mobile cascade: this source is bundled last, so phone rules cannot be
+   overridden by desktop-oriented studio and brand panels above. */
+@media(max-width:700px){
+  :root{--mobile-nav-h:72px;--studio-header:72px}
+  html,body{min-height:100%;overflow-x:hidden!important;overscroll-behavior-x:none}
+  body{padding-bottom:var(--mobile-nav-h)!important;-webkit-tap-highlight-color:transparent}
+  button,select,input,textarea{font-size:16px}
+  header,body.photoView > header{position:sticky!important;top:0;height:72px!important;min-height:72px!important;max-height:72px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:1fr!important;align-items:center!important;align-content:center!important;gap:8px!important;padding:9px 12px!important;z-index:18!important}
+  .headerIdentity{min-width:0}.title{font-size:17px!important;line-height:1.15}.meta{font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #photoStatsBar,#reviewAssist,.sectionCloseBtn,body.photoView .photoStatsBar,body.photoView .reviewAssist{display:none!important}.filterToggleBtn{min-width:92px!important;min-height:44px!important;padding:9px 12px!important;font-weight:800}
+  .wrap{height:calc(100dvh - 72px - var(--mobile-nav-h))!important;min-height:300px;padding:8px!important}.grid{gap:10px!important}.card{border-radius:12px!important}
+  .cap{left:7px!important;right:7px!important;bottom:7px!important;padding:7px 8px!important;font-size:12px!important}
+  .quickNav{height:var(--mobile-nav-h)!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;padding:9px 10px calc(9px + env(safe-area-inset-bottom))!important}.quickNav button{min-width:0!important;min-height:50px!important;padding:8px 6px!important;border-radius:12px!important;font-size:13px!important}.pageSizeBox,.speedBox{display:none!important}
+  #modal{height:100dvh!important;grid-template-columns:1fr!important;grid-template-rows:auto minmax(260px,46dvh) minmax(0,1fr)!important}.modalTop{padding:10px 12px!important;gap:8px!important}.modalIdentity b{font-size:16px!important}.modalIdentity span{font-size:11px!important}.modalActions{grid-template-columns:1fr 1fr repeat(3,42px) 64px!important;gap:6px!important}.modalActions button{min-height:42px!important}.modalImgBox{padding:6px!important}.modalImgBox img{border-radius:10px!important}
+  .side{padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;gap:8px!important}#reasonChecks{grid-template-columns:1fr!important;gap:7px!important}.reason{min-height:48px!important;padding:9px 10px!important}.reasonEditBtn,.reasonDeleteBtn{opacity:1!important;min-width:38px!important;min-height:38px!important}.reasonAdd{grid-template-columns:minmax(0,1fr) auto!important}.reasonAdd button{min-height:44px!important}.side textarea{min-height:70px!important}.sideFoot{position:sticky!important;bottom:calc(-10px - env(safe-area-inset-bottom))!important;padding:9px 12px calc(9px + env(safe-area-inset-bottom))!important}.sideFoot button{min-height:46px!important}
+  .reasonContextMenu{width:min(360px,calc(100vw - 20px))!important;max-height:min(600px,calc(100dvh - 20px))!important;border-radius:14px!important;padding:10px!important}.reasonContextItem{min-height:48px!important;font-size:14px!important}.reasonContextFoot button{min-height:44px!important;font-size:13px!important}.filterDrawer{padding-bottom:calc(14px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:390px){.modalActions{grid-template-columns:1fr 1fr 38px 48px 38px 58px!important}.modalActions button{font-size:12px!important}.filterToggleBtn{min-width:82px!important}}
