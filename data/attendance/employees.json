@@ -3463,6 +3463,136 @@
       "role": "agent",
       "active": true,
       "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_nomonova_gulshodaxon",
+      "name": "NOMONOVA GULSHODAXON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_hamroyeva_gulhayo",
+      "name": "HAMROYEVA GULHAYO",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_axmatov_jahongir",
+      "name": "AXMATOV JAHONGIR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_abdurashidov_shaxzodbek",
+      "name": "ABDURASHIDOV SHAXZODBEK",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_murtazayeva_dinara",
+      "name": "MURTAZAYEVA DINARA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_narziyev_farid",
+      "name": "NARZIYEV FARID",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_aminov_nodir",
+      "name": "AMINOV NODIR",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_berdiyeva_saida",
+      "name": "BERDIYEVA SAIDA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_chagay_anna",
+      "name": "CHAGAY ANNA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_kamalova_madina",
+      "name": "KAMALOVA MADINA",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_usmonov_shukrullo",
+      "name": "USMONOV SHUKRULLO",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_otajonov_fatxullo",
+      "name": "OTAJONOV FATXULLO",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
+    },
+    {
+      "id": "emp_ahmedov_otajon",
+      "name": "AHMEDOV OTAJON",
+      "phone": "",
+      "role": "agent",
+      "active": true,
+      "hireDate": "2026-08-01",
+      "leftDate": null,
+      "notes": "Sales outputdan avtomatik qo'shildi"
     }
   ]
 }
