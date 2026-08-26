@@ -60,8 +60,21 @@ try {
   assert(layout.header?.height <= 74, `Mobile header baland: ${layout.header?.height}`);
   await page.locator("#grid .card").first().click({ timeout: 8_000 });
   await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"), null, { timeout: 8_000 });
+  await page.waitForTimeout(220);
+  const modalLayout = await page.locator("#modal").evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    const image = element.querySelector(".modalImgBox")?.getBoundingClientRect();
+    return { top: rect.top, width: rect.width, height: rect.height, opacity: style.opacity, imageHeight: image?.height || 0 };
+  });
+  assert.equal(modalLayout.top, 0, "Mobile modal yuqoridan ochilmadi");
+  assert.equal(modalLayout.width, 390, "Mobile modal ekranga to'liq sig'madi");
+  assert.equal(modalLayout.opacity, "1", "Mobile modal yarim shaffof qoldi");
+  assert(modalLayout.imageHeight >= 220, `Mobile rasm maydoni kichik: ${modalLayout.imageHeight}`);
   await page.locator(".modalImgBox").click({ button: "right", timeout: 8_000 });
   await page.waitForFunction(() => !document.querySelector("#reasonContextMenu")?.hidden, null, { timeout: 8_000 });
+  await page.waitForTimeout(220);
+  assert(await page.locator("#reasonContextBackdrop").isVisible(), "Mobile sabab menyusi fonsiz ochildi");
   const menu = await page.locator("#reasonContextMenu").evaluate((element) => {
     const rect = element.getBoundingClientRect();
     return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, item: element.querySelector(".reasonContextItem")?.getBoundingClientRect().height || 0, width: innerWidth, height: innerHeight };

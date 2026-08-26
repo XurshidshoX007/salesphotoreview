@@ -224,6 +224,8 @@ try {
   assert(reasonMenu.left >= 0 && reasonMenu.right <= reasonMenu.viewport + 1, "Mobile sabab menyusi ekrandan chiqib ketdi");
   assert(reasonMenu.top >= 0 && reasonMenu.bottom <= reasonMenu.viewportHeight + 1, "Mobile sabab menyusi pastdan chiqib ketdi");
   assert(reasonMenu.itemHeight >= 44, `Mobile sabab touch maydoni kichik: ${reasonMenu.itemHeight}px`);
+  await page.mouse.click(5, 5);
+  await page.waitForFunction(() => document.querySelector("#reasonContextMenu")?.hidden && !document.querySelector("#reasonContextBackdrop"));
   await page.locator("#modalClose").click();
   await page.screenshot({ path: join(artifacts, "review-ui-mobile.png"), fullPage: false });
 

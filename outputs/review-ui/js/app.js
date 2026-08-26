@@ -1914,6 +1914,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     function closeReasonContextMenu(){
       const menu=$('reasonContextMenu');
       if(menu)menu.hidden=true;
+      $('reasonContextBackdrop')?.remove();
     }
     function showReasonContextMenu(x,y){
       if(!current)return;
@@ -1922,6 +1923,18 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       // Menu modal ichida yaratiladi, ammo asosiy foto to'rida ham ko'rinishi
       // uchun uni ko'rinadigan umumiy qatlamga ko'chiramiz.
       if(menu.parentElement!==document.body)document.body.append(menu);
+      // Telefonda menyu ostidagi tugmalar ko'zga tashlanib, noto'g'ri bosilmasin.
+      // Desktopda esa odatiy context-menu oqimi saqlanadi.
+      if(window.matchMedia('(max-width:700px)').matches&&!$('reasonContextBackdrop')){
+        const backdrop=document.createElement('button');
+        backdrop.type='button';
+        backdrop.id='reasonContextBackdrop';
+        backdrop.className='reasonContextBackdrop';
+        backdrop.tabIndex=-1;
+        backdrop.setAttribute('aria-label','Sabablar menyusini yopish');
+        backdrop.addEventListener('click',closeReasonContextMenu,{once:true});
+        document.body.append(backdrop);
+      }
       const selected=new Set(selectedReasonValues());
       menu.innerHTML=`<div class="reasonContextTitle">Minus sababini tanlang</div>${allReasons().map(reason=>`<button type="button" class="reasonContextItem${selected.has(reason)?' selected':''}" data-reason="${safeAttr(reason)}" role="menuitemcheckbox" aria-checked="${selected.has(reason)}"><span class="reasonContextCheck" aria-hidden="true">${selected.has(reason)?'✓':''}</span><span>${escapeHtml(reason)}</span></button>`).join('')}<div class="reasonContextFoot"><button type="button" data-reason-action="cancel">Bekor qilish</button><button type="button" class="reasonContextSave" data-reason-action="save">Minus saqlash</button></div>`;
       menu.hidden=false;
