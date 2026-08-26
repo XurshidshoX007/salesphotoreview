@@ -8,7 +8,9 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SALES_URL = "https://lalaku.lalakusales.com/dashboard/supervisor";
+function salesWebUrl() {
+  return String(process.env.SALES_WEB_URL || "https://cactustizim.com/lalaku/login").trim();
+}
 async function loadEnv() {
   for (const name of [".env.local", ".env"]) {
     try {
@@ -128,7 +130,8 @@ async function tryAutoSalesLogin(page) {
 }
 
 async function main() {
-  await loadEnv();
+await loadEnv();
+const SALES_URL = salesWebUrl();
   const browserProfileDir = join(ROOT, "work", ".sales-browser-profile");
   const legacyProfileDir = join(ROOT, "work", ".sales-chrome-profile");
   const userDataDir = existsSync(browserProfileDir) || !existsSync(legacyProfileDir)

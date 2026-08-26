@@ -18,7 +18,7 @@ const COLLECT_EVENT_MARKER = "@@COLLECT_EVENT@@";
 // Railway'da yig'ilgan ma'lumot Volume'ga yoziladi; lokalda ROOT bilan bir xil.
 const DATA_ROOT = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : ROOT;
 function salesBaseUrl() {
-  const value = String(process.env.SALES_BASE_URL || "https://lalaku.lalakusales.com").trim().replace(/\/+$/, "");
+  const value = String(process.env.SALES_BASE_URL || "https://cactustizim.com").trim().replace(/\/+$/, "");
   let parsed;
   try {
     parsed = new URL(value);

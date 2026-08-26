@@ -38,6 +38,7 @@ async function loadEnv() {
 }
 
 await loadEnv();
+const SALES_WEB_URL = String(process.env.SALES_WEB_URL || "https://cactustizim.com/lalaku/login").trim();
 
 function yesterdayIsoDate() {
   const date = new Date();
@@ -271,7 +272,7 @@ async function waitForSalesDashboard(page) {
     }
 
     if (!/\/dashboard\/supervisor/i.test(state.href) && !state.hasPassword) {
-      await page.goto("https://lalaku.lalakusales.com/dashboard/supervisor", {
+      await page.goto(SALES_WEB_URL, {
         waitUntil: "domcontentloaded",
         timeout: 120000,
       }).catch(() => {});
@@ -317,7 +318,7 @@ async function main() {
   console.log(`1) ${browserSourceLabel()} oynasi ochiladi`);
   console.log(autoPrepare
     ? "2) Programma supervisor dashboard, sana va brendni avtomatik tayyorlaydi"
-    : "2) https://lalaku.lalakusales.com ga kiring va login qiling");
+    : `2) ${SALES_WEB_URL} ga kiring va login qiling`);
   console.log(autoPrepare
     ? "3) Agar login so'ralsa, ochilgan brauzer oynasida bir marta login qiling"
     : "3) Supervisor dashboard oching");
@@ -333,7 +334,7 @@ async function main() {
   await mkdir(userDataDir, { recursive: true });
   const ctx = await launchCollectContext(userDataDir, autoPrepare);
   const page = ctx.pages()[0] || await ctx.newPage();
-  await page.goto("https://lalaku.lalakusales.com/dashboard/supervisor", {
+  await page.goto(SALES_WEB_URL, {
     waitUntil: "domcontentloaded",
     timeout: 120000,
   });
