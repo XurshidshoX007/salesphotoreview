@@ -1603,6 +1603,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     }
     async function loadManifest(nextDate='',nextBrand=''){
       const res=await fetch(`lmj_review_datasets.json?v=${Date.now()}`,{cache:'no-store'});
+      if(res.status===401){window.location.replace('/');return}
+      if(!res.ok)throw new Error(`Dataset ro'yxatini yuklab bo'lmadi (HTTP ${res.status})`);
       manifest=await res.json();
       await loadBrands();
       await loadReasons();
@@ -1641,6 +1643,8 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     async function activateEnsuredDataset(result,selection){
       if(!isCurrentDatasetRequest(selection))return;
       const response=await fetch(`lmj_review_datasets.json?v=${Date.now()}`,{cache:'no-store'});
+      if(response.status===401){window.location.replace('/');return}
+      if(!response.ok)throw new Error(`Dataset ro'yxatini yuklab bo'lmadi (HTTP ${response.status})`);
       manifest=await response.json();
       renderBrandFilter(selection.brand);
       brandSel.value=selection.brand;
