@@ -3014,5 +3014,8 @@ html[data-theme="night"] #collectPanel .fieldLabel select{ background:#0f1a24 !i
 .reasonContextItem:hover,.reasonContextItem.selected{background:var(--studio-accent-soft);color:var(--studio-title)}
 .reasonContextCheck{width:18px;height:18px;display:grid;place-items:center;border:1px solid #a8c9c6;border-radius:4px;color:#fff;font-size:12px;font-weight:800}
 .reasonContextItem.selected .reasonContextCheck{border-color:var(--studio-accent);background:var(--studio-accent)}
+.reasonContextFoot{display:grid;grid-template-columns:1fr 1.25fr;gap:6px;margin-top:7px;padding-top:7px;border-top:1px solid var(--studio-line)}
+.reasonContextFoot button{min-height:34px;padding:7px 9px;border-radius:6px;font:700 12px/1.2 inherit}
+.reasonContextSave{border-color:var(--studio-danger)!important;background:var(--studio-danger-soft)!important;color:var(--studio-danger)!important}
 @keyframes reasonContextIn{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.reasonContextMenu{animation:none}}

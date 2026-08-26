@@ -1897,8 +1897,11 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(!current)return;
       const menu=$('reasonContextMenu');
       if(!menu)return;
+      // Menu modal ichida yaratiladi, ammo asosiy foto to'rida ham ko'rinishi
+      // uchun uni ko'rinadigan umumiy qatlamga ko'chiramiz.
+      if(menu.parentElement!==document.body)document.body.append(menu);
       const selected=new Set(selectedReasonValues());
-      menu.innerHTML=`<div class="reasonContextTitle">Minus sababini tanlang</div>${allReasons().map(reason=>`<button type="button" class="reasonContextItem${selected.has(reason)?' selected':''}" data-reason="${safeAttr(reason)}" role="menuitemcheckbox" aria-checked="${selected.has(reason)}"><span class="reasonContextCheck" aria-hidden="true">${selected.has(reason)?'✓':''}</span><span>${escapeHtml(reason)}</span></button>`).join('')}`;
+      menu.innerHTML=`<div class="reasonContextTitle">Minus sababini tanlang</div>${allReasons().map(reason=>`<button type="button" class="reasonContextItem${selected.has(reason)?' selected':''}" data-reason="${safeAttr(reason)}" role="menuitemcheckbox" aria-checked="${selected.has(reason)}"><span class="reasonContextCheck" aria-hidden="true">${selected.has(reason)?'✓':''}</span><span>${escapeHtml(reason)}</span></button>`).join('')}<div class="reasonContextFoot"><button type="button" data-reason-action="cancel">Bekor qilish</button><button type="button" class="reasonContextSave" data-reason-action="save">Minus saqlash</button></div>`;
       menu.hidden=false;
       const margin=12;
       const rect=menu.getBoundingClientRect();
@@ -1910,6 +1913,11 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         if(next.has(reason))next.delete(reason);else next.add(reason);
         renderChecks([...next]);
         showReasonContextMenu(x,y);
+      });
+      menu.querySelector('[data-reason-action="cancel"]')?.addEventListener('click',closeReasonContextMenu);
+      menu.querySelector('[data-reason-action="save"]')?.addEventListener('click',()=>{
+        if(!selectedReasonValues().length){notify('Kamida bitta sababni tanlang','bad');return}
+        setMark('MINUS');
       });
     }
     function reasonIsSystemReason(reason){
@@ -3260,6 +3268,21 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     });
     document.addEventListener('pointerdown',e=>{
       if(!e.target?.closest?.('#reasonContextMenu'))closeReasonContextMenu();
+    });
+    document.addEventListener('contextmenu',e=>{
+      const frame=e.target?.closest?.('.photoFrame');
+      if(!frame)return;
+      const card=frame.closest('.card');
+      const index=Number(card?.dataset.i);
+      const a=agents[agentIndex],p=a?.photos?.[index];
+      if(!p)return;
+      e.preventDefault();
+      const mark=marks[key(a,p)]||{};
+      current={a,p,index};
+      renderChecks(mark.reasons||autoReasons(a,p));
+      paused=true;
+      updatePauseButtons();
+      showReasonContextMenu(e.clientX,e.clientY);
     });
     window.addEventListener('keydown',e=>{
       if(e.key==='Escape'){setPhotoFiltersOpen(false);closeModal();closeMinusList();closeAutoReview();closeDeleteConfirm();closeCollect();closeBrandSettings();closeReplaceEmployeeModal();return}
