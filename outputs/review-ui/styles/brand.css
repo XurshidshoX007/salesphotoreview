@@ -88,10 +88,20 @@ body.attendanceView > header{
   html,body{min-height:100%;overflow-x:hidden!important;overscroll-behavior-x:none}
   body{padding-bottom:var(--mobile-nav-h)!important;-webkit-tap-highlight-color:transparent}
   button,select,input,textarea{font-size:16px}
+  /* Yuqori menyu telefon uchun: tugmalar kesilmaydi, barmoq bilan suriladi. */
+  body .salesNav{height:74px!important;min-height:74px!important;padding:0!important;gap:0!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x proximity!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
+  body .salesNav::-webkit-scrollbar{display:none}
+  .sideBrand{position:sticky!important;left:0!important;z-index:2!important;min-width:72px!important;width:72px!important;padding:0 10px!important;justify-content:center!important;background:var(--studio-surface)!important;box-shadow:8px 0 12px rgba(23,33,43,.05)!important}
+  .sideBrandText,.sideActionGroupTitle{display:none!important}
+  .salesLogo{width:34px!important;height:34px!important;flex:0 0 34px!important}
+  .sideActions{display:flex!important;flex:0 0 auto!important;height:100%!important;gap:0!important;align-items:stretch!important}
+  .sideActionGroup{display:contents!important}
+  .sideActions button{flex:0 0 auto!important;min-width:max-content!important;min-height:54px!important;margin:auto 2px!important;padding:8px 11px!important;border-radius:9px!important;scroll-snap-align:start!important;font-size:13px!important;white-space:nowrap!important}
+  .systemStatusBtn{position:sticky!important;right:0!important;z-index:3!important;min-width:52px!important;width:52px!important;height:74px!important;margin-left:auto!important;padding:0!important;justify-content:center!important;background:var(--studio-surface)!important;box-shadow:-8px 0 12px rgba(23,33,43,.05)!important}.systemStatusBtn span:last-child{display:none!important}
   header,body.photoView > header{position:sticky!important;top:0;height:72px!important;min-height:72px!important;max-height:72px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:1fr!important;align-items:center!important;align-content:center!important;gap:8px!important;padding:9px 12px!important;z-index:18!important}
   .headerIdentity{min-width:0}.title{font-size:17px!important;line-height:1.15}.meta{font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #photoStatsBar,#reviewAssist,.sectionCloseBtn,body.photoView .photoStatsBar,body.photoView .reviewAssist{display:none!important}.filterToggleBtn{min-width:92px!important;min-height:44px!important;padding:9px 12px!important;font-weight:800}
-  .wrap{height:calc(100dvh - 72px - var(--mobile-nav-h))!important;min-height:300px;padding:8px!important}.grid{gap:10px!important}.card{border-radius:12px!important}
+  .wrap{height:calc(100dvh - 72px - var(--mobile-nav-h))!important;min-height:300px;padding:8px!important}.grid,body.photoView .grid,body.photoView .grid[data-columns]{grid-template-columns:1fr!important;gap:10px!important}.card{border-radius:12px!important}
   .cap{left:7px!important;right:7px!important;bottom:7px!important;padding:7px 8px!important;font-size:12px!important}
   .quickNav{height:var(--mobile-nav-h)!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;padding:9px 10px calc(9px + env(safe-area-inset-bottom))!important}.quickNav button{min-width:0!important;min-height:50px!important;padding:8px 6px!important;border-radius:12px!important;font-size:13px!important}.pageSizeBox,.speedBox{display:none!important}
   /* Modal telefon ekranida asosiy sahifa bilan ustma-ust ko'rinmasin.
@@ -105,6 +115,13 @@ body.attendanceView > header{
   .modalActions{grid-template-columns:minmax(66px,1fr) minmax(52px,.72fr) repeat(3,42px) 58px!important;gap:6px!important}.modalActions button{min-height:42px!important;padding:7px 5px!important}.modalImgBox{padding:8px!important}.modalImgBox img{border-radius:10px!important}
   .side{padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;gap:8px!important;overscroll-behavior:contain}#reasonChecks{grid-template-columns:1fr!important;gap:7px!important}.reason{min-height:48px!important;padding:9px 10px!important}.reasonEditBtn,.reasonDeleteBtn{opacity:1!important;min-width:38px!important;min-height:38px!important}.reasonAdd{grid-template-columns:minmax(0,1fr) auto!important}.reasonAdd button{min-height:44px!important}.side textarea{min-height:70px!important}.sideFoot{position:sticky!important;bottom:calc(-10px - env(safe-area-inset-bottom))!important;padding:9px 12px calc(9px + env(safe-area-inset-bottom))!important}.sideFoot button{min-height:46px!important}
   .reasonContextBackdrop{position:fixed!important;inset:0!important;z-index:119!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:rgba(15,32,42,.36)!important;backdrop-filter:blur(1.5px);animation:reasonBackdropIn .14s ease-out both}.reasonContextMenu{width:min(360px,calc(100vw - 20px))!important;max-height:min(600px,calc(100dvh - 20px))!important;border-radius:14px!important;padding:10px!important}.reasonContextItem{min-height:48px!important;font-size:14px!important}.reasonContextFoot button{min-height:44px!important;font-size:13px!important}.filterDrawer{padding-bottom:calc(14px + env(safe-area-inset-bottom))!important}
+  /* Minus, brend va statistika: katta desktop panellari emas, ixcham mobil oqim. */
+  body.toolView #minusList.open,body.toolView #brandPanel.open,body.toolView .adminStatsPanel.open{inset:74px 0 var(--mobile-nav-h) 0!important;height:auto!important;min-height:0!important;border-radius:0!important}
+  body.toolView #minusList .listHead,body.toolView #brandPanel .collectHead,.adminStatsHead{padding:12px 14px!important;align-items:center!important}
+  body.toolView #minusList .listHead span,body.toolView #brandPanel .collectHead span,.adminStatsHead span{display:none!important}
+  body.toolView #minusList .listHead button,body.toolView #brandPanel .collectHead button{flex:0 0 auto!important;min-height:42px!important}
+  .adminStatsPanel{padding:10px!important}.adminStatsHead b{font-size:18px!important}.adminCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.adminCard{padding:12px!important}.adminCard b{font-size:20px!important}.adminGrid{grid-template-columns:1fr!important;gap:8px!important}
+  .brandBody{padding:10px!important;gap:10px!important}.brandList{max-height:150px!important}.brandItem{padding:10px!important}.brandForm{padding-bottom:12px!important}
 }
 @media(max-width:390px){.modalActions{grid-template-columns:minmax(62px,1fr) minmax(48px,.72fr) 38px 48px 38px 54px!important}.modalActions button{font-size:12px!important}.filterToggleBtn{min-width:82px!important}}
 @keyframes reasonBackdropIn{from{opacity:0}to{opacity:1}}

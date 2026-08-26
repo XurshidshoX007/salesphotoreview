@@ -51,6 +51,8 @@ try {
     card: document.querySelector("#grid .card")?.getBoundingClientRect().toJSON(),
     navButtonHeight: document.querySelector("#quickNav button")?.getBoundingClientRect().height || 0,
     header: document.querySelector("body > header")?.getBoundingClientRect().toJSON(),
+    gridColumns: getComputedStyle(document.querySelector("#grid")).gridTemplateColumns.split(" ").filter(Boolean).length,
+    navScrollable: document.querySelector(".salesNav")?.scrollWidth > document.querySelector(".salesNav")?.clientWidth,
     headerCssHeight: getComputedStyle(document.querySelector("body > header")).height,
     stylesheet: [...document.styleSheets].map((sheet) => sheet.href).filter(Boolean),
   }));
@@ -58,6 +60,8 @@ try {
   assert(layout.card && layout.card.width > 0 && layout.card.right <= 391, "Mobile foto kartasi sig'madi");
   assert(layout.navButtonHeight >= 44, `Mobile tugma kichik: ${layout.navButtonHeight}`);
   assert(layout.header?.height <= 74, `Mobile header baland: ${layout.header?.height}`);
+  assert.equal(layout.gridColumns, 1, `Mobile foto to'ri bitta ustunda emas: ${layout.gridColumns}`);
+  assert(layout.navScrollable, "Mobile yuqori menyusi suriladigan emas");
   await page.locator("#grid .card").first().click({ timeout: 8_000 });
   await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"), null, { timeout: 8_000 });
   await page.waitForTimeout(220);

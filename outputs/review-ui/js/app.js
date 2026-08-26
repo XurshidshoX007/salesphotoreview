@@ -3137,7 +3137,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       }
     }
     function exportAttendance(){const f=attendanceFilters();location.href=`/api/attendance/export?month=${encodeURIComponent(f.month)}&brandId=${encodeURIComponent(f.brandId)}`}
-    let collectTimer=null,collectLastDone='';
+    let collectTimer=null,collectLastDone='',collectStatusInitialized=false;
     function yesterday(){
       const d=new Date();
       d.setDate(d.getDate()-1);
@@ -3229,11 +3229,18 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
           summary.hidden=false;
         }else summary.hidden=true;
       }
+      // Sahifa ochilganda avval tugagan yig'ish haqida toast ko'rsatmaymiz:
+      // u telefon ekranidagi foto va tugmalarni yopib qo'yardi. Faqat shu
+      // sessiyada yangi yig'ish yakunlansa operatorga xabar beramiz.
       if(['done','partial'].includes(status)&&s.finishedAt&&collectLastDone!==s.finishedAt){
+        const notifyAboutCompletion=collectStatusInitialized;
         collectLastDone=s.finishedAt;
-        notify("Ma'lumot yig'ish tugadi, ro'yxat yangilanmoqda");
-        loadManifest().catch(()=>{});
+        if(notifyAboutCompletion){
+          notify("Ma'lumot yig'ish tugadi, ro'yxat yangilanmoqda");
+          loadManifest().catch(()=>{});
+        }
       }
+      collectStatusInitialized=true;
     }
     async function refreshCollectStatus(){
       try{
