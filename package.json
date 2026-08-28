@@ -32,6 +32,7 @@
     "test:review-security": "node scripts/test-review-security.mjs",
     "test:review-ui": "node scripts/test-review-ui.mjs",
     "test:review-mobile": "node scripts/test-review-mobile.mjs",
+    "test:photo-cache-performance": "node scripts/test-photo-cache-performance.mjs",
     "test:review-workflows": "node scripts/test-review-workflows.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:sync-from-json": "node scripts/db-sync-from-json.mjs",

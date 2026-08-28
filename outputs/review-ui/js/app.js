@@ -1882,7 +1882,16 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const a=agents[agentIndex];if(!a)return;
       const urls=[];
       const size=photoPageSizeFor(a);
-      for(let i=start;i<Math.min(start+(size*2),a.photos.length);i++)urls.push(a.photos[i].url);
+      // Joriy rasmlar render() tomonidan allaqachon yuqori ustuvorlikda
+      // yuklanmoqda. Preload navbatini ularga band qilmay, keyingi ikki sahifani
+      // oldindan olib qo'yamiz — operator "Keyingi" bosganda rasmlar cache'dan chiqadi.
+      const nextStart=Math.min(a.photos.length,start+size);
+      for(let i=nextStart;i<Math.min(nextStart+(size*2),a.photos.length);i++)urls.push(a.photos[i].url);
+      // Joriy agent tugasa, keyingi agentning birinchi sahifasini ham tayyorlaymiz.
+      if(nextStart>=a.photos.length&&agents[agentIndex+1]){
+        const nextAgent=agents[agentIndex+1],nextSize=photoPageSizeFor(nextAgent);
+        for(let i=0;i<Math.min(nextSize,nextAgent.photos.length);i++)urls.push(nextAgent.photos[i].url);
+      }
       [...new Set(urls.filter(Boolean))].forEach(queuePreload);
     }
     function autoReasons(a,p,index=current?.index){

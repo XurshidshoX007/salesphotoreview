@@ -360,7 +360,7 @@ function isBlockedIpAddress(address) {
   return false;
 }
 
-async function validatePhotoUrlForProxy(urlText) {
+function normalizePhotoUrlForProxy(urlText) {
   let parsed;
   try {
     parsed = new URL(urlText);
@@ -370,6 +370,12 @@ async function validatePhotoUrlForProxy(urlText) {
   if (!["http:", "https:"].includes(parsed.protocol)) throw apiError("Foto URL protokoli ruxsat etilmagan", 400);
   if (!hostnameAllowedByConfig(parsed.hostname)) throw apiError("Foto domeni ruxsat etilmagan", 403);
   if (isBlockedIpAddress(parsed.hostname)) throw apiError("Ichki tarmoq URL ruxsat etilmagan", 403);
+  return parsed.toString();
+}
+
+async function validatePhotoUrlForProxy(urlText) {
+  const text = normalizePhotoUrlForProxy(urlText);
+  const parsed = new URL(text);
   let records = [];
   try {
     records = await lookup(parsed.hostname, { all: true, verbatim: true });
@@ -379,7 +385,7 @@ async function validatePhotoUrlForProxy(urlText) {
   if (!records.length || records.some((record) => isBlockedIpAddress(record.address))) {
     throw apiError("Ichki tarmoq manziliga ruxsat yo'q", 403);
   }
-  return parsed.toString();
+  return text;
 }
 
 function photoDiskCacheEnabled() {
@@ -1183,7 +1189,10 @@ async function saveBrandsWithMirror(input) {
 }
 
 async function proxyPhoto(url) {
-  const text = await validatePhotoUrlForProxy(String(url || "").trim());
+  // Memory/disk cache faqat oldin to'liq DNS/SSRF tekshiruvidan o'tib yuklangan
+  // rasmlarni saqlaydi. Shu sababli cache hit uchun qimmat DNS tekshiruvini
+  // takrorlash shart emas; yangi tashqi so'rov oldidan esa tekshiruv saqlanadi.
+  const text = normalizePhotoUrlForProxy(String(url || "").trim());
   const cached = photoCache.get(text);
   if (cached) {
     photoCache.delete(text);
@@ -1204,6 +1213,7 @@ async function proxyPhoto(url) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), photoFetchTimeoutMs());
     try {
+      await validatePhotoUrlForProxy(text);
       const response = await fetch(text, {
         signal: controller.signal,
         redirect: "manual",
@@ -1254,7 +1264,9 @@ function photoThumbnailQuality() {
 }
 
 async function proxyPhotoThumbnail(url) {
-  const text = await validatePhotoUrlForProxy(String(url || "").trim());
+  // Thumbnail cache hitida DNS kutmaymiz. Cache miss bo'lsa proxyPhoto()
+  // original rasmni olishdan oldin to'liq DNS/SSRF tekshiruvini bir marta qiladi.
+  const text = normalizePhotoUrlForProxy(String(url || "").trim());
   const width = photoThumbnailWidth();
   const height = photoThumbnailHeight();
   const quality = photoThumbnailQuality();
