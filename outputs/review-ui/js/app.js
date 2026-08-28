@@ -2008,6 +2008,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       $('modalImg').style.transform='scale(1)';
       loadPhoto($('modalImg'),p.url,photoInitialMode('full'),'full');
       $('note').value=m.note||'';renderChecks(m.reasons||autoReasons(a,p));$('modal').classList.add('open');paused=true;updatePauseButtons();
+      if($('sideAgentMinus'))$('sideAgentMinus').textContent=`Barcha ${a.photos.length} ta fotoni MINUS qilish`;
     }
     function closeModal(){
       closeReasonContextMenu();
@@ -2022,9 +2023,32 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       const k=key(a,p),prev=marks[k]||{};
       const now=new Date().toISOString();
       pushReviewUndo([{key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url}],verdict==='MINUS'?'Minus belgilash':'OK belgilash');
-      marks[k]={...prev,...brandPayloadForCode(a.code),date:dataset.date,code:a.code,agent:a.agent,photo:index+1,client:p.client||'',clientOrderSum:p.clientOrderSum||0,clientOrderCount:p.clientOrderCount||0,clientHasOrder:p.clientHasOrder,clientOrderKnown:p.clientOrderKnown,clientOrderSource:p.clientOrderSource||'',clientId:p.clientId||'',photoTime:p.photoTime||'',url:p.url,verdict,reasons:[...document.querySelectorAll('#reasonChecks input:checked')].map(x=>x.value),note:$('note').value.trim(),approvedAt:prev.source?now:prev.approvedAt,savedAt:now,updatedAt:now,updatedBy:reviewClientId};
+      marks[k]=buildPhotoMark(a,p,index,verdict,selectedReasonValues(),$('note').value.trim(),prev,now);
       saveMarks([k]);rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
       notify(verdict==='MINUS'?'Foto minus ro\'yxatiga qo\'shildi':'Foto OK sifatida saqlandi');
+    }
+    function buildPhotoMark(a,p,index,verdict,reasons,note,prev={},now=new Date().toISOString()){
+      return {...prev,...brandPayloadForCode(a.code),date:dataset.date,code:a.code,agent:a.agent,photo:index+1,client:p.client||'',clientOrderSum:p.clientOrderSum||0,clientOrderCount:p.clientOrderCount||0,clientHasOrder:p.clientHasOrder,clientOrderKnown:p.clientOrderKnown,clientOrderSource:p.clientOrderSource||'',clientId:p.clientId||'',photoTime:p.photoTime||'',url:p.url,verdict,reasons:[...reasons],note,approvedAt:prev.source?now:prev.approvedAt,savedAt:now,updatedAt:now,updatedBy:reviewClientId};
+    }
+    function setAgentPhotosMinus(){
+      if(!current)return;
+      const {a}=current,photos=Array.isArray(a.photos)?a.photos:[];
+      const reasons=selectedReasonValues();
+      if(!reasons.length){notify('Barcha fotolarni minus qilish uchun kamida bitta sababni tanlang','bad');return}
+      if(!photos.length){notify('Bu agentda minus qilinadigan foto yo\'q','bad');return}
+      const reasonText=reasons.map(reason=>`• ${reason}`).join('\n');
+      const accepted=confirm(`${a.code} agentning ${photos.length} ta fotosi MINUS qilinsinmi?\n\nSabablar:\n${reasonText}\n\nAvvalgi OK yoki MINUS belgilari shu sabablar bilan almashtiriladi.`);
+      if(!accepted)return;
+      const now=new Date().toISOString(),note=$('note').value.trim(),changedKeys=[],undoChanges=[];
+      photos.forEach((p,index)=>{
+        const k=key(a,p),previous=marks[k]||{};
+        undoChanges.push({key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url});
+        marks[k]=buildPhotoMark(a,p,index,'MINUS',reasons,note,previous,now);
+        changedKeys.push(k);
+      });
+      pushReviewUndo(undoChanges,`${a.code} agentining barcha fotosini minus qilish`);
+      saveMarks(changedKeys);rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
+      notify(`${a.code}: ${photos.length} ta foto MINUS qilindi`);
     }
     function move(direction,wrap=false){
       const a=agents[agentIndex];if(!a?.photos?.length)return;
@@ -3370,6 +3394,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     });
     window.addEventListener('load',()=>{applyTheme();brandSel=$('brandSel');dateSel=$('dateSel');agentSel=$('agentSel');datasetAutoController=datasetAutoTools.create({request:datasetApiRequest,isCurrent:isCurrentDatasetRequest,onState:renderDatasetStatus,onReady:activateEnsuredDataset,debounceMs:450,pollMs:1000});if(brandSel)brandSel.onchange=()=>{const selectedDate=cleanDatasetDate(dateSel?.value||'');localStorage.setItem(LS_BRAND,brandSel.value||'');renderDateFilter(selectedDate);handleDatasetSelection().catch(e=>notify(e.message,'bad'))};dateSel.onchange=()=>handleDatasetSelection().catch(e=>notify(e.message,'bad'));agentSel.onchange=()=>{agentIndex=Number(agentSel.value);start=0;render()};$('quickNext').onclick=()=>move(1);$('quickPrev').onclick=()=>move(-1);$('quickPause').onclick=togglePause;$('photoPageSize').onchange=e=>setPhotoPageSize(e.target.value);$('photoPageSize').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();setPhotoPageSize(e.target.value);e.target.blur()}};$('showAllPhotos').onclick=()=>setPhotoPageSize('all');$('speedSlower').onclick=()=>adjustSpeed(-500);$('speedFaster').onclick=()=>adjustSpeed(500);$('minusListBtn').onclick=()=>showList();$('telegramBtn').onclick=sendTelegram;$('csvBtn').onclick=csv;$('agentExcelBtn').onclick=agentExcel;$('autoReviewBtn').onclick=runAutoReview;if($('themeToggleBtn'))$('themeToggleBtn').onclick=toggleTheme;if($('sidePhotoBtn'))$('sidePhotoBtn').onclick=()=>switchView('photo');if($('sideAttendanceBtn'))$('sideAttendanceBtn').onclick=()=>switchView('attendance');$('sideMinusListBtn').onclick=()=>showList();$('sideCsvBtn').onclick=csv;$('sideAgentExcelBtn').onclick=agentExcel;if($('sideCollectBtn'))$('sideCollectBtn').onclick=()=>openCollect();$('sideBrandSettingsBtn').onclick=openBrandSettings;if($('sideAdminStatsBtn'))$('sideAdminStatsBtn').onclick=()=>switchView('admin');$('sideAutoReviewBtn').onclick=runAutoReview;$('autoReviewClose').onclick=closeAutoReview;$('collectClose').onclick=closeCollect;if($('sectionCloseBtn'))$('sectionCloseBtn').onclick=closeCollect;$('collectStart').onclick=startCollect;$('collectStop').onclick=stopCollect;$('brandClose').onclick=closeBrandSettings;$('brandNew').onclick=()=>fillBrandForm();$('brandSave').onclick=async()=>{try{await saveBrandSettings()}catch(e){notify(e.message,'bad')}};$('brandDelete').onclick=async()=>{try{await deleteBrandSetting()}catch(e){notify(e.message,'bad')}};if($('brandValidate'))$('brandValidate').onclick=validateBrandSettings;if($('brandExport'))$('brandExport').onclick=exportBrandSettings;if($('brandImport'))$('brandImport').onchange=e=>importBrandSettings(e.target.files?.[0]).catch(err=>notify(err.message,'bad'));if($('brandTelegramChat'))$('brandTelegramChat').onchange=()=>{if($('brandTelegramChat')?.value&&$('brandTelegramChatId'))$('brandTelegramChatId').value=''};if($('brandTelegramChatId'))$('brandTelegramChatId').oninput=()=>{if($('brandTelegramChatId')?.value.trim()&&$('brandTelegramChat'))$('brandTelegramChat').value=''};$('agentFilter').onchange=applyAgentFilter;$('deleteDateBtn').onclick=deleteCurrentDate;$('deleteCancel').onclick=closeDeleteConfirm;$('deleteConfirmBtn').onclick=performDeleteCurrentDate;$('deleteConfirm').onclick=e=>{if(e.target.id==='deleteConfirm')closeDeleteConfirm()};$('modalClose').onclick=closeModal;$('modalMinus').onclick=()=>setMark('MINUS');$('modalOk').onclick=()=>setMark('OK');$('sideMinus').onclick=()=>setMark('MINUS');$('sideOk').onclick=()=>setMark('OK');$('addReason').onclick=addReason;$('newReason').onkeydown=e=>{if(e.key==='Enter')addReason()};$('modalImgBox').oncontextmenu=e=>{e.preventDefault();showReasonContextMenu(e.clientX,e.clientY)};$('zoomIn').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.min(3,zoom+.15)})`};$('zoomOut').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=Math.max(.35,zoom-.15)})`};$('zoomFit').onclick=()=>{$('modalImg').style.transform=`scale(${zoom=1})`};$('listClose').onclick=closeMinusList;updatePauseButtons();renderSpeed();restartTimer();loadTelegramStatus();refreshCollectStatus();loadManifest().then(()=>{startSharedSync();if(location.hash==='#minus')showList()}).catch(e=>{$('meta').textContent='Xato: '+e.message})});
     window.addEventListener('load',()=>{
+      if($('sideAgentMinus'))$('sideAgentMinus').onclick=setAgentPhotosMinus;
       const modalImageBox=$('modalImgBox');
       let reasonLongPress=null;
       let reasonLongPressStart=null;

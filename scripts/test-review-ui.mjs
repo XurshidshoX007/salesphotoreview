@@ -113,6 +113,40 @@ try {
   }));
   assert(modalState.variant === "full", "Modal original/full rasm rejimida emas");
   assert(modalState.width > 0 && modalState.height > 0, "Modal rasmi yuklanmadi");
+  const agentPhotoCount = Number((await page.locator("#agentSel option:checked").innerText()).match(/\|\s*(\d+)\s+foto/)?.[1] || 0);
+  assert(agentPhotoCount > 0, "Bulk minus testi uchun agent foto soni topilmadi");
+  assert((await page.locator("#sideAgentMinus").innerText()).includes(String(agentPhotoCount)), "Bulk minus tugmasida agent foto soni ko'rinmadi");
+  const bulkRequests = [];
+  const marksRoute = /\/api\/marks\?compact=1/;
+  await page.route(marksRoute, async (route) => {
+    if (route.request().method() !== "POST") return route.continue();
+    bulkRequests.push(route.request().postDataJSON());
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true, revision: `bulk-test-${bulkRequests.length}` }) });
+  });
+  const chosenReasons = await page.locator("#reasonChecks input").evaluateAll((inputs) => {
+    inputs.forEach((input, index) => { input.checked = index < 2; });
+    return inputs.slice(0, 2).map((input) => input.value);
+  });
+  assert(chosenReasons.length === 2, "Bulk minus testi uchun ikkita sabab topilmadi");
+  page.once("dialog", async (dialog) => {
+    assert(dialog.message().includes(`${agentPhotoCount} ta fotosi`), "Bulk minus tasdiqlashida foto soni yo'q");
+    chosenReasons.forEach((reason) => assert(dialog.message().includes(reason), `Tasdiqlashda sabab yo'q: ${reason}`));
+    await dialog.accept();
+  });
+  await page.locator("#sideAgentMinus").click();
+  await page.waitForFunction(() => !document.querySelector("#modal")?.classList.contains("open"));
+  for (let attempt = 0; attempt < 40 && bulkRequests.length < 1; attempt += 1) await page.waitForTimeout(25);
+  assert(bulkRequests.length === 1, "Bulk minus serverga bitta paketda yuborilmadi");
+  const bulkMarks = Object.values(bulkRequests[0].marks || {});
+  assert(bulkMarks.length === agentPhotoCount, `Bulk minus ${agentPhotoCount} o'rniga ${bulkMarks.length} ta foto yubordi`);
+  assert(bulkMarks.every((mark) => mark.verdict === "MINUS"), "Bulk paketdagi barcha fotolar MINUS emas");
+  assert(bulkMarks.every((mark) => chosenReasons.every((reason) => mark.reasons.includes(reason))), "Tanlangan sabablar barcha fotolarga qo'llanmadi");
+  await page.locator("#undoReviewBtn").click();
+  for (let attempt = 0; attempt < 40 && bulkRequests.length < 2; attempt += 1) await page.waitForTimeout(25);
+  assert(bulkRequests.length === 2, "Bulk minus bitta Bekor qilish bilan qaytmadi");
+  await page.unroute(marksRoute);
+  await page.locator("#grid .card").first().click();
+  await page.waitForFunction(() => document.querySelector("#modal")?.classList.contains("open"));
   await page.locator("#modalClose").click();
 
   expectedPhotoFailure = true;

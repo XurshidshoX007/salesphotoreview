@@ -123,5 +123,7 @@ body.attendanceView > header{
   .adminStatsPanel{padding:10px!important}.adminStatsHead b{font-size:18px!important}.adminCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.adminCard{padding:12px!important}.adminCard b{font-size:20px!important}.adminGrid{grid-template-columns:1fr!important;gap:8px!important}
   .brandBody{padding:10px!important;gap:10px!important}.brandList{max-height:150px!important}.brandItem{padding:10px!important}.brandForm{padding-bottom:12px!important}
 }
+#sideAgentMinus{grid-column:1/-1;min-height:42px;background:#fff7f7;border-color:#efb5ba;color:#b42332}
+#sideAgentMinus:hover{background:#fff0f1;border-color:#dc6d78}
 @media(max-width:390px){.modalActions{grid-template-columns:minmax(62px,1fr) minmax(48px,.72fr) 38px 48px 38px 54px!important}.modalActions button{font-size:12px!important}.filterToggleBtn{min-width:82px!important}}
 @keyframes reasonBackdropIn{from{opacity:0}to{opacity:1}}
