@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  button,input,select,textarea{font-family:inherit}
+  html,body{margin:0;padding:0;background:#e9edf0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#34414d}
+  a{color:#0f8f88}a:hover{color:#0b7772}
+  kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border:1px solid #cfd8de;border-bottom-width:2px;border-radius:5px;background:#fff;color:#4a5b68;font:700 10px/1 ui-monospace,Menlo,monospace}
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:28px;padding:40px">
+  <div style="display:flex;align-items:baseline;gap:14px">
+    <h1 style="margin:0;font-size:22px;font-weight:800;color:#17212b">Foto nazorati — 3 ta optimallashtirish yo‘nalishi</h1>
+    <span style="font-size:13px;color:#6d7c89">Har biri boshqa muammoni yechadi: tezlik, tartib, hajm.</span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+
+    <!-- ===================== 1a — FOKUS ===================== -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="display:inline-grid;place-items:center;min-width:30px;height:24px;padding:0 8px;border-radius:6px;background:#17212b;color:#fff;font:800 12px/1 Inter">1a</span>
+        <b style="font-size:15px;color:#17212b">Fokus — bitta foto, klaviatura bilan</b>
+        <span style="font-size:12px;color:#6d7c89">Qaror 1 tugma. Grid ikkinchi darajaga tushadi.</span>
+      </div>
+      <div style="width:1440px;height:900px;display:flex;flex-direction:column;background:#f4f6f8;border:1px solid #d9e0e5;border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(23,33,43,.10)">
+
+        <div style="height:56px;flex:0 0 56px;display:flex;align-items:center;gap:20px;padding:0 18px;background:#fff;border-bottom:1px solid #d9e0e5">
+          <div style="display:flex;align-items:center;gap:9px;padding-right:18px;border-right:1px solid #e6ebee">
+            <div style="width:30px;height:30px;border:1px solid #b9ddda;border-radius:7px;background:#fff url('outputs/review-ui/assets/foto-nazorati-logo.svg') center/26px 26px no-repeat"></div>
+            <b style="font-size:14px;color:#17212b">Foto nazorati</b>
+          </div>
+          <div style="display:flex;gap:2px">
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:#e8f5f3;color:#0b7772;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Review</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Tabel</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Hisobot</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Sozlamalar</button>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <button style="height:34px;padding:0 12px;display:flex;align-items:center;gap:8px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;color:#17212b;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Lalaku mama <span style="color:#a4b1bb">·</span> 03.06.2026</button>
+            <div style="display:flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:7px;background:#f2f6f8;font-size:11px;font-weight:600;line-height:1;color:#5c6b78"><span style="width:7px;height:7px;border-radius:50%;background:#22a06b"></span>Server</div>
+          </div>
+        </div>
+
+        <div style="flex:1 1 auto;min-height:0;display:grid;grid-template-columns:262px minmax(0,1fr) 336px">
+
+          <aside style="min-height:0;display:flex;flex-direction:column;background:#fff;border-right:1px solid #d9e0e5">
+            <div style="padding:14px 16px 10px;border-bottom:1px solid #eef2f4">
+              <div style="font-size:11px;font-weight:800;line-height:1;letter-spacing:.04em;color:#8695a1;text-transform:uppercase">Navbat</div>
+              <div style="margin-top:8px;display:flex;align-items:baseline;gap:7px"><b style="font-size:26px;color:#17212b;line-height:1">318</b><span style="font-size:12px;color:#6d7c89">foto tekshirilmagan</span></div>
+              <div style="margin-top:9px;height:5px;border-radius:3px;background:#eef2f4;overflow:hidden"><div style="width:75%;height:100%;background:#0f8f88"></div></div>
+            </div>
+            <div style="flex:1 1 auto;min-height:0;overflow:auto;padding:8px">
+              <sc-for list="{{ queue }}" as="q" hint-placeholder-count="7">
+                <div style="display:grid;grid-template-columns:1fr auto;gap:3px 8px;align-items:center;padding:10px 11px;border-radius:8px;margin-bottom:2px;background:{{ q.bg }};cursor:pointer">
+                  <b style="font-size:12px;font-weight:700;line-height:1.2;color:#17212b">{{ q.code }}</b>
+                  <span style="font-size:10px;font-weight:700;line-height:1;color:{{ q.tone }}">{{ q.left }}</span>
+                  <span style="font-size:11px;color:#7b8894;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ q.name }}</span>
+                  <span style="display:flex;gap:2px">{{ q.dots }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </aside>
+
+          <main style="min-width:0;min-height:0;display:flex;flex-direction:column;background:#eceff2">
+            <div style="flex:1 1 auto;min-height:0;position:relative;margin:14px 14px 0;border-radius:10px;background:#e2e7ea;display:grid;place-items:center;overflow:hidden">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#dde3e7 0 10px,#e6eaed 10px 20px)"></div>
+              <span style="position:relative;color:#8b98a3;font:500 12px/1 ui-monospace,Menlo,monospace">do‘kon fotosi — to‘liq o‘lcham</span>
+              <div style="position:absolute;left:16px;top:16px;display:flex;gap:6px">
+                <span style="height:26px;padding:0 10px;display:inline-flex;align-items:center;gap:6px;border-radius:7px;background:#fff7eb;color:#8a4c08;font-size:11px;font-weight:700;line-height:1"><span style="width:6px;height:6px;border-radius:50%;background:#e09b2d"></span>Ish vaqtidan tashqari · 21:14</span>
+                <span style="height:26px;padding:0 10px;display:inline-flex;align-items:center;border-radius:7px;background:rgba(255,255,255,.94);color:#4a5b68;font-size:11px;font-weight:600;line-height:1">Bekzod Market · Buyurtma 1 240 000</span>
+              </div>
+              <div style="position:absolute;right:16px;top:16px;display:flex;gap:6px">
+                <button style="width:32px;height:32px;border:0;border-radius:7px;background:rgba(255,255,255,.94);color:#4a5b68;font-size:15px;font-weight:700;line-height:1;cursor:pointer">−</button>
+                <button style="height:32px;padding:0 11px;border:0;border-radius:7px;background:rgba(255,255,255,.94);color:#4a5b68;font-size:11px;font-weight:700;line-height:1;cursor:pointer">Fit</button>
+                <button style="width:32px;height:32px;border:0;border-radius:7px;background:rgba(255,255,255,.94);color:#4a5b68;font-size:15px;font-weight:700;line-height:1;cursor:pointer">+</button>
+              </div>
+            </div>
+            <div style="flex:0 0 96px;display:flex;align-items:center;gap:12px;padding:12px 14px;overflow:hidden">
+              <div style="flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:8px;overflow-x:auto">
+              <sc-for list="{{ strip }}" as="s" hint-placeholder-count="9">
+                <div style="position:relative;flex:0 0 96px;height:72px;border-radius:7px;background:repeating-linear-gradient(135deg,#dde3e7 0 8px,#e6eaed 8px 16px);border:2px solid {{ s.ring }};overflow:hidden">
+                  <span style="position:absolute;left:0;right:0;bottom:0;height:16px;display:grid;place-items:center;background:{{ s.bar }};color:#fff;font-size:9px;font-weight:800;line-height:1">{{ s.label }}</span>
+                </div>
+              </sc-for>
+              </div>
+              <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;line-height:1;color:#6d7c89"><kbd>←</kbd><kbd>→</kbd> foto almashtirish</div>
+            </div>
+          </main>
+
+          <aside style="min-height:0;display:flex;flex-direction:column;background:#fff;border-left:1px solid #d9e0e5">
+            <div style="padding:14px 16px 12px;border-bottom:1px solid #eef2f4">
+              <b style="display:block;font-size:14px;color:#17212b">Qaror</b>
+              <span style="display:block;margin-top:3px;font-size:11px;color:#6d7c89">Raqam bosing — sabab bilan darhol minus bo‘ladi.</span>
+            </div>
+            <div style="flex:1 1 auto;min-height:0;overflow:auto;padding:12px 14px;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="7">
+                <button style="display:grid;grid-template-columns:24px 1fr;align-items:center;gap:10px;min-height:46px;padding:8px 11px;border:1px solid #e2e8ec;border-radius:8px;background:#fff;text-align:left;cursor:pointer" style-hover="border-color:#8fc7c3;background:#f6fbfa">
+                  <kbd>{{ r.key }}</kbd><span style="font-size:12px;font-weight:600;line-height:1.3;color:#2f3d49">{{ r.text }}</span>
+                </button>
+              </sc-for>
+              <input placeholder="Qo‘shimcha izoh" style="margin-top:4px;min-height:40px;padding:9px 11px;border:1px solid #e2e8ec;border-radius:8px;background:#fbfcfd;font-size:12px;font-weight:400;line-height:1;color:#34414d">
+            </div>
+            <div style="padding:12px 14px;border-top:1px solid #eef2f4;display:flex;flex-direction:column;gap:8px">
+              <button style="min-height:50px;display:flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:9px;background:#0f8f88;color:#fff;font-size:14px;font-weight:800;line-height:1;cursor:pointer">OK — o‘tkazish <kbd style="border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.18);color:#fff">Space</kbd></button>
+              <button style="min-height:44px;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #efb5bb;border-radius:9px;background:#fff3f4;color:#c02b39;font-size:13px;font-weight:700;line-height:1;cursor:pointer">Agentning barcha fotosi minus</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 1b — AGENT OQIMI ===================== -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="display:inline-grid;place-items:center;min-width:30px;height:24px;padding:0 8px;border-radius:6px;background:#17212b;color:#fff;font:800 12px/1 Inter">1b</span>
+        <b style="font-size:15px;color:#17212b">Agent oqimi — tartib va ko‘rinuvchanlik</b>
+        <span style="font-size:12px;color:#6d7c89">Filtrlar chekmadan chiqdi, holatlar yozuv bilan ko‘rinadi.</span>
+      </div>
+      <div style="width:1440px;height:900px;display:flex;flex-direction:column;background:#f4f6f8;border:1px solid #d9e0e5;border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(23,33,43,.10)">
+
+        <div style="height:56px;flex:0 0 56px;display:flex;align-items:center;gap:20px;padding:0 18px;background:#fff;border-bottom:1px solid #d9e0e5">
+          <div style="display:flex;align-items:center;gap:9px;padding-right:18px;border-right:1px solid #e6ebee">
+            <div style="width:30px;height:30px;border:1px solid #b9ddda;border-radius:7px;background:#fff url('outputs/review-ui/assets/foto-nazorati-logo.svg') center/26px 26px no-repeat"></div>
+            <b style="font-size:14px;color:#17212b">Foto nazorati</b>
+          </div>
+          <div style="display:flex;gap:2px">
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:#e8f5f3;color:#0b7772;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Review</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Tabel</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Hisobot</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Sozlamalar</button>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:7px">
+            <div style="display:flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:7px;background:#f2f6f8;font-size:11px;font-weight:600;line-height:1;color:#5c6b78"><span style="width:7px;height:7px;border-radius:50%;background:#22a06b"></span>Server</div>
+          </div>
+        </div>
+
+        <div style="height:56px;flex:0 0 56px;display:flex;align-items:center;gap:8px;padding:0 18px;background:#fff;border-bottom:1px solid #d9e0e5">
+          <select style="height:36px;min-width:170px;padding:0 10px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;font-size:12px;font-weight:600;line-height:1;color:#17212b"><option>Lalaku mama</option></select>
+          <input type="date" value="2026-06-03" style="height:36px;width:150px;padding:0 10px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;font-size:12px;font-weight:600;line-height:1;color:#17212b">
+          <div style="display:flex;gap:2px;padding:3px;border-radius:8px;background:#eef2f4">
+            <button style="height:30px;padding:0 12px;border:0;border-radius:6px;background:#fff;color:#0b7772;font-size:11px;font-weight:700;line-height:1;box-shadow:0 1px 3px rgba(23,33,43,.12);cursor:pointer">Mos agentlar</button>
+            <button style="height:30px;padding:0 12px;border:0;border-radius:6px;background:transparent;color:#5c6b78;font-size:11px;font-weight:600;line-height:1;cursor:pointer">Mos kelmagan</button>
+            <button style="height:30px;padding:0 12px;border:0;border-radius:6px;background:transparent;color:#5c6b78;font-size:11px;font-weight:600;line-height:1;cursor:pointer">Barchasi</button>
+          </div>
+          <input placeholder="Agent yoki do‘kon qidirish" style="height:36px;flex:0 1 240px;padding:0 11px;border:1px solid #d9e0e5;border-radius:7px;background:#fbfcfd;font-size:12px;font-weight:400;line-height:1">
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:600;line-height:1;color:#6d7c89">Tekshirildi 966 / 1284</span>
+            <div style="width:130px;height:6px;border-radius:3px;background:#eef2f4;overflow:hidden"><div style="width:75%;height:100%;background:#0f8f88"></div></div>
+            <button style="height:36px;padding:0 14px;border:0;border-radius:7px;background:#0f8f88;color:#fff;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Excel</button>
+          </div>
+        </div>
+
+        <div style="flex:1 1 auto;min-height:0;display:grid;grid-template-columns:288px minmax(0,1fr)">
+          <aside style="min-height:0;overflow:auto;background:#fff;border-right:1px solid #d9e0e5;padding:8px">
+            <sc-for list="{{ agents }}" as="a" hint-placeholder-count="8">
+              <div style="display:grid;grid-template-columns:1fr auto;gap:6px 10px;padding:11px 12px;margin-bottom:3px;border-radius:9px;background:{{ a.bg }};border-left:3px solid {{ a.edge }};cursor:pointer">
+                <b style="font-size:12px;font-weight:700;line-height:1.2;color:#17212b">{{ a.code }} · {{ a.name }}</b>
+                <span style="font-size:11px;font-weight:700;line-height:1;color:#17212b">{{ a.count }}</span>
+                <span style="grid-column:1/-1;display:flex;gap:3px;flex-wrap:wrap">{{ a.chips }}</span>
+              </div>
+            </sc-for>
+          </aside>
+
+          <main style="min-width:0;min-height:0;display:flex;flex-direction:column">
+            <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:14px 18px 10px">
+              <b style="font-size:16px;color:#17212b">LMJNM08 · Nodira Ergasheva</b>
+              <span style="height:24px;padding:0 9px;display:inline-flex;align-items:center;border-radius:6px;background:#fff7eb;color:#8a4c08;font-size:11px;font-weight:700;line-height:1">3 ta ogohlantirish</span>
+              <span style="font-size:12px;color:#6d7c89">28 foto · Buyurtma 14 620 000</span>
+              <div style="margin-left:auto;display:flex;gap:7px">
+                <button style="height:34px;padding:0 12px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;color:#34414d;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Oldingi agent</button>
+                <button style="height:34px;padding:0 12px;border:0;border-radius:7px;background:#0f8f88;color:#fff;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Keyingi agent</button>
+              </div>
+            </div>
+            <div style="flex:1 1 auto;min-height:0;overflow:auto;padding:4px 18px 18px">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+                <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+                  <div style="position:relative;height:290px;display:flex;flex-direction:column;border:1px solid #dfe5ea;border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(23,33,43,.05)">
+                    <div style="height:6px;flex:0 0 6px;background:{{ c.edge }}"></div>
+                    <div style="flex:1 1 auto;position:relative;background:repeating-linear-gradient(135deg,#e7ecef 0 8px,#eef2f4 8px 16px)">
+                      <span style="position:absolute;left:10px;top:10px;height:24px;padding:0 9px;display:inline-flex;align-items:center;border-radius:6px;background:{{ c.badgeBg }};color:{{ c.badgeFg }};font-size:10px;font-weight:700;line-height:1">{{ c.badge }}</span>
+                    </div>
+                    <div style="flex:0 0 auto;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;padding:10px 11px;border-top:1px solid #eef2f4">
+                      <div style="min-width:0">
+                        <b style="display:block;font-size:12px;font-weight:700;line-height:1.2;color:#17212b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.client }}</b>
+                        <span style="display:block;margin-top:2px;font-size:11px;color:#7b8894">{{ c.sub }}</span>
+                      </div>
+                      <button style="height:32px;padding:0 12px;border:1px solid #a8d9ba;border-radius:7px;background:#edf8f1;color:#168044;font-size:11px;font-weight:700;line-height:1;cursor:pointer">OK</button>
+                      <button style="height:32px;padding:0 12px;border:1px solid #efb5bb;border-radius:7px;background:#fff3f4;color:#cf3341;font-size:11px;font-weight:700;line-height:1;cursor:pointer">Minus</button>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== 1c — TRIAJ ===================== -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="display:inline-grid;place-items:center;min-width:30px;height:24px;padding:0 8px;border-radius:6px;background:#17212b;color:#fff;font:800 12px/1 Inter">1c</span>
+        <b style="font-size:15px;color:#17212b">Triaj — avto tekshiruv boshqaradi</b>
+        <span style="font-size:12px;color:#6d7c89">1284 fotoni emas, 54 ta shubhalini ko‘rasiz.</span>
+      </div>
+      <div style="width:1440px;height:900px;display:flex;flex-direction:column;background:#f4f6f8;border:1px solid #d9e0e5;border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(23,33,43,.10)">
+
+        <div style="height:56px;flex:0 0 56px;display:flex;align-items:center;gap:20px;padding:0 18px;background:#fff;border-bottom:1px solid #d9e0e5">
+          <div style="display:flex;align-items:center;gap:9px;padding-right:18px;border-right:1px solid #e6ebee">
+            <div style="width:30px;height:30px;border:1px solid #b9ddda;border-radius:7px;background:#fff url('outputs/review-ui/assets/foto-nazorati-logo.svg') center/26px 26px no-repeat"></div>
+            <b style="font-size:14px;color:#17212b">Foto nazorati</b>
+          </div>
+          <div style="display:flex;gap:2px">
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:#e8f5f3;color:#0b7772;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Review</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Tabel</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Hisobot</button>
+            <button style="height:34px;padding:0 13px;border:0;border-radius:7px;background:transparent;color:#586875;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Sozlamalar</button>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <button style="height:34px;padding:0 12px;display:flex;align-items:center;gap:8px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;color:#17212b;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Lalaku mama <span style="color:#a4b1bb">·</span> 03.06.2026</button>
+            <div style="display:flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:7px;background:#f2f6f8;font-size:11px;font-weight:600;line-height:1;color:#5c6b78"><span style="width:7px;height:7px;border-radius:50%;background:#22a06b"></span>Server</div>
+          </div>
+        </div>
+
+        <div style="flex:1 1 auto;min-height:0;display:grid;grid-template-columns:300px minmax(0,1fr)">
+          <aside style="min-height:0;overflow:auto;background:#fff;border-right:1px solid #d9e0e5;padding:16px 14px">
+            <div style="font-size:11px;font-weight:800;line-height:1;letter-spacing:.04em;color:#8695a1;text-transform:uppercase">Avto tekshiruv natijasi</div>
+            <div style="margin-top:12px;padding:14px;border-radius:10px;background:#f7fafb;border:1px solid #e6ecef">
+              <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:30px;line-height:1;color:#17212b">54</b><span style="font-size:12px;color:#6d7c89">ko‘rish kerak</span></div>
+              <div style="margin-top:8px;font-size:11px;color:#7b8894">1230 ta foto qoidalardan toza o‘tdi</div>
+            </div>
+            <div style="margin-top:16px;display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{ buckets }}" as="b" hint-placeholder-count="6">
+                <button style="display:grid;grid-template-columns:4px 1fr auto;align-items:center;gap:11px;min-height:48px;padding:9px 11px;border:0;border-radius:9px;background:{{ b.bg }};text-align:left;cursor:pointer">
+                  <span style="align-self:stretch;border-radius:3px;background:{{ b.tone }}"></span>
+                  <span style="font-size:12px;font-weight:700;line-height:1.25;color:#2f3d49">{{ b.name }}</span>
+                  <span style="min-width:28px;text-align:right;font-size:13px;font-weight:800;line-height:1;color:#17212b">{{ b.n }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid #eef2f4">
+              <div style="font-size:11px;font-weight:800;line-height:1;letter-spacing:.04em;color:#8695a1;text-transform:uppercase">Qoida aniqligi</div>
+              <div style="margin-top:9px;font-size:11px;color:#7b8894;line-height:1.5">Oxirgi 200 ta belgilangan namunada 91% mos keldi. Noto‘g‘ri bo‘lsa <a href="#1c">qoidani sozlang</a>.</div>
+            </div>
+          </aside>
+
+          <main style="min-width:0;min-height:0;display:flex;flex-direction:column">
+            <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:16px 18px 12px;border-bottom:1px solid #e6ebee">
+              <span style="width:4px;height:26px;border-radius:3px;background:#e09b2d"></span>
+              <b style="font-size:17px;color:#17212b">Ish vaqtidan tashqari olingan</b>
+              <span style="height:24px;padding:0 9px;display:inline-flex;align-items:center;border-radius:6px;background:#fff7eb;color:#8a4c08;font-size:11px;font-weight:700;line-height:1">34 foto · 11 agent</span>
+              <div style="margin-left:auto;display:flex;align-items:center;gap:7px">
+                <button style="height:34px;padding:0 12px;border:1px solid #d9e0e5;border-radius:7px;background:#fff;color:#34414d;font-size:12px;font-weight:600;line-height:1;cursor:pointer">Barchasini tanlash</button>
+                <button style="height:34px;padding:0 12px;border:1px solid #a8d9ba;border-radius:7px;background:#edf8f1;color:#168044;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Tanlanganlar OK</button>
+                <button style="height:34px;padding:0 14px;border:0;border-radius:7px;background:#cf3341;color:#fff;font-size:12px;font-weight:700;line-height:1;cursor:pointer">Tanlanganlarni minus (8)</button>
+              </div>
+            </div>
+            <div style="flex:1 1 auto;min-height:0;overflow:auto;padding:14px 18px 18px">
+              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px">
+                <sc-for list="{{ triage }}" as="t" hint-placeholder-count="20">
+                  <div style="position:relative;height:196px;display:flex;flex-direction:column;border:2px solid {{ t.ring }};border-radius:9px;background:#fff;overflow:hidden">
+                    <div style="flex:1 1 auto;position:relative;background:repeating-linear-gradient(135deg,#e7ecef 0 8px,#eef2f4 8px 16px)">
+                      <span style="position:absolute;left:8px;top:8px;width:18px;height:18px;border-radius:5px;border:1.5px solid {{ t.ring }};background:{{ t.check }}"></span>
+                      <span style="position:absolute;right:8px;top:8px;height:20px;padding:0 7px;display:inline-flex;align-items:center;border-radius:5px;background:rgba(255,255,255,.94);color:#8a4c08;font-size:10px;font-weight:800;line-height:1">{{ t.time }}</span>
+                    </div>
+                    <div style="flex:0 0 auto;padding:8px 9px;border-top:1px solid #eef2f4">
+                      <b style="display:block;font-size:11px;font-weight:700;line-height:1.2;color:#17212b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.code }}</b>
+                      <span style="display:block;margin-top:2px;font-size:10px;color:#7b8894;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.client }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  renderVals(){
+    const dot=(c)=>React.createElement('span',{key:Math.random(),style:{width:6,height:6,borderRadius:3,background:c,display:'block'}});
+    const dots=(g,r,n)=>[...Array(g)].map(()=>dot('#3fae7a')).concat([...Array(r)].map(()=>dot('#e0616f')),[...Array(n)].map(()=>dot('#d3dade')));
+    const chip=(t,bg,fg)=>React.createElement('span',{key:t,style:{height:20,padding:'0 7px',display:'inline-flex',alignItems:'center',borderRadius:5,background:bg,color:fg,font:'700 10px/1 Inter'}},t);
+
+    const queue=[
+      ['LMJNM08','Nodira Ergasheva','12 ta',6,3,3,'#e8f5f3','#0b7772'],
+      ['LMJNM11','Sardor Qodirov','4 ta',9,1,2,'#fff','#7b8894'],
+      ['LMJAN03','Dilshod Rahimov','21 ta',2,5,8,'#fff','#c02b39'],
+      ['LMJNM02','Kamola Yusupova','0 ta',11,0,0,'#fff','#3fae7a'],
+      ['LMJAN07','Bekzod To\u2018raev','7 ta',5,2,3,'#fff','#7b8894'],
+      ['LMJNM15','Malika Sattorova','3 ta',8,1,1,'#fff','#7b8894'],
+      ['LMJAN12','Jasur Umarov','9 ta',4,4,4,'#fff','#7b8894']
+    ].map(q=>({code:q[0],name:q[1],left:q[2],bg:q[6],tone:q[7],dots:dots(q[3],q[4],q[5])}));
+
+    const strip=[['#3fae7a','#3fae7a','OK'],['#3fae7a','#3fae7a','OK'],['#cf3341','#cf3341','MINUS'],['#3fae7a','#3fae7a','OK'],['#0f8f88','#0f8f88','HOZIR'],['#d3dade','#aab6bd','—'],['#d3dade','#aab6bd','—'],['#d3dade','#aab6bd','—'],['#d3dade','#aab6bd','—']]
+      .map(s=>({ring:s[0],bar:s[1],label:s[2]}));
+
+    const reasons=[
+      'Ish vaqtidan tashqari olingan foto','Kamera yopilgan yoki to\u2018sib olingan foto','Bitta do\u2018kondan takroriy foto',
+      'Ekrandan qayta olingan foto','Katalogdan olingan rasm','Faqat mahsulot rasmi','Foto talabga javob bermaydi'
+    ].map((t,i)=>({key:String(i+1),text:t}));
+
+    const agents=[
+      ['LMJNM08','Nodira E.','28',[['3 ogoh','#fff7eb','#8a4c08'],['12 kutmoqda','#eef2f4','#5c6b78']],'#e8f5f3','#0f8f88'],
+      ['LMJNM11','Sardor Q.','31',[['tugadi','#edf8f1','#168044']],'#fff','#3fae7a'],
+      ['LMJAN03','Dilshod R.','19',[['5 minus','#fff3f4','#c02b39'],['21 kutmoqda','#eef2f4','#5c6b78']],'#fff','#e0616f'],
+      ['LMJNM02','Kamola Y.','24',[['tugadi','#edf8f1','#168044']],'#fff','#3fae7a'],
+      ['LMJAN07','Bekzod T.','22',[['2 dublikat','#fff7eb','#8a4c08']],'#fff','#e09b2d'],
+      ['LMJNM15','Malika S.','17',[['3 kutmoqda','#eef2f4','#5c6b78']],'#fff','#c7d0d6'],
+      ['LMJAN12','Jasur U.','26',[['4 minus','#fff3f4','#c02b39']],'#fff','#e0616f'],
+      ['LMJNM21','Shahzod I.','15',[['prefiks mos emas','#f3f0ff','#5b46b8']],'#fff','#8b7ae0']
+    ].map(a=>({code:a[0],name:a[1],count:a[2],chips:a[3].map(c=>chip(c[0],c[1],c[2])),bg:a[4],edge:a[5]}));
+
+    const cards=[
+      ['Bekzod Market','09:14 · Buyurtma 1 240 000','#e09b2d','Ish vaqtidan tashqari','#fff7eb','#8a4c08'],
+      ['Oqtepa Savdo','09:41 · Buyurtma 860 000','#3fae7a','OK','#edf8f1','#168044'],
+      ['Chorsu Mini Market','10:05 · Buyurtma yo\u2018q','#cf3341','Minus — katalog rasmi','#fff3f4','#c02b39'],
+      ['Yunusobod 12','10:28 · Buyurtma 2 105 000','#3fae7a','OK','#edf8f1','#168044'],
+      ['Sergeli Baraka','10:52 · Buyurtma 430 000','#e09b2d','Takroriy foto','#fff7eb','#8a4c08'],
+      ['Mirzo Ulug\u2018bek 4','11:16 · Buyurtma 1 780 000','#c7d0d6','Ko\u2018rilmagan','#eef2f4','#5c6b78']
+    ].map(c=>({client:c[0],sub:c[1],edge:c[2],badge:c[3],badgeBg:c[4],badgeFg:c[5]}));
+
+    const buckets=[
+      ['Ish vaqtidan tashqari','34','#fff7eb','#e09b2d'],
+      ['Bitta do\u2018kondan takroriy','12','#fff','#e0616f'],
+      ['Ekrandan qayta olingan','5','#fff','#8b7ae0'],
+      ['Katalogdan olingan rasm','3','#fff','#5b8ce0'],
+      ['Kamera to\u2018sib olingan','0','#fff','#c7d0d6'],
+      ['Toza o\u2018tdi','1230','#fff','#3fae7a']
+    ].map(b=>({name:b[0],n:b[1],bg:b[2],tone:b[3]}));
+
+    const clients=['Bekzod Market','Oqtepa Savdo','Chorsu Mini','Yunusobod 12','Sergeli Baraka','Mirzo Ulug\u2018bek','Olmazor Oziq','Yakkasaroy 7','Shayxontohur','Uchtepa Savdo'];
+    const triage=[...Array(20)].map((_,i)=>({
+      code:'LMJ'+(i%3===0?'NM':'AN')+String(8+i%14).padStart(2,'0'),
+      client:clients[i%clients.length],
+      time:['21:14','22:03','06:12','21:47','23:08'][i%5],
+      ring:i<8?'#cf3341':'#e6ecef',
+      check:i<8?'#cf3341':'#fff'
+    }));
+
+    return {queue,strip,reasons,agents,cards,buckets,triage};
+  }
+}
+</script>
+</body>
+</html>
