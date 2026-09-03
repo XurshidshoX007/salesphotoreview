@@ -513,34 +513,34 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     }
     let undoToastTimer=null;
     function showUndoToast(reason){
-      let el=$(‘undoToast’);
+      let el=$('undoToast');
       if(!el){
-        el=document.createElement(‘div’);
-        el.id=’undoToast’;
-        el.className=’undoToast’;
-        el.innerHTML=’<span class="undoToastDot"></span><span class="undoToastLabel">Minus qo\’yildi</span><span class="undoToastReason"></span><button class="undoToastBtn" type="button">Qaytarish <kbd>Ctrl Z</kbd></button>’;
+        el=document.createElement('div');
+        el.id='undoToast';
+        el.className='undoToast';
+        el.innerHTML='<span class="undoToastDot"></span><span class="undoToastLabel">Minus qo\'yildi</span><span class="undoToastReason"></span><button class="undoToastBtn" type="button">Qaytarish <kbd>Ctrl Z</kbd></button>';
         document.body.appendChild(el);
-        el.querySelector(‘.undoToastBtn’).addEventListener(‘click’,()=>{undoLastReview();hideUndoToast()});
+        el.querySelector('.undoToastBtn').addEventListener('click',()=>{undoLastReview();hideUndoToast()});
       }
-      el.querySelector(‘.undoToastReason’).textContent=reason||’’;
-      el.classList.add(‘show’);
+      el.querySelector('.undoToastReason').textContent=reason||'';
+      el.classList.add('show');
       clearTimeout(undoToastTimer);
       undoToastTimer=setTimeout(hideUndoToast,4000);
     }
     function hideUndoToast(){
-      const el=$(‘undoToast’);
-      if(el)el.classList.remove(‘show’);
+      const el=$('undoToast');
+      if(el)el.classList.remove('show');
       clearTimeout(undoToastTimer);
     }
     function undoLastReview(){
       hideUndoToast();
       const action=undoStack.pop();
-      if(!action){notify(‘Bekor qilinadigan amal yo\’q’,’bad’);return}
+      if(!action){notify('Bekor qilinadigan amal yo‘q','bad');return}
       const now=new Date().toISOString(),changed=[];
       for(const item of action.changes){
         marks[item.key]=item.previous
           ? {...item.previous,updatedAt:now,updatedBy:reviewClientId}
-          : {_deleted:true,date:item.date||dataset?.date||’’,code:item.code||’’,url:item.url||’’,updatedAt:now,updatedBy:reviewClientId};
+          : {_deleted:true,date:item.date||dataset?.date||'',code:item.code||'',url:item.url||'',updatedAt:now,updatedBy:reviewClientId};
         changed.push(item.key);
       }
       saveMarks(changed);rebuildAgents();render();refreshAutoReviewAfterMark();

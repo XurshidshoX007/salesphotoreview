@@ -3,7 +3,7 @@ import { lookup } from "node:dns/promises";
 import { existsSync } from "node:fs";
 import { copyFile, mkdir, readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
 import { isIP } from "node:net";
-import { join, extname, normalize, dirname, resolve } from "node:path";
+import { join, extname, normalize, dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
@@ -173,15 +173,31 @@ const MIME = {
   ".svg": "image/svg+xml; charset=utf-8",
 };
 
+// Statik UI kodi: HTML kirish nuqtasi va review-ui/ ichidagi hamma narsa.
+// Bular doim image ichidan beriladi — Volume'ga bir marta tushib qolgan eski
+// nusxa aks holda har bir keyingi deploy'ni abadiy to'sib qo'yadi.
+const STATIC_UI_DIRS = ["review-ui"];
+const STATIC_UI_FILES = ["lmj_date_photo_review.html"];
+
+function isStaticUiPath(rel) {
+  const clean = rel.split(/[/\\]/).filter(Boolean);
+  if (!clean.length) return false;
+  if (clean.length === 1 && STATIC_UI_FILES.includes(clean[0])) return true;
+  return STATIC_UI_DIRS.includes(clean[0]);
+}
+
 function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split("?")[0]);
   const rel = decoded.replace(/^\/+/, "");
-  // Avval o'zgaruvchan ma'lumot (Volume) da qidiramiz — yig'ilgan datasetlar,
-  // manifest shu yerda. Topilmasa image ichidagi statik kodga (review-ui) qaytamiz.
-  const dataAbs = normalize(join(DATA_OUTPUTS, rel));
-  if (dataAbs.startsWith(normalize(DATA_OUTPUTS)) && existsSync(dataAbs)) return dataAbs;
   const abs = normalize(join(OUTPUTS, rel));
-  if (!abs.startsWith(normalize(OUTPUTS))) return null;
+  const outputsRoot = normalize(OUTPUTS);
+  if (abs !== outputsRoot && !abs.startsWith(outputsRoot + sep)) return null;
+  if (isStaticUiPath(rel)) return abs;
+  // O'zgaruvchan ma'lumot (Volume) da qidiramiz — yig'ilgan datasetlar,
+  // manifest shu yerda. Topilmasa image ichidagi nusxaga qaytamiz.
+  const dataAbs = normalize(join(DATA_OUTPUTS, rel));
+  const dataRoot = normalize(DATA_OUTPUTS);
+  if ((dataAbs === dataRoot || dataAbs.startsWith(dataRoot + sep)) && existsSync(dataAbs)) return dataAbs;
   return abs;
 }
 
