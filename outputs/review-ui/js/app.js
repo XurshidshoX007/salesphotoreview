@@ -511,29 +511,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(undoStack.length>30)undoStack.shift();
       updateReviewAssist();
     }
-    let undoToastTimer=null;
-    function showUndoToast(reason){
-      let el=$('undoToast');
-      if(!el){
-        el=document.createElement('div');
-        el.id='undoToast';
-        el.className='undoToast';
-        el.innerHTML='<span class="undoToastDot"></span><span class="undoToastLabel">Minus qo\'yildi</span><span class="undoToastReason"></span><button class="undoToastBtn" type="button">Qaytarish <kbd>Ctrl Z</kbd></button>';
-        document.body.appendChild(el);
-        el.querySelector('.undoToastBtn').addEventListener('click',()=>{undoLastReview();hideUndoToast()});
-      }
-      el.querySelector('.undoToastReason').textContent=reason||'';
-      el.classList.add('show');
-      clearTimeout(undoToastTimer);
-      undoToastTimer=setTimeout(hideUndoToast,4000);
-    }
-    function hideUndoToast(){
-      const el=$('undoToast');
-      if(el)el.classList.remove('show');
-      clearTimeout(undoToastTimer);
-    }
     function undoLastReview(){
-      hideUndoToast();
       const action=undoStack.pop();
       if(!action){notify('Bekor qilinadigan amal yo‘q','bad');return}
       const now=new Date().toISOString(),changed=[];
@@ -545,7 +523,6 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       }
       saveMarks(changed);rebuildAgents();render();refreshAutoReviewAfterMark();
       notify(`${action.label} bekor qilindi`);
-      updateReviewAssist();
     }
     function openNextUnchecked(){
       if(!agents.length)return;
@@ -1863,7 +1840,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         const order=orderInfo(p);
         return `<div class="card ${m?.verdict==='MINUS'?'marked':''} ${afterHours||sameMinute?'afterHours':''}" data-i="${photoIndex}">
           <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" data-variant="thumb" loading="lazy" decoding="async" referrerpolicy="no-referrer"><button class="photoRetry" type="button">Qayta yuklash</button></div>
-          <div class="cap"><b>${escapeHtml(p.client||a.code+' #'+(photoIndex+1))}</b><span class="capMeta">${escapeHtml(a.code)} #${photoIndex+1} · ${time}${order.text?' · '+escapeHtml(order.text):''}</span>${warns.length||badges?`<div class="badgeRow">${badges}</div>`:''}<button class="cardMinusBtn" type="button" data-i="${photoIndex}"><span class="minusIcon">⊖</span> Minus qilish</button></div>
+          <div class="cap"><b>${escapeHtml(a.code)} #${photoIndex+1}</b><br>${escapeHtml(p.client||'')}${order.text?`<br>${escapeHtml(order.text)}`:''}<br>Vaqt: ${escapeHtml(time)}${warns.length?`<div class="badgeRow">${badges}</div>`:''}${!warns.length&&badges?`<div class="badgeRow">${badges}</div>`:''}</div>
         </div>`;
       }).join('');
       document.querySelectorAll('.photoFrame img').forEach(img=>loadPhoto(img,img.dataset.direct,photoInitialMode('thumb'),'thumb'));
@@ -1871,13 +1848,6 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         event.stopPropagation();
         retryPhoto(button);
       }));
-      document.querySelectorAll('.cardMinusBtn').forEach(btn=>{
-        btn.addEventListener('click',e=>{
-          e.stopPropagation();
-          const idx=Number(btn.dataset.i);
-          openModal(idx);
-        });
-      });
       document.querySelectorAll('.card').forEach(card=>card.onclick=()=>openModal(Number(card.dataset.i)));
       preload();
     }
@@ -2061,14 +2031,9 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       if(!current)return;const {a,p,index}=current;
       const k=key(a,p),prev=marks[k]||{};
       const now=new Date().toISOString();
-      const reasons=selectedReasonValues();
       pushReviewUndo([{key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url}],verdict==='MINUS'?'Minus belgilash':'OK belgilash');
-      marks[k]=buildPhotoMark(a,p,index,verdict,reasons,$('note').value.trim(),prev,now);
+      marks[k]=buildPhotoMark(a,p,index,verdict,selectedReasonValues(),$('note').value.trim(),prev,now);
       saveMarks([k]);rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
-      if(verdict==='MINUS'){
-        showUndoToast(reasons[0]||'');
-        move(1);
-      }
       notify(verdict==='MINUS'?'Foto minus ro\'yxatiga qo\'shildi':'Foto OK sifatida saqlandi');
     }
     function buildPhotoMark(a,p,index,verdict,reasons,note,prev={},now=new Date().toISOString()){
@@ -2092,7 +2057,6 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       });
       pushReviewUndo(undoChanges,`${a.code} agentining barcha fotosini minus qilish`);
       saveMarks(changedKeys);rebuildAgents();render();closeModal();refreshAutoReviewAfterMark();
-      showUndoToast(`${a.code}: ${photos.length} ta foto`);
       notify(`${a.code}: ${photos.length} ta foto MINUS qilindi`);
     }
     function move(direction,wrap=false){
@@ -3395,102 +3359,19 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       updatePauseButtons();
       showReasonContextMenu(e.clientX,e.clientY);
     });
-    window._paletteKey=key;
-    function openPalette(){
-      const palette=window.PhotoReviewPalette;
-      if(!palette)return;
-      palette.open({
-        getAgents:()=>agents,
-        getMarks:()=>marks,
-        getManifest:()=>manifest,
-        onSelectAgent(idx){agentIndex=idx;start=0;switchView('photo');render()},
-        onSelectDate(date){if(dateSel){dateSel.value=date;dateSel.dispatchEvent(new Event('change'))}},
-        onAction(id){
-          if(id==='nextUnchecked')openNextUnchecked();
-          else if(id==='minusList')showList();
-          else if(id==='attendance')switchView('attendance');
-          else if(id==='brandSettings')openBrandSettings();
-          else if(id==='toggleTheme')toggleTheme();
-          else if(id==='export')csv();
-        }
-      });
-    }
-    function openCompare(){
-      const compare=window.PhotoReviewCompare;
-      if(!compare)return;
-      compare.open({
-        agents,
-        getKey:key,
-        getMarks:()=>marks,
-        notify,
-        onMarkDuplicate(a,p,photoIndex){
-          const k=key(a,p),prev=marks[k]||{};
-          const reason=defaultReasons[2];
-          const now=new Date().toISOString();
-          pushReviewUndo([{key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url}],'Takroriy belgilash');
-          marks[k]=buildPhotoMark(a,p,photoIndex,'MINUS',[reason],'',(prev),now);
-          saveMarks([k]);rebuildAgents();render();refreshAutoReviewAfterMark();
-          showUndoToast(reason);
-        }
-      });
-    }
     window.addEventListener('keydown',e=>{
-      const qn=$('quickNav');if(qn)qn.classList.remove('dockVisible');
-      if(window.PhotoReviewCompare?.isOpen()&&window.PhotoReviewCompare.handleKey(e))return;
-      if(e.key==='Escape'){
-        if(window.PhotoReviewCompare?.isOpen()){window.PhotoReviewCompare.close();return}
-        if(window.PhotoReviewPalette?.isOpen()){window.PhotoReviewPalette.close();e.stopPropagation();return}
-        setPhotoFiltersOpen(false);closeModal();closeMinusList();closeAutoReview();closeDeleteConfirm();closeCollect();closeBrandSettings();closeReplaceEmployeeModal();return;
-      }
-      if((e.ctrlKey||e.metaKey)&&e.key==='k'){
-        e.preventDefault();
-        openPalette();
-        return;
-      }
-      if((e.ctrlKey||e.metaKey)&&e.key==='z'){
-        e.preventDefault();
-        undoLastReview();
-        return;
-      }
+      if(e.key==='Escape'){setPhotoFiltersOpen(false);closeModal();closeMinusList();closeAutoReview();closeDeleteConfirm();closeCollect();closeBrandSettings();closeReplaceEmployeeModal();return}
       if(e.code==='Space'||e.key===' '){
         if(isEditableTarget(e.target))return;
         e.preventDefault();
         e.stopPropagation();
-        if(!reviewNavigationReady())return;
-        move(1);
+        if(!canUseSpaceForPause())return;
+        togglePause();
         return;
       }
       if(!reviewNavigationReady())return;
       if(e.key==='ArrowRight')move(1);
       if(e.key==='ArrowLeft')move(-1);
-      if(e.key.toLowerCase()==='m'){
-        const a=agents[agentIndex];if(!a?.photos?.length)return;
-        const size=photoPageSizeFor(a);
-        openModal(Math.min(start,a.photos.length-1));
-        return;
-      }
-      if(e.key.toLowerCase()==='p'){togglePause();return}
-      if(e.key.toLowerCase()==='c'){
-        if(window.PhotoReviewCompare?.isOpen()){window.PhotoReviewCompare.handleKey(e);return}
-        openCompare();
-        return;
-      }
-      if(e.key>='1'&&e.key<='7'){
-        const reasons=allReasons();
-        const idx=Number(e.key)-1;
-        if(idx<reasons.length){
-          const a=agents[agentIndex];if(!a?.photos?.length)return;
-          const photoIndex=Math.min(start,a.photos.length-1);
-          const p=a.photos[photoIndex],k=key(a,p),prev=marks[k]||{};
-          const now=new Date().toISOString();
-          pushReviewUndo([{key:k,previous:marks[k]?cloneReviewValue(marks[k]):null,date:dataset.date,code:a.code,url:p.url}],'Minus belgilash');
-          marks[k]=buildPhotoMark(a,p,photoIndex,'MINUS',[reasons[idx]],'',(prev),now);
-          saveMarks([k]);rebuildAgents();render();refreshAutoReviewAfterMark();
-          showUndoToast(reasons[idx]);
-          move(1);
-        }
-        return;
-      }
     });
     let wheelNavAt=0;
     window.addEventListener('wheel',e=>{
@@ -3572,23 +3453,4 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       ['attendancePrefix','attendanceRole','attendanceEmployee','attendanceStatus','attendanceRegion','attendanceSvrOnly'].forEach(id=>{if($(id))$(id).oninput=scheduleAttendanceRender});
       if($('attendanceBrand'))$('attendanceBrand').onchange=()=>{attendanceSelectedDate='';loadAttendanceMonth().catch(e=>notify(e.message,'bad'))};
       if($('attendanceMonth'))$('attendanceMonth').onchange=()=>{attendanceSelectedDate='';loadAttendanceMonth().catch(e=>notify(e.message,'bad'))};
-
-      let dockHideTimer=null;
-      const dock=$('quickNav');
-      function showDock(){
-        if(!document.body.classList.contains('photoView'))return;
-        clearTimeout(dockHideTimer);
-        dock.classList.add('dockVisible');
-      }
-      function hideDock(delay){
-        clearTimeout(dockHideTimer);
-        dockHideTimer=setTimeout(()=>dock.classList.remove('dockVisible'),delay||600);
-      }
-      document.addEventListener('mousemove',e=>{
-        if(!document.body.classList.contains('photoView'))return;
-        if(window.innerHeight-e.clientY<120)showDock();
-        else hideDock(600);
-      });
-      dock.addEventListener('mouseenter',()=>showDock());
-      dock.addEventListener('mouseleave',()=>hideDock(600));
     });
