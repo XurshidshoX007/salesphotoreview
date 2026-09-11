@@ -15,9 +15,15 @@ export function createMarksRoutes({ storage, http }) {
       return methodNotAllowed(res, http.sendJson, access.headers);
     }
     if (parsed.pathname === "/api/sync") {
-      const beforeRevisions = await storage.reviewStateRevisions();
+      if (req.method !== "GET" && req.method !== "POST") {
+        return methodNotAllowed(res, http.sendJson, access.headers);
+      }
       let conflicts = {};
+      // beforeRevisions faqat POST konfliktini aniqlash uchun kerak. Ilgari u
+      // GET'da ham hisoblanardi: har 7 soniyalik pollingda 3 ta ortiqcha
+      // stat() chaqiruvi bo'lardi.
       if (req.method === "POST") {
+        const beforeRevisions = await storage.reviewStateRevisions();
         const body = await http.readJsonBody(req, 6_000_000);
         const base = body.baseRevisions && typeof body.baseRevisions === "object" ? body.baseRevisions : {};
         conflicts = {
@@ -27,8 +33,6 @@ export function createMarksRoutes({ storage, http }) {
         };
         if (body.marks) await storage.writeReviewMarks(body.marks);
         if (body.reasons) await storage.writeReviewReasons(body.reasons);
-      } else if (req.method !== "GET") {
-        return methodNotAllowed(res, http.sendJson, access.headers);
       }
       const light = parsed.searchParams.get("light") === "1";
       const [brands, reasons, marks, revisions] = await Promise.all([

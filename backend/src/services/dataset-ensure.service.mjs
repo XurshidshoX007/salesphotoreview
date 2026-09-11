@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { basename, join, normalize, resolve } from "node:path";
 
 const ISO_DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -151,6 +151,25 @@ export function createDatasetEnsureService({
   startCollectJob,
 }) {
   let startLock = Promise.resolve();
+  // Dataset fayllari 2-4 MB. Yig'ish davomida frontend har soniyada status
+  // so'raydi va har safar shu fayl qaytadan JSON.parse qilinardi. Fayl
+  // mtime+size o'zgarmasa, hisoblangan natijani qayta ishlatamiz.
+  const qualityCache = new Map();
+
+  async function datasetSnapshot(filePath) {
+    const info = await stat(filePath);
+    const stamp = `${Math.round(info.mtimeMs)}-${info.size}`;
+    const cached = qualityCache.get(filePath);
+    if (cached?.stamp === stamp) return cached.value;
+    const dataset = JSON.parse(await readFile(filePath, "utf8"));
+    const rows = Array.isArray(dataset?.agents) ? dataset.agents : dataset?.rows;
+    const value = !dataset || typeof dataset !== "object" || !Array.isArray(rows)
+      ? null
+      : { date: normalizeDatasetDate(dataset.date), dataset, quality: datasetQuality(dataset) };
+    qualityCache.set(filePath, { stamp, value });
+    if (qualityCache.size > 24) qualityCache.delete(qualityCache.keys().next().value);
+    return value;
+  }
 
   async function brands() {
     const config = await loadBrands();
@@ -185,12 +204,11 @@ export function createDatasetEnsureService({
       const filePath = safeDatasetPath(outputsDir, entry.file);
       if (!filePath) continue;
       try {
-        const dataset = JSON.parse(await readFile(filePath, "utf8"));
-        const rows = Array.isArray(dataset?.agents) ? dataset.agents : dataset?.rows;
-        if (!dataset || typeof dataset !== "object" || !Array.isArray(rows)) continue;
-        if (normalizeDatasetDate(dataset.date) !== identity.date) continue;
+        const snapshot = await datasetSnapshot(filePath);
+        if (!snapshot) continue;
+        const { dataset, quality } = snapshot;
+        if (snapshot.date !== identity.date) continue;
         if (!datasetMatchesBrand(identity.brands, dataset, identity.brand, entry.file)) continue;
-        const quality = datasetQuality(dataset);
         return {
           ok: true,
           status: quality.status,

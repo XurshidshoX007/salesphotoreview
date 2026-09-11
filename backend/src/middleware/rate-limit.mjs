@@ -71,12 +71,3 @@ export function createFailureRateLimiter({
     },
   };
 }
-
-export function createRateLimiter({ windowMs = 60_000, max = 120 } = {}) {
-  const limiter = createFailureRateLimiter({ windowMs, maxFailures: max });
-  return function isRateLimited(key) {
-    const status = limiter.check(key);
-    if (status.blocked) return true;
-    return limiter.fail(key).blocked;
-  };
-}

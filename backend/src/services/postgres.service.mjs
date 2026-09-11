@@ -24,14 +24,22 @@ export function createPostgresService({ connectionString = process.env.DATABASE_
       INSERT INTO app_schema_migrations (id) VALUES ('001_initial_json_mirror') ON CONFLICT DO NOTHING;
     `);
   }
+  // Ilgari har bir belgi alohida so'rov bilan yozilardi: bitta bulk saqlash
+  // yuzlab round-trip qilardi, dataset o'chirishda esa butun marks fayli
+  // bittalab qayta yozilardi. Endi bir so'rovda 500 tagacha yozuv boradi.
+  const UPSERT_CHUNK = 500;
   async function upsertReviewMarks(marks, executor = client()) {
     assertPlainObject(marks, "Marks");
-    for (const [key, value] of Object.entries(marks)) {
-      if (!String(key).trim() || !value || typeof value !== "object" || Array.isArray(value)) continue;
+    const rows = Object.entries(marks).filter(
+      ([key, value]) => String(key).trim() && value && typeof value === "object" && !Array.isArray(value),
+    );
+    for (let index = 0; index < rows.length; index += UPSERT_CHUNK) {
+      const chunk = rows.slice(index, index + UPSERT_CHUNK);
       await executor.query(
-        `INSERT INTO review_marks (mark_key, payload, updated_at) VALUES ($1, $2::jsonb, now())
+        `INSERT INTO review_marks (mark_key, payload, updated_at)
+         SELECT mark_key, payload, now() FROM unnest($1::text[], $2::jsonb[]) AS t(mark_key, payload)
          ON CONFLICT (mark_key) DO UPDATE SET payload = EXCLUDED.payload, updated_at = EXCLUDED.updated_at`,
-        [String(key), JSON.stringify(value)],
+        [chunk.map(([key]) => String(key)), chunk.map(([, value]) => JSON.stringify(value))],
       );
     }
   }
