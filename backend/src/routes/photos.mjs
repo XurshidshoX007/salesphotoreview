@@ -3,7 +3,11 @@ import { methodNotAllowed } from "../middleware/errors.mjs";
 export function createPhotoRoutes({ photos, http }) {
   return async function routePhotos({ req, res, parsed, access }) {
     if (parsed.pathname === "/api/photo") {
+      if (req.method !== "GET" && req.method !== "HEAD") return methodNotAllowed(res, http.sendJson, access.headers);
       const url = parsed.searchParams.get("url");
+      // URL bo'sh bo'lsa ETag ham bo'sh satrdan hisoblanardi: barcha noto'g'ri
+      // so'rovlar bitta ETag'ni bo'lishib, 400 o'rniga 304 olardi.
+      if (!String(url || "").trim()) throw http.apiError("Foto URL ko'rsatilmagan", 400);
       const variant = parsed.searchParams.get("view") === "thumb" ? "thumb" : "full";
       const etag = `W/"photo-${variant}-${photos.photoCacheKey(url)}"`;
       if (req.headers["if-none-match"] === etag) {

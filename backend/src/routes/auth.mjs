@@ -56,7 +56,15 @@ export function createAuthRoutes({ auth, http }) {
       return true;
     }
     if (parsed.pathname === "/api/access/logout") {
+      // GET orqali chiqarib yuborish CSRF beradi: boshqa saytdagi oddiy
+      // <img src=".../api/access/logout"> operatorni tizimdan chiqarardi.
+      // SameSite=Lax cookie POST'ni cross-site yubormaydi.
+      if (req.method !== "POST") return methodNotAllowed(res, http.sendJson);
       auth.invalidatePinSession(req);
+      if (/application\/json/i.test(String(req.headers["content-type"] || ""))) {
+        http.sendJson(res, 200, { ok: true }, { "Set-Cookie": auth.clearPinSessionCookieHeader(req) });
+        return true;
+      }
       res.writeHead(303, { Location: "/", "Set-Cookie": auth.clearPinSessionCookieHeader(req) });
       res.end();
       return true;

@@ -4,6 +4,7 @@ export function createCollectRoutes({ sales, http }) {
   return async function routeCollect({ req, res, parsed, access }) {
     if (!parsed.pathname.startsWith("/api/collect/")) return false;
     if (parsed.pathname === "/api/collect/status") {
+      if (req.method !== "GET") return methodNotAllowed(res, http.sendJson, access.headers);
       http.sendJson(res, 200, { ok: true, collect: sales.publicCollectState() }, access.headers);
       return true;
     }

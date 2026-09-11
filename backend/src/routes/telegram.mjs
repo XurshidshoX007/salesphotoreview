@@ -3,6 +3,7 @@ import { methodNotAllowed } from "../middleware/errors.mjs";
 export function createTelegramRoutes({ telegram, storage, http }) {
   return async function routeTelegram({ req, res, parsed, access }) {
     if (parsed.pathname === "/api/telegram/status") {
+      if (req.method !== "GET") return methodNotAllowed(res, http.sendJson, access.headers);
       const brandConfig = await storage.loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
       const chats = [
         ...telegram.telegramChats(),
@@ -20,6 +21,7 @@ export function createTelegramRoutes({ telegram, storage, http }) {
       return true;
     }
     if (parsed.pathname === "/api/admin/telegram-stats") {
+      if (req.method !== "GET") return methodNotAllowed(res, http.sendJson, access.headers);
       const stats = await telegram.readTelegramUsageStats();
       http.sendJson(res, 200, { ok: true, ...telegram.summarizeTelegramUsageStats(stats) }, access.headers);
       return true;

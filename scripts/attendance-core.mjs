@@ -107,7 +107,7 @@ export function normalizeCode(value) {
 
 export function normalizeMonth(value) {
   const match = String(value || "").match(/^(\d{4})-(\d{2})$/);
-  if (!match) throw new Error("Oy formati noto'g'ri. Masalan: 2026-06");
+  if (!match) throw httpError("Oy formati noto'g'ri. Masalan: 2026-06", 400);
   return `${match[1]}-${match[2]}`;
 }
 
@@ -267,7 +267,7 @@ export function validateManualValue(value, rules) {
 export async function resolveBrand(value) {
   const config = await loadBrandsConfig({ includeDisabled: true });
   const brand = findBrand(config, value || "lalaku_mama", { includeDisabled: true });
-  if (!brand) throw new Error(`Brend topilmadi: ${value}`);
+  if (!brand) throw httpError(`Brend topilmadi: ${value}`, 400);
   return publicBrand(brand);
 }
 

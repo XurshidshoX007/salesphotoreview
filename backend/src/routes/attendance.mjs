@@ -3,6 +3,11 @@ import { methodNotAllowed } from "../middleware/errors.mjs";
 export function createAttendanceRoutes({ attendance, http }) {
   return async function routeAttendance({ req, res, parsed, access }) {
     if (!parsed.pathname.startsWith("/api/attendance/")) return false;
+    // Faqat o'qiydigan yo'llar GET dan boshqasini qabul qilmasligi kerak.
+    const readOnly = ["/api/attendance/config", "/api/attendance/month", "/api/attendance/day", "/api/attendance/issues", "/api/attendance/history", "/api/attendance/export"];
+    if (readOnly.includes(parsed.pathname) && req.method !== "GET") {
+      return methodNotAllowed(res, http.sendJson, access.headers);
+    }
     if (parsed.pathname === "/api/attendance/config") {
       const store = await attendance.loadAttendanceStore();
       http.sendJson(res, 200, {
