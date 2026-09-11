@@ -41,3 +41,12 @@ work/test-artifacts/
 work/ui-check/
 work/*.png
 work/sales_assets_probe/
+
+# Runtime holati — Railway'da Volume ichida, lokalda ish fayllari.
+# Har saqlashda ~2.6 MB yangi blob qo'shilardi.
+outputs/lmj_review_marks.json
+outputs/lmj_suspicious_photos.json
+
+# Bir martalik tahlil artefaktlari (.codex skriptlari qayta yaratadi)
+outputs/kirim-sof-all-sheets/
+.codex/kirim_sof_preview/previews-original/

@@ -42,6 +42,7 @@
     "test:dataset-ensure": "node scripts/test-dataset-ensure.mjs",
     "test:dataset-auto-load": "node scripts/test-dataset-auto-load.mjs",
     "test:review": "npm run build:review && npm run test:brands && npm run test:attendance && npm run test:dataset-ensure && npm run test:dataset-auto-load && npm run test:review-security && npm run test:review-api && npm run test:review-workflows && npm run test:review-mobile && npm run test:review-ui",
+    "hooks:install": "node scripts/install-git-hooks.mjs",
     "maintenance:check": "node scripts/maintenance-cleanup.mjs",
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },
