@@ -46,6 +46,41 @@ assert(syncResponse.ok && sync.ok, `Sync API xato: HTTP ${syncResponse.status}`)
 assert(sync.marksLight === true, "Light sync marksLight=true qaytarmadi");
 assert(sync.revisions?.marks && sync.revisions?.reasons && sync.revisions?.brands, "Sync revisionlar to'liq emas");
 
+// Konflikt vaqti server tomonda belgilanishi kerak. Aks holda soati oldinda
+// ketgan kompyuterdagi operator doim yutib, keyingi baholar jimgina yo'qolardi.
+async function postMark(key, mark) {
+  const response = await fetch(`${baseUrl}/api/marks?compact=1`, {
+    method: "POST",
+    headers: { ...auth.headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ marks: { [key]: mark } }),
+  });
+  const data = await response.json();
+  assert(response.ok && data.ok, `Marks POST xato: HTTP ${response.status}`);
+  return data.marks?.[key];
+}
+
+const skewKey = `test-clock-skew#${Date.now()}`;
+const future = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+const past = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+const skewFirst = await postMark(skewKey, {
+  date: "2026-01-01", code: "TEST01", url: "https://example.invalid/a.jpg",
+  verdict: "MINUS", reasons: ["Soati oldinda ketgan kompyuter"], note: "birinchi",
+  updatedAt: future, savedAt: future, updatedBy: "fast-clock",
+});
+assert(skewFirst?.serverUpdatedAt, "Server serverUpdatedAt qo'ymadi");
+const skewSecond = await postMark(skewKey, {
+  date: "2026-01-01", code: "TEST01", url: "https://example.invalid/a.jpg",
+  verdict: "OK", reasons: [], note: "ikkinchi",
+  updatedAt: past, savedAt: past, updatedBy: "slow-clock",
+});
+assert(skewSecond?.verdict === "OK", `Keyingi baho yo'qoldi: ${skewSecond?.verdict} (brauzer soati yutib ketdi)`);
+assert(skewSecond?.note === "ikkinchi", "Keyingi izoh saqlanmadi");
+await fetch(`${baseUrl}/api/marks?compact=1`, {
+  method: "POST",
+  headers: { ...auth.headers, "Content-Type": "application/json" },
+  body: JSON.stringify({ marks: { [skewKey]: { _deleted: true, date: "2026-01-01", code: "TEST01", updatedAt: new Date().toISOString() } } }),
+});
+
 const results = {};
 if (!process.env.CI) {
   const photoUrl = await samplePhotoUrl();

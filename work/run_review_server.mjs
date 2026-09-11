@@ -20,7 +20,7 @@ import { createSalesService } from "../backend/src/services/sales.service.mjs";
 import { createStorageService } from "../backend/src/services/storage.service.mjs";
 import { createTelegramService } from "../backend/src/services/telegram.service.mjs";
 import { createPostgresService } from "../backend/src/services/postgres.service.mjs";
-import { queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
+import { pendingJsonWrites, queueJsonWrite, readJsonResilient } from "../backend/src/services/json-storage.service.mjs";
 import { readResponseBuffer } from "../backend/src/lib/http-body.mjs";
 import { BRANDS_FILE, BRANDS_SEED_FILE, findBrand, loadBrandsConfig, publicBrand, saveBrandsConfig, validateBrandsConfig } from "../scripts/brand-config.mjs";
 import { buildReviewCss } from "../scripts/build-review-css.mjs";
@@ -104,6 +104,7 @@ const staticFileCache = new Map();
 const staticGzipCache = new Map();
 let marksWriteQueue = Promise.resolve();
 let reasonsWriteQueue = Promise.resolve();
+let photoMetricsWriteQueue = Promise.resolve();
 const PHOTO_DISK_CACHE_DIR = join(DATA_ROOT, "work", ".photo-cache");
 const MAINTENANCE_SCRIPT = join(ROOT, "scripts", "maintenance-cleanup.mjs");
 const DATA_BACKUP_SCRIPT = join(ROOT, "scripts", "data-backup.mjs");
@@ -1007,57 +1008,74 @@ async function readPhotoMetricsCache() {
   return { items, updatedAt: data?.updatedAt || "", total: Object.keys(items).length };
 }
 
+// O'qi-birlashtir-yoz ketma-ketligi navbatga olinadi. Navbatsiz ikki parallel
+// POST bir-birining yozuvini yo'qotardi (marks/reasons da navbat bor edi,
+// bu yerda yo'q edi).
 async function writePhotoMetricsCache(incoming) {
-  const current = await readPhotoMetricsCache();
-  const items = { ...current.items };
-  const source = incoming?.items && typeof incoming.items === "object" && !Array.isArray(incoming.items)
-    ? incoming.items
-    : incoming;
-  for (const [url, entry] of Object.entries(source || {})) {
-    const normalized = normalizeMetricEntry(entry);
-    if (url && normalized) items[url] = normalized;
-  }
-  const sorted = Object.entries(items)
-    .sort((a, b) => (b[1]?.ts || 0) - (a[1]?.ts || 0))
-    .slice(0, Math.max(200, PHOTO_METRICS_LIMIT));
-  const compactItems = Object.fromEntries(sorted);
-  const payload = {
-    updatedAt: new Date().toISOString(),
-    total: sorted.length,
-    items: compactItems,
+  const writeJob = async () => {
+    const current = await readPhotoMetricsCache();
+    const items = { ...current.items };
+    const source = incoming?.items && typeof incoming.items === "object" && !Array.isArray(incoming.items)
+      ? incoming.items
+      : incoming;
+    for (const [url, entry] of Object.entries(source || {})) {
+      const normalized = normalizeMetricEntry(entry);
+      if (url && normalized) items[url] = normalized;
+    }
+    const sorted = Object.entries(items)
+      .sort((a, b) => (b[1]?.ts || 0) - (a[1]?.ts || 0))
+      .slice(0, Math.max(200, PHOTO_METRICS_LIMIT));
+    const payload = {
+      updatedAt: new Date().toISOString(),
+      total: sorted.length,
+      items: Object.fromEntries(sorted),
+    };
+    await safeWriteJson(PHOTO_METRICS_FILE, payload, "photo metrics cache");
+    return payload;
   };
-  await safeWriteJson(PHOTO_METRICS_FILE, payload, "photo metrics cache");
-  return payload;
+  const job = photoMetricsWriteQueue.then(writeJob, writeJob);
+  photoMetricsWriteQueue = job.catch(() => {});
+  return job;
 }
 
+// Konflikt vaqti server tomonda belgilanadi. Ilgari `updatedAt` ni brauzer
+// yozardi: ikki operatorning soati farq qilsa, soati oldinda ketgani doim
+// yutib, ikkinchisining bahosi ogohlantirishsiz yo'qolardi. Endi har bir
+// qabul qilingan yozuvga server `serverUpdatedAt` qo'yadi. Eski yozuvlarda u
+// yo'q — o'shanda brauzer vaqtiga qaytamiz, ammo kelajakdagi sanani hozirgi
+// vaqtga qisamiz, aks holda noto'g'ri soat abadiy yutaverardi.
 function markTime(value) {
+  const server = Date.parse(value?.serverUpdatedAt || "");
+  if (Number.isFinite(server)) return server;
   const time = Date.parse(value?.updatedAt || value?.savedAt || value?.approvedAt || value?.telegramSentAt || "");
-  return Number.isFinite(time) ? time : 0;
+  return Number.isFinite(time) ? Math.min(time, Date.now()) : 0;
 }
 
 function mergeReviewMarks(base, incoming) {
   const merged = { ...(base || {}) };
+  const receivedAt = new Date().toISOString();
   for (const [key, value] of Object.entries(incoming || {})) {
     if (!value || typeof value !== "object" || Array.isArray(value)) continue;
     const previous = merged[key];
     if (value._deleted === true) {
-      if (!previous || markTime(value) >= markTime(previous)) {
+      if (!previous || markTime({ ...value, serverUpdatedAt: receivedAt }) >= markTime(previous)) {
         merged[key] = {
           _deleted: true,
           date: value.date || previous?.date || "",
           code: value.code || previous?.code || "",
           url: value.url || previous?.url || "",
-          updatedAt: value.updatedAt || new Date().toISOString(),
+          updatedAt: value.updatedAt || receivedAt,
+          serverUpdatedAt: receivedAt,
           updatedBy: value.updatedBy || "",
         };
       }
       continue;
     }
-    const next = { ...(previous || {}), ...value };
+    const next = { ...(previous || {}), ...value, serverUpdatedAt: receivedAt };
     if (previous?.telegramSentAt || value?.telegramSentAt) {
       next.telegramSentAt = previous?.telegramSentAt || value?.telegramSentAt;
     }
-    if (!next.updatedAt) next.updatedAt = next.savedAt || new Date().toISOString();
+    if (!next.updatedAt) next.updatedAt = next.savedAt || receivedAt;
     merged[key] = previous && markTime(previous) > markTime(next)
       ? { ...next, ...previous, telegramSentAt: next.telegramSentAt || previous.telegramSentAt }
       : next;
@@ -1114,7 +1132,7 @@ async function deleteReviewMarks({ date = "" } = {}) {
     let deleted = 0;
     for (const [key, mark] of Object.entries(current)) {
       if (String(mark?.date || "") !== cleanDate || mark?._deleted) continue;
-      filtered[key] = { _deleted: true, date: cleanDate, code: mark?.code || "", url: mark?.url || "", updatedAt: now, updatedBy: "dataset-delete" };
+      filtered[key] = { _deleted: true, date: cleanDate, code: mark?.code || "", url: mark?.url || "", updatedAt: now, serverUpdatedAt: now, updatedBy: "dataset-delete" };
       deleted += 1;
     }
     await safeWriteJson(MARKS_FILE, filtered, "review marks");
@@ -1336,116 +1354,6 @@ async function deleteDatasetByDate(date) {
   return { date, deletedFile: item.file, datasets: manifest.datasets };
 }
 
-function lookupKey(value) {
-  return cleanText(value).toLowerCase();
-}
-
-function compactLookupKey(value) {
-  return lookupKey(value).replace(/[^a-z0-9]+/gi, "");
-}
-
-function buildClientOrderMap(items) {
-  const map = new Map();
-  for (const item of items || []) {
-    const sum = Number(item.clientOrderSum ?? item.orderSum ?? item.sum ?? item.totalOrderAmount?.amount ?? item.total_order_amount?.amount ?? 0) || 0;
-    for (const key of [item.apiId, item.id, item.clientId, item.visualId, item.visual_id, item.code, item.name, item.client]) {
-      const normal = lookupKey(key);
-      const compacted = compactLookupKey(key);
-      if (normal && !map.has(normal)) map.set(normal, sum);
-      if (compacted && !map.has(compacted)) map.set(compacted, sum);
-    }
-  }
-  return map;
-}
-
-function clientOrderFrom(map, item, row) {
-  const direct = Number(item.clientOrderSum ?? item.orderSum ?? row.clientOrderSum ?? row.orderSum ?? 0) || 0;
-  if (direct) return direct;
-  for (const key of [item.clientId, row.clientId, item.visualId, row.visualId, item.visual_id, row.visual_id, item.client, row.client]) {
-    const normal = lookupKey(key);
-    const compacted = compactLookupKey(key);
-    if (normal && map.has(normal)) return Number(map.get(normal)) || 0;
-    if (compacted && map.has(compacted)) return Number(map.get(compacted)) || 0;
-  }
-  return 0;
-}
-
-function normalizeDataset(raw) {
-  const source = raw?.agents || raw?.rows || [];
-  return source.map((agent, agentIndex) => {
-    const code = agent.code || `AGENT${agentIndex + 1}`;
-    const photos = [];
-    const clientOrders = buildClientOrderMap(agent.clients || agent.clientRows || []);
-    if (Array.isArray(agent.photos)) {
-      agent.photos.forEach((row, rowIndex) => {
-        const items = Array.isArray(row.photoItems) || Array.isArray(row.items)
-          ? (row.photoItems || row.items)
-          : null;
-        if (items) {
-          items.forEach((item, itemIndex) => photos.push({
-            id: `r${rowIndex + 1}_${itemIndex + 1}`,
-            url: item.url || item.src || "",
-            client: item.client || row.client || "",
-            clientOrderSum: clientOrderFrom(clientOrders, item, row),
-            clientOrderCount: Number(item.clientOrderCount ?? row.clientOrderCount ?? 0) || 0,
-            clientHasOrder: item.clientHasOrder ?? row.clientHasOrder,
-            clientOrderKnown: item.clientOrderKnown ?? row.clientOrderKnown,
-            clientOrderSource: item.clientOrderSource || row.clientOrderSource || "",
-            clientOrderStatuses: item.clientOrderStatuses || row.clientOrderStatuses || [],
-            clientId: item.clientId || row.clientId || "",
-            category: item.photoCategory || item.category || row.photoCategory || row.category || "",
-            territory: item.territory || row.territory || "",
-            photoTime: item.photoTime || item.upload_time || row.photoTime || "",
-            row: row.row || rowIndex + 1,
-          }));
-          return;
-        }
-        (row.urls || []).forEach((url, itemIndex) => photos.push({
-          id: `r${rowIndex + 1}_${itemIndex + 1}`,
-          url,
-          client: row.client || "",
-          clientOrderSum: clientOrderFrom(clientOrders, row, row),
-          clientOrderCount: Number(row.clientOrderCount ?? 0) || 0,
-          clientHasOrder: row.clientHasOrder,
-          clientOrderKnown: row.clientOrderKnown,
-          clientOrderSource: row.clientOrderSource || "",
-          clientOrderStatuses: row.clientOrderStatuses || [],
-          clientId: row.clientId || "",
-          category: row.photoCategory || row.category || "",
-          territory: row.territory || "",
-          photoTime: (row.photoTimes && row.photoTimes[itemIndex]) || row.photoTime || "",
-          row: row.row || rowIndex + 1,
-        }));
-      });
-    } else {
-      (agent.urls || []).forEach((url, index) => photos.push({
-        id: `p${index + 1}`,
-        url,
-        client: "",
-        clientOrderSum: 0,
-        clientId: "",
-        category: "",
-        territory: "",
-        photoTime: "",
-        row: index + 1,
-      }));
-    }
-    const match = String(code).match(/^([A-Z]+)(\d+)/i);
-    return {
-      code,
-      agent: agent.agent || agent.modalTitle || code,
-      group: match ? match[1] : code,
-      tail: match ? Number(match[2]) : 999,
-      orderSum: Number(agent.orderSum ?? agent.sum ?? 0) || 0,
-      collectStatus: agent.status || "ok",
-      photos,
-    };
-  })
-    .filter((agent) => agent.collectStatus !== "duplicate" && agent.collectStatus !== "error")
-    .filter((agent) => agent.photos.length > 0)
-    .sort((a, b) => a.group.localeCompare(b.group) || a.orderSum - b.orderSum || a.tail - b.tail || a.code.localeCompare(b.code));
-}
-
 function compact(value, max = 900) {
   const text = String(value || "").trim();
   return text.length > max ? `${text.slice(0, max - 1)}...` : text;
@@ -1468,14 +1376,6 @@ function shortReason(reason) {
     .replace("Foto talabga javob bermaydi", "Talabga javob bermaydi");
 }
 
-function formatPhotoTime(value) {
-  const text = cleanText(value);
-  if (!text) return "";
-  const date = text.match(/\d{4}-\d{2}-\d{2}/)?.[0] || "";
-  const time = text.match(/\b\d{2}:\d{2}\b/)?.[0] || "";
-  return [date, time].filter(Boolean).join(" ");
-}
-
 function brandFromCode(code) {
   const value = cleanText(code).toUpperCase();
   if (value.startsWith("JY")) return { code: "JY", name: "SOF" };
@@ -1488,41 +1388,6 @@ function brandFromItem(item) {
   const code = cleanText(item?.brandCode || item?.brandId || item?.brand?.id).toUpperCase();
   if (name) return { code: code || name.toUpperCase(), name };
   return brandFromCode(item?.code || "");
-}
-
-function telegramCaption(item) {
-  return compact([
-    "🚩 LMJ shubhali foto",
-    `Sana: ${item.date || ""}`,
-    `Agent: ${item.code || ""}${item.agent ? ` | ${item.agent}` : ""}`,
-    `Foto: ${item.photo || ""}`,
-    item.client ? `Klient: ${item.client}` : "",
-    item.clientId ? `Klient ID: ${item.clientId}` : "",
-    item.photoTime ? `Vaqt: ${item.photoTime}` : "",
-    item.reasons?.length ? `Sabab: ${item.reasons.join("; ")}` : "",
-    item.note ? `Izoh: ${item.note}` : "",
-  ].filter(Boolean).join("\n"), 1000);
-}
-
-function optimizedTelegramCaption(item) {
-  const reasons = Array.isArray(item.reasons)
-    ? item.reasons.map(shortReason).filter(Boolean)
-    : [];
-  const title = cleanText(process.env.TELEGRAM_CAPTION_TITLE).replace("рџљ©", "\u{1F6A9}") || "\u{1F6A9} (LMJ) LALAKU MAMA";
-
-  return compact([
-    title,
-    item.date ? `Sana: ${cleanText(item.date)}` : "",
-    item.code ? `Smart kod:${cleanText(item.code)}` : "",
-    "",
-    item.agent ? `Agent: ${cleanText(item.agent)}` : "",
-    "",
-    item.client ? `Klient: ${cleanText(item.client)}` : "",
-    item.clientId ? `Klient ID: ${cleanText(item.clientId)}` : "",
-    "",
-    reasons.length ? `Sabab: ${reasons.join("; ")}` : "",
-    item.note ? `Izoh: ${cleanText(item.note)}` : "",
-  ].filter((line) => line === "" || Boolean(line)).join("\n"), 1000);
 }
 
 function telegramCaptionV2(item) {
@@ -1590,18 +1455,6 @@ function groupedTelegramCaption(items) {
   ].filter((line) => line === "" || Boolean(line)).join("\n"), 1000);
 }
 
-function chunkText(text, max = 3600) {
-  const chunks = [];
-  let rest = String(text || "");
-  while (rest.length > max) {
-    const index = Math.max(rest.lastIndexOf("\n", max), rest.lastIndexOf("; ", max), max);
-    chunks.push(rest.slice(0, index).trim());
-    rest = rest.slice(index).trim();
-  }
-  if (rest) chunks.push(rest);
-  return chunks;
-}
-
 function telegramHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -1661,23 +1514,6 @@ function telegramFileCacheChatId() {
 
 function telegramFileCacheDeleteMessages() {
   return process.env.TELEGRAM_FILE_CACHE_DELETE_MESSAGES !== "0";
-}
-
-function telegramPhotoFetchTimeoutMs() {
-  return Math.max(1000, Number(process.env.TELEGRAM_PHOTO_FETCH_TIMEOUT_MS || 10000) || 10000);
-}
-
-async function fetchTelegramPhoto(url) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), telegramPhotoFetchTimeoutMs());
-  try {
-    return await fetch(url, { signal: controller.signal });
-  } catch (error) {
-    if (error?.name === "AbortError") throw new Error("Foto yuklash vaqti tugadi");
-    throw error;
-  } finally {
-    clearTimeout(timeout);
-  }
 }
 
 let telegramFileCache = null;
@@ -1845,27 +1681,43 @@ function isTelegramAdminUser(user) {
 }
 
 let telegramUsageStatsWriteChain = Promise.resolve();
+let telegramUsageEvents = null;
+let telegramUsageFlushTimer = null;
+const TELEGRAM_USAGE_EVENT_LIMIT = 50000;
+const TELEGRAM_USAGE_FLUSH_MS = Math.max(250, Number(process.env.TELEGRAM_USAGE_FLUSH_MS || 2000) || 2000);
 
 async function readTelegramUsageStats() {
-  return readJsonResilient(TELEGRAM_USAGE_STATS_FILE, { events: [] }, {
+  // Statistika xotirada saqlanadi: ilgari har bir event uchun 50 000 yozuvli
+  // fayl to'liq o'qilib, to'liq qayta yozilardi.
+  if (telegramUsageEvents) return { events: telegramUsageEvents };
+  const stats = await readJsonResilient(TELEGRAM_USAGE_STATS_FILE, { events: [] }, {
     validate: (data) => Boolean(data && typeof data === "object" && !Array.isArray(data)),
   });
+  telegramUsageEvents = Array.isArray(stats.events) ? stats.events : [];
+  return { events: telegramUsageEvents };
+}
+
+function flushTelegramUsageStats() {
+  telegramUsageStatsWriteChain = telegramUsageStatsWriteChain
+    .then(() => queueJsonWrite(TELEGRAM_USAGE_STATS_FILE, { events: telegramUsageEvents || [] }))
+    .catch((error) => console.warn("Telegram statistika yozish xatosi:", error?.message || error));
+  return telegramUsageStatsWriteChain;
 }
 
 async function appendTelegramUsageEvent(event) {
   if (isTelegramAdminUser(event?.user)) return;
-  telegramUsageStatsWriteChain = telegramUsageStatsWriteChain.then(async () => {
-    const stats = await readTelegramUsageStats();
-    const events = Array.isArray(stats.events) ? stats.events : [];
-    events.push({
-      at: new Date().toISOString(),
-      ...event,
-    });
-    const kept = events.slice(-50000);
-    await queueJsonWrite(TELEGRAM_USAGE_STATS_FILE, { events: kept });
-  }).catch((error) => {
-    console.warn("Telegram statistika yozish xatosi:", error?.message || error);
-  });
+  await readTelegramUsageStats();
+  telegramUsageEvents.push({ at: new Date().toISOString(), ...event });
+  if (telegramUsageEvents.length > TELEGRAM_USAGE_EVENT_LIMIT) {
+    telegramUsageEvents.splice(0, telegramUsageEvents.length - TELEGRAM_USAGE_EVENT_LIMIT);
+  }
+  // Ketma-ket kelgan eventlar bitta yozuvga birlashadi.
+  if (telegramUsageFlushTimer) return telegramUsageStatsWriteChain;
+  telegramUsageFlushTimer = setTimeout(() => {
+    telegramUsageFlushTimer = null;
+    flushTelegramUsageStats();
+  }, TELEGRAM_USAGE_FLUSH_MS);
+  telegramUsageFlushTimer.unref?.();
   return telegramUsageStatsWriteChain;
 }
 
@@ -2460,10 +2312,6 @@ async function sendGroupedSuspiciousItems(items, chatId, threadId) {
   return { sent, failed };
 }
 
-async function sendSuspiciousToTelegram(items) {
-  return sendSuspiciousToTelegramChat(items, process.env.TELEGRAM_CHAT_ID);
-}
-
 function telegramChats() {
   return [
     { id: cleanText(process.env.TELEGRAM_CHAT_ID), name: "Asosiy gruppa" },
@@ -2504,32 +2352,6 @@ async function resolveTelegramChatIdForItems(items, targetChatId) {
   ));
   if (cleanText(byPrefix?.telegramChatId)) return cleanText(byPrefix.telegramChatId);
   return resolveTelegramChatId("");
-}
-
-async function telegramSuspiciousPreview(items, targetChatId) {
-  if (!Array.isArray(items) || items.length === 0) throw apiError("Tekshiriladigan foto yo'q", 400);
-  const groups = groupSuspiciousByAgent(items);
-  const chatId = await resolveTelegramChatIdForItems(items, targetChatId);
-  const validPhotos = items.filter((item) => /^https?:\/\//i.test(cleanText(item?.url))).length;
-  const dates = [...new Set(items.map((item) => cleanText(item?.date)).filter(Boolean))].sort();
-  const first = items[0] || {};
-  const brand = brandFromItem(first);
-  return {
-    chatId: maskChatId(chatId),
-    brand: brand.name,
-    dates,
-    photos: items.length,
-    validPhotos,
-    invalidPhotos: items.length - validPhotos,
-    agents: groups.length,
-    groups: groups.map((group) => ({
-      code: group.code,
-      agent: agentDisplayName(group.agent) || group.agent || group.code,
-      date: group.date,
-      photos: group.items.length,
-      token: telegramSessionToken(group.items[0] || group),
-    })),
-  };
 }
 
 async function sendSuspiciousToTelegramChat(items, targetChatId) {
@@ -3233,447 +3055,6 @@ const server = createServer(async (req, res) => {
     const access = authMiddleware.authorize(req, res, parsed);
     if (!access) return;
     if (await apiRouter.handleProtected({ req, res, parsed, access })) return;
-    if (parsed.pathname === "/api/telegram/status") {
-      const brandConfig = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
-      const chats = [
-        ...telegramChats(),
-        ...(brandConfig.brands || []).map((brand) => ({
-          id: cleanText(brand.telegramChatId),
-          name: cleanText(brand.telegramChatName) || cleanText(brand.name) || cleanText(brand.id),
-        })),
-      ].filter((chat, index, list) => chat.id && list.findIndex((item) => item.id === chat.id) === index);
-      sendJson(res, 200, {
-        configured: Boolean(process.env.TELEGRAM_BOT_TOKEN && chats.length),
-        chatId: maskChatId(process.env.TELEGRAM_CHAT_ID),
-        chats: chats.map((chat) => ({ ...chat, maskedId: maskChatId(chat.id) })),
-        fileCacheChatConfigured: Boolean(telegramFileCacheChatId()),
-      }, access.headers);
-      return;
-    }
-    if (parsed.pathname === "/api/admin/telegram-stats") {
-      const stats = await readTelegramUsageStats();
-      sendJson(res, 200, { ok: true, ...summarizeTelegramUsageStats(stats) }, access.headers);
-      return;
-    }
-    if (parsed.pathname === "/api/brands") {
-      if (req.method === "GET") {
-        const config = await loadBrandsConfig({ includeDisabled: true });
-        sendJson(res, 200, { ok: true, ...config, revision: await fileRevision(BRANDS_FILE) });
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 1_000_000);
-        const saved = await saveBrandsConfig(body);
-        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/reasons") {
-      if (req.method === "GET") {
-        sendJson(res, 200, { ok: true, ...(await readReviewReasons()), revision: await fileRevision(REASONS_FILE) }, access.headers);
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 1_000_000);
-        sendJson(res, 200, { ok: true, ...(await writeReviewReasons(body)), revision: await fileRevision(REASONS_FILE) }, access.headers);
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/sync") {
-      const beforeRevisions = await reviewStateRevisions();
-      let conflicts = {};
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 6_000_000);
-        const base = body.baseRevisions && typeof body.baseRevisions === "object" ? body.baseRevisions : {};
-        conflicts = {
-          marks: Boolean(base.marks && base.marks !== beforeRevisions.marks),
-          reasons: Boolean(base.reasons && base.reasons !== beforeRevisions.reasons),
-          brands: Boolean(base.brands && base.brands !== beforeRevisions.brands),
-        };
-        if (body.marks) await writeReviewMarks(body.marks);
-        if (body.reasons) await writeReviewReasons(body.reasons);
-      } else if (req.method !== "GET") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const brands = await loadBrandsConfig({ includeDisabled: true });
-      const reasons = await readReviewReasons();
-      const light = parsed.searchParams.get("light") === "1";
-      const marks = light ? undefined : await readReviewMarks();
-      const revisions = await reviewStateRevisions();
-      sendJson(res, 200, {
-        ok: true,
-        serverTime: new Date().toISOString(),
-        marks,
-        marksLight: light,
-        reasons,
-        brands,
-        revisions,
-        conflicts,
-      }, access.headers);
-      return;
-    }
-    if (parsed.pathname === "/api/brands/validate") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req, 1_000_000);
-      const validation = validateBrandsConfig(body);
-      sendJson(res, validation.ok ? 200 : 400, { ok: validation.ok, ...validation });
-      return;
-    }
-    if (parsed.pathname.startsWith("/api/brands/")) {
-      const id = decodeURIComponent(parsed.pathname.replace(/^\/api\/brands\//, "")).trim();
-      const config = await loadBrandsConfig({ includeDisabled: true });
-      const index = config.brands.findIndex((brand) => brand.id === id);
-      if (index < 0) throw apiError(`Brend topilmadi: ${id}`, 404);
-      if (req.method === "PUT") {
-        const body = await readJsonBody(req, 1_000_000);
-        config.brands[index] = { ...config.brands[index], ...body, id };
-        const saved = await saveBrandsConfig(config);
-        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
-        return;
-      }
-      if (req.method === "DELETE") {
-        config.brands = config.brands.filter((brand) => brand.id !== id);
-        const saved = await saveBrandsConfig(config);
-        sendJson(res, 200, { ok: true, ...saved, revision: await fileRevision(BRANDS_FILE) });
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/config") {
-      const store = await loadAttendanceStore();
-      sendJson(res, 200, {
-        ok: true,
-        employees: store.employees,
-        routes: store.routes,
-        assignments: store.assignments,
-        settings: store.settings,
-        validation: validateAttendanceData(store),
-      });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/month") {
-      const month = parsed.searchParams.get("month");
-      const brandId = parsed.searchParams.get("brandId") || "";
-      const data = await loadAttendanceMonth({ month, brandId });
-      sendJson(res, 200, { ok: true, ...data });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/generate") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req, 1_000_000);
-      const data = await generateAttendanceMonth({ month: body.month, brandId: body.brandId || "" });
-      sendJson(res, 200, { ok: true, ...data });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/override") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req, 1_000_000);
-      const override = await saveOverride(body);
-      const month = String(body.date || "").slice(0, 7);
-      const data = await generateAttendanceMonth({ month, brandId: body.brandId || "" });
-      sendJson(res, 200, {
-        ok: true,
-        override,
-        changedCell: {
-          date: override.date,
-          agentCode: override.agentCode,
-          employeeId: override.employeeId,
-          manualValue: override.manualValue,
-        },
-        summaryTotals: data.summaryTotals,
-        month: data,
-      });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/employees") {
-      const store = await loadAttendanceStore();
-      if (req.method === "GET") {
-        sendJson(res, 200, { ok: true, employees: store.employees });
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 1_000_000);
-        const employees = Array.isArray(body.employees) ? body.employees : [...store.employees, body];
-        const validation = validateAttendanceData({ ...store, employees });
-        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
-        await safeWriteJson(ATT_FILES.employees, { employees }, "employees");
-        sendJson(res, 200, { ok: true, employees, validation });
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/routes") {
-      const store = await loadAttendanceStore();
-      if (req.method === "GET") {
-        sendJson(res, 200, { ok: true, routes: store.routes });
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 1_000_000);
-        const routes = Array.isArray(body.routes) ? body.routes : [...store.routes, body];
-        const validation = validateAttendanceData({ ...store, routes });
-        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
-        await safeWriteJson(ATT_FILES.routes, { routes }, "routes");
-        sendJson(res, 200, { ok: true, routes, validation });
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/assignments") {
-      const store = await loadAttendanceStore();
-      if (req.method === "GET") {
-        sendJson(res, 200, { ok: true, assignments: store.assignments });
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 1_000_000);
-        const assignments = Array.isArray(body.assignments) ? body.assignments : [...store.assignments, body];
-        const validation = validateAttendanceData({ ...store, assignments });
-        if (!validation.ok) throw apiError(validation.errors.join("; "), 400);
-        await safeWriteJson(ATT_FILES.assignments, { assignments }, "assignments");
-        sendJson(res, 200, { ok: true, assignments, validation });
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/assignments/replace-employee") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req, 1_000_000);
-      const result = await replaceEmployee(body);
-      sendJson(res, 200, { ok: true, ...result });
-      return;
-    }
-    if (parsed.pathname === "/api/attendance/export") {
-      const month = parsed.searchParams.get("month");
-      const brandId = parsed.searchParams.get("brandId") || "";
-      const result = await exportAttendanceCsv({ month, brandId });
-      const csv = attendanceToCsv(result.data);
-      res.writeHead(200, {
-        "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="attendance-${result.data.month}${brandId ? `-${brandId}` : ""}.csv"`,
-        "Cache-Control": "no-store",
-      });
-      res.end(`\uFEFF${csv}\n`);
-      return;
-    }
-    if (parsed.pathname === "/api/telegram/preview-suspicious") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req);
-      const items = Array.isArray(body.items) ? body.items : [];
-      if (!items.length) throw apiError("Tekshirish uchun foto yo'q", 400);
-      const groups = groupSuspiciousByAgent(items);
-      const chatId = await resolveTelegramChatIdForItems(items, body.chatId);
-      sendJson(res, 200, {
-        ok: true,
-        mode: cleanText(body.mode || process.env.TELEGRAM_SEND_MODE || "summary").toLowerCase(),
-        chatId: maskChatId(chatId),
-        photos: items.length,
-        agents: groups.length,
-        groups: groups.map((group) => ({
-          date: group.date,
-          code: group.code,
-          agent: group.agent,
-          photos: group.items.length,
-        })),
-      });
-      return;
-    }
-    if (parsed.pathname === "/api/telegram/preview-suspicious") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req, 2_000_000);
-      const preview = await telegramSuspiciousPreview(body.items, body.chatId);
-      sendJson(res, 200, { ok: true, preview }, access.headers);
-      return;
-    }
-    if (parsed.pathname === "/api/telegram/send-suspicious") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req);
-      const mode = cleanText(body.mode || process.env.TELEGRAM_SEND_MODE || "summary").toLowerCase();
-      const allowDirectMedia = process.env.TELEGRAM_ALLOW_DIRECT_MEDIA === "1";
-      const result = mode === "media" && allowDirectMedia
-        ? await sendSuspiciousToTelegramChat(body.items, body.chatId)
-        : await sendSuspiciousSummaryToTelegram(body.items, body.chatId);
-      sendJson(res, result.failed.length ? 207 : 200, { ok: result.failed.length === 0, ...result });
-      return;
-    }
-    if (parsed.pathname === "/api/collect/status") {
-      sendJson(res, 200, { ok: true, collect: publicCollectState() });
-      return;
-    }
-    if (parsed.pathname === "/api/collect/start") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = await readJsonBody(req);
-      await startCollectJob({ date: body.date, brand: body.brand, browserHint: isLocalHostHeader(req) ? body.browserHint : "" });
-      sendJson(res, 200, { ok: true, collect: publicCollectState() });
-      return;
-    }
-    if (parsed.pathname === "/api/collect/continue") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      collectContinue();
-      sendJson(res, 200, { ok: true, collect: publicCollectState() });
-      return;
-    }
-    if (parsed.pathname === "/api/collect/open-login") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      openSalesLoginHelper();
-      sendJson(res, 200, { ok: true, collect: publicCollectState() });
-      return;
-    }
-    if (parsed.pathname === "/api/collect/stop") {
-      if (req.method !== "POST") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      stopCollectJob();
-      sendJson(res, 200, { ok: true, collect: publicCollectState() });
-      return;
-    }
-    if (parsed.pathname === "/api/photo") {
-      const photoUrl = parsed.searchParams.get("url");
-      const photoVariant = parsed.searchParams.get("view") === "thumb" ? "thumb" : "full";
-      const photoEtag = `W/"photo-${photoVariant}-${photoCacheKey(photoUrl)}"`;
-      if (req.headers["if-none-match"] === photoEtag) {
-        res.writeHead(304, {
-          "Cache-Control": "public, max-age=604800, immutable",
-          ETag: photoEtag,
-          ...access.headers,
-        });
-        res.end();
-        return;
-      }
-      const photo = photoVariant === "thumb"
-        ? await proxyPhotoThumbnail(photoUrl)
-        : await proxyPhoto(photoUrl);
-      res.writeHead(200, {
-        "Content-Type": photo.contentType,
-        "Cache-Control": "public, max-age=604800, immutable",
-        ETag: photoEtag,
-        "X-Photo-Cache": photo.cached ? "hit" : "miss",
-        "X-Photo-Variant": photoVariant,
-        ...access.headers,
-      });
-      res.end(photo.data);
-      return;
-    }
-    if (parsed.pathname === "/api/marks") {
-      if (req.method === "GET") {
-        const brands = await loadBrandsConfig({ includeDisabled: true }).catch(() => ({ brands: [] }));
-        const marks = await readReviewMarks();
-        const filtered = filterReviewMarks(marks, {
-          brand: parsed.searchParams.get("brand") || "",
-          date: parsed.searchParams.get("date") || "",
-          verdict: parsed.searchParams.get("verdict") || "",
-        }, brands);
-        sendJson(res, 200, { ok: true, marks: filtered, total: Object.keys(filtered).length, revision: await fileRevision(MARKS_FILE) }, access.headers);
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 5_000_000);
-        const beforeRevision = await fileRevision(MARKS_FILE);
-        const merged = await writeReviewMarks(body.marks);
-        const compact = parsed.searchParams.get("compact") === "1";
-        const responseMarks = compact
-          ? Object.fromEntries(Object.keys(body.marks || {}).filter((key) => merged[key]).map((key) => [key, merged[key]]))
-          : merged;
-        sendJson(res, 200, {
-          ok: true,
-          marks: responseMarks,
-          revision: await fileRevision(MARKS_FILE),
-          conflict: Boolean(body.baseRevision && body.baseRevision !== beforeRevision),
-        }, access.headers);
-        return;
-      }
-      if (req.method === "DELETE") {
-        const result = await deleteReviewMarks({ date: parsed.searchParams.get("date") || "" });
-        sendJson(res, 200, { ok: true, deleted: result.deleted, revision: await fileRevision(MARKS_FILE) }, access.headers);
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/suspicious-photos") {
-      if (req.method === "GET") {
-        const rebuild = parsed.searchParams.get("rebuild") === "1";
-        const data = rebuild
-          ? await rebuildSuspiciousPhotosFromMarks(await readReviewMarks())
-          : await readSuspiciousPhotos();
-        sendJson(res, 200, { ok: true, total: data.items.length, updatedAt: data.updatedAt, items: data.items }, access.headers);
-        return;
-      }
-      if (req.method === "POST") {
-        const data = await rebuildSuspiciousPhotosFromMarks(await readReviewMarks());
-        sendJson(res, 200, { ok: true, total: data.items.length, updatedAt: data.updatedAt, items: data.items }, access.headers);
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/photo-metrics") {
-      if (req.method === "GET") {
-        const data = await readPhotoMetricsCache();
-        sendJson(res, 200, { ok: true, total: data.total, updatedAt: data.updatedAt, items: data.items }, access.headers);
-        return;
-      }
-      if (req.method === "POST") {
-        const body = await readJsonBody(req, 5_000_000);
-        const data = await writePhotoMetricsCache(body);
-        sendJson(res, 200, { ok: true, total: data.total, updatedAt: data.updatedAt }, access.headers);
-        return;
-      }
-      sendJson(res, 405, { ok: false, error: "Method not allowed" });
-      return;
-    }
-    if (parsed.pathname === "/api/datasets/delete") {
-      if (req.method !== "POST" && req.method !== "DELETE") {
-        sendJson(res, 405, { ok: false, error: "Method not allowed" });
-        return;
-      }
-      const body = req.method === "DELETE"
-        ? { date: parsed.searchParams.get("date") }
-        : await readJsonBody(req);
-      const result = await deleteDatasetByDate(body.date);
-      sendJson(res, 200, { ok: true, ...result });
-      return;
-    }
 
     const urlPath = req.url === "/" ? "/lmj_date_photo_review.html" : req.url;
     const filePath = safePath(urlPath);
@@ -3712,6 +3093,37 @@ const server = createServer(async (req, res) => {
     res.end("Not found");
   }
 });
+
+// Railway deploy paytida SIGTERM keladi. Ilgari hech qanday ishlov yo'q edi:
+// navbatdagi JSON yozuvlari (marks, sabablar, statistika) yarim yo'lda
+// uzilib qolishi mumkin edi.
+let shuttingDown = false;
+async function shutdownGracefully(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`${signal} qabul qilindi — navbatdagi yozuvlar saqlanmoqda...`);
+  server.close();
+  if (telegramUsageFlushTimer) {
+    clearTimeout(telegramUsageFlushTimer);
+    telegramUsageFlushTimer = null;
+    flushTelegramUsageStats();
+  }
+  const deadline = setTimeout(() => process.exit(1), 10_000);
+  deadline.unref?.();
+  await Promise.allSettled([
+    marksWriteQueue,
+    reasonsWriteQueue,
+    photoMetricsWriteQueue,
+    telegramFileCacheWriteChain,
+    telegramUsageStatsWriteChain,
+  ]);
+  await pendingJsonWrites();
+  console.log("Yozuvlar saqlandi. Server to'xtadi.");
+  process.exit(0);
+}
+for (const signal of ["SIGTERM", "SIGINT"]) {
+  process.on(signal, () => { shutdownGracefully(signal); });
+}
 
 server.on("error", (error) => {
   if (error?.code === "EADDRINUSE") {

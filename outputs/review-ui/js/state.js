@@ -8,9 +8,16 @@ window.PhotoReviewState = (() => {
     storage.setItem(key, value);
     return value;
   }
+  // Konflikt vaqti: server qo'ygan `serverUpdatedAt` ustuvor. Aks holda ikki
+  // operatorning kompyuter soati farq qilsa, soati oldinda ketgani doim yutib,
+  // ikkinchisining bahosi jimgina yo'qolardi. Eski yozuvlarda server vaqti
+  // yo'q — o'shanda brauzer vaqtiga qaytamiz, lekin kelajakdagi sanani
+  // hozirgi vaqtga qisamiz.
   function recordTime(value) {
+    const server = Date.parse(value?.serverUpdatedAt || "");
+    if (Number.isFinite(server)) return server;
     const time = Date.parse(value?.updatedAt || value?.savedAt || value?.approvedAt || value?.telegramSentAt || "");
-    return Number.isFinite(time) ? time : 0;
+    return Number.isFinite(time) ? Math.min(time, Date.now()) : 0;
   }
   function mergeRecord(previous, incoming) {
     if (!previous) return { ...incoming };
