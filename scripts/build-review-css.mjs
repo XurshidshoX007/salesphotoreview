@@ -132,6 +132,14 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // via a temp file + rename with retries; if it still fails but a valid bundle
 // already exists, keep going instead of crashing the server on startup.
 async function writeBundle(output) {
+  // Server har ishga tushganda bundle'ni qayta quradi. Natija o'zgarmagan
+  // bo'lsa yozmaymiz: bu ortiqcha disk yozuvini va git'da soxta o'zgarishni
+  // (faqat qator oxiri farqi) yo'q qiladi.
+  try {
+    if (await readFile(OUTPUT, "utf8") === output) return false;
+  } catch {
+    // Bundle hali yo'q — pastda yaratamiz.
+  }
   const tmp = `${OUTPUT}.tmp`;
   const retryCodes = new Set(["EBUSY", "EPERM", "UNKNOWN", "EACCES"]);
   let lastError;

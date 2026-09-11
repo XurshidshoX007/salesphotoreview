@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { spawn } from "node:child_process";
 import { chromium } from "playwright";
 import { localEnv } from "./lib/review-test-auth.mjs";
+import { isolatedDataDir } from "./lib/review-test-server.mjs";
 
 const root = process.cwd();
 const baseUrl = String(process.env.REVIEW_TEST_URL || "http://127.0.0.1:8876").replace(/\/$/, "");
@@ -35,6 +36,11 @@ if (!(await serverIsReady())) {
       ...process.env,
       HOST: target.hostname,
       PORT: target.port || "80",
+      // NO_OPEN bo'lmasa test har safar operator brauzerida lokal sahifani
+      // ochib yuboradi; DATA_DIR bo'lmasa esa haqiqiy data/ ga yozadi.
+      NO_OPEN: "1",
+      MAINTENANCE_AUTO_APPLY: "0",
+      DATA_DIR: process.env.DATA_DIR || await isolatedDataDir("review-ui-"),
     },
     stdio: "ignore",
   });

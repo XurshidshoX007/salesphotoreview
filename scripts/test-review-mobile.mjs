@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { spawn } from "node:child_process";
 import { chromium } from "playwright";
 import { localEnv } from "./lib/review-test-auth.mjs";
+import { isolatedDataDir } from "./lib/review-test-server.mjs";
 
 const root = process.cwd();
 const baseUrl = String(process.env.REVIEW_MOBILE_TEST_URL || "http://127.0.0.1:8896").replace(/\/$/, "");
@@ -23,7 +24,15 @@ if (!(await ready())) {
   const url = new URL(baseUrl);
   server = spawn(process.execPath, ["backend/src/server.mjs"], {
     cwd: root,
-    env: { ...process.env, HOST: url.hostname, PORT: url.port, NO_OPEN: "1", MAINTENANCE_AUTO_APPLY: "0" },
+    env: {
+      ...process.env,
+      HOST: url.hostname,
+      PORT: url.port,
+      NO_OPEN: "1",
+      MAINTENANCE_AUTO_APPLY: "0",
+      // Haqiqiy data/ papkasiga yozib yubormaslik uchun izolyatsiya.
+      DATA_DIR: process.env.DATA_DIR || await isolatedDataDir("review-mobile-"),
+    },
     stdio: "ignore",
   });
   const deadline = Date.now() + 20_000;
