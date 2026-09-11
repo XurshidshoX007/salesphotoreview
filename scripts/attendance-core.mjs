@@ -211,11 +211,21 @@ export function calculateAgentMonthlySummary(days, employee, rules) {
   let workDays = 0;
   let lowPhotoDays = 0;
   let specialDays = 0;
+  // SVR kunlari foto soni emas, 1/0 ko'rsatkichi (valueState ham shunday
+  // hisoblaydi). Ularni oddiy agent kabi o'lchasak, 1 va 0 ikkalasi ham
+  // minPhotoForWorkDay dan kichik bo'lgani uchun "foto kamligi" bo'lib
+  // qolardi: supervisorda 0 ish kuni va har oy ~9 ta shtraf chiqardi.
+  const isSupervisor = (rules?.supervisorRoles || ["svr"])
+    .includes(String(employee?.role || "").trim().toLowerCase());
   for (const day of days) {
     if (["missing_dataset", "not_applicable", "vacant", "unknown_route"].includes(day.state)) continue;
     const value = String(day.finalValue ?? day.manualValue ?? day.autoValue ?? "").trim().toLowerCase();
     if (!value) continue;
     if (/[kbк]/i.test(value)) continue;
+    if (isSupervisor) {
+      if (value === "1") workDays += 1;
+      continue;
+    }
     if (/^\d+s$/i.test(value)) {
       specialDays += 1;
       workDays += 1;
@@ -725,7 +735,11 @@ export async function generateAttendanceMonth({ month, brandId }) {
     for (const row of rows.values()) {
       if (normalizeCode(row.agentCode) !== code) continue;
       if ((override.employeeId || null) !== (row.employeeId || null)) continue;
-      const day = row.days[Number(String(override.date).slice(-2)) - 1];
+      // Qator kunlari bu bosqichda to'liq emas: agent oy o'rtasida
+      // almashgan bo'lsa, row.days faqat o'z assignment kunlaridan iborat.
+      // Shuning uchun massiv indeksi emas, sananing o'zi bo'yicha qidiramiz —
+      // aks holda override boshqa kunga tushib qolardi.
+      const day = row.days.find((item) => item.date === override.date);
       if (!day) continue;
       day.manualValue = override.manualValue;
       day.finalValue = override.manualValue ?? day.autoValue;

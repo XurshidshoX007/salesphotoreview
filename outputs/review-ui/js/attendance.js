@@ -1,8 +1,13 @@
 window.PhotoReviewAttendance = (() => {
+  // Sana arifmetikasi UTC'da bajariladi. Ilgari mahalliy yarim tun olinib,
+  // natija toISOString() bilan UTC'ga qaytarilardi: UTC+5 da bu bir kun
+  // orqaga surib, nextIsoDate("2026-07-15") aynan "2026-07-15" qaytarardi.
+  // Natijada "Xodim almashtirish" yangi assignmentni eski tugash kuniga
+  // qo'yib, ikki xodimni bir kunda ustma-ust tushirardi.
   function nextIsoDate(date) {
-    const value = new Date(`${date}T00:00:00`);
+    const value = new Date(`${date}T00:00:00Z`);
     if (Number.isNaN(value.getTime())) return "";
-    value.setDate(value.getDate() + 1);
+    value.setUTCDate(value.getUTCDate() + 1);
     return value.toISOString().slice(0, 10);
   }
   const validIsoDate = (date) => /^\d{4}-\d{2}-\d{2}$/.test(String(date || ""));

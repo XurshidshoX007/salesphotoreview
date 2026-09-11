@@ -230,5 +230,42 @@ const doubleAssignment = validateAttendanceData({
 assert.equal(doubleAssignment.ok, false);
 assert.ok(doubleAssignment.errors.some((item) => item.includes("ikki agent") || item.includes("bir vaqtning")));
 
+// SVR kunlari 1/0 ko'rsatkichi, foto soni emas. Ilgari ikkalasi ham
+// minPhotoForWorkDay dan kichik bo'lgani uchun "foto kamligi" deb sanalib,
+// supervisorga 0 ish kuni va har oy ~9 ta shtraf yozilardi.
+assert.deepEqual(
+  calculateAgentMonthlySummary(
+    [
+      ...Array.from({ length: 20 }, () => ({ finalValue: 1, state: "workday" })),
+      ...Array.from({ length: 8 }, () => ({ finalValue: 0, state: "empty" })),
+    ],
+    { name: "SUPERVISOR", role: "svr" },
+    rules,
+  ),
+  { workDays: 20, lowPhotoDays: 0, specialDays: 0, penaltyCount: 0 },
+);
+
+// Oy o'rtasida boshlangan assignment: qator kunlari to'liq 1..31 emas edi,
+// shuning uchun override massiv indeksi bo'yicha topilganda boshqa kunga
+// tushardi (12-iyulga qo'yilgani 21-iyulga tushgan edi).
+await mkdir(join(testRoot, "outputs"), { recursive: true });
+await mkdir(join(testRoot, "config"), { recursive: true });
+await writeFile(join(testRoot, "outputs", "lmj_review_datasets.json"), JSON.stringify({ datasets: [] }), "utf8");
+await writeFile(join(testRoot, "config", "brands.json"), JSON.stringify({
+  brands: [{ id: "ovr", name: "OVR", salesBrandNames: ["OVR"], agentPrefixes: ["OV"], enabled: true }],
+}), "utf8");
+await safeWriteJson(FILES.employees, { employees: [{ id: "emp_mid", name: "MID MONTH", role: "agent", active: true, hireDate: "2099-01-01", leftDate: null }] }, "employees");
+await safeWriteJson(FILES.routes, { routes: [{ id: "route_ov9", agentCode: "OV9", brandId: "ovr", role: "agent", active: true }] }, "routes");
+await safeWriteJson(FILES.assignments, { assignments: [{ id: "a_mid", agentCode: "OV9", employeeId: "emp_mid", startDate: "2099-07-10", endDate: null, brandId: "ovr" }] }, "assignments");
+
+await saveOverride({
+  month: "2099-07", date: "2099-07-12", agentCode: "OV9", employeeId: "emp_mid",
+  manualValue: 1, reason: "test", brandId: "ovr", user: "test",
+});
+const midMonth = await generateAttendanceMonth({ month: "2099-07", brandId: "ovr" });
+const midRow = midMonth.rows.find((row) => row.agentCode === "OV9" && row.employeeId === "emp_mid");
+const manualDates = (midRow?.days || []).filter((day) => day.manual).map((day) => day.date);
+assert.deepEqual(manualDates, ["2099-07-12"], `Override noto'g'ri kunga tushdi: ${manualDates.join(", ") || "(yo'q)"}`);
+
 await rm(testRoot, { recursive: true, force: true });
 console.log("Attendance tests OK");

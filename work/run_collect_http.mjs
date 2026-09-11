@@ -34,9 +34,11 @@ function salesLoginPath() {
   return value.startsWith("/") ? value : `/${value}`;
 }
 
+// Mahalliy sana. toISOString() UTC beradi: O'zbekistonda (UTC+5) soat 05:00
+// gacha ishga tushirilsa "kecha" bir kun oldingi sanaga siljib ketardi.
 function yesterdayIso() {
   const d = new Date(Date.now() - 86400000);
-  return d.toISOString().slice(0, 10);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 async function loadEnv() {

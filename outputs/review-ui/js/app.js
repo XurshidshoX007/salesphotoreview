@@ -2629,8 +2629,20 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
         throw error;
       }
     }
-    function defaultAttendanceMonth(){const date=cleanDate(dataset?.date)||new Date().toISOString().slice(0,10);return date.slice(0,7)}
+    function defaultAttendanceMonth(){const date=cleanDate(dataset?.date)||todayIsoDate();return date.slice(0,7)}
     function nextIsoDate(date){return attendanceTools.nextIsoDate(date)}
+    // Sana arifmetikasi UTC'da: mahalliy yarim tun + toISOString() UTC+5 da
+    // bir kun orqaga surib yuborardi (kun tugmalari joyida turib qolardi).
+    function shiftIsoDate(date,days){
+      const value=new Date(`${date}T00:00:00Z`);
+      if(Number.isNaN(value.getTime()))return '';
+      value.setUTCDate(value.getUTCDate()+Number(days||0));
+      return value.toISOString().slice(0,10);
+    }
+    function todayIsoDate(){
+      const now=new Date();
+      return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    }
     function validIsoDate(date){return attendanceTools.validIsoDate(date)}
     function invalidAttendanceValue(value){return /[kb\u043a]/i.test(String(value||''))}
     function attendanceValueLooksValid(value){return attendanceTools.valueLooksValid(value)}
@@ -2935,7 +2947,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
     function selectedAttendanceDate(){
       const month=attendanceData?.month||attendanceFilters().month;
       if(attendanceSelectedDate?.startsWith(month))return attendanceSelectedDate;
-      const today=new Date().toISOString().slice(0,10);
+      const today=todayIsoDate();
       if(today.startsWith(month))return today;
       return attendanceData?.dataQuality?.rawDatesFound?.slice(-1)[0]||`${month}-01`;
     }
@@ -2967,7 +2979,7 @@ td{mso-style-parent:style0;padding-top:1px;padding-right:1px;padding-left:1px;ms
       document.querySelectorAll('[data-employee-detail]').forEach(button=>button.onclick=()=>openAttendanceEmployeeDetail(button.dataset.employeeDetail));
       document.querySelectorAll('[data-att-group]').forEach(button=>button.onclick=()=>{const code=button.dataset.attGroup;attendanceCollapsedGroups.has(code)?attendanceCollapsedGroups.delete(code):attendanceCollapsedGroups.add(code);renderAttendance()});
       $('attendanceDaySelect')?.addEventListener('change',event=>{attendanceSelectedDate=event.target.value;renderAttendance()});
-      document.querySelectorAll('[data-day-shift]').forEach(button=>button.onclick=()=>{const current=new Date(`${selectedAttendanceDate()}T00:00:00`);current.setDate(current.getDate()+Number(button.dataset.dayShift));const next=current.toISOString().slice(0,10);if(next.startsWith(attendanceData.month)){attendanceSelectedDate=next;renderAttendance()}});
+      document.querySelectorAll('[data-day-shift]').forEach(button=>button.onclick=()=>{const next=shiftIsoDate(selectedAttendanceDate(),Number(button.dataset.dayShift));if(next&&next.startsWith(attendanceData.month)){attendanceSelectedDate=next;renderAttendance()}});
     }
     function renderAttendance(){
       if(!attendanceData)return;
