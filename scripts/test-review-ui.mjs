@@ -84,7 +84,13 @@ try {
   });
   await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
   await page.waitForSelector("#grid .card .photoFrame img", { timeout: 30_000 });
-  await page.waitForFunction(() => [...document.querySelectorAll("#grid .photoFrame img")].some((img) => img.naturalWidth > 0), null, { timeout: 30_000 });
+  // Quyidagi assert aynan BIRINCHI rasmni tekshiradi, shuning uchun kutish ham
+  // birinchisini kutishi kerak. Ilgari `some()` ishlatilardi: foto keshi iliq
+  // bo'lganda farq sezilmasdi, sovuq keshda esa test tasodifan yiqilardi.
+  await page.waitForFunction(() => {
+    const image = document.querySelector("#grid .photoFrame img");
+    return Boolean(image && image.naturalWidth > 0);
+  }, null, { timeout: 30_000 });
 
   const imageState = await page.locator("#grid .photoFrame img").first().evaluate((img) => ({
     fit: getComputedStyle(img).objectFit,

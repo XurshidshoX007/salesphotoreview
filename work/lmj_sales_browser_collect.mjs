@@ -547,7 +547,12 @@ async function fetchPaged(tab, path, basePayload, { pageSize = 500, maxPages = 5
     });
     const items = asArray(data);
     all.push(...items);
-    if (items.length < pageSize || items.length === 0) break;
+    if (items.length < pageSize || items.length === 0) return all;
+    // Oxirgi sahifa ham to'la bo'lsa, Sales'da yana ma'lumot bor demak.
+    // Ilgari bu jimgina kesib tashlanardi va chaqiruvchi buni bilmasdi.
+    if (page === maxPages) {
+      console.warn(`OGOHLANTIRISH: ${path} uchun sahifa chegarasi (${maxPages} x ${pageSize}) to'ldi — ma'lumot to'liq bo'lmasligi mumkin.`);
+    }
   }
   return all;
 }
@@ -784,7 +789,11 @@ async function collectAgentPhotosFromApi(tab, row, targetDate, options = {}) {
   });
   const urls = photos.flatMap((photo) => photo.urls);
   const actualUrls = urls.length;
-  const countOk = actualUrls === row.expectedPhotos;
+  // Brauzer yo'li allaqachon shu helperni ishlatadi. Bu yerda alohida mantiq
+  // bor edi va u "extra" ni umuman bilmasdi: kutilganidan ko'p foto yuklagan
+  // agent "partial" (foto yetishmayapti) deb belgilanardi — operatorga teskari
+  // ma'lumot. Masalan 14 kutilganda 28 ta yuklangan holat.
+  const status = collectStatusFromCounts(actualUrls, row.expectedPhotos);
   return {
     ...row,
     urls,
@@ -795,8 +804,8 @@ async function collectAgentPhotosFromApi(tab, row, targetDate, options = {}) {
     orderLookupError,
     photos,
     actualUrls,
-    countOk,
-    status: countOk ? "ok" : (actualUrls > 0 ? "partial" : "empty"),
+    countOk: status === "ok",
+    status,
     source: "api",
   };
 }

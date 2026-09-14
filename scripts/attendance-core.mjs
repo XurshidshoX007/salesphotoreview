@@ -1275,6 +1275,16 @@ export function validateAttendanceData(store) {
   return { ok: errors.length === 0, errors, warnings };
 }
 
+// Excel `=`, `+`, `-`, `@` bilan boshlangan katakni formula deb bajaradi.
+// Qo'shtirnoq bundan himoya qilmaydi. Xodim nomlari Sales outputidan
+// avtomatik qo'shiladi, ya'ni ular ishonchsiz manba.
+function csvCell(value) {
+  const text = String(value ?? "");
+  const isPlainNumber = /^-?\d+([.,]\d+)?$/.test(text);
+  const risky = /^[=+\-@\t\r]/.test(text) && !isPlainNumber;
+  return `"${(risky ? `'${text}` : text).replaceAll('"', '""')}"`;
+}
+
 export function attendanceToCsv(monthData) {
   const dayCount = daysInMonth(monthData.month);
   const headers = ["Kod", "Xodim", "Hudud", "Role", "Brend", ...Array.from({ length: dayCount }, (_, i) => String(i + 1)), "Foto kamligi", "Sababli", "Shtraf", "Ish kuni"];
@@ -1293,7 +1303,7 @@ export function attendanceToCsv(monthData) {
       row.summary.workDays,
     ];
   });
-  return [headers, ...rows].map((line) => line.map((cell) => `"${String(cell ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
+  return [headers, ...rows].map((line) => line.map(csvCell).join(",")).join("\n");
 }
 
 export async function exportAttendanceCsv({ month, brandId }) {
