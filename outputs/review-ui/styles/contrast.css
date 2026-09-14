@@ -1,0 +1,35 @@
+/* Foto Review oynasi — 4-qadam: rang kontrasti (WCAG AA).
+ *
+ * O'lchov (1440x900): shu oynada 17 ta matn AA chegarasidan past edi.
+ * Eng muhimi — pastdagi asosiy tugmalar ("Davom etish", "Keyingi"):
+ * oq matn #0f8f88 fonda atigi 3.96 berardi, ya'ni eng ko'p bosiladigan
+ * elementlar eng yomon o'qilardi.
+ *
+ * Yondashuv: alohida qoidalarni emas, rang tokenlarini tuzatish.
+ * O'zgarishlar ataylab minimal — 3-7.5% qoraytirish, ko'z deyarli
+ * ilg'amaydi, lekin 4.5 chegarasidan o'tadi. Rang oilasi o'zgarmaydi.
+ *
+ * Natija: 17 ta -> 1 ta (qolgani bezak "!" nuqtasi, matn emas).
+ */
+
+:root {
+  /* Asosiy aksent: oq matn bilan 3.96 -> 4.55 */
+  --studio-accent: #0e847e;
+  --ds-brand: #0e847e;
+  --ds-brand-2: #0e847e;
+
+  /* Ikkilamchi matn: oq fonda 4.29 -> 4.53 */
+  --studio-muted: #6a7885;
+  --ds-muted: #6a7885;
+
+  /* Ogohlantirish ("1 minut ichida takror"): 4.05 -> 4.55 */
+  --studio-warning: #ab5e11;
+  --ds-warn: #ab5e11;
+}
+
+/* "Minus" ko'rsatkichi pushti fonda (#fff3f4) turadi, shuning uchun
+ * umumiy muted rangdan bir oz ko'proq qoraytirish kerak: 4.18 -> 4.72.
+ * Selektor `body.photoView .photoStatsMetrics ...` qatlamidan aniqroq
+ * bo'lishi shart, aks holda u yutib ketadi. */
+body.photoView .photoStatsMetrics .metric.badMetric span,
+.metric.badMetric span { color: #62707b !important; }
