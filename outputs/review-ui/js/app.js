@@ -2092,7 +2092,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       return currentView==='photo'&&!modalOpen&&!listOpen&&!autoOpen&&!confirmOpen&&!collectOpen&&!replaceOpen&&!brandOpen&&!typing;
     }
     function updatePauseButtons(){
-      const text=paused?'Resume':'Pause';
+      const text=paused?'Davom etish':'To\'xtatish';
       $('quickPause').textContent=text;
     }
     function togglePause(){
