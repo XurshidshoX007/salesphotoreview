@@ -49,3 +49,34 @@ body.photoView .photoStatsMetrics .metric span,
 .systemStatusPanel b,
 .systemStatusPanel span,
 .systemStatusRefresh { font-size: 11.5px !important; }
+
+/* ------------------------------------------------------------------
+ * 3-qadam: Tabel ekrani.
+ *
+ * O'lchov: 325 ta element 11.5px dan kichik edi — har qatordagi
+ * `.routeStatus` yorlig'i 8px, xodim holati 9px (108 tadan).
+ * Jadval kengayishi tekshirildi: 2226px -> 2244px (18px), u allaqachon
+ * o'z konteyneri ichida gorizontal siljiydi, hujjatda overflow yo'q.
+ * ------------------------------------------------------------------ */
+
+/* Qator boshidagi holat yorliqlari — eng kichiklari edi */
+.routeStatus { font-size: 11px !important; }
+.attendanceTable .stickyCol2 small { font-size: 11px !important; }
+
+/* Jadval sarlavhalari: Kod / Xodim / Hudud / Kam / Sababli / Shtraf */
+.attendanceTable th.stickyCol,
+.attendanceTable th.stickyCol2,
+.attendanceTable th.stickyCol3,
+.attendanceTable th.summaryCol { font-size: 11.5px !important; }
+
+/* Kun ustunlari tor (46px) — shuning uchun ehtiyotkorona ko'tarildi */
+.attendanceTable th b { font-size: 12px !important; }
+.attendanceTable th span { font-size: 10.5px !important; }
+
+/* Yuqoridagi ko'rsatkichlar va filtr yorliqlari */
+.attendanceMetric span { font-size: 11.5px !important; }
+.attendanceToolbar label > span,
+.attendanceBrandField > span,
+.attendanceSearch > span { font-size: 11.5px !important; }
+.attendanceCoverage > b,
+.monthState { font-size: 11.5px !important; }
