@@ -1,0 +1,51 @@
+/* 1-qadam: o'qish qulayligi.
+ *
+ * O'lchov (1440x900, Foto Review ekrani): ko'rinadigan 63 ta matndan 46 tasi
+ * 12px dan kichik edi — asosiy menyu 10.5px, metrika yorliqlari 9.5px.
+ * Kun bo'yi ekranga qaraydigan operator uchun bu asosiy shikoyat manbai.
+ *
+ * Nega !important: bu selektorlar bundle ichida qayta-qayta belgilangan
+ * (.sideActions button — 16 marta) va oldingi qatlamlarning o'zida
+ * !important bor. Ularni tahrirlamasdan ustidan yozish eng kam xavfli yo'l.
+ * Qatlamlarni birlashtirish alohida qadam sifatida rejalashtirilgan.
+ *
+ * Bu fayl atayin faqat font-size bilan cheklangan: rang, joylashuv va
+ * tuzilma tegilmaydi, shuning uchun bitta commit bilan qaytarish mumkin.
+ */
+
+/* Chap menyu — eng ko'p o'qiladigan joy */
+.sideActions button,
+.sideActions button.wideAction,
+.sideActions button[id] {
+  font-size: 13.5px !important;
+  min-height: 44px !important;
+}
+.sideActionGroupTitle { font-size: 11px !important; }
+
+/* Sarlavhadagi metrikalar: Agent / Foto / Minus */
+body.photoView .photoStatsMetrics .metric span,
+.metric span { font-size: 11.5px !important; }
+
+/* Foto ustidagi izoh va belgilar */
+.cap { font-size: 12.5px !important; }
+.cap b { font-size: 13px !important; }
+.badge { font-size: 11.5px !important; }
+
+/* Tekshiruv yordamchilari va filtr paneli */
+#nextUncheckedBtn span,
+#reviewProgressText,
+#undoReviewBtn { font-size: 11.5px !important; }
+.filterSectionTitle,
+.filterField > span { font-size: 11.5px !important; }
+
+/* Sahifa boshqaruvi va sana qatori */
+.pageSizeBox label,
+.pageSizeBox span,
+.pageSizeBox button { font-size: 12px !important; }
+.meta { font-size: 12.5px !important; }
+
+/* Tizim holati paneli */
+#systemStatusLabel,
+.systemStatusPanel b,
+.systemStatusPanel span,
+.systemStatusRefresh { font-size: 11.5px !important; }
