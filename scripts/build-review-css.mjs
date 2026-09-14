@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const STYLE_DIR = join(ROOT, "outputs", "review-ui", "styles");
 // legibility.css oxirida turadi: u faqat font-size'ni ustidan yozadi.
-const SOURCES = ["main.css", "studio.css", "brand.css", "legibility.css", "contrast.css"];
+const SOURCES = ["main.css", "studio.css", "brand.css", "legibility.css", "contrast.css", "review-state.css"];
 const OUTPUT = join(STYLE_DIR, "app.bundle.css");
 
 function topLevelBlocks(source) {

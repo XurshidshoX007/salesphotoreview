@@ -1,0 +1,41 @@
+/* Foto Review oynasi — 5-qadam: baholangan foto ko'rinib tursin.
+ *
+ * Muammo: kunda 1352 ta foto ko'riladi, lekin gridda faqat MINUS belgisi
+ * bor edi va u ham ingichka pushti hoshiya (.card.marked). OK qo'yilgan
+ * foto esa umuman baholanmagan fotodan farq qilmasdi — operator "qaysi
+ * birini ko'rib bo'ldim" deb ajrata olmasdi.
+ *
+ * Bu yerda uchta holat aniq ajratiladi:
+ *   marked    — MINUS qo'yilgan   (qizil)
+ *   okMarked  — OK qo'yilgan      (yashil)
+ *   (holatsiz) — hali ko'rilmagan (neytral, o'zgarmaydi)
+ *
+ * Ranglar mavjud tokenlardan olinadi, yangi palitra kiritilmaydi.
+ */
+
+/* MINUS — mavjud ingichka hoshiya o'rniga aniq qizil ramka */
+#grid .card.marked {
+  border: 2px solid var(--studio-danger, #cf3341) !important;
+  box-shadow: 0 0 0 1px rgba(207, 51, 65, .10), var(--studio-shadow-sm) !important;
+}
+#grid .card.marked .cap {
+  background: var(--studio-danger-soft, #fff3f4) !important;
+  border-color: rgba(207, 51, 65, .28) !important;
+}
+
+/* OK — ko'rib chiqilgan va qabul qilingan */
+#grid .card.okMarked {
+  border: 2px solid var(--studio-success, #168044) !important;
+  box-shadow: 0 0 0 1px rgba(22, 128, 68, .10), var(--studio-shadow-sm) !important;
+}
+#grid .card.okMarked .cap {
+  background: var(--studio-success-soft, #edf8f1) !important;
+  border-color: rgba(22, 128, 68, .26) !important;
+}
+
+/* Izohdagi OK belgisi — mavjud .badge.minus bilan bir uslubda */
+#grid .badge.okBadge {
+  background: var(--studio-success-soft, #edf8f1);
+  color: var(--studio-success, #168044);
+  border: 1px solid rgba(22, 128, 68, .32);
+}

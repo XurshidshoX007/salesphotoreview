@@ -1831,14 +1831,15 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
         if(duplicate(a,p))warns.push('dublikat');
         const time=photoClock(p)||'<span class="muted">vaqt yoq</span>';
         const badges=[
-          m?.verdict==='MINUS'?'<span class="badge minus">MINUS</span>':'',
+          markTools.isMinus(m)?'<span class="badge minus">MINUS</span>':'',
+          markTools.isReviewed(m)&&!markTools.isMinus(m)?'<span class="badge okBadge">OK</span>':'',
           afterHours?'<span class="badge warn">Ish vaqtidan tashqari</span>':'',
           sameMinute?'<span class="badge warn">1 minut ichida takror</span>':'',
           duplicate(a,p)?'<span class="badge time">Dublikat</span>':''
         ].filter(Boolean).join('');
         const src=safeAttr(p.url);
         const order=orderInfo(p);
-        return `<div class="card ${m?.verdict==='MINUS'?'marked':''} ${afterHours||sameMinute?'afterHours':''}" data-i="${photoIndex}">
+        return `<div class="card ${markTools.isMinus(m)?'marked':markTools.isReviewed(m)?'okMarked':''} ${afterHours||sameMinute?'afterHours':''}" data-i="${photoIndex}">
           <div class="photoFrame loading" data-status="Rasm yuklanmoqda..."><img data-direct="${src}" data-mode="proxy" data-variant="thumb" loading="lazy" decoding="async" referrerpolicy="no-referrer"><button class="photoRetry" type="button">Qayta yuklash</button></div>
           <div class="cap"><b>${escapeHtml(a.code)} #${photoIndex+1}</b><br>${escapeHtml(p.client||'')}${order.text?`<br>${escapeHtml(order.text)}`:''}<br>Vaqt: ${escapeHtml(time)}${warns.length?`<div class="badgeRow">${badges}</div>`:''}${!warns.length&&badges?`<div class="badgeRow">${badges}</div>`:''}</div>
         </div>`;
