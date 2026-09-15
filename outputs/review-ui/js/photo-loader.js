@@ -2,10 +2,7 @@
   'use strict';
 
   const timers = new WeakMap();
-  // Proxy sekinlashganda 12 soniya kutish juda uzoq edi — operator shuncha
-  // vaqt "Rasm yuklanmoqda..." ni ko'rib turardi. Ikkala yo'l ham ishlaydi,
-  // shuning uchun tezroq almashamiz.
-  const timeoutMs = 5000;
+  const timeoutMs = 12000;
 
   function proxyUrl(url, variant = 'full') {
     const params = new URLSearchParams({ url: String(url || '') });
@@ -18,15 +15,8 @@
     return Boolean(host && host !== '127.0.0.1' && host !== 'localhost' && host !== '::1');
   }
 
-  // Produksiyada o'lchandi (O'zbekiston, 2026-09-15): proxy orqali issiq
-  // keshdan ~344ms, to'g'ridan S3 dan ~209ms (TLS o'rnatilgach 95-155ms).
-  // Sabab — proxy so'rovni Railway US West orqali aylantiradi, S3 esa
-  // ancha yaqin. Thumbnail ~16KB tejaydi, lekin bu 135ms kechikishni
-  // qoplamaydi. Shuning uchun public rejimda thumb ham to'g'ridan olinadi;
-  // xato yoki sekinlik bo'lsa pastdagi watchdog proxyga qaytaradi.
-  // Lokalda proxy qoladi: u yerda aylanma yo'l yo'q va disk keshi ishlaydi.
   function initialMode(variant = 'full') {
-    return isPublicView() ? 'direct' : 'proxy';
+    return variant === 'thumb' ? 'proxy' : (isPublicView() ? 'direct' : 'proxy');
   }
 
   function displayUrl(url, mode = initialMode(), variant = 'full') {
