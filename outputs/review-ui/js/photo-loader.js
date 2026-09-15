@@ -15,8 +15,15 @@
     return Boolean(host && host !== '127.0.0.1' && host !== 'localhost' && host !== '::1');
   }
 
+  // Operatorning o'z Chrome'ida o'lchandi (2026-09-15, 4 rasm parallel):
+  //   proxy  678 ms jami / 429 ms o'rtacha
+  //   direct 392 ms jami / 334 ms o'rtacha
+  // Proxy so'rovni Railway US West orqali aylantiradi, S3 esa ancha yaqin.
+  // Thumbnail ~16 KB tejaydi, bu esa qo'shimcha kechikishni qoplamaydi.
+  // Public rejimda thumb ham to'g'ridan olinadi; xato bo'lsa watchdog
+  // proxyga qaytaradi. Lokalda proxy qoladi — u yerda aylanma yo'l yo'q.
   function initialMode(variant = 'full') {
-    return variant === 'thumb' ? 'proxy' : (isPublicView() ? 'direct' : 'proxy');
+    return isPublicView() ? 'direct' : 'proxy';
   }
 
   function displayUrl(url, mode = initialMode(), variant = 'full') {
@@ -66,6 +73,12 @@
     clearTimer(img);
     const timer = setTimeout(() => {
       if (img.complete && img.naturalWidth > 0) return imageLoaded(img);
+      // Sahifa fonda bo'lsa brauzer loading="lazy" rasmlarni umuman
+      // yuklamaydi. Ilgari watchdog buni xato deb hisoblab, operator
+      // qaytib kelganda "Rasm yuklanmadi" ko'rinardi. Endi kutamiz.
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') {
+        return startWatchdog(img);
+      }
       const mode = img.dataset.mode || 'proxy';
       const direct = img.dataset.direct || '';
       if (mode === 'proxy' && direct && img.dataset.triedDirect !== '1') {
