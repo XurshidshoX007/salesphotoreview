@@ -868,6 +868,7 @@ async function startCollectJob({ date, brand, browserHint }) {
 // to'ldirsak, birinchi ko'rish ham "issiq" tezlikda bo'ladi.
 // Faqat kesh to'ldiriladi — hech qanday ma'lumot o'zgarmaydi.
 let photoWarmRunning = false;
+const photoWarmDone = new Set();
 
 function photoWarmConcurrency() {
   return Math.max(1, Math.min(12, Number(process.env.PHOTO_WARM_CONCURRENCY || 4) || 4));
@@ -891,9 +892,12 @@ function photoUrlsFromDataset(dataset) {
 async function warmPhotoCacheForFile(file) {
   if (process.env.PHOTO_WARM_AFTER_COLLECT === "0") return;
   if (photoWarmRunning) return;
+  const key = String(file || "").trim();
+  if (!key || photoWarmDone.has(key)) return;
   const target = safePath(`/${String(file || "").replace(/^[\/]+/, "")}`);
   if (!target || extname(target).toLowerCase() !== ".json") return;
   photoWarmRunning = true;
+  photoWarmDone.add(key);
   const startedAt = Date.now();
   try {
     const dataset = JSON.parse(await readFile(target, "utf8"));
@@ -3040,13 +3044,34 @@ const salesService = createSalesService({
   startCollectJob,
   stopCollectJob,
 });
-const datasetService = createDatasetEnsureService({
+const datasetServiceCore = createDatasetEnsureService({
   outputsDir: DATA_OUTPUTS,
   manifestFile: join(DATA_OUTPUTS, "lmj_review_datasets.json"),
   loadBrands: () => loadBrandsConfig({ includeDisabled: false }),
   publicCollectState,
   startCollectJob,
 });
+// Dataset tayyor bo'lgan zahoti rasm keshini fonda to'ldiramiz. Shu bilan
+// yangi yig'ilgan kunlar ham, ilgari yig'ilgan kunlar ham operator ochganda
+// "issiq" bo'ladi. warmPhotoCacheForFile() har faylni bir marta ishlaydi.
+const datasetService = Object.freeze({
+  ...datasetServiceCore,
+  async ensure(input) {
+    const result = await datasetServiceCore.ensure(input);
+    if (["ready", "partial"].includes(result?.status) && result?.dataset?.file) {
+      warmPhotoCacheForFile(result.dataset.file).catch(() => {});
+    }
+    return result;
+  },
+  async status(input) {
+    const result = await datasetServiceCore.status(input);
+    if (["ready", "partial"].includes(result?.status) && result?.dataset?.file) {
+      warmPhotoCacheForFile(result.dataset.file).catch(() => {});
+    }
+    return result;
+  },
+});
+
 const attendanceService = createAttendanceService({
   ATT_FILES,
   attendanceHistory,
