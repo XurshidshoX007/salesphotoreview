@@ -47,6 +47,7 @@
     "maintenance:apply": "node scripts/maintenance-cleanup.mjs --apply"
   },
   "dependencies": {
+    "exif-reader": "^2.0.3",
     "pg": "^8.23.0",
     "sharp": "^0.35.3"
   },
