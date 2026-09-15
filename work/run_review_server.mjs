@@ -854,9 +854,63 @@ async function startCollectJob({ date, brand, browserHint }) {
         };
       }
       addCollectLog(code === 0 ? "Jarayon muvaffaqiyatli tugadi." : `Jarayon ${code} kodi bilan tugadi.`);
+      if (["done", "partial"].includes(collectState.status) && collectState.outputFile) {
+        warmPhotoCacheForFile(collectState.outputFile).catch(() => {});
+      }
     }
     collectProcess = null;
   });
+}
+
+// Yig'ish tugagach rasmlarni oldindan keshga olamiz.
+// O'lchov (produksiya): sovuq rasm ~1100ms (S3 dan olish + kichraytirish),
+// keshdagi rasm ~385ms (faqat tarmoq). Operator ochishidan oldin keshni
+// to'ldirsak, birinchi ko'rish ham "issiq" tezlikda bo'ladi.
+// Faqat kesh to'ldiriladi — hech qanday ma'lumot o'zgarmaydi.
+let photoWarmRunning = false;
+
+function photoWarmConcurrency() {
+  return Math.max(1, Math.min(12, Number(process.env.PHOTO_WARM_CONCURRENCY || 4) || 4));
+}
+
+function photoUrlsFromDataset(dataset) {
+  const urls = new Set();
+  const visit = (value, depth = 0) => {
+    if (depth > 8 || urls.size >= 5000) return;
+    if (typeof value === "string") {
+      if (/^https?:\/\//i.test(value) && /\.(jpe?g|png|webp)(\?|$)/i.test(value)) urls.add(value);
+      return;
+    }
+    if (Array.isArray(value)) { for (const item of value) visit(item, depth + 1); return; }
+    if (value && typeof value === "object") { for (const item of Object.values(value)) visit(item, depth + 1); }
+  };
+  visit(dataset);
+  return [...urls];
+}
+
+async function warmPhotoCacheForFile(file) {
+  if (process.env.PHOTO_WARM_AFTER_COLLECT === "0") return;
+  if (photoWarmRunning) return;
+  const target = safePath(`/${String(file || "").replace(/^[\/]+/, "")}`);
+  if (!target || extname(target).toLowerCase() !== ".json") return;
+  photoWarmRunning = true;
+  const startedAt = Date.now();
+  try {
+    const dataset = JSON.parse(await readFile(target, "utf8"));
+    const urls = photoUrlsFromDataset(dataset);
+    if (!urls.length) return;
+    addCollectLog(`Rasm keshi tayyorlanmoqda: ${urls.length} ta foto...`);
+    let ok = 0;
+    let failed = 0;
+    await mapWithConcurrency(urls, photoWarmConcurrency(), async (url) => {
+      try { await proxyPhotoThumbnail(url); ok += 1; } catch { failed += 1; }
+    });
+    addCollectLog(`Rasm keshi tayyor: ${ok} ta, xato ${failed} ta, ${Math.round((Date.now() - startedAt) / 1000)}s.`);
+  } catch (error) {
+    console.warn("Rasm keshini tayyorlash xatosi:", error?.message || error);
+  } finally {
+    photoWarmRunning = false;
+  }
 }
 
 function launchSalesLoginProcess() {

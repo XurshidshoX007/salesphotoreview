@@ -107,7 +107,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
     const isPublicView=()=>photoLoader.isPublicView();
     const photoInitialMode=(variant='full')=>photoLoader.initialMode(variant);
     const photoDisplayUrl=(url,mode=photoInitialMode(),variant='full')=>photoLoader.displayUrl(url,mode,variant);
-    const PHOTO_PRELOAD_TIMEOUT_MS=9000,PHOTO_PRELOAD_MAX=4;
+    const PHOTO_PRELOAD_TIMEOUT_MS=9000,PHOTO_PRELOAD_MAX=8;
     const preloadSeen=new Set();
     let preloadQueue=[],preloadActive=0;
     function attendanceCacheKey(month,brandId){return `${month||attendanceFilters().month}|${brandId??attendanceFilters().brandId}`}
@@ -1887,7 +1887,7 @@ const LS_MARKS='lmjDateReviewMarksV2',LS_REASONS='lmjCustomReasonsV2',LS_REASON_
       // yuklanmoqda. Preload navbatini ularga band qilmay, keyingi ikki sahifani
       // oldindan olib qo'yamiz — operator "Keyingi" bosganda rasmlar cache'dan chiqadi.
       const nextStart=Math.min(a.photos.length,start+size);
-      for(let i=nextStart;i<Math.min(nextStart+(size*2),a.photos.length);i++)urls.push(a.photos[i].url);
+      for(let i=nextStart;i<Math.min(nextStart+(size*3),a.photos.length);i++)urls.push(a.photos[i].url);
       // Joriy agent tugasa, keyingi agentning birinchi sahifasini ham tayyorlaymiz.
       if(nextStart>=a.photos.length&&agents[agentIndex+1]){
         const nextAgent=agents[agentIndex+1],nextSize=photoPageSizeFor(nextAgent);
