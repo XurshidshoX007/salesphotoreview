@@ -3,7 +3,7 @@ import { lookup } from "node:dns/promises";
 import { existsSync } from "node:fs";
 import { copyFile, mkdir, readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
 import { isIP } from "node:net";
-import { join, extname, normalize, dirname, resolve } from "node:path";
+import { basename, join, extname, normalize, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
@@ -903,13 +903,16 @@ async function warmPhotoCacheForFile(file) {
     const dataset = JSON.parse(await readFile(target, "utf8"));
     const urls = photoUrlsFromDataset(dataset);
     if (!urls.length) return;
+    console.log(`Rasm keshi tayyorlanmoqda: ${urls.length} ta foto (${basename(target)})...`);
     addCollectLog(`Rasm keshi tayyorlanmoqda: ${urls.length} ta foto...`);
     let ok = 0;
     let failed = 0;
     await mapWithConcurrency(urls, photoWarmConcurrency(), async (url) => {
       try { await proxyPhotoThumbnail(url); ok += 1; } catch { failed += 1; }
     });
-    addCollectLog(`Rasm keshi tayyor: ${ok} ta, xato ${failed} ta, ${Math.round((Date.now() - startedAt) / 1000)}s.`);
+    const seconds = Math.round((Date.now() - startedAt) / 1000);
+    console.log(`Rasm keshi tayyor: ${ok} ta, xato ${failed} ta, ${seconds}s.`);
+    addCollectLog(`Rasm keshi tayyor: ${ok} ta, xato ${failed} ta, ${seconds}s.`);
   } catch (error) {
     console.warn("Rasm keshini tayyorlash xatosi:", error?.message || error);
   } finally {
@@ -3143,6 +3146,13 @@ const server = createServer(async (req, res) => {
       return;
     }
     const info = await stat(filePath);
+    // Brauzer dataset faylini so'raganda — ya'ni operator o'sha kunni ochganda —
+    // rasm keshini fonda to'ldirib qo'yamiz. Bu sahifa ochilishini
+    // sekinlashtirmaydi: javob shu zahoti ketadi, to'ldirish keyin ishlaydi.
+    // 304 holatida ham ishlaydi, chunki kesh baribir sovuq bo'lishi mumkin.
+    if (/_raw\.json$/i.test(filePath)) {
+      warmPhotoCacheForFile(basename(filePath)).catch(() => {});
+    }
     const etag = weakEtag(info);
     if (req.headers["if-none-match"] === etag) {
       res.writeHead(304, {
